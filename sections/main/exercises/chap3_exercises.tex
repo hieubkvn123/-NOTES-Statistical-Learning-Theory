@@ -1,0 +1,80 @@
+\subsection{End of chapter exercises}
+\begin{exercise}{}{exercise_3.1}
+    \begin{itemize}
+        \item $\bf (i)$ Apply Chernoff's bounding method to obtain an exponential bound on the tail probability $P(Z\ge t)$ for a Gaussian random variable $Z\sim\mathcal{N}(\mu, \sigma^2)$.
+        \item $\bf (ii)$ Appealing to the central limit theorem, use part $\bf (i)$ to give an approximate bound on the binomial tail. This should not only match the exponential decay given by Hoeffding’s inequality, but also reveal the dependence on the variance of the binomial.
+    \end{itemize}
+\end{exercise}
+
+\begin{solution*}[Exercise \ref{ex:exercise_3.1}]
+    .
+    \begin{subproof}{$\bf (i)$ Chernoff's bounds for $Z\sim\mathcal{N}(\mu, \sigma^2)$}
+        Using the Chernoff's bounding method, we have:
+        \begin{align*}
+            P(Z\ge t) 
+                &\le \inf_{s>0}e^{-st}M_Z(s) \\
+                &= \inf_{s>0}\exp\biggRound{
+                    -st + \mu s + \frac{1}{2}\sigma^2 s^2
+                } 
+        \end{align*}
+
+        \noindent The above bound is the tightest when the derivative of the term inside the exponential equals zero. Hence, we have:
+        \begin{align*}
+            -t + \mu + s\sigma^2 = 0 \implies s = \frac{t-\mu}{\sigma^2}
+        \end{align*}
+        \noindent From the above, we have the tightest Chernoff's bound as followed:
+        \begin{align*}
+            P(Z\ge t) \le \exp\biggRound{
+                -\frac{(t-\mu)^2}{\sigma^2} + \frac{(t-\mu)^2}{2\sigma^2}
+            } = \exp\biggRound{
+                -\frac{(t-\mu)^2}{2\sigma^2}
+            }
+        \end{align*}
+    \end{subproof}
+
+    \begin{subproof}{$\bf (ii)$ Binomial tail upper bound}
+        Let $S_n$ be the binomial random variable such that:
+        \begin{align*}
+            S_n = \sum_{i=1}^n X_i, \ \ X_i \sim Bernoulli(p)
+        \end{align*}
+
+        \noindent For a positive $\epsilon > 0$, we want to know the upper tail bound $P(S_n - \mathbb{E}[S_n] \ge\epsilon)$. Letting $\overline{X} = \frac{1}{n}S_n$, we have:
+        \begin{align*}
+            P(S_n - \mathbb{E}[S_n] \ge\epsilon) 
+                &= P\biggRound{
+                    \overline{X} - \frac{\mathbb{E}[S_n]}{n} \ge \frac{\epsilon}{n}
+                }  \\
+                &= P\biggRound{
+                    \overline{X} - p \ge \frac{\epsilon}{n}
+                }  \\
+                &= P\biggRound{
+                    \frac{\overline{X} - p}{\sqrt{pq}/\sqrt{n}} \ge \frac{\epsilon}{\sqrt{npq}}
+                }, \ \ \ (q = 1-p)
+        \end{align*}
+
+        \noindent By the Central Limit Theorem, we have:
+        \begin{align*}
+            \frac{\overline{X} - p}{\sqrt{pq}/\sqrt{n}} \xrightarrow{d} \mathcal{N}(0,1)
+        \end{align*}
+
+        \noindent Hence, as $n\to\infty$, the upper tail bound would be:
+        \begin{align*}
+            P(S_n - \mathbb{E}[S_n] \ge\epsilon) 
+                &= P\biggRound{
+                    \frac{\overline{X} - p}{\sqrt{pq}/\sqrt{n}} \ge \frac{\epsilon}{\sqrt{npq}}
+                } \\
+                &\le \exp\biggRound{ -\frac{\epsilon^2}{2npq} } = \exp\biggRound{-\frac{\epsilon^2}{2Var(S_n)}}
+        \end{align*}
+
+        \noindent Double-check the bound with Hoeffding's inequality, we have:
+        \begin{align*}
+            P(S_n - \mathbb{E}[S_n] \ge\epsilon)  \le \exp\biggRound{-\frac{2\epsilon^2}{n}}
+        \end{align*}
+    \end{subproof}
+\end{solution*}
+
+
+\begin{exercise}{}{exercise_3.2}
+    Can you remove the assumption in $0 < \alpha \le p_y(x)$? Consider other restrictions on $p_y$,
+    other concentration inequalities, or other $f$-divergences.
+\end{exercise}
