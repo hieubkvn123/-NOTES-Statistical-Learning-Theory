@@ -1,0 +1,148 @@
+\newpage 
+\section{Probability settings}
+
+\subsection{Classification problem}
+\begin{definition}[Classifier ($h$)]
+    In \textbf{classification problems}, we consider pairs $(x, y)$
+    where $x\in \mathcal{X}$ and $y\in\mathcal{Y}$. Where:
+    \begin{itemize}
+        \item $\mathcal{X}$ is the space of \textbf{feature vectors}.
+        \item $\mathcal{Y}$ is the space of \textbf{labels}.
+    \end{itemize}
+
+    \noindent A classifier is a function $h:\mathcal{X} \to \mathcal{Y}$ which aims
+    to assign correct labels to given feature vectors. 
+\end{definition}
+
+\textbf{Remark} : The key assumptions of classification problems are:
+\begin{itemize}
+    \item There exists a joint distribution $P_{XY}$ on $\mathcal{X}\times\mathcal{Y}$.
+    \item The pairs $(x, y)$ (observed data) are random samples of the random variables pair
+    $(X, Y)$ which has the distribution $P_{XY}$.
+\end{itemize}
+
+\begin{definition}[Decomposition of $P_{XY}$]
+    We can decompose $P_{XY}$ in either of the following two ways:
+    \begin{align*}
+        P_{XY} &= P_{X|Y} P_Y \\
+        P_{XY} &= P_{Y|X} P_X
+    \end{align*}
+
+    \noindent Which can be understood as two possible ways to generate the pairs $(x, y)$ from
+    the joint distribution $P_{XY}$.
+    \begin{itemize}
+        \item The first way is to generate a random label $y\sim P_Y$. Then, generate the feature
+        vector corresponding to that label $x \sim P_{X|Y=y}$.
+        \item The second way is to generate a random vector $x\sim P_X$. Then, generate the label 
+        corresponding to that feature vector $y \sim P_{Y|X=x}$.
+    \end{itemize}
+\end{definition}
+
+\begin{proposition}{Law of total expectation}{law_of_total_expectation}
+    Given $\phi:\mathcal{X} \times \mathcal{Y} \to \mathbb{R}$. The \textbf{law of total expectation}
+    states that:
+    \begin{align*}
+        \mathbb{E}_{XY}\Big[ \phi(X, Y) \Big] 
+            &= \mathbb{E}_Y\Big[ \mathbb{E}_{X|Y}[\phi(X, Y)] \Big] \\
+            &= \mathbb{E}_X\Big[ \mathbb{E}_{Y|X}[\phi(X, Y)] \Big]
+    \end{align*}
+
+    \noindent Similar to how $P_{XY}$ is decomposed, law of total expectation describes two way of taking the
+    average value:
+    \begin{itemize}
+        \item Loop through the labels and take average over the feature vectors corresponding to each label.
+        \item Loop through the feature vectors and take average over the labels corresponding to each vector.
+    \end{itemize}
+\end{proposition}
+
+\begin{proof*}[Proposition \ref{prop:law_of_total_expectation}]
+    We have:
+    \begin{align*}
+        \mathbb{E}_{XY}\Big[ \phi(X, Y) \Big]
+            &= \int_{\mathcal{X}}\int_{\mathcal{Y}} \phi(x, y) P_{XY}(x, y) dy dx \\
+            &= \int_{\mathcal{X}}\int_{\mathcal{Y}} \phi(x, y) P_X(x)P_{Y|X}(y|x) dy dx \\
+            &= \int_{\mathcal{X}} P_X(x) \int_{\mathcal{Y}} \phi(x, y) P_{Y|X}(y|x)dy dx \\
+            &= \int_{\mathcal{X}} P_X(x) \mathbb{E}_{Y|X=x}\Big[ \phi(X, Y) \Big] dx \\
+            &= \mathbb{E}_X\Big[ \mathbb{E}_{Y|X}\Big[ \phi(X, Y) \Big] \Big]
+    \end{align*}
+
+    \noindent Applying the same technique, we have $\mathbb{E}_{XY}\Big[ \phi(X, Y) \Big] = \mathbb{E}_{Y}\Big[ \mathbb{E}_{X|Y}[\phi(X, Y)] \Big]$.
+\end{proof*}
+
+\noindent\textbf{Remark} : Usually, the label space is discrete and finite, meaning $\mathcal{Y} = \{ 0, 1, 2, \dots, m \}$
+for some $m < \infty$. Hence, the expectations over $Y$ can be written as discrete sums:
+\begin{align*}
+    \mathbb{E}_{XY}\Big[ \phi(X, Y) \Big]
+    &= \mathbb{E}_Y\Big[ \mathbb{E}_{X|Y}[\phi(X, Y)] \Big] = \sum_{y\in\mathcal{Y}} \mathbb{E}_{X|Y=y}[\phi(X, Y)]
+    \\
+    &= \mathbb{E}_X\Big[ \mathbb{E}_{Y|X}[\phi(X, Y)] \Big] = \mathbb{E}_X\Bigg[ \sum_{y\in\mathcal{Y}} \mathbb{E}_{Y=y|X}[\phi(X, Y)] \Bigg]
+\end{align*}
+
+
+\begin{definition}[Hypothesis space ($\mathcal{H}$)]
+    The hypothesis space is a collection (family) of classifiers $h:\mathcal{X} \to \mathcal{Y}$ that have some
+    common properties:
+    \begin{align*}
+        \mathcal{H} = \Big\{ 
+            h : \mathcal{X} \to \mathcal{Y} \Big | \text{some common properties}
+        \Big\}
+    \end{align*}
+
+    \noindent For example, let $\mathcal{X} = \mathbb{R}^d, \mathcal{Y} = (0,1)$. In logistic regression, we assume
+    the classifiers to be logit functions:
+    \begin{align*}
+        \mathcal{H}_{\text{logit}} = \Big\{ 
+            h : \mathbb{R}^d \to (0,1) \Big | h(x) = logit(\beta x) = \frac{1}{1+e^{-\beta x}}, \beta \in \mathbb{R}^{1\times d}
+        \Big\}
+    \end{align*}
+\end{definition}
+
+
+\begin{definition}[Learning algorithm ($\mathcal{L}_n$)]
+    To learn a classifier $h:\mathcal{X}\to\mathcal{Y}$, suppose that we have access to a training dataset of 
+    $n$ data pairs $\{(X_k, Y_k)\}_{k=1}^n$ which are assumed to be \textbf{i.i.d sampled from $P_{XY}$}. 
+    The domain of the training data is then $(\mathcal{X}\times\mathcal{Y})^n$. A \textbf{learning algorithm},
+    denoted as $\mathcal{L}_n$ is a function/procedure that derives a classifier $\hat h_n : \mathcal{X} \to \mathcal{Y}$
+    from the training data.
+
+    \begin{align*}
+        \mathcal{L}_n &: (\mathcal{X}\times\mathcal{Y})^n \to \mathcal{H} \\
+        \hat h_n &= \mathcal{L}_n ((X_1, Y_1), \dots, (X_n, Y_n ))
+    \end{align*}
+\end{definition}
+
+\subsection{Goal of classification}
+\begin{definition}[Risk ($R(h)$)]
+    The \textbf{risk} of a classifier is defined as followed:
+    \begin{align*}
+        R(h) = P(h(X) \ne Y) = \mathbb{E}[\1{h(X)\ne Y}]
+    \end{align*}
+    \noindent Where $(X, Y)$ are independent of the training data.
+\end{definition}
+
+\begin{definition}[Bayes Risk ($R^*$)]
+    The \textbf{Bayes risk} is the infimum of the risk taken over all $h:\mathcal{X} \to \mathcal{Y}$,
+    not just for $h\in\mathcal{H}$:
+    \begin{align*}
+        R^* = \inf_{h:\mathcal{X} \to \mathcal{Y}} R(h)
+    \end{align*}
+\end{definition}
+
+\begin{definition}[Consistency of learning algorithms]
+    A learning algorithm $\mathcal{L}_n$ is called:
+    \begin{itemize}
+        \item \textbf{Weakly consistent} if $R(\hat h_n) \xrightarrow{p} R^*$:
+        \begin{align*}
+            \lim_{n\to\infty} P(R(\hat h_n) \le r) = P(R^* \le r), \ \forall r \ge 0
+        \end{align*}
+        
+        \item \textbf{Strongly consistent} if $R(\hat h_n) \xrightarrow{a.s} R^*$:
+        \begin{align*}
+            P\Big( \lim_{n\to\infty} \Big| R(\hat h_n) - R^* \Big| \ge \epsilon \Big) = 0, \ \forall \epsilon > 0
+        \end{align*}
+
+        \item \textbf{Universally weakly/strongly consistent} if $\mathcal{L}_n$ is weakly/strongly consistent for
+        all $P_{XY}$. Meaning, consistency holds without any assumption about $P_{XY}$.
+    \end{itemize}
+\end{definition}
+

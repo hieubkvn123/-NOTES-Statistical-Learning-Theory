@@ -1,0 +1,175 @@
+\begin{exercise}{}{exercise_2.1}
+    Extend theorem \ref{thm:properties_of_bayes_classifier} to the multi-class classification case where $\mathcal{Y}=\{1, 2, \dots, M\}$. In other words, prove theorem \ref{thm:properties_of_bayes_classifier_multiclass}.
+\end{exercise}
+
+\begin{solution*}[Exercise \ref{ex:exercise_2.1}]
+    We re-define the Bayes classifier $h^*$ as followed:
+    \begin{align*}
+        h^*(x) &= \arg\max_{y\in\mathcal{Y}} \Big\{ \eta_y(x) \Big\}, \\ 
+        \eta_y(x) &= P(Y=y|X=x)
+    \end{align*}
+
+    \noindent We have:
+    \begin{align*}
+        \sum_{y\in\mathcal{Y}} \eta_y(x) = 1, \ \forall x \in \mathcal{X}
+    \end{align*}
+
+    \begin{subproof}{$\bf (i)$ Calculate Bayes risk $R^*$}
+        For any classifier $h:\mathcal{X} \to \mathcal{Y}$, we have:
+        \begin{align*}
+            R(h) &= \mathbb{E}_{x\sim X}\Bigg[
+                \sum_{y\in\mathcal{Y}} \1{h(x) \ne y}\eta_y(x)
+            \Bigg]
+        \end{align*}
+
+        \noindent Letting $\hat y_x = h(x)$ being $h$'s prediction for a given feature vector $x\in\mathcal{X}$, we have:
+        \begin{align*}
+            R(h) &= \mathbb{E}_{x\sim X}\Bigg[
+                \sum_{y\in\mathcal{Y};y\ne \hat y_x} \eta_y(x)
+            \Bigg]
+            = \mathbb{E}_{x\sim X}\Bigg[
+                1 - \eta_{\hat y_x}(x)
+            \Bigg]
+        \end{align*}
+
+        \noindent In order to minimize $R(h)$, we need $\eta_{\hat y_x}(x)$ to be maxmized for all $x\in\mathcal{X}$. Hence, we have:
+        \begin{align*}
+            R^* = \mathbb{E}_{x\sim X}\Bigg[
+                1 - \max_{y\in\mathcal{Y}} \Big\{ \eta_y(x) \Big\}
+            \Bigg]
+        \end{align*}
+
+        \noindent Therefore, we have $h^*(x) = \arg\max_{y\in\mathcal{Y}} \Big\{ \eta_y(x) \Big\}$ is the Bayes classifier and the Bayes risk $ R^* = \mathbb{E}_{x\sim X}\Bigg[1 - \max_{y\in\mathcal{Y}} \Big\{ \eta_y(x) \Big\}\Bigg]$.
+    \end{subproof}
+
+    \begin{subproof}{\newline $\bf (ii)$ Calculate excess risk $R(h) - R^*$}
+        For any $h:\mathcal{X}\to\mathcal{Y}$, we have:
+        \begin{align*}
+            R(h) - R^* 
+                &= \mathbb{E}_{x\sim X}\Bigg[
+                    \sum_{y\in\mathcal{Y}} \1{h(x) \ne y}\eta_y(x)
+                \Bigg] - \mathbb{E}_{x\sim X}\Bigg[ 1 - \max_{y\in\mathcal{Y}}\Big\{ \eta_y(x) \Big\}\Bigg] \\
+                &= \mathbb{E}_{x\sim X}\Bigg[
+                    \sum_{y\in\mathcal{Y}} \1{h(x) \ne y}\eta_y(x) + \max_{y\in\mathcal{Y}}\Big\{ \eta_y(x) \Big\} - 1
+                \Bigg]
+        \end{align*}
+
+        \noindent Denote $h^*(x) = y^*_x$ and $h(x)=y_x$. When $h(x) = h^*(x) = y^*_x$, we have:
+        \begin{align*}
+            \sum_{y\in\mathcal{Y}} \1{h(x) \ne y}\eta_y(x) + \max_{y\in\mathcal{Y}}\Big\{ \eta_y(x) \Big\} 
+                &=\sum_{y\in\mathcal{Y}; y\ne y_x}\eta_y(x) + \eta_{y^*_x}(x) \\
+                &=\sum_{y\in\mathcal{Y}; y\ne y^*_x}\eta_y(x) + \eta_{y^*_x}(x) \\
+                &=\sum_{y\in\mathcal{Y}}\eta_y(x)=1 \\
+            \implies \sum_{y\in\mathcal{Y}} \1{h(x) \ne y}\eta_y(x) + \max_{y\in\mathcal{Y}}\Big\{ \eta_y(x) \Big\} - 1 &= 0
+        \end{align*}
+
+        \noindent\newline When $h(x) \ne h^*(x)$, we have:
+        \begin{align*}
+            \sum_{y\in\mathcal{Y}} \1{h(x) \ne y}\eta_y(x) + \max_{y\in\mathcal{Y}}\Big\{ \eta_y(x) \Big\} - 1
+                &= \sum_{y\in\mathcal{Y}; y\ne y_x}\eta_y(x) + \eta_{y^*_x}(x) - 1 \\
+                &= 2\eta_{y^*_x}(x) - 1 + \sum_{y\in\mathcal{Y}\setminus\{y_x, y_x^*\}}\eta_y(x) \\
+                &= 2\eta_{y^*_x}(x) - \Big( \eta_{y_x}(x) + \eta_{y_x^*}(x) \Big) \\
+                &= \eta_{y^*_x}(x) - \eta_{y_x}(x)
+                .
+        \end{align*}
+
+        \noindent Therefore, we can re-write the excess risk by multiplying the entire integrand with the indicator function $\1{h(x)\ne h^*(x)}$ as followed:
+
+        \begin{align*}
+             R(h) - R^*  = \mathbb{E}_{x\sim X}\Bigg[ \Big( \eta_{y^*_x}(x) - \eta_{y_x}(x) \Big) \1{h(x)\ne h^*(x)} \Bigg]
+        \end{align*}
+    \end{subproof}
+
+    \begin{subproof}{$\bf (iii)$ Simpler form of Bayes risk}
+        From $(i)$ we have:
+        \begin{align*}
+            R^* = \mathbb{E}_X\Big[ 1 - \max_{y\in\mathcal{Y}}\Big\{ \eta_y(x) \Big\} \Big] = \mathbb{E}_X\Big[\min_{y\in\mathcal{Y}} \Big\{ \overline{\eta_y}(x) \Big\} \Big]
+        \end{align*}
+
+        \noindent Where $\overline{\eta_y}(x)=P(Y\ne y|X=x)$.
+    \end{subproof}
+\end{solution*}
+
+\begin{exercise}{}{exercise_2.2}
+    Define the \textbf{$\alpha$-cost-sensitive risk} of a classifier $h:\mathcal{X}\to\mathcal{Y}$ as followed:
+    \begin{align*}
+        R_\alpha(h) = \mathbb{E}_{XY}\Big[ (1-\alpha)\1{Y=1, h(X)=0} + \alpha\1{Y=0, h(X)=1} \Big]
+    \end{align*}
+
+    \noindent Define the Bayes classifier and prove and analogue of theorem \ref{thm:properties_of_bayes_classifier}.
+\end{exercise}
+
+\begin{solution*}[Exercise \ref{ex:exercise_2.2}]
+    Using the law of total expectation, we have:
+    \begin{align*}
+        R_\alpha(h)
+            &= \mathbb{E}_{x\sim X}\Bigg[
+                \sum_{y\in\{0,1\}}\Big[(1-\alpha)\1{y=1, h(x)=0} + \alpha\1{y=0, h(x)=1} \Big] P(Y=y|X=x) 
+            \Bigg] \\
+            &= \mathbb{E}_{x\sim X}\Big[
+                (1-\alpha)\eta(x)\1{h(x)=0} + \alpha(1-\eta(x))\1{h(x)=1}
+            \Big]
+    \end{align*}
+
+    \noindent Since $\1{h(x)=0}$ and $\1{h(x)=1}$ are mutually exclusive, in order for $R_\alpha(h)$ to be minimize, we define the following Bayes classifier:
+    \begin{align*}
+        h^*(x) = \begin{cases}
+            1 &\text{if } \alpha(1-\eta(x)) \le (1-\alpha)\eta(x)
+            \\ \\
+            0 &\text{otherwise}
+        \end{cases}
+        = \begin{cases}
+            1 &\text{if } \eta(x) \ge \alpha
+            \\ \\
+            0 &\text{otherwise}
+        \end{cases}
+    \end{align*}
+
+    \noindent We can also derive a likelihood-ratio test version of the Bayes classifier, we have:
+    \begin{align*}
+        \eta(x) \ge \alpha &\implies \frac{1}{1+\frac{\pi_0p_0(x)}{\pi_1p_1(x)}} \ge \alpha \\
+            &\implies 1 + \frac{\pi_0\cdot p_0(x)}{\pi_1\cdot p_1(x)}\le \frac{1}{\alpha} \\
+            &\implies \frac{p_1(x)}{p_0(x)} \ge \frac{\alpha}{1-\alpha}\cdot \frac{\pi_0}{\pi_1}
+    \end{align*}
+
+    \noindent Hence, we can rewrite the Bayes classifier as followed:
+    \begin{align*}
+        h^*(x) = \begin{cases}
+            1 &\text{if } \frac{p_1(x)}{p_0(x)} \ge \frac{\alpha}{1-\alpha}\cdot \frac{\pi_0}{\pi_1} 
+            \\ \\
+            0 &\text{otherwise}
+        \end{cases}
+    \end{align*}
+
+    \begin{subproof}{\newline $\bf(i)$ Bayes Risk $R_\alpha^*$}
+        We have:
+        \begin{align*}
+            R_\alpha^* &= R_\alpha(h^*) \\
+                &= \mathbb{E}_{x\sim X}\Big[
+                    (1-\alpha)\eta(x)\1{h^*(x)=0} + \alpha(1-\eta(x))\1{h^*(x)=1}
+                \Big] \\
+                &= \mathbb{E}_X\Big[ \min(\alpha(1-\eta(X)), (1-\alpha)\eta(X)) \Big]
+        \end{align*}
+    \end{subproof}
+
+    \begin{subproof}{\newline $\bf (ii)$ Excess Risk $R_\alpha(h)-R_\alpha^*$}
+        For an arbitrary $h:\mathcal{X} \to\mathcal{Y}$, we have:
+        \begin{align*}
+            R_\alpha(h) - R_\alpha^* 
+                &=  \mathbb{E}_{x\sim X}\bigSquare{
+                    (1-\alpha)\eta(x)\bigRound{\1{h(x)=0} - \1{h^*(x)=0}} +\alpha(1-\eta(x))\bigRound{\1{h(x)=1} - \1{h^*(x)=1}}
+                } \\
+                &= \mathbb{E}_{x\sim X}\bigSquare{
+                    (1-\alpha)\eta(x)\bigRound{\1{h(x)=0, h^*(x)=1} - \1{h(x)=1, h^*(x)=0}} \\
+                & \ \ \ \ +\alpha(1-\eta(x))\bigRound{\1{h(x)=1, h^*(x)=0} - \1{h(x)=0, h^*(x)=1}}
+                } \\
+                &= \mathbb{E}_{x\sim X}\bigSquare{
+                    \1{h(x)=0, h^*(x)=1}(\eta(x)-\alpha) + \1{h(x)=1, h^*(x)=0}(\alpha-\eta(x))
+                } \\
+                &= \mathbb{E}_{X}\bigSquare{
+                    \bigAbs{\eta(X) - \alpha}\1{h(X)\ne h^*(X)}
+                }
+        \end{align*}
+    \end{subproof}
+\end{solution*}
+

@@ -1,0 +1,35 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{enumitem}
+
+% Settings 
+\input{sections/settings/variables}
+\input{sections/settings/commands}
+
+% Title 
+\input{sections/main/title}
+
+\begin{document}
+%% ========================================================================= %%
+
+%% Title page %%
+\maketitle
+
+%% Table of contents %%
+\tableofcontents
+
+%% Main sections %%
+\newpage
+\input{sections/sample/sample}
+\input{sections/manual/manual}
+
+% Main chapters
+\input{sections/main/chapters/chap1_prob_settings.tex}
+\input{sections/main/chapters/chap2_bayes_classifier.tex}
+\input{sections/main/chapters/chap3_hoeffding_inequality.tex}
+
+%% Appendices %%
+\input{sections/main/footnotes}
+
+%% ========================================================================= %%
+\end{document}

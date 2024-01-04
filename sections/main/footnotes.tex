@@ -1,0 +1,22 @@
+%% Start a new page %%
+\newpage
+\appendix
+
+% List of Definitions
+\listoftheorems[ignoreall,show=dfn]
+
+% List of Theorems
+\setcounter{section}{1}
+\tcblistof[\section]{theoremlist}{Important Theorems}
+
+% List of Corollaries
+\tcblistof[\section]{corolist}{Important Corollaries}
+
+% List of Propositions
+\tcblistof[\section]{proplist}{Important Propositions}
+
+% References
+\newpage
+\section{References}
+\nocite{*}
+\printbibliography

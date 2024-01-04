@@ -1,0 +1,222 @@
+\newpage
+\section{Bayes classifier}
+
+\subsection{Properties of Bayes Risk}
+\textbf{Overview} : Recall that the Bayes classifier is the one with minimum risk and the corresponding risk is called the Bayes Risk. For $\mathcal{Y} = \{0,1 \}$ and defined:
+
+\begin{align*}
+    \eta(x) = P(Y=1|X=x)
+\end{align*}
+
+\noindent Define the following classifier:
+\begin{align*}
+    h^*(x) = \begin{cases}
+        1 & \text{if } \eta(x) \ge \frac{1}{2}
+        \\ \\
+        0 & \text{otherwise}
+    \end{cases}
+\end{align*}
+
+\begin{theorem}{Properties of Bayes classifier}{properties_of_bayes_classifier}
+    The following properties hold for the Bayes classifier with $\mathcal{Y} = \{0,1\}$ (Binary classification):
+    \begin{itemize}
+        \item $(i)$ $R(h^*) = \inf_{h:\mathcal{X}\to\mathcal{Y}}\{ R(h) \} = R^*$.
+        \item $(ii)$ $\underbrace{R(h) - R^*}_{\text{Excess risk}} = 2\mathbb{E}_X\Bigg[ \Big| \eta(x) - \frac{1}{2}\Bigg| \1{h(X)\ne h^*(X)} \Bigg]$.
+        \item $(iii)$ $R^* = \mathbb{E}\Big[ \min(\eta(X), 1 - \eta(x)) \Big]$.
+    \end{itemize}
+\end{theorem}
+
+\begin{proof*}[Theorem \ref{thm:properties_of_bayes_classifier}]
+    Proving each point:
+
+    \begin{subproof}{\newline $(i)$ $R(h^*) = \inf_{h:\mathcal{X}\to\mathcal{Y}}\{ R(h) \} = R^*$.}
+        For all $h:\mathcal{X} \to \mathcal{Y}$, we have:
+        \begin{align*}
+            R(h) 
+                &= \mathbb{E}_{XY} \Big[ \1{h(X) \ne Y} \Big] \\
+                &= \mathbb{E}_{x\sim X}\Bigg[
+                    \mathbb{E}_{Y|X=x} \Big[ \1{Y \ne h(x)} \Big]
+                \Bigg] \\
+                &= \mathbb{E}_{x\sim X}\Bigg[
+                    \sum_{y\in\{0,1\}}\1{y \ne h(x)}
+                \Bigg] \\
+                &= \mathbb{E}_{x\sim X}\Big[ \eta(x)\1{h(x)=0} + (1 - \eta(x)) \1{h(x)=1} \Big]
+        \end{align*}
+
+        \noindent Since the two events $\{h(x)=1\}$ and $\{h(x)=0\}$ are mutually exclusive, $R(h)$ is the smallest when we set $h(x)=1$ when $\eta(x) \ge 1 - \eta(x)\implies \eta(x) \ge \frac{1}{2}$. Therefore, we have:
+        \begin{align*}
+            h^*(x) = \begin{cases}
+                1 & \text{if } \eta(x) \ge \frac{1}{2}
+                \\ \\
+                0 & \text{otherwise}
+            \end{cases}
+        \end{align*} 
+    \end{subproof}
+
+    \begin{subproof}{\newline $(ii)$ $\underbrace{R(h) - R^*}_{\text{Excess risk}} = 2\mathbb{E}_X\Bigg[ \Big| \eta(x) - \frac{1}{2}\Bigg| \1{h(X)\ne h^*(X)} \Bigg]$.}
+        We have:
+        \begin{align*}
+            R(h) - R^* 
+                &= \mathbb{E}_{x\sim X}\Bigg[
+                    \mathbb{E}_{Y|X=x} \Big[ \1{Y \ne h(x)} \Big]
+                \Bigg] - \mathbb{E}_{x\sim X}\Bigg[
+                    \mathbb{E}_{Y|X=x} \Big[ \1{Y \ne h^*(x)} \Big]
+                \Bigg] \\
+                &= \mathbb{E}_{x\sim X}\Bigg[
+                    \sum_{y\in\{0,1\}}\1{y \ne h(x)}P(Y=y|X=x)
+                \Bigg] - \mathbb{E}_{x\sim X}\Bigg[
+                    \sum_{y\in\{0,1\}}\1{y \ne h^*(x)}P(Y=y|X=x)
+                \Bigg] \\
+                &= \mathbb{E}_{x\sim X}\Bigg[
+                    \eta(x)\Big( \1{h(x) = 0} - \1{h^*(x) = 0} \Big)
+                    + (1 - \eta(x)) \Big( \1{h(x)=1} - \1{h^*(x) = 1} \Big)
+                \Bigg] \\
+                &= \mathbb{E}_{x\sim X}\Bigg[
+                    \eta(x)\Big( \1{h(x) \ne h^*(x), h(x)=0} - \1{h(x) \ne h^*(x), h(x)=1} \Big) \\
+                    & \ \ \ \ \ \ \ \ \ 
+                    + (1 - \eta(x)) \Big( \1{h(x) \ne h^*(x), h(x)=1} - \1{h(x) \ne h^*(x), h(x)=0} \Big) 
+                \Bigg] \\
+                &= \mathbb{E}_{x\sim X}\Bigg[
+                    (2\eta(x) - 1)\1{h(x) \ne h^*(x), h(x)=0} + (1 - 2\eta(x))\1{h(x) \ne h^*(x), h(x)=1}
+                \Bigg] \\
+                &= \mathbb{E}_{x\sim X}\Bigg[
+                    \Big| 2\eta(x) - 1 \Big| \1{h(x) \ne h^*(x)}
+                \Bigg] \\
+                &= 2\mathbb{E}_X\Bigg[\Bigg| \eta(X) - \frac{1}{2} \Bigg|\1{h(X)\ne h^*(X)}\Bigg]
+        \end{align*}
+    \end{subproof}
+
+    \begin{subproof}{\newline $(iii)$ $R^* = \mathbb{E}\Big[ \min(\eta(X), 1 - \eta(x)) \Big]$.}
+        From $(i)$ we have:
+        \begin{align*}
+            R(h^*) &= \mathbb{E}_{x\sim X}\Big[ \eta(x)\1{h^*(x)=0} + (1 - \eta(x)) \1{h^*(x)=1} \Big] \\
+            &= \mathbb{E}_X\Big[ \min(\eta(X), 1 - \eta(x)) \Big]
+        \end{align*}
+    \end{subproof}
+\end{proof*}
+
+\begin{theorem}{Properties of Bayes classifier (Multi-class)}{properties_of_bayes_classifier_multiclass}
+    For multi-class classification with more than two labels : $\mathcal{Y}=\{1, 2, \dots, M\}$, the Bayes classifier is defined as followed:
+    \begin{align*}
+        h^*(x) &= \arg\max_{y\in\mathcal{Y}}\Big\{ \eta_y(x) \Big\} \\
+        \text{Where : } \eta_y(x) &= P(Y=y|X=x)
+    \end{align*}
+    
+    \noindent\newline The following properties hold for the Bayes classifier with $\mathcal{Y}=\{1, 2, \dots, M\}$ (Multi-class classification):
+    \begin{itemize}
+        \item $(i)$ \textbf{Bayes Risk $R^*$} :
+        \begin{align*}
+            R^* = \mathbb{E}_{x\sim X}\Big[ 1 - \max_{y\in\mathcal{Y}}\Big\{ \eta_y(x) \Big\}\Big] = \mathbb{E}_{x\sim X}\Big[\min_{y\in\mathcal{Y}} \overline{\eta_y}(x) \Big]
+        \end{align*} 
+
+        \item $(ii)$ \textbf{Excess Risk $R(h)-R^*$} :
+        \begin{align*}
+            R(h) - R^* = \mathbb{E}_X\Big[ \Big( \eta_{y^*_x}(x) - \eta_{y_x}(x) \Big) \1{h(x)\ne h^*(x)} \Big]
+        \end{align*}
+
+        \noindent Where $y_x=h(x)$ is the prediction made by an arbitrary classifier $h:\mathcal{X}\to\mathcal{Y}$ and $y^*_x=h^*(x)$ is the prediction made by the Bayes classifier.
+    \end{itemize}
+\end{theorem}
+
+\begin{proof*}[Theorem \ref{thm:properties_of_bayes_classifier_multiclass}]
+    (The proof of this theorem has been included in the solution of Exercise \ref{ex:exercise_2.1}).
+\end{proof*}
+
+\subsection{Likelihood Ratio Test}
+\textbf{Overview} : Define $\pi_1 = P(Y=1)$ and $\pi_0 = P(Y=0)$ be the prior probabilities. Let $p_1(x)=P(X=x|Y=1)$ and $p_0(x)=P(X=x|Y=0)$ be the class-conditional densities. Note that we have:
+\begin{align*}
+    \eta(x) &= P(Y=1|X=x) \\
+        &= \frac{P(X=x|Y=1)P(Y=1)}{P(X=x|Y=1)P(Y=1) + P(X=x|Y=0)P(Y=0)} \\
+        &= \frac{\pi_1p_1(x)}{\pi_1p_1(x) + \pi_0p_0(x)} \\
+        &= \frac{1}{1 + \frac{\pi_0p_0(x)}{\pi_1p_1(x)}}
+\end{align*}
+
+\noindent\newline Hence, we have:
+\begin{align*}
+    \eta(x) \ge \frac{1}{2} &\iff \frac{\pi_0p_0(x)}{\pi_1p_1(x)} \\
+        &\iff \frac{p_1(x)}{p_0(x)} \ge \frac{\pi_0}{\pi_1}
+\end{align*}
+
+\begin{proposition}{Likelihood ratio test}{likelihood_ratio_test}
+    The Bayes classifier $h^*$ can be re-defined as followed:
+    \begin{align*}
+        h^*(x) = \begin{cases}
+            1 & \text{if } \frac{p_1(x)}{p_0(x)} \ge \frac{\pi_0}{\pi_1}
+            \\ \\
+            0 & \text{otherwise}
+        \end{cases}
+    \end{align*}
+
+    \noindent The fraction $\frac{p_1(x)}{p_0(x)}$ is called the \textbf{likelihood ratio}.
+\end{proposition}
+
+
+\subsection{Plug-in classifier}
+\begin{definition}[Plug-in classifier]
+    A \textbf{plug-in classifier} is based on an estimate of $\eta(x)$. This estimate is then plugged into the definition of the Bayes classifier. Suppose that $\widehat{\eta_n}$ is an estimate of $\eta$ based on $n$ training samples $\{(X_i, Y_i)\}_{i=1}^n$. We define $\widehat{h_n}$ as:
+    \begin{align*}
+        \widehat{h_n} = \begin{cases}
+            1 & \text{if } \widehat{\eta_n}(x) \ge \frac{1}{2}
+            \\ \\
+            0 & \text{otherwise}
+        \end{cases}
+    \end{align*}
+\end{definition}
+
+\begin{corollary}{Excess risk of plug-in classifier}{excess_risk_of_plugin_classifier}
+    We have the following upper-bound for the excess risk of the plug-in classifier:
+    \begin{align*}
+        R(\widehat{h_n}) - R^* \le 2 \mathbb{E}_X\Big[ \Big| \eta(X) - \widehat{\eta_n}(X) \Big| \Big]
+    \end{align*}
+\end{corollary}
+
+\begin{proof*}[Corollary \ref{coro:excess_risk_of_plugin_classifier}]
+    From theorem \ref{thm:properties_of_bayes_classifier}, we have:
+    \begin{align*}
+        R(\widehat{h_n}) - R^* &= 2\mathbb{E}_X\Bigg[ \Big| \eta(X) - \frac{1}{2}\Big|\1{\widehat{h_n}(X)\ne h^*(X)}\Bigg]
+    \end{align*}
+
+    \noindent The indicator term will be non-zero in the above equality if one of the following cases occurs:
+    \begin{align*}
+        \begin{cases}
+            \widehat{h_n}(X) = 1, h^*(X) = 0
+            \\ \\
+            \widehat{h_n}(X) = 0, h^*(X) = 1
+        \end{cases}
+        \implies 
+        \begin{cases}
+            \widehat{\eta_n}(X) \ge \frac{1}{2}, \eta(X) < \frac{1}{2}
+            \\ \\
+            \widehat{\eta_n}(X) < \frac{1}{2}, \eta(X) \ge \frac{1}{2}
+        \end{cases}
+    \end{align*}
+
+    \begin{subproof}{\newline Case 1 : $\widehat{\eta_n}(X) \ge \frac{1}{2}, \eta(X) < \frac{1}{2}$}
+        We have:
+        \begin{align*}
+            \eta(X) - \widehat{\eta_n}(X) &\le \eta(X) - \frac{1}{2} \ \ \ (\text{Both sides negative}) \\
+            \implies \Bigg| \eta(X) - \widehat{\eta_n}(X) \Bigg| &\ge \Bigg| \eta(X) - \frac{1}{2} \Bigg|
+        \end{align*}
+    \end{subproof}
+
+    \begin{subproof}{\newline Case 2 : $\widehat{\eta_n}(X) < \frac{1}{2}, \eta(X) \ge \frac{1}{2}$}
+        We have:
+        \begin{align*}
+            \widehat{\eta_n}(X) - \eta(X) \ge \widehat{\eta_n}(X) - \frac{1}{2} \ge  \eta(X) - \frac{1}{2} \ \ \ \text{(All positive)}
+        \end{align*}
+
+        \noindent\newline Therefore, we have:
+        \begin{align*}
+            \Bigg| \eta(X) - \widehat{\eta_n}(X) \Bigg| &\ge \Bigg| \eta(X) - \frac{1}{2} \Bigg|
+        \end{align*}
+    \end{subproof}
+    \noindent\newline For both cases, we have the same $\Big| \eta(X) - \widehat{\eta_n}(X) \Big| \ge \Big| \eta(X) - \frac{1}{2} \Big|$ inequality. Therefore, we have:
+    \begin{align*}
+         R(\widehat{h_n}) - R^* \le 2 \mathbb{E}_X\Big[ \Big| \eta(X) - \widehat{\eta_n}(X) \Big| \Big]
+    \end{align*}
+\end{proof*}
+
+\newpage
+\subsection{End of chapter exercises}
+\input{sections/main/exercises/chap2_exercises}
+

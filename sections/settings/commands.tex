@@ -1,0 +1,168 @@
+\usepackage{tcolorbox}
+\usepackage{amssymb}
+\tcbuselibrary{theorems}
+\usepackage{amsmath,amsthm}
+\usepackage{thmtools}
+\usepackage[nottoc]{tocbibind}
+\usepackage[english]{babel}
+\usepackage{xhfill}
+\usepackage{changepage}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{framed}
+\usepackage{etoolbox}
+\usepackage{biblatex} 
+\usepackage{fancyhdr}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\addbibresource{main.bib} 
+
+%% Setting up hyperref options %%
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+
+%% Theorem style %%
+\newtheoremstyle{definition}
+                {5pt} % top space
+                {5pt} % bottom space
+                {\itshape} % font
+                {0pt} % indent
+                {\bfseries} % theorem name font
+                {. \hrulefill}
+                {\newline}
+                {\thmname{#1}\thmnumber{ #2}\textnormal{\thmnote{ (#3)}}}
+
+\newenvironment{subproof}[1]
+{
+    \begin{adjustwidth}{0pt}{}
+    \textbf{#1}
+    \newline
+}
+{
+    \end{adjustwidth}
+}
+\newtheoremstyle{proof}
+                {10pt} % top space
+                {10pt} % bottom space
+                {\itshape} % font
+                {0pt} % indent
+                {\bfseries} % theorem name font
+                {. \hrulefill}
+                {\newline}
+                {\thmname{#1}\thmnumber{ #2}\textnormal{\thmnote{ (#3)}}}
+
+\newtcbtheorem[number within=section, list inside={proplist}]
+    {proposition}% name
+    {Proposition}% title
+    {%
+        colback=red!5,
+        colframe=red!35!black,
+        fonttitle=\bfseries,
+    }% options
+    {prop}% prefix
+
+\newtcbtheorem[number within=section, list inside={theoremlist}]
+    {theorem}% name
+    {Theorem}% title
+    {%
+        colback=blue!5,
+        colframe=blue!35!black,
+        fonttitle=\bfseries,
+    }% options
+    {thm}% prefix
+
+\newtcbtheorem[number within=section]
+    {lemma}% name
+    {Lemma}% title
+    {%
+        colback=yellow!5,
+        colframe=yellow!35!black,
+        fonttitle=\bfseries,
+    }% options
+    {lem} % prefix
+
+\newtcbtheorem[number within=section]
+    {exercise}% name
+    {Exercise}% title
+    {%
+        colback=black!5,
+        colframe=black!35!black,
+        fonttitle=\bfseries,
+    }% options
+    {ex}% prefix
+
+\newtcbtheorem[number within=section, list inside={corolist}]
+    {corollary}% name
+    {Corollary}% title
+    {%
+        colback=cyan!5,
+        colframe=cyan!35!black,
+        fonttitle=\bfseries,
+    }% options
+    {coro} % prefix
+
+%% Proofs %%
+\theoremstyle{proof}
+\newtheorem*{pf*}{Proof}
+\newenvironment{proof*}{
+\begin{pf*}
+}{
+\hfill $\square{}$.
+\end{pf*}
+}
+
+%% Exercise solution %%
+\theoremstyle{proof}
+\newtheorem*{sol*}{Solution}
+\newenvironment{solution*}{
+\begin{sol*}
+}{
+\hfill $\square{}$.
+\end{sol*}
+}
+
+%% Definitions %%
+\theoremstyle{definition}
+\declaretheorem[name=Definition, numberwithin=section]{dfn}
+\addto\captionsenglish{ \renewcommand{\listtheoremname}{A \ List of Definitions} }
+\newenvironment{definition}{\begin{shaded}\begin{dfn}}{\end{dfn}\end{shaded}}
+\colorlet{shadecolor}{white!25}
+
+%% Indicator function %%
+\DeclareMathAlphabet{\mathmybb}{U}{cmr}{m}{n}
+\newcommand{\1}[1]{\mathmybb{\bf 1}_{\{#1\}}}
+
+%% Brackets %%
+\newcommand{\bigSquare}[1]{
+\Big[ #1 \Big]
+}
+\newcommand{\biggSquare}[1]{
+\Bigg[ #1 \Bigg]
+}
+
+\newcommand{\bigRound}[1]{
+\Big( #1 \Big)
+}
+\newcommand{\biggRound}[1]{
+\Bigg( #1 \Bigg)
+}
+
+\newcommand{\bigCurl}[1]{
+\Big\{ #1 \Big\}
+}
+\newcommand{\biggCurl}[1]{
+\Bigg\{ #1 \Bigg\}
+}
+
+\newcommand{\bigAbs}[1]{
+\Big| #1 \Big|
+}
+\newcommand{\biggAbs}[1]{
+\Bigg| #1 \Bigg|
+}

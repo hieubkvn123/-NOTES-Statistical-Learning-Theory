@@ -1,0 +1,62 @@
+\newpage
+\ifdefined\showmanual
+\input{sections/manual/commands}
+
+\section{Manual}
+\subsection{Theorems, Propositions, Lemmas, Corollaries}
+\begin{definition}[Manual - Theorems]
+    To define a new theorem/proposition/lemma/corollary, use the following common format:
+    \begin{lstlisting}
+        \begin{theorem}{<theorem_name>}{<theorem_refid>}
+            %% Content of theorem
+        \end{theorem}
+    
+        %% --------------------------------------------------- %%
+        % Replace theorem with
+        %  - corollary.
+        %  - proposition.
+        %  - lemma.
+        %% --------------------------------------------------- %%
+    \end{lstlisting}
+
+    To refer to the theorem, we can use the following format:
+    \begin{lstlisting}
+        \ref{thm:<theorem_refid>}
+    
+        %% --------------------------------------------------- %%
+        % Replace the "thm" prefix with the following prefixes
+        %  - coro: for Corollaries.
+        %  - prop: for Propositions.
+        %  - lem: for Lemmas.
+        %% --------------------------------------------------- %%
+    \end{lstlisting}
+\end{definition}
+
+
+\subsection{Definitions}
+\begin{definition}[Manual - Definitions]
+    \noindent Create a new definition using the following format:
+    \begin{lstlisting}
+        \begin{definition}[<definition_name>]
+            \label{def:<definition_refid>}
+            %% Contents of definition 
+        \end{definition}
+    \end{lstlisting}    
+\end{definition}
+
+
+\subsection{Proofs}
+\begin{definition}[Manual - Proofs]
+    \noindent When creating a proof for a theorem/proposition/lemma/corollary, use the following format:
+    
+    \begin{lstlisting}
+        \begin{proof*}[\ref{thm:<theorem_refid>}]    
+            %% You can also add sub-proofs, which will be indented
+            \begin{subproof}{subproof_title}
+                %% Contents of sub-proof
+            \end{subproof}
+        \end{proof*}
+    \end{lstlisting}
+    Remember to always associate the proof with the corresponding theorem/proposition/lemma/corollary using the reference index.    
+\end{definition}
+\fi

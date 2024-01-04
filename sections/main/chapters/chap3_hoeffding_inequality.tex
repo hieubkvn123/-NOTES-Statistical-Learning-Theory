@@ -1,0 +1,284 @@
+\newpage\section{Hoeffding's inequality}
+
+\subsection{Markov's Inequality}
+\begin{proposition}{Markov's Inequality}{markov_ineq}
+    Let $U$ be a non-negative random variable on $\mathbb{R}$, then for all $t>0$, we have:
+    \begin{align*}
+        P(U \ge t) \le \frac{1}{t}\mathbb{E}[U]
+    \end{align*}
+\end{proposition}
+
+\begin{proof*}[Proposition \ref{prop:markov_ineq}]
+    We have:
+    \begin{align*}
+        tP(U \ge t) 
+            &= t\mathbb{E}\bigSquare{\1{U\ge t}} \\
+            &= t\int_0^\infty \1{x \ge t} f_U(x)dx \\
+            &= t\int_t^\infty f_U(x)dx \\
+            &\le \int_t^\infty xf_U(x)dx \\
+            &\le \int_0^\infty xf_U(x)dx = \mathbb{E}[U] \\
+        \implies P(U\ge t) &\le \frac{1}{t}\mathbb{E}[U]
+    \end{align*}
+\end{proof*}
+
+\begin{corollary}{Chebyshev's Inequality}{chebyshev_ineq}
+    Let $Z$ be a random variable on $\mathbb{R}$ with mean $\mu$ and variance $\sigma^2$, we have:
+    \begin{align*}
+        P\bigRound{
+            \bigAbs{
+                Z - \mu
+            } \ge t
+        } \le \frac{\sigma^2}{t^2}
+    \end{align*}
+\end{corollary}
+
+\begin{proof*}[Corollary \ref{coro:chebyshev_ineq}]
+    Using Markov's inequality, we have:
+    \begin{align*}
+        P\bigRound{
+            \bigAbs{
+                Z - \mu
+            } \ge t
+        } &= 
+        P\bigRound{
+            \bigAbs{
+                Z - \mu
+            }^2 \ge t^2
+        } \\
+        &\le \frac{\mathbb{E}\bigSquare{\bigAbs{Z-\mu}^2}}{t^2} = \frac{\sigma^2}{t^2}
+    \end{align*}
+\end{proof*}
+
+\begin{corollary}{Chernoff's bounding method}{chernoff_bound}
+    Let $Z$ be a random variable on $\mathbb{E}$, for any $t>0$, we have:
+    \begin{align*}
+        P(Z\ge t) \le \inf_{s>0} e^{-st}M_Z(s)
+    \end{align*}
+\end{corollary}
+
+\begin{proof*}[Corollary \ref{coro:chernoff_bound}]
+    We have:
+    \begin{align*}
+        P(Z \ge t) &= P(sZ \ge st), \ \ \ (t > 0) \\
+            &= P(e^{sZ} \ge e^{st}) \\
+            &\le \frac{\mathbb{E}\bigSquare{e^{sZ}}}{e^{st}} = e^{-st}M_Z(s) \ \ \ (\text{Markov's inequality})
+    \end{align*}
+
+    \noindent Since the above inequality holds for all $s>0$, we can just take the infimum to obtain the tightest bound. Hence, we have:
+    \begin{align*}
+        P(Z \ge t) \le \inf_{s>0}e^{-st}M_Z(s)
+    \end{align*}
+\end{proof*}
+
+\subsection{Hoeffding's Inequality}
+Before diving into Hoeffding's inequality, we need to go through the following lemma (whose proof will not be included) that will help us prove the Hoeffding's inequality:
+\begin{lemma}{Hoeffding's lemma}{hoeffding_lemma}
+    Let $V$ be a random variable on $\mathbb{R}$ with $\mathbb{E}[V]=0$ and suppose that $a\le V \le b$ with probability one. We have:
+    \begin{align*}
+        \mathbb{E}\bigSquare{e^{sV}} \le \exp\biggRound{
+        \frac{s^2(b-a)^2}{8}
+        }
+    \end{align*}
+\end{lemma}
+\begin{proof*}[Lemma \ref{lem:hoeffding_lemma}]
+    (The proof for this lemma can be found here \cite{wiki:hoeffding_lemma}).
+\end{proof*}
+
+\begin{theorem}{Hoeffding's Inequality}{hoeffding_inequality}
+    Let $Z_1, Z_2, \dots, Z_n$ be independent random variables on $\mathbb{R}$ such that $a_i \le Z_i \le b_i$ with probability one for all $1\le i \le n$. Let $S_n = \sum_{i=1}^n Z_i$. We have:
+    \begin{align*}
+        P\bigRound{ \bigAbs{ S_n - \mathbb{E}[S_n] } \ge t } \le 2\exp\biggRound{
+        -\frac{2t^2}{\sum_{i=1}^n (b_i-a_i)^2}
+        }, \ \ \ \forall t > 0
+    \end{align*}
+\end{theorem}
+
+\begin{proof*}[Theorem \ref{thm:hoeffding_inequality}]
+    Using the Chernoff's bounds, we have:
+    \begin{align*}
+        P\bigRound{\bigAbs{S_n - \mathbb{E}[S_n]} \ge t}
+            &\le \inf_{s>0} e^{-st}M_{S_n - \mathbb{E}[S_n]}(s) \\
+            &= \inf_{s>0}e^{-st}\mathbb{E}\bigSquare{
+                e^{s(S_n - \mathbb{E}[S_n])}
+            } \\
+            &= \inf_{s>0}e^{-st}\mathbb{E}\biggSquare{
+                \exp\biggRound{
+                    s\sum_{i=1}^n (Z_i - \mathbb{E}[Z_i])
+                }
+            } \\
+            &= \inf_{s>0}e^{-st}\mathbb{E}\biggSquare{
+                \prod_{i=1}^n \exp\bigRound{s( Z_i - \mathbb{E}[Z_i]) }
+            } \\
+            &= \inf_{s>0}e^{-st} \prod_{i=1}^n \mathbb{E}\biggSquare{
+                \exp\bigRound{s( Z_i - \mathbb{E}[Z_i]) }
+            } \ \ \ (\text{Since all $Z_i - \mathbb{E}[Z_i]$ are independent}) \\
+            &\le \inf_{s>0}e^{-st} \prod_{i=1}^n \exp\biggRound{
+                \frac{s^2(b_i - a_i)^2}{8}
+            } \ \ \ (\text{By Hoeffding's lemma}) \\
+            &= \inf_{s>0} \exp\biggRound{
+                -st + \sum_{i=1}^n \frac{s^2(b_i - a_i)^2}{8}
+            }
+    \end{align*}
+
+    \noindent In order for the above to be minimized, we differentiate the term inside the exponential and set the derivative to $0$ to find the optimal $s>0$. We have:
+    \begin{align*}
+        -t + s\sum_{i=1}^n \frac{(b_i-a_i)^2}{4} = 0 \implies s = \frac{4t}{\sum_{i=1}^n(b_i - a_i)^2}
+    \end{align*}
+
+    \noindent Letting $c = \sum_{i=1}^n(b_i-a_i)^2$, we now can derive the tightest Chernoff's bound as followed:
+    \begin{align*}
+        P\bigRound{\bigAbs{S_n - \mathbb{E}[S_n]} \ge t}
+            &\le \exp\biggRound{
+                -\frac{4t^2}{c} + \frac{16t^2}{c^2} \cdot \frac{c}{8}
+            } = \exp\biggRound{
+                -\frac{2t^2}{c}
+            } \\
+            &= \exp\biggRound{
+                -\frac{2t^2}{\sum_{i=1}^n(b_i - a_i)^2}
+            }
+    \end{align*}
+\end{proof*}
+
+
+\subsection{Convergence of Empirical Risk}
+\begin{definition}[Empirical Risk]
+    Suppose we are given training data $\bigCurl{(X_i, Y_i)_{i=1}^n}$ such that each pair $(X_i, Y_i)\sim P_{XY}$ are independently identically distributed. Let $h:\mathcal{X}\to\mathcal{Y}$ be a classifier. We define the \textbf{empirical risk} to be:
+    \begin{align*}
+        \widehat{R_n}(h) = \frac{1}{n}\sum_{i=1}^n \1{h(X_i) \ne Y_i}
+    \end{align*}
+
+    \noindent Note that $\mathbb{E}[\widehat{R_n}(h)] = R(h)$ and $n\widehat{R_n}(h) \sim Binomial(n, R(h))$. In the following corollary of the Hoeffding's inequality, we will answer the question \textbf{how close the empirical risk is as an estimate of true risk} or \textbf{how fast the empirical risk converges to the true risk}.
+\end{definition}
+
+\begin{corollary}{Convergence of Empirical Risk}{convergence_of_empirical_risk}
+    Given training data $\bigCurl{(X_i, Y_i)_{i=1}^n}$ such that each pair $(X_i, Y_i)\sim P_{XY}$ are independently identically distributed. Let $h:\mathcal{X}\to\mathcal{Y}$ be a classifier, we have:
+    \begin{align*}
+        P\bigRound{
+            \bigAbs{\widehat{R_n}(h) - R(h)} \ge \epsilon
+        } \le 2e^{-2n\epsilon^2}, \ \ \ \epsilon > 0
+    \end{align*}
+\end{corollary}
+
+\begin{proof*}[Corollary \ref{coro:convergence_of_empirical_risk}]
+    For all $1 \le i \le n$, we have $\1{h(X_i) \ne Y_i} \in \{0,1\}$. Hence, with probability one, $0 \le \1{h(X_i)\ne Y_i} \le 1$ and $b_i=1, a_i=0$ for all $1\le i\le n$.
+
+    \noindent \newline Using the Hoeffding's inequality, we have:
+    \begin{align*}
+        P\bigRound{
+            \bigAbs{\widehat{R_n}(h) - R(h)} \ge \epsilon
+        } 
+        &= P\bigRound{
+            \bigAbs{\widehat{R_n}(h) - \mathbb{E}[\widehat{R_n}(h)]} \ge \epsilon
+        } \\
+        &= P\biggRound{
+            \biggAbs{n\widehat{R_n}(h) - \mathbb{E}[n\widehat{R_n}(h)]} \ge n\epsilon
+        } \\
+        &\le \exp\biggRound{
+            - \frac{2n^2\epsilon^2}{\sum_{i=1}^n (b_i - a_i)^2}
+        } \ \ \ \text{(Hoeffding's inequality)} \\
+        &= e^{-2n\epsilon^2}
+    \end{align*}
+\end{proof*}
+
+
+\subsection{KL-divergence \& Hypothesis Testing}
+\textbf{Set-up (Hypothesis Testing)} : Suppose that we have $\mathcal{Y}=\{0,1\}$ and $P_{XY}$ is a distribution on $\mathcal{X}\times\mathcal{Y}$. Let's assume that:
+\begin{itemize}
+    \item The prior probabilities $\pi_y$ are equal.
+    \item The supports of likelihoods $p_0,p_1$ are the same.
+    \item $0 < \alpha \le p_y(x) \le \beta < \infty$ for all $x\in \mathcal{X}$ such that $p_y(x)>0$ and for all $y\in\{0,1\}$.
+\end{itemize}
+
+\noindent Now suppose $X_1, \dots, X_n \sim p_y$ are independently identically distributed where $y\in\{0,1\}$ is unknown. Can we guess $y$ and how good our guess would be?
+
+\begin{proposition}{KL-divergence hypothesis testing}{kl_hypothesis}
+    From the above settings, the optimal classifier is given by the likelihood ratio test:
+    \begin{align*}
+        \widehat{h_n}(x) = \begin{cases}
+            1 &\text{if } \frac{\prod_{i=1}^n p_1(x_i)}{\prod_{i=1}^n p_0(x_i)} \ge \frac{\pi_0}{\pi_1} \ \ (=1)
+            \\ \\
+            0 &\text{otherwise}
+        \end{cases}
+    \end{align*}
+    \noindent Where $x=\bigRound{x_1, \dots, x_n}$ is an observation of the random vector $X=\bigRound{X_1, \dots, X_n}$. Define the class-specific risk $R_y(h)$ be the risk of misclassification when the true label is $Y=y$:
+    \begin{align*}
+        R_y(h) = P(h(X) \ne Y|Y=y)
+    \end{align*}
+
+    \noindent Then, we have:
+    \begin{align*}
+        R_0(\widehat{h_n}) \le e^{-2n D(p_0||p_1)^2 / c}, \text{ where } c = 4(\log\beta - \log\alpha)^2
+    \end{align*}
+
+    \noindent Where $D(p_0||p_1)$ is the $KL$-divergence of $p_1$ from $p_0$. We can prove a similar exponentially decaying bound for $R_1(\widehat{h_n})$.
+\end{proposition}
+
+\begin{proof*}{Proposition \ref{prop:kl_hypothesis}}
+    We can rewrite the optimal classifier as:
+    \begin{align*}
+        \widehat{h_n}(X) = \begin{cases}
+            1 &\text{if } \widehat{S_n}(X_1, \dots, X_n) \ge 0
+            \\ \\
+            0 &\text{otherwise}
+        \end{cases} 
+    \end{align*}
+
+    \noindent Where we have:
+    \begin{align*}
+        \widehat{S_n}(X_1, \dots, X_n) &= \log \frac{\prod_{i=1}^n p_1(X_i)}{\prod_{i=1}^n p_0(X_i)} \\
+        &= \sum_{i=1}^n \log\frac{p_1(X_i)}{p_0(X_i)} \\
+        &= \sum_{i=1}^n Z_i \ \ \ \biggRound{\text{Letting } Z_i = \log\frac{p_1(X_i)}{p_0(X_i)}}
+    \end{align*}
+
+    \noindent Since the likelihoods are bounded, we have:
+    \begin{align*}
+        a_i = \log\frac{\alpha}{\beta} \le Z_i \le \log\frac{\beta}{\alpha} = b_i, \ \ 1 \le i \le n
+    \end{align*}
+
+    \noindent Now, we have:
+    \begin{align*}
+        R_0(\widehat{h_n}) 
+            &= P(h(X) \ne Y | Y=0) \\
+            &= P(\widehat{S_n} \ge 0 | Y = 0) \\
+            &= P(\widehat{S_n} - \mathbb{E}[S_n | Y = 0] \ge - \mathbb{E}[S_n | Y = 0] | Y=0)
+    \end{align*}
+
+    \noindent To calculate the conditional expectation $\mathbb{E}[S_n | Y = 0]$, we have:
+    \begin{align*}
+        \mathbb{E}[S_n | Y = 0] &= n\mathbb{E}[Z_1|Y=0] \\
+            &= n\int \log\frac{p_1(x)}{p_0(x)}p_0(x)dx \\
+            &= -n\int \log\frac{p_0(x)}{p_1(x)}p_0(x)dx = -nD(p_0||p_1)
+    \end{align*}
+
+    \noindent Therefore, we have:
+    \begin{align*}
+        R_0(\widehat{h_n}) 
+            &= P(\widehat{S_n} - \mathbb{E}[S_n | Y = 0] \ge nD(p_0||p_1) | Y=0) \\
+            &\le \exp\biggRound{
+                -\frac{2n^2D(p_0||p_1)^2}{\sum_{i=1}^n (b_i - a_i)^2}
+            } \ \ \ (\text{Hoeffding's inequality})
+    \end{align*}
+
+    \noindent For every $1 \le i \le n$, we have:
+    \begin{align*}
+        b_i - a_i &= \log\frac{\beta}{\alpha} - \log\frac{\alpha}{\beta} \\
+            &= \log\frac{\beta^2}{\alpha^2} = 2\log\frac{\beta}{\alpha} = 2(\log\beta - \log\alpha)\\
+        \implies \sum_{i=1}^n (b_i - a_i)^2 &= 4n(\log\beta - \log\alpha)^2
+    \end{align*}
+
+    \noindent Finally, we have:
+    \begin{align*}
+        R_0(\widehat{h_n}) 
+            &\le \exp\biggRound{
+                -\frac{2nD(p_0||p_1)^2}{4(\log\beta - \log\alpha)^2}
+            }
+    \end{align*}
+
+    \noindent Similarly, for $R_1(\widehat{h_n})$, we have:
+    \begin{align*}
+        R_1(\widehat{h_n}) 
+            &\le \exp\biggRound{
+                -\frac{2nD(p_1||p_0)^2}{4(\log\beta - \log\alpha)^2}
+            }
+    \end{align*}
+\end{proof*}
