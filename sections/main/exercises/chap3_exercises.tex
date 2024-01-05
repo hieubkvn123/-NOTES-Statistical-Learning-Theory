@@ -80,5 +80,37 @@
 \end{exercise}
 
 \begin{solution*}[Exercise \ref{ex:exercise_3.2}]
-    
+    When we remove the assumption that $0 < \alpha \le p_y(x)$, the class-conditional densities are not bounded below. Hence, we have:
+    \begin{align*}
+        \exp\biggRound{
+                -\frac{2nD(p_1||p_0)^2}{4(\log\beta - \log\alpha)^2}
+        } \to 1 \text{ when } \alpha \to 0
+    \end{align*}
+
+    \noindent In other words, the bound is no longer meaningful. We can instead use the Chernoff bounding method:
+    \begin{align*}
+        R_0(\widehat{h_n}) 
+            &= P(S_n \ge 0 | Y = 0) \\
+            &\le \inf_{s>0} \prod_{i=1}^n \mathbb{E}_{q_0}\bigSquare{e^{sZ_i}} \\
+            &= \inf_{s>0} \prod_{i=1}^n \mathbb{E}_{q_0}\biggSquare{
+                \exp\biggRound{
+                    s\log\frac{p_1(X_i)}{p_0(X_i)}
+                }
+            } \\
+            &= \inf_{s>0} \prod_{i=1}^n \mathbb{E}_{q_0}\biggSquare{
+                \frac{p_1(X_i)^s}{p_0(X_i)^s}
+            } \\
+    \end{align*}
+
+    \noindent Taking logarithm from both sides, we have:
+    \begin{align*}
+        \log R_0(\widehat{h_n}) 
+            &\le \inf_{s>0} \sum_{i=1}^n \log \mathbb{E}_{q_0}\biggSquare{
+                \frac{p_1(X_i)^s}{p_0(X_i)^s}
+            } \\
+            &= \inf_{s>0}  \sum_{i=1}^n (s-1)R_s(p_1 || p_0) \\
+            &= \inf_{s>0}  n(s-1)R_s(p_1 || p_0) \\
+    \end{align*}
+
+    \noindent Where $R_s(p_1||p_0)$ is the Renyi divergence \cite{wiki:renyi_entropy}.
 \end{solution*}
