@@ -1,9 +1,61 @@
 \newpage\section{Empirical Risk Minimization}
 
 \subsection{Uniform Deviation Bounds}
+\begin{definition}[Empirical Risk Minimization]
+    Let $\bigCurl{(X_i, Y_i)}_{i=1}^n$ be independently identically distributed random variables sampled from $P_{XY}$. Let $\mathcal{H}\subset \{0,1\}^{\mathcal{X}}$ be a set of classifiers. \textbf{Empirical Risk Minimization} is a learning algorithm such that:
+    \begin{align*}
+        \widehat{h_n} = \arg\min_{h\in\mathcal{H}} \widehat{R_n}(h)
+    \end{align*}
+
+    \noindent Where $\widehat{R_n}$ is the empirical risk. An important question is how close $\widehat{R_n}$ is to $R^*_\mathcal{H}=\inf_{h\in\mathcal{H}} R(h)$.
+\end{definition}
+
+\textbf{Overview (Uniform Deviation Bounds)} : Previously, we proved the following bound using the Hoeffding's inequality:
+\begin{align*}
+    P\bigRound{
+        \bigAbs{
+            \widehat{R_n}(h) - R(h)
+        } \ge \epsilon
+    } \le \delta
+\end{align*}
+
+\noindent Where $\delta = 2e^{-2n\epsilon^2}$. \textbf{However, since we do not know $\widehat{h_n}$ (the specific function in $\mathcal{H}$ that minimizes the empirical risk), we look for a bound that is guaranteed to apply for all $h\in\mathcal{H}$. This is called the Uniform Deviation Bound}.
+
+\begin{definition}[Uniform Deviation Bounds (UDB)]
+    Given a set of classifiers $\mathcal{H} \subset \{0,1\}^{\mathcal{X}}$, $\epsilon > 0$, the \textbf{Uniform Deviation Bounds} has the following form:
+    \begin{align*}
+        P\biggRound{
+            \sup_{h\in\mathcal{H}}\bigAbs{\widehat{R_n}(h) - R(h)} \le \epsilon
+        } &\ge 1 - \delta \\
+        \text{Or : }
+        P\biggRound{
+            \sup_{h\in\mathcal{H}}\bigAbs{\widehat{R_n}(h) - R(h)} \ge \epsilon
+        } &\le \delta
+    \end{align*}
+
+    \noindent The above bounds have the following interpretations:
+    \begin{itemize}
+        \item The probability that the deviation from the true risk is at most $\epsilon$ for all functions in $\mathcal{H}$ is at least $1-\delta$.
+        \item The probability that there exists at least a function in $\mathcal{H}$ whose deviation from the true risk is at least $\epsilon$ is at most $\delta$.
+    \end{itemize}
+
+    \noindent Basically, we want to \textbf{bound the probability that some function deviates too far from the true risk}.
+\end{definition}
+
+\begin{proposition}{Uniform Deviation Bounds for finite $\mathcal{H}$}{udb_for_finite_H}
+    Assume that $|\mathcal{H}| < \infty$. We have:
+    \begin{align*}
+        P\biggRound{
+            \sup_{h\in\mathcal{H}}\bigAbs{\widehat{R_n}(h) - R(h)} \ge \epsilon
+        } &\le 2|\mathcal{H}|e^{-2n\epsilon^2}
+    \end{align*}
+\end{proposition}
+
+\begin{proof*}[Proposition \ref{prop:udb_for_finite_H}]
+    
+\end{proof*}
 
 
 \subsection{PAC Learning \& Sample Complexity}
-
 
 \subsection{Zero-error case}
