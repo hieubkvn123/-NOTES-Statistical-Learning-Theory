@@ -91,12 +91,46 @@
     \begin{align*}
         R(\widehat{h_n}) - R_\mathcal{H}^* \le 2\epsilon
     \end{align*}
+
+    \noindent In other words, \textbf{with probability $1-\delta$, the \underline{empirical risk minimizer} deviates from the \underline{true risk minimizer} by at most $2\epsilon$}.
 \end{proposition}
 
 \begin{proof*}[Proposition \ref{prop:deviation_from_rhstar}]
-    .
+    We have:
+    \begin{align*}
+        P\biggRound{
+            \sup_{h\in\mathcal{H}}\bigAbs{\widehat{R_n}(h) - R(h)} \ge \epsilon
+        } \le \delta \implies 
+        P\biggRound{
+            \sup_{h\in\mathcal{H}}\bigAbs{\widehat{R_n}(h) - R(h)} \le \epsilon
+        } \ge 1 - \delta
+    \end{align*}
+
+    \noindent Hence, with probability $1-\delta$, for all $h\in\mathcal{H}$, we have:
+    \begin{align*}
+        \bigAbs{\widehat{R_n}(h) - R(h)} \le \epsilon &\implies -\epsilon \le \widehat{R_n}(h) - R(h) \le \epsilon \\
+        &\implies \begin{cases}
+            \widehat{R_n}(h) &\le R(h) + \epsilon 
+            \\ \\
+            R(h) &\le \widehat{R_n}(h) + \epsilon
+        \end{cases}
+    \end{align*}
+
+    Therefore:
+    \begin{align*}
+        R(\widehat{h_n}) &\le \widehat{R_n}(\widehat{h_n}) + \epsilon \\
+            &\le \widehat{R_n}(h) + \epsilon \ \ \ \text{(Since $\widehat{h_n}$ minimizes the Empirical Risk)} \\
+            &\le \bigRound{R(h) + \epsilon} + \epsilon = R(h) + 2\epsilon
+    \end{align*}
+
+    \noindent Since $h\in\mathcal{H}$ is an arbitrary choice, we take the infimum over $\mathcal{H}$ to get the tightest bound. We have:
+    \begin{align*}
+        R(\widehat{h_n}) &\le \inf_{h\in\mathcal{H}} R(h) + 2\epsilon \\
+            &= R_\mathcal{H}^* + 2\epsilon
+    \end{align*}
 \end{proof*}
 
 \subsection{PAC Learning \& Sample Complexity}
 
 \subsection{Zero-error case}
+
