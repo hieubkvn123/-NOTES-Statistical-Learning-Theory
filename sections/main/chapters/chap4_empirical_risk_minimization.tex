@@ -22,7 +22,7 @@
 \noindent Where $\delta = 2e^{-2n\epsilon^2}$. \textbf{However, since we do not know $\widehat{h_n}$ (the specific function in $\mathcal{H}$ that minimizes the empirical risk), we look for a bound that is guaranteed to apply for all $h\in\mathcal{H}$. This is called the Uniform Deviation Bound}.
 
 \begin{definition}[Uniform Deviation Bounds (UDB)]
-    Given a set of classifiers $\mathcal{H} \subset \{0,1\}^{\mathcal{X}}$, $\epsilon > 0$, the \textbf{Uniform Deviation Bounds} has the following form:
+    Given a set of classifiers $\mathcal{H} \subset \{0,1\}^{\mathcal{X}}$, $\epsilon > 0$, the \textbf{Uniform Deviation Bounds} is the probability that for at least one $h\in\mathcal{H}$, the empirical risk deviates away from the true risk by $\epsilon$ and has the following form:
     \begin{align*}
         P\biggRound{
             \sup_{h\in\mathcal{H}}\bigAbs{\widehat{R_n}(h) - R(h)} \le \epsilon
@@ -177,17 +177,66 @@
     \noindent Equivalently, with probability of at least $1-\delta$, we have:
     \begin{align*}
         R(\widehat{h_n}) \le R_\mathcal{H}^* + \sqrt{
-            2\frac{\log|\mathcal{H}| + \log(2/\delta)}{n}
+            \frac{2}{n}\biggRound{\log|\mathcal{H}| - \log\frac{\delta}{2}}
         }
     \end{align*}
 \end{corollary}
 
 \begin{proof*}[Corollary \ref{coro:excess_risk_erm_epsilon_delta}]
-    
+    By proposition \ref{prop:nprob_deviation_from_rhstar}, we have:
+    \begin{align*}
+        P\bigRound{
+            R(\widehat{h_n}) - R_\mathcal{H}^* \ge \epsilon
+        } 
+        &\le
+        P\biggRound{2\sup_{h\in\mathcal{H}} \bigAbs{\widehat{R_n}(h) - R(h)} \ge \epsilon) } \\
+        &= P\biggRound{\sup_{h\in\mathcal{H}} \bigAbs{\widehat{R_n}(h) - R(h)} \ge \frac{\epsilon}{2})} \\
+        &\le 2|\mathcal{H}|\exp\biggRound{
+            -\frac{n\epsilon^2}{2}
+        }
+    \end{align*}
+
+    \noindent Now, let:
+    \begin{align*}
+        \delta = 2|\mathcal{H}|\exp\biggRound{
+            -\frac{n\epsilon^2}{2}
+        } \implies \epsilon = \sqrt{
+            \frac{2}{n}\biggRound{\log|\mathcal{H}| - \log\frac{\delta}{2}}
+        }
+    \end{align*}
+
+    \noindent By proposition \ref{prop:deviation_from_rhstar}, with at least probability $1-\delta$, we have:
+    \begin{align*}
+        R(\widehat{h_n}) \le R_\mathcal{H}^* + \epsilon = R_\mathcal{H}^* + \sqrt{
+            \frac{2}{n}\biggRound{\log|\mathcal{H}| - \log\frac{\delta}{2}}
+        }
+    \end{align*}
 \end{proof*}
 
 
 \subsection{PAC Learning \& Sample Complexity}
+\begin{definition}[Sample Complexity ($N(\epsilon, \delta)$)]
+    We say that $\widehat{h_n}$ is a \textbf{$(\epsilon, \delta)$-learning algorithm} for $\mathcal{H}$ if there exists a function $N(\epsilon, \delta)$ such that: 
+    \begin{align*}
+        \forall \epsilon, \delta > 0 : n \ge N(\epsilon, \delta) \implies 
+        P\bigRound{R(\widehat{h_n}) - R_\mathcal{H}^* \ge \epsilon} \le \delta
+    \end{align*}   
+
+    \noindent Where we have:
+    \begin{itemize}
+        \item $N(\epsilon, \delta)$ is called the \textbf{Sample Complexity}.
+        \item $\mathcal{H}$ is called \textbf{Uniformly Learnable}.
+        \item $\widehat{h_n}$ is called \textbf{Probably Approximately Correct (PAC)}.
+    \end{itemize}
+\end{definition}
+\textbf{Remark} : By corollary \ref{coro:excess_risk_erm_epsilon_delta}, we have $\delta = 2|\mathcal{H}|\exp\biggRound{-\frac{n\epsilon^2}{2}}$. Solving for $n$, we have:
+\begin{align*}
+    N(\epsilon, \delta) = \frac{2}{\epsilon^2}\biggRound{
+        \log|\mathcal{H}| - \log\frac{\delta}{2}
+    }
+\end{align*}
+
+
 
 \subsection{Zero-error case}
 
