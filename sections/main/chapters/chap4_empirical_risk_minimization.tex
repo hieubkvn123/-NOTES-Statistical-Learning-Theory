@@ -1,13 +1,13 @@
 \newpage\section{Empirical Risk Minimization}
 
 \subsection{Uniform Deviation Bounds}
-\begin{definition}[Empirical Risk Minimization]
+\begin{definition}[Empirical Risk Minimization ($\widehat{h_n}$)]
     Let $\bigCurl{(X_i, Y_i)}_{i=1}^n$ be independently identically distributed random variables sampled from $P_{XY}$. Let $\mathcal{H}\subset \{0,1\}^{\mathcal{X}}$ be a set of classifiers. \textbf{Empirical Risk Minimization} is a learning algorithm such that:
     \begin{align*}
         \widehat{h_n} = \arg\min_{h\in\mathcal{H}} \widehat{R_n}(h)
     \end{align*}
 
-    \noindent Where $\widehat{R_n}$ is the empirical risk. An important question is how close $\widehat{R_n}$ is to $R^*_\mathcal{H}=\inf_{h\in\mathcal{H}} R(h)$.
+    \noindent Where $\widehat{R_n}$ is the empirical risk and $\widehat{h_n}$ is called the \textbf{Empirical Risk Minimizer}. An important question is how close $\widehat{R_n}$ is to $R^*_\mathcal{H}=\inf_{h\in\mathcal{H}} R(h)$.
 \end{definition}
 
 \textbf{Overview (Uniform Deviation Bounds)} : Previously, we proved the following bound using the Hoeffding's inequality:
@@ -79,7 +79,7 @@
     \end{align*}
 \end{proof*}
 
-\begin{proposition}{Deviation from $R_\mathcal{H}^*$}{deviation_from_rhstar}
+\begin{proposition}{(Probabilistic) Bound on Excess Risk of $\widehat{h_n}$}{deviation_from_rhstar}
     Suppose that $\mathcal{H}$ satisfies:
     \begin{align*}
         P\biggRound{
@@ -87,7 +87,7 @@
         } \le \delta
     \end{align*}
 
-    \noindent Then, with probability of at least $1-\delta$, we have:
+    \noindent Then, with probability of at least $1-\delta$, we have the following \textbf{upper bound on the Excess Risk of the Empirical Risk Minimizer}:
     \begin{align*}
         R(\widehat{h_n}) - R_\mathcal{H}^* \le 2\epsilon
     \end{align*}
@@ -129,6 +129,63 @@
             &= R_\mathcal{H}^* + 2\epsilon
     \end{align*}
 \end{proof*}
+
+\noindent \textbf{Remark} : We can express the above proposition verbally as "\textbf{If the UDB is at most $\delta$, then with probability $1-\delta$, the Excess Risk of the Empirical Risk Minimizer is at most $2\epsilon$}". 
+
+\noindent \textbf{Remark} : Note that the above proof assumes that \textit{there exists an empirical risk minimizer}. This is not guaranteed when $|\mathcal{H}|$ is infinite.
+
+\begin{proposition}{(Non-probabilistic) Bound on Excess Risk of $\widehat{h_n}$}{nprob_deviation_from_rhstar}
+    We have the following inequality:
+    \begin{align*}
+        R(\widehat{h_n}) - R_\mathcal{H}^* \le 2\sup_{h\in\mathcal{H}} \bigAbs{
+            \widehat{R_n}(h) - R(h)
+        }
+    \end{align*}
+\end{proposition}
+
+\begin{proof*}[Proposition \ref{prop:nprob_deviation_from_rhstar}]
+    Let $h_\mathcal{H}^* = \arg\min_{h\in\mathcal{H}}R(h)$. We have:
+    \begin{align*}
+        R(\widehat{h_n}) - R_\mathcal{H}^* 
+            &\le 
+                \bigAbs{R(\widehat{h_n}) - \widehat{R_n}(\widehat{h_n})} 
+                + \widehat{R_n}(\widehat{h_n}) - \widehat{R_n}(h_\mathcal{H}^*) 
+                + \bigAbs{\widehat{R_n}(h_\mathcal{H}^*) - R_\mathcal{H}^*}
+    \end{align*}
+
+    \noindent Since $\widehat{h_n}$ is the Empirical Risk Minimizer, we have $\widehat{R_n}(\widehat{h_n}) - \widehat{R_n}(h_\mathcal{H}^*) \le 0$. Hence:
+    \begin{align*}
+        R(\widehat{h_n}) - R_\mathcal{H}^* 
+            &\le   
+                \bigAbs{R(\widehat{h_n}) - \widehat{R_n}(\widehat{h_n})} 
+                + \bigAbs{\widehat{R_n}(h_\mathcal{H}^*) - R_\mathcal{H}^*} \\
+            &\le 
+                2\sup_{h\in\mathcal{H}}\bigAbs{
+                    \widehat{R_n}(h) - R(h)
+                }
+    \end{align*}
+\end{proof*}
+
+\begin{corollary}{Excess Risk of $\widehat{h_n}$ - $\delta \to \epsilon$ relation}{excess_risk_erm_epsilon_delta}
+    This is a Corollary for both proposition \ref{prop:deviation_from_rhstar} and proposition \ref{prop:nprob_deviation_from_rhstar}. If $\mathcal{H}$ is finite, then:
+    \begin{align*}
+        P\bigRound{
+            R(\widehat{h_n}) - R_\mathcal{H}^* \ge \epsilon
+        } \le \underbrace{2|\mathcal{H}|e^{-n\epsilon^2/2}}_{\delta}
+    \end{align*}
+
+    \noindent Equivalently, with probability of at least $1-\delta$, we have:
+    \begin{align*}
+        R(\widehat{h_n}) \le R_\mathcal{H}^* + \sqrt{
+            2\frac{\log|\mathcal{H}| + \log(2/\delta)}{n}
+        }
+    \end{align*}
+\end{corollary}
+
+\begin{proof*}[Corollary \ref{coro:excess_risk_erm_epsilon_delta}]
+    
+\end{proof*}
+
 
 \subsection{PAC Learning \& Sample Complexity}
 

@@ -141,7 +141,7 @@ Before diving into Hoeffding's inequality, we need to go through the following l
 
 
 \subsection{Convergence of Empirical Risk}
-\begin{definition}[Empirical Risk]
+\begin{definition}[Empirical Risk ($\widehat{R_n}$)]
     Suppose we are given training data $\bigCurl{(X_i, Y_i)_{i=1}^n}$ such that each pair $(X_i, Y_i)\sim P_{XY}$ are independently identically distributed. Let $h:\mathcal{X}\to\mathcal{Y}$ be a classifier. We define the \textbf{empirical risk} to be:
     \begin{align*}
         \widehat{R_n}(h) = \frac{1}{n}\sum_{i=1}^n \1{h(X_i) \ne Y_i}

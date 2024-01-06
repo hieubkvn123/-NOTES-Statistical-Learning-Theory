@@ -3,4 +3,5 @@
 \contentsline {tcolorbox}{\numberline {3.1}Markov's Inequality}{13}{tcb@cnt@proposition.3.1}%
 \contentsline {tcolorbox}{\numberline {3.2}KL-divergence hypothesis testing}{17}{tcb@cnt@proposition.3.2}%
 \contentsline {tcolorbox}{\numberline {4.1}Uniform Deviation Bounds for finite $\mathcal {H}$}{21}{tcb@cnt@proposition.4.1}%
-\contentsline {tcolorbox}{\numberline {4.2}Deviation from $R_\mathcal {H}^*$}{22}{tcb@cnt@proposition.4.2}%
+\contentsline {tcolorbox}{\numberline {4.2}(Probabilistic) Bound on Excess Risk of $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle h_n$}\mathaccent "0362{h_n}$}{22}{tcb@cnt@proposition.4.2}%
+\contentsline {tcolorbox}{\numberline {4.3}(Non-probabilistic) Bound on Excess Risk of $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle h_n$}\mathaccent "0362{h_n}$}{23}{tcb@cnt@proposition.4.3}%
