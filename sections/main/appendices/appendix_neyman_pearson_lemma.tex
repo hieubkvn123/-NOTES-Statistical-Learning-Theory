@@ -1,1 +1,46 @@
 \subsection{Neyman-Pearson Lemma}
+
+\subsubsection{Type I \& Type II errors}
+\textbf{Overview} : In a hypothesis test, we are interested in testing a given null hypothesis $H_0$ against some alternative hypothesis $H_1$. Hence, we define some rejection region $\mathcal{R}\subset\mathbb{R}$ such that:
+\begin{align*}
+    x \in \mathcal{R} \implies \text{reject } H_0 
+\end{align*}
+
+\noindent Equivalently, denote that $\overline{\mathcal{R}}$ is the acceptance region. We define the following conditional probability densities:
+\begin{itemize}
+    \item $f_1(x)$ : Density given that $H_1$ is true.
+    \item $f_0(x)$ : Density given that $H_0$ is true.
+\end{itemize}
+
+\begin{definition}[Type I \& Type II errors]
+    In hypothesis testing, we define the type I error as the probability that we falsely reject the null hypothesis given that the null hypothesis is true. On the other hands, type II error is the probability that we falsely accept the null hypothesis given that the hypothesis is not true:
+    \begin{align*}
+        \alpha &= P(\mathcal{R} | H_0) = \int_\mathcal{R} f_0(x)dx 
+        \\ 
+        \beta &= P(\overline{\mathcal{R}} | H_1) = 1 - \int_\mathcal{R} f_1(x)dx
+    \end{align*}
+\end{definition}
+
+\noindent There is a trade-off between type I and type II errors as illustrated in the figure below:
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{figures/typeI_typeII_errors_tradeoff.png}
+    \caption{Trade-off between type I and type II errors}
+    \label{fig:type_I_type_II_errors_tradeoff}
+\end{figure}
+
+\begin{definition}[Power of hypothesis test]
+    Given a hypothesis test used to test a null hypothesis $H_0$ against an alternative hypothesis $H_1$. The probability:
+    \begin{align*}
+        P_{H_1}(\mathcal{R}) = \int_{\mathcal{R}} f_1(x)dx = 1 - \beta
+    \end{align*}
+
+    \noindent Which denotes the probability that we correctly reject the null hypothesis given that $H_1$ is true  is called the \textbf{Power} of the hypothesis test. Later on we will see that using \textbf{Neyman-Pearson Lemma}, we can prove any hypothesis test has the power of at most the likelihood ratio test's power. 
+\end{definition}
+
+
+\subsubsection{Neyman-Pearson Lemma}
+
+
+
+
