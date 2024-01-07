@@ -215,7 +215,7 @@
 
 
 \subsection{PAC Learning \& Sample Complexity}
-\begin{definition}[Sample Complexity ($N(\epsilon, \delta)$)]
+\begin{definition}[PAC \& Sample Complexity ($N(\epsilon, \delta)$)]
     We say that $\widehat{h_n}$ is a \textbf{$(\epsilon, \delta)$-learning algorithm} for $\mathcal{H}$ if there exists a function $N(\epsilon, \delta)$ such that: 
     \begin{align*}
         \forall \epsilon, \delta > 0 : n \ge N(\epsilon, \delta) \implies 
@@ -319,6 +319,16 @@ In the following proposition, we can obtain a tighter bound for the zero empiric
             \widehat{R_n}(h) - R(h)
         }\ge\epsilon
     }
+\end{align*}
+
+\noindent \textbf{Remark} : This is trivial improvement. However, define the following subset of $\mathcal{H}$:
+\begin{align*}
+    H^+_\epsilon = \bigCurl{h \in \mathcal{H} : R(h) \ge \epsilon}
+\end{align*}
+
+\noindent We can improve the bound in proposition \ref{prop:zero_error_bound} as followed:
+\begin{align*}
+    P(\Omega_\epsilon) \le |H^+_\epsilon|e^{-n\epsilon}
 \end{align*}
 
 \newpage
