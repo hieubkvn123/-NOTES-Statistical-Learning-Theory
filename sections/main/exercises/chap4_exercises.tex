@@ -1,0 +1,29 @@
+\subsection{End of chapter exercises}
+\begin{exercise}{}{exercise_4.1}
+    The probability of error is not the only performance measure for binary classification. Indeed, the
+    probability of error depends on the prior probability of the class label $Y$, and it may be that the
+    frequency of the classes changes from training to testing data. In such cases, it is desirable to have a performance measure that does not require knowledge of the prior class probability. Let $P_y$ be the class conditional distribution of class $y\in\{0,1\}$. Define $R_y(h)=P_y(h(X) \ne y)$. Also let $\alpha \in (0,1)$. For $\mathcal{H}\subset\{0,1\}^{\mathcal{X}}$, define:
+
+    \begin{align*}
+        R^*_{\mathcal{H}, 1} &= \inf_{h\in\mathcal{H}} R_1(h) \\
+        &\text{s.t. } R_0(h) \le \alpha 
+    \end{align*}
+
+    In this problem you will investigate a discrimination rule that is probably approximately correct with respect to the above criterion, which is sometimes called the Neyman-Pearson criterion based on connections to the Neyman-Pearson lemma in hypothesis testing.
+
+    \noindent Suppose we observe $X_1^y, X_2^y, \dots, X_{n_y}^y \sim P_y$ for $y\in\{0,1\}$. Define the empirical errors:
+    \begin{align*}
+        \widehat{R_y}(h) = \frac{1}{n_y} \sum_{i=1}^{n_y} \1{h(X_i^y) \ne y}
+    \end{align*}
+
+    Fix $\epsilon > 0$ and consider the discrimination rule:
+    \begin{align*}
+        \widehat{h_m} &= \arg\min_{h\in\mathcal{H}} \widehat{R_1}(h) \\
+        &\text{s.t. } \widehat{R_0}(h) \le \alpha + \frac{\epsilon}{2} 
+    \end{align*}
+
+    Suppose $\mathcal{H}$ is finite. Show that with high probability:
+    \begin{align*}
+        R_0(\widehat{h_n}) \le \alpha + \epsilon \text{ and } R_1(\widehat{h_n}) \le R^*_{\mathcal{H}, 1} + \epsilon
+    \end{align*}
+\end{exercise}

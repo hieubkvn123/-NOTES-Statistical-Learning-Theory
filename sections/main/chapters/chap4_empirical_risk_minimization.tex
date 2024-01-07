@@ -239,4 +239,88 @@
 
 
 \subsection{Zero-error case}
+In the following proposition, we can obtain a tighter bound for the zero empirical risk case. However, it is not particularly useful in many cases.
+
+\begin{proposition}{Zero-error case bound}{zero_error_bound}
+    If $\widehat{R_n}(\widehat{h_n})=0$ and $|\mathcal{H}| < \infty$, we have:
+    \begin{align*}
+        P\biggRound{
+            \exists h \in \mathcal{H} : \widehat{R_n}(h) = 0, R(h)\ge\epsilon
+        } \le \underbrace{|\mathcal{H}|e^{-n\epsilon}}_{\delta}
+    \end{align*}
+
+    \noindent Meaning, with probability of at least $1-\delta$, if $\widehat{R_n}(h)=0$ then $R(h)\le \frac{1}{n}(\log|\mathcal{H}| - \log\delta)$.
+\end{proposition}
+
+\begin{proof*}[Proposition \ref{prop:zero_error_bound}]
+    Let $\Omega_0(h) = \bigCurl{\widehat{R_n}(h) = 0}$ and define the event $\Omega_\epsilon$ as:
+    \begin{align*}
+        \Omega_\epsilon = \bigcup_{h\in\mathcal{H}; R(h)\ge\epsilon} \Omega_0(h) = \biggCurl{
+            \exists h \in \mathcal{H} : \widehat{R_n}(h) = 0, R(h)\ge\epsilon
+        } 
+    \end{align*}
+
+    \noindent For any $h\in\mathcal{H}$ such that $R(h)\ge\epsilon$, we have:
+    \begin{align*}
+        P(\Omega_0(h))
+            &= P\biggRound{ \frac{1}{n}\sum_{i=1}^n \1{h(X_i) \ne Y_i} = 0 } \\
+            &= P\biggRound{ \sum_{i=1}^n \1{h(X_i) \ne Y_i} = 0 } \\
+            &= P\biggRound{ \bigcup_{i=1}^n \bigCurl{ h(X_i) = Y_i } } \\
+            &= \prod_{i=1}^n P(h(X_i) = Y_i) \ \ \ (\text{Since all } (X_i, Y_i) \text{ pairs are independent})
+    \end{align*}
+
+    \noindent Each $\1{h(X_i) \ne Y_i}$ is a Bernoulli variable with hit probability $p_i=1-\mathbb{E}\bigSquare{ h(X_i) \ne Y_i} = 1 - R(h)$. Hence, we have:
+    \begin{align*}
+        P(\Omega_0(h))
+            &= \prod_{i=1}^n P(h(X_i) = Y_i) \\
+            &= (1 - R(h))^n \\
+            &\le (1-\epsilon)^n
+    \end{align*}
+
+    \noindent Using the inequality $\log(1-\epsilon) \le -\epsilon$, we have:
+    \begin{align*}
+        P(\Omega_0(h))
+            &\le (1-\epsilon)^n = e^{n\log(1-\epsilon)} \\
+            &\le e^{-n\epsilon}
+    \end{align*}
+
+    \noindent Finally, we have:
+    \begin{align*}
+        P(\Omega_\epsilon)
+            &= P\biggRound{\bigcup_{h\in\mathcal{H}; R(h)\ge\epsilon} \Omega_0(h)} \\
+            &\le \sum_{h\in\mathcal{H}; R(h)\ge\epsilon} P(\Omega_0(h)) \\
+            &\le \sum_{h\in\mathcal{H}; R(h)\ge\epsilon} e^{-n\epsilon} \\
+            &\le |\mathcal{H}|e^{-n\epsilon}
+    \end{align*}
+\end{proof*}
+
+
+\noindent \textbf{Remark} : Note that the bound obtained in proposition \ref{prop:zero_error_bound} is \underline{NOT} the Uniform Deviation Bound (UDB) because we have:
+\begin{align*}
+    \biggCurl{
+        \sup_{h\in\mathcal{H}} \bigAbs{
+            \widehat{R_n}(h) - R(h)
+        }\ge\epsilon
+    }
+    = 
+    \biggCurl{
+        \exists h \in \mathcal{H} :  \bigAbs{
+            \widehat{R_n}(h) - R(h)
+        }\ge\epsilon
+    }
+\end{align*}
+
+\noindent Therefore, we have:
+\begin{align*}
+    \biggCurl{
+        \exists h \in \mathcal{H} : \widehat{R_n}(h) = 0, R(h)\ge\epsilon
+    } \subseteq \biggCurl{
+        \sup_{h\in\mathcal{H}} \bigAbs{
+            \widehat{R_n}(h) - R(h)
+        }\ge\epsilon
+    }
+\end{align*}
+
+\newpage
+\input{sections/main/exercises/chap4_exercises.tex}
 
