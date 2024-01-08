@@ -58,7 +58,33 @@
 \end{theorem}
 
 \begin{proof*}[Theorem \ref{thm:neyman_pearson_lemma}]
-    
+    Note that the rejection region $\mathcal{R} = \biggCurl{ x \in \mathbb{R} : L(x) = \frac{f_1(x)}{f_0(x)} > c }$ maximizes the quantity:
+    \begin{align*}
+        \int_{\mathcal{R}} (f_1(x) - cf_0(x))dx
+    \end{align*}
+
+    \noindent Because $f_1(x) - cf_0(x) < 0$ for all $x\notin\mathcal{R}$. Therefore, for any other test with rejection region $\mathcal{R}'$ with significance level of at most $\alpha$, we have:
+    \begin{align*}
+        \int_{\mathcal{R}} (f_1(x) - cf_0(x))dx 
+            &\ge \int_{\mathcal{R}'} (f_1(x) - cf_0(x))dx \\
+        \implies
+        P_{H_1}(\mathcal{R}) - P_{H_1}(\mathcal{R}') 
+            &\ge 
+            c \biggRound{
+                \int_{\mathcal{R}} f_0(x)dx -  \int_{\mathcal{R}'} f_0(x)dx
+            } \\
+            &= c \biggRound{
+                \alpha -  \int_{\mathcal{R}'} f_0(x)dx
+            } \\
+    \end{align*} 
+
+    \noindent Since $\int_{\mathcal{R}'} f_0(x)dx \le \alpha$, we have:
+    \begin{align*}
+        P_{H_1}(\mathcal{R}) - P_{H_1}(\mathcal{R}') 
+            &\ge 0 \implies P_{H_1}(\mathcal{R}') \le P_{H_1}(\mathcal{R})
+    \end{align*} 
+
+    \noindent Hence, for any test with significance level of at most $\alpha$, the power is at most the power of the likelihood ratio test $P_{H_1}(\mathcal{R})$.
 \end{proof*}
 
 
