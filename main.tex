@@ -12,6 +12,18 @@
 \begin{document}
 %% ========================================================================= %%
 
+%% Return to content button %%
+\AddToShipoutPicture{%
+\begin{tikzpicture}[remember picture,overlay]
+    \node [rectangle, anchor=center, yshift=2cm] 
+    (box\thepage) at 
+    (current page.south){\hyperlink{mytableofcontents}{
+        \centering
+        \includegraphics[width=0.5cm]{figures/back_to_top_button.png}}\\
+        \textit{\ \underline{Return to contents}}
+    };
+\end{tikzpicture}}
+
 %% Title page %%
 \maketitle
 

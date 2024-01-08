@@ -15,9 +15,9 @@
 \begin{definition}[Type I \& Type II errors]
     In hypothesis testing, we define the type I error as the probability that we falsely reject the null hypothesis given that the null hypothesis is true. On the other hands, type II error is the probability that we falsely accept the null hypothesis given that the hypothesis is not true:
     \begin{align*}
-        \alpha &= P(\mathcal{R} | H_0) = \int_\mathcal{R} f_0(x)dx 
+        \alpha &= P_{H_0}(\mathcal{R}) = \int_\mathcal{R} f_0(x)dx 
         \\ 
-        \beta &= P(\overline{\mathcal{R}} | H_1) = 1 - \int_\mathcal{R} f_1(x)dx
+        \beta &= P_{H_1}(\overline{\mathcal{R}}) = 1 - \int_\mathcal{R} f_1(x)dx
     \end{align*}
 \end{definition}
 
@@ -42,8 +42,23 @@
 \subsubsection{Neyman-Pearson Lemma}
 \textbf{Overview} : The Neyman-Pearson Lemma is concerned with maximizing the power of hypothesis test subjected to a certain degree of type I error. Formally, we are trying to solve the following constrained optimization problem:
 \begin{align*}
-    .
+    \text{maximize} &: P_{H_1}(\mathcal{R}) = \int_\mathcal{R} f_1(x)dx 
+    \\
+    \text{subjected to} &: P_{H_0}(\mathcal{R}) = \int_\mathcal{R}f_0(x) dx \le \alpha
 \end{align*}
 
+\begin{theorem}{Neyman-Pearson Lemma}{neyman_pearson_lemma}
+    Let $H_0$ and $H_1$ be simple hypotheses. For a constant $c>0$, suppose the likelihood ratio test rejects $H_0$ when $L(X) > c$ has significance level $\alpha\in(0,1)$. \textbf{Then for any other test of $H_0$ with significance level of at most $\alpha$, its power against $H_1$ is at most the power of the likelihood ratio test.}
+
+    \begin{align*}
+        \mathcal{R} = \biggCurl{
+            x \in \mathbb{R} : L(x) = \frac{f_1(x)}{f_0(x)} > c
+        }
+    \end{align*}
+\end{theorem}
+
+\begin{proof*}[Theorem \ref{thm:neyman_pearson_lemma}]
+    
+\end{proof*}
 
 
