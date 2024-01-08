@@ -29,5 +29,135 @@
 \end{exercise}
 
 \begin{solution*}[Exercise \ref{ex:exercise_4.1}]
-    
+We will prove each point one by one:
+
+\begin{itemize}
+\item ${\bf (i)} \ R_0(\widehat{h_n}) \le \alpha + \epsilon$ \textbf{with high probability}. 
+
+\begin{subproof}{\newline Claim 1 : $\forall y \in \{0,1\}, \epsilon>0 : P\biggRound{ \sup_{h\in\mathcal{H}} \biggAbs{ \widehat{R_y}(h) - R_y(h) } \ge \epsilon } \le 2|\mathcal{H}|e^{-2n\epsilon^2}$}
+    We have that $n\widehat{R_n}(h)\sim Binomial(n, R_y(h))$ for all $h\in\mathcal{H}$. Hence, we have:
+    \begin{align*}
+        P\biggRound{
+            \biggAbs{\widehat{R_y}(h) - R_y(h)} \ge \epsilon
+        }
+        &= 
+        P\biggRound{
+            \biggAbs{n\widehat{R_y}(h) - nR_y(h)} \ge n\epsilon
+        } \\
+        &= 
+        P\biggRound{
+            \biggAbs{n\widehat{R_y}(h) - \mathbb{E}\bigSquare{n\widehat{R_y}(h)}} \ge n\epsilon
+        } \\
+        &\le 
+        2\exp\biggRound{
+            -\frac{2n^2\epsilon^2}{n}
+        } = 
+        2e^{-2n\epsilon^2} \ \ \ (\text{Hoeffding's inequality})
+    \end{align*}
+
+    \noindent From the above, we have:
+    \begin{align*}
+        P\biggRound{
+            \sup_{h\in\mathcal{H}} \biggAbs{
+                \widehat{R_y}(h) - R_y(h)
+            } \ge \epsilon
+        } 
+        &= 
+        P\biggRound{
+            \bigcup_{h\in\mathcal{H}} \biggCurl{ \bigAbs{
+                \widehat{R_y}(h) - R_y(h)
+            } \ge \epsilon
+        } } \\
+        &\le 
+        \sum_{h\in\mathcal{H}} P\biggRound{ 
+            \bigAbs{
+                \widehat{R_y}(h) - R_y(h)
+            } \ge \epsilon
+        } \\
+        &\le
+        \sum_{h\in\mathcal{H}} 2e^{-2n\epsilon^2} = 2|\mathcal{H}|e^{-2n\epsilon^2}
+    \end{align*}
+\end{subproof}
+
+\noindent\newline From the assumption, we have:
+\begin{align*}
+    \widehat{R_0}(\widehat{h_n}) \le \alpha + \frac{\epsilon}{2}
+\end{align*}
+
+\noindent Hence, we have:
+\begin{align*}
+    R_0(\widehat{h_n})
+        &= \widehat{R_0}(\widehat{h_n}) + R_0(\widehat{h_n}) - \widehat{R_0}(\widehat{h_n}) \\
+        &\le \alpha + \frac{\epsilon}{2} + \bigAbs{R_0(\widehat{h_n}) - \widehat{R_0}(\widehat{h_n})} \\
+        &\le \alpha + \frac{\epsilon}{2} + \sup_{h\in\mathcal{H}}\bigAbs{
+            R_0(\widehat{h_n}) - \widehat{R_0}(\widehat{h_n})
+        }
+\end{align*}
+
+\noindent From \textbf{Claim 1}, we know that:
+\begin{align*}
+    P\biggRound{
+        \sup_{h\in\mathcal{H}} \biggAbs{
+            R_0(h) - \widehat{R_0}(h)
+        } \ge\frac{\epsilon}{2}
+    } &\le 2|\mathcal{H}|e^{-n\epsilon^2/2} \\
+    \implies
+    P\biggRound{
+        \sup_{h\in\mathcal{H}} \biggAbs{
+            R_0(h) - \widehat{R_0}(h)
+        } \le\frac{\epsilon}{2}
+    } &\ge 1 - 2|\mathcal{H}|e^{-n\epsilon^2/2} 
+\end{align*}
+
+\noindent Hence, with probability of at least $1 - 2|\mathcal{H}|e^{-n\epsilon^2/2}$, we have:
+\begin{align*}
+    R_0(\widehat{h_n}) \le \alpha + \frac{\epsilon}{2} + \frac{\epsilon}{2} = \alpha + \epsilon
+\end{align*}
+
+\item ${\bf (ii)} \ R_1(\widehat{h_n}) \le R_{\mathcal{H}, 1}^* + \epsilon \textbf{ with high probability}$.
+
+\begin{subproof}{\newline Claim 2 : $R_1(\widehat{h_n}) - R_{\mathcal{H},1}^* \le 2\sup_{h\in\mathcal{H}}\bigAbs{\widehat{R_1}(h) - R_1(h)}$}
+    Let $h' \in \mathcal{H}$ be any function such that $\widehat{R_0}(h') \le \alpha + \frac{\epsilon}{2}$. We have:
+    \begin{align*}
+        R_1(\widehat{h_n}) - R^*_{\mathcal{H},1}
+            &= R_1(\widehat{h_n}) - \widehat{R_1}(\widehat{h_n}) 
+             + \widehat{R_1}(\widehat{h_n}) - \widehat{R_1}(h')
+             + \widehat{R_1}(h') - R^*_{\mathcal{H}, 1} \\
+            &\le \bigAbs{R_1(\widehat{h_n}) - \widehat{R_1}(\widehat{h_n})}
+                + \underbrace{\widehat{R_1}(\widehat{h_n}) - \widehat{R_1}(h')}_{\le 0}
+                + \bigAbs{\widehat{R_1}(h') - R^*_{\mathcal{H}, 1}} \\
+            &\le \bigAbs{R_1(\widehat{h_n}) - \widehat{R_1}(\widehat{h_n})}
+            + \bigAbs{\widehat{R_1}(h') - R^*_{\mathcal{H}, 1}} \\
+            &\le 2\sup_{h\in\mathcal{H}} \bigAbs{
+                \widehat{R_1}(h) - R_1(h) 
+            }
+    \end{align*}
+\end{subproof}
+
+\noindent From \textbf{Claim 2}, we have:
+\begin{align*}
+    P\bigRound{
+        R_1(\widehat{h_n}) - R^*_{\mathcal{H}, 1} \ge \epsilon
+    } 
+    &\le
+    P\bigRound{
+        2\sup_{h\in\mathcal{H}} \bigAbs{
+            \widehat{R_1}(h) - R_1(h) 
+        } \ge \epsilon
+    }  \\
+    &= P\bigRound{
+        \sup_{h\in\mathcal{H}} \bigAbs{
+            \widehat{R_1}(h) - R_1(h) 
+        } \ge \frac{\epsilon}{2}
+    }  \\
+    &\le 2|\mathcal{H}|e^{-n\epsilon^2/2} \ \ \ (\text{From }\textbf{Claim 1}) \\
+    \implies 
+    P\bigRound{
+        R_1(\widehat{h_n}) - R^*_{\mathcal{H}, 1} \le \epsilon
+    } &\ge 1 - 2|\mathcal{H}|e^{-n\epsilon^2/2} 
+\end{align*}
+
+\noindent Hence, with probability of at least $1 - 2|\mathcal{H}|e^{-n\epsilon^2/2}$, we have that $R_1(\widehat{h_n}) \le R^*_{\mathcal{H}, 1} + \epsilon$.
+
+\end{itemize}
 \end{solution*}
