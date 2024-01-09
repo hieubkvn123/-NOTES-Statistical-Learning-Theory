@@ -1,5 +1,7 @@
 \newpage\section{Vapnik-Chevronenkis Theory}
-\subsection{VC Theorem}
+In the following section, we will review a notion for measuring complexity of function class called \textbf{VC dimension}. Later on in this note, we will show that VC dimension is an upper-bound for the \textbf{Rademacher Complexity}.
+
+\subsection{VC Dimension}
 \begin{definition}[Restriction ($N_\mathcal{H}$)]
     Let $\Hf \in \{0,1\}^\X$ be a set of classifiers. The \textbf{restriction} of $\Hf$ to a finite subset $C\subset\X$ where $|C| = n$ is the set of binary vectors defined by:
     \begin{align*}
@@ -19,6 +21,11 @@
         \boxed{S_\Hf(n) = \max_{C\subset\X; |C|=n} \bigAbs{N_\Hf (C)}}
     \end{align*}
 
+    \noindent Hence, we have:
+    \begin{align*}
+        |N_\Hf(C)| \le S_\Hf(n) \le 2^n, \ \forall C \subset \X
+    \end{align*}
+
     \noindent Intuitively, the $n^{th}$ shattering coefficient is the size of the largest $n$-element restriction of $\Hf$. It measures the \textbf{richness} of $\Hf$.
 
     \noindent\newline If $S_\Hf(n)=2^n$. Then $\exists C\subset\X, |C|=n$ such that $\bigAbs{N_\Hf(C)}=2^n$. We then say that $\Hf$ \textbf{shatters the points in} $C$.
@@ -35,8 +42,42 @@
     \noindent If $S_\Hf(n)=2^n, \forall n \ge 1$ then $V_\Hf=\infty$.  
 \end{definition}
 
-\textbf{Remark} : To show that $V_\Hf=n$, we must show that there exists at least $n$ points $x_1, \dots, x_n$ shattered by $\Hf$ and no set of $n+1$ points can be shattered by $\Hf$. 
+\noindent\textbf{Remark} : Note that when $|\Hf| < \infty$, we have:
+\begin{align*}
+    |N_\Hf(C)| &= \bigAbs{
+        \{(h(x_1), \dots, h(x_n)) : h\in\Hf, x_i \in C\}
+    } \le |\Hf| \\
+    \implies S_\Hf(n) &\le |\Hf| \\
+    \implies V_\Hf &\le \log_2|\Hf|
+\end{align*}
 
+
+\noindent \textbf{Remark} : To show that $V_\Hf=n$, we must show that there exists at least $n$ points $x_1, \dots, x_n$ shattered by $\Hf$ and no set of $n+1$ points can be shattered by $\Hf$. 
+
+\noindent\newline \textbf{Remark} : From the above definitions, we can understand $N_\Hf, S_\Hf$ and $V_\Hf$ as followed:
+\begin{itemize}
+    \item $N_\Hf(C)$ : Number of ways to assign labels to $C\subset \X$ of size $n\ge1$.
+    \item $S_\Hf(n)$ : Maximum number of ways to assign labels to subsets of size $n\ge1$.
+    \item $V_\Hf$ : Maximum subset size $n\ge1$ such that we have $2^n$ ways to assign labels (fully labelled).
+\end{itemize}
+
+
+
+\subsection{Sauer's Lemma}
+\begin{theorem}{Sauer's Lemma}{sauer_lemma}
+    This is a bound on the shatter coefficient. Let $V=V_\Hf\le\infty$. For all $n\ge1$, we have:
+    \begin{align*}
+        S_\Hf(n) \le \sum_{k = 0}^V \begin{pmatrix}
+            n \\ k
+        \end{pmatrix}
+    \end{align*}
+\end{theorem}
+
+\begin{proof*}[Theorem \ref{thm:sauer_lemma}]
+    
+\end{proof*}
+
+\subsection{VC Theorem}
 \begin{theorem}{Uniform Deviation Bounds for non-finite $\Hf$}{udb_non_finite_h}
     For any $n\ge1$ and $\epsilon>0$, we have:
     \begin{align*}
@@ -49,7 +90,84 @@
 \end{theorem}
 
 \begin{proof*}[Theorem \ref{thm:udb_non_finite_h}]
-    The proof for this theorem will be mentioned later in section \ref{sec:proof_of_vc_inequality}.
+    The proof for this theorem will be mentioned later in section \ref{sec:proof_of_vc_inequality}. For now, we will assume that it is true to prove the following corollaries.
 \end{proof*}
+
+\begin{corollary}{Convergence of Empirical Risk (VC-Theorem)}{convergence_of_emp_risk_vc}
+    If $\widehat{h_n}$ is an empirical risk minimizer over $\Hf$ then:
+    \begin{align*}
+        P\bigRound{
+            R(\widehat{h_n}) - R_\Hf^* \ge \epsilon
+        } \le 8S_\Hf(n)e^{-n\epsilon^2/128}
+    \end{align*}
+\end{corollary}
+
+\begin{proof*}[Corollary \ref{coro:convergence_of_emp_risk_vc}]
+    We have:
+    \begin{align*}
+        P\bigRound{
+            R(\widehat{h_n}) - R_\Hf^* \ge \epsilon
+        } 
+        &\le 
+        P\biggRound{
+            2\sup_{h\in\Hf} \bigAbs{\widehat{R_n}(h) - R(h)} \ge \epsilon
+        } \\
+        &= 
+        P\biggRound{
+            \sup_{h\in\Hf} \bigAbs{\widehat{R_n}(h) - R(h)} \ge \frac{\epsilon}{2}
+        } \\
+        &\le 8S_\Hf(n)e^{-n(\epsilon/2)^2/32} = 8S_\Hf(n)e^{-n\epsilon^2/128}
+    \end{align*}
+\end{proof*}
+
+
+\begin{corollary}{Excess Risk of $\widehat{h_n}$ - $\delta\to\epsilon$ relation (VC-Theorem)}{empirical_risk_delta_epsilon_vc}
+    If $V_\Hf <\infty$ then $\Hf$ is uniformly learnable by ERM. Specifically, we can define the sample complexity as:
+    \begin{align*}
+        N(\epsilon, \delta) = \frac{128}{\epsilon^2}\biggRound{
+            V_\Hf \log(n+1) - \log\frac{\delta}{8}
+        }
+    \end{align*}
+
+    \noindent In other words, with probability of at least $1-\delta$, we have:
+    \begin{align*}
+        R(\widehat{h_n}) \le R_\Hf^* + \sqrt{
+            \frac{128}{n}\biggRound{
+                V_\Hf\log(n+1) - \log\frac{\delta}{8}
+            }
+        }
+    \end{align*}
+\end{corollary}
+
+\begin{proof*}[Corollary \ref{coro:empirical_risk_delta_epsilon_vc}]
+    Let $\delta = 8S_\Hf(n)e^{-n\epsilon^2/128}$. By corollary \ref{coro:convergence_of_emp_risk_vc}, with probability of at least $1-\delta$, we have:
+    \begin{align*}
+        R(\widehat{h_n}) &\le R_\Hf^* + \epsilon \\
+        &= R_\Hf^* + \sqrt{
+            \frac{128}{n}\biggRound{
+                \log S_\Hf(n) - \log\frac{\delta}{8}
+            }
+        }
+    \end{align*}
+
+    \noindent By Sauer's lemma, we have that $(n+1)^{V_\Hf}\ge S_\Hf(n)$ for all $n\ge 1$. Hence, we have:
+    \begin{align*}
+        R(\widehat{h_n}) &\le R_\Hf^* + \sqrt{
+            \frac{128}{n}\biggRound{
+                \log S_\Hf(n) - \log\frac{\delta}{8}
+            }
+        } \\
+        &\le R_\Hf^* + \sqrt{
+            \frac{128}{n}\biggRound{
+                V_\Hf\log(n+1) - \log\frac{\delta}{8}
+            }
+        }
+    \end{align*}
+\end{proof*}
+
+\subsection{VC Classes}
+
+
+
 
 
