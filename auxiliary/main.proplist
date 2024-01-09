@@ -1,8 +1,7 @@
-\contentsline {tcolorbox}{\numberline {1.1}Law of total expectation}{2}{tcb@cnt@proposition.1.1}%
-\contentsline {tcolorbox}{\numberline {2.1}Likelihood ratio test}{8}{tcb@cnt@proposition.2.1}%
-\contentsline {tcolorbox}{\numberline {3.1}Markov's Inequality}{13}{tcb@cnt@proposition.3.1}%
-\contentsline {tcolorbox}{\numberline {3.2}KL-divergence hypothesis testing}{17}{tcb@cnt@proposition.3.2}%
-\contentsline {tcolorbox}{\numberline {4.1}Uniform Deviation Bounds for finite $\mathcal {H}$}{21}{tcb@cnt@proposition.4.1}%
-\contentsline {tcolorbox}{\numberline {4.2}(Probabilistic) Bound on Excess Risk of $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle h_n$}\mathaccent "0362{h_n}$}{22}{tcb@cnt@proposition.4.2}%
-\contentsline {tcolorbox}{\numberline {4.3}(Non-probabilistic) Bound on Excess Risk of $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle h_n$}\mathaccent "0362{h_n}$}{23}{tcb@cnt@proposition.4.3}%
-\contentsline {tcolorbox}{\numberline {4.4}Zero-error case bound}{25}{tcb@cnt@proposition.4.4}%
+\contentsline {tcolorbox}{\numberline {1.1}Law of total expectation}{3}{tcb@cnt@proposition.1.1}%
+\contentsline {tcolorbox}{\numberline {2.1}Likelihood ratio test}{9}{tcb@cnt@proposition.2.1}%
+\contentsline {tcolorbox}{\numberline {3.1}Markov's Inequality}{14}{tcb@cnt@proposition.3.1}%
+\contentsline {tcolorbox}{\numberline {3.2}KL-divergence hypothesis testing}{18}{tcb@cnt@proposition.3.2}%
+\contentsline {tcolorbox}{\numberline {4.1}(Probabilistic) Bound on Excess Risk of $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle h_n$}\mathaccent "0362{h_n}$}{23}{tcb@cnt@proposition.4.1}%
+\contentsline {tcolorbox}{\numberline {4.2}(Non-probabilistic) Bound on Excess Risk of $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle h_n$}\mathaccent "0362{h_n}$}{24}{tcb@cnt@proposition.4.2}%
+\contentsline {tcolorbox}{\numberline {4.3}Zero-error case bound}{26}{tcb@cnt@proposition.4.3}%

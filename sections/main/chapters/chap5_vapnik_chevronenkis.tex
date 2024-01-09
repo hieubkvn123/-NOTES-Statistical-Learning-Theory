@@ -1,1 +1,55 @@
 \newpage\section{Vapnik-Chevronenkis Theory}
+\subsection{VC Theorem}
+\begin{definition}[Restriction ($N_\mathcal{H}$)]
+    Let $\Hf \in \{0,1\}^\X$ be a set of classifiers. The \textbf{restriction} of $\Hf$ to a finite subset $C\subset\X$ where $|C| = n$ is the set of binary vectors defined by:
+    \begin{align*}
+        \boxed{
+        N_\Hf(C) = \bigCurl{
+            (h(x_1), \dots, h(x_n)) : h\in\Hf, x_i \in C
+        } 
+        }
+    \end{align*}
+
+    \noindent Clearly, we have $|N_\Hf(C)| \le 2^n$ (cardinality of powerset of $C$).
+\end{definition}
+
+\begin{definition}[Shattering Coefficient ($S_\Hf$)]
+    The $n^{th}$ \textbf{Shattering coefficient} (sometimes called the \textbf{Growth function}) is defined as:
+    \begin{align*}
+        \boxed{S_\Hf(n) = \max_{C\subset\X; |C|=n} \bigAbs{N_\Hf (C)}}
+    \end{align*}
+
+    \noindent Intuitively, the $n^{th}$ shattering coefficient is the size of the largest $n$-element restriction of $\Hf$. It measures the \textbf{richness} of $\Hf$.
+
+    \noindent\newline If $S_\Hf(n)=2^n$. Then $\exists C\subset\X, |C|=n$ such that $\bigAbs{N_\Hf(C)}=2^n$. We then say that $\Hf$ \textbf{shatters the points in} $C$.
+\end{definition}
+
+\begin{definition}[VC-dimension ($V_\Hf$)]
+    The \textbf{VC dimension} of $\Hf$ is defined as:
+    \begin{align*}
+        \boxed{V_\Hf = \max\bigCurl{
+            n : S_\Hf (n) = 2^n
+        }}
+    \end{align*}
+
+    \noindent If $S_\Hf(n)=2^n, \forall n \ge 1$ then $V_\Hf=\infty$.  
+\end{definition}
+
+\textbf{Remark} : To show that $V_\Hf=n$, we must show that there exists at least $n$ points $x_1, \dots, x_n$ shattered by $\Hf$ and no set of $n+1$ points can be shattered by $\Hf$. 
+
+\begin{theorem}{Uniform Deviation Bounds for non-finite $\Hf$}{udb_non_finite_h}
+    For any $n\ge1$ and $\epsilon>0$, we have:
+    \begin{align*}
+        P\biggRound{
+            \sup_{h\in\Hf} \bigAbs{
+                \widehat{R_n}(h) - R(h)
+            } \ge \epsilon
+        } \le 8S_\Hf(n) e^{-n\epsilon^2/32}
+    \end{align*}
+\end{theorem}
+
+\begin{proof*}[Theorem \ref{thm:udb_non_finite_h}]
+    The proof for this theorem will be mentioned later in section \ref{sec:proof_of_vc_inequality}.
+\end{proof*}
+
+

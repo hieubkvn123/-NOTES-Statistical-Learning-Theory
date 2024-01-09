@@ -42,16 +42,16 @@
     \noindent Basically, we want to \textbf{bound the probability that some function deviates too far from the true risk}.
 \end{definition}
 
-\begin{proposition}{Uniform Deviation Bounds for finite $\mathcal{H}$}{udb_for_finite_H}
+\begin{theorem}{Uniform Deviation Bounds for finite $\mathcal{H}$}{udb_for_finite_H}
     Assume that $|\mathcal{H}| < \infty$. We have:
     \begin{align*}
         P\biggRound{
             \sup_{h\in\mathcal{H}}\bigAbs{\widehat{R_n}(h) - R(h)} \ge \epsilon
         } &\le 2|\mathcal{H}|e^{-2n\epsilon^2}
     \end{align*}
-\end{proposition}
+\end{theorem}
 
-\begin{proof*}[Proposition \ref{prop:udb_for_finite_H}]
+\begin{proof*}[Theorem \ref{thm:udb_for_finite_H}]
     For $h\in\mathcal{H}$, define the following event:
     \begin{align*}
         \Omega_\epsilon(h) = \bigCurl{
