@@ -75,7 +75,7 @@ In the following section, we will review a notion for measuring complexity of fu
     \end{align*}
 \end{theorem}
 
-\begin{proof*}[Theorem \ref{thm:sauer_lemma}]
+\begin{proof*}[Theorem \ref{thm:sauer_lemma}, cited \cite{course:machine_learning_theory}]
     Given a function class $\Hf$ and a subset $C\subset\X$. For brevity, denote the restriction of $\Hf$ to $C$ as:
     \begin{align*}
         N_\Hf(C) = \Hf_C
@@ -192,12 +192,78 @@ In the following section, we will review a notion for measuring complexity of fu
                     n\\k
                 \end{pmatrix}
         \end{align*}
+
+        \noindent Taking the supremum over $C\subset\X$ for both sides, we have:
+        \begin{align*}
+            S_\Hf(n) \le \sum_{k=0}^d \begin{pmatrix}
+                n\\k
+            \end{pmatrix}
+        \end{align*}
     \end{itemize}
 \end{proof*}
 
 \begin{corollary}{Sauer's lemma - bound on $S_\Hf(n)$ I}{sauer_bound_on_shattering_coeff_I}
-    
+    If $d=V_\Hf < \infty$, for all $n\ge1$, we have:
+    \begin{align*}
+        S_\Hf(n) \le (n+1)^d
+    \end{align*}
 \end{corollary}
+
+\begin{proof*}[Corollary \ref{coro:sauer_bound_on_shattering_coeff_I}]
+    By Binomial theorem, we have:
+    \begin{align*}
+        (n+1)^d &= \sum_{k=1}^d n^k \begin{pmatrix} d \\ k \end{pmatrix} \\
+        &= \sum_{k=1}^d n^k \frac{d!}{k!(d-k)!} \\
+        &\ge \sum_{k=1}^d \frac{n^k}{k!} \ge \sum_{k=1}^d\frac{n!}{(n-k)!k!} = \sum_{k=1}^d \begin{pmatrix}
+            n \\ k
+        \end{pmatrix} \ge S_\Hf(n)
+    \end{align*}
+\end{proof*}
+
+\begin{corollary}{Sauer's lemma - bound on $S_\Hf(n)$ II}{sauer_bound_on_shattering_coeff_II}
+    For all $n\ge d=V_\Hf$, we have:
+    \begin{align*}
+        S_\Hf(n) \le \biggRound{
+            \frac{ne}{d}
+        }^d
+    \end{align*}
+\end{corollary}
+
+\begin{proof*}[Corollary \ref{coro:sauer_bound_on_shattering_coeff_II}]
+    For $\frac{d}{n} < 1$, we have:
+    \begin{align*}
+        \biggRound{\frac{d}{n}}^d \sum_{k=0}^d \begin{pmatrix}
+            n \\ k
+        \end{pmatrix} &\le \sum_{k=0}^d \biggRound{\frac{d}{n}}^k \begin{pmatrix}
+            n \\ k
+        \end{pmatrix} \\
+        &\le \sum_{k=0}^n \biggRound{\frac{d}{n}}^k \begin{pmatrix}
+            n \\ k 
+        \end{pmatrix} \\
+        &= \biggRound{1 + \frac{d}{n}}^n \le e^d
+    \end{align*}
+
+    \noindent Hence, we have:
+    \begin{align*}
+        \biggRound{\frac{en}{d}}^d \ge \sum_{k=0}^d \begin{pmatrix}
+            n \\ k
+        \end{pmatrix} \ge S_\Hf(n)
+    \end{align*}
+\end{proof*}
+
+\begin{corollary}{Sauer's lemma - bound on $S_\Hf(n)$ III}{sauer_bound_on_shattering_coeff_III}
+    If $V_\Hf=d>2$, for all $n\ge d$, we have:
+    \begin{align*}
+        S_\Hf(n) \le n^d
+    \end{align*}
+\end{corollary}
+
+\begin{proof*}[Corollary \ref{coro:sauer_bound_on_shattering_coeff_III}]
+    If $d>2$ then by corollary \ref{coro:sauer_bound_on_shattering_coeff_II}, we have:
+    \begin{align*}
+        \frac{e}{d} < 1 \implies S_\Hf(n) \le \biggRound{\frac{en}{d}}^d \le n^d
+    \end{align*}
+\end{proof*}
 
 \subsection{VC Theorem}
 \begin{theorem}{Uniform Deviation Bounds for non-finite $\Hf$}{udb_non_finite_h}
@@ -283,6 +349,13 @@ In the following section, we will review a notion for measuring complexity of fu
             \frac{128}{n}\biggRound{
                 V_\Hf\log(n+1) - \log\frac{\delta}{8}
             }
+        }
+    \end{align*}
+
+    \noindent\newline Hence, we conclude that $\Hf$ is PAC-learnable by ERM when $V_\Hf<\infty$ with the following sample complexity:
+    \begin{align*}
+        N(\epsilon, \delta) = \frac{128}{\epsilon^2}\biggRound{
+            V_\Hf \log(n+1) - \log\frac{\delta}{8}
         }
     \end{align*}
 \end{proof*}

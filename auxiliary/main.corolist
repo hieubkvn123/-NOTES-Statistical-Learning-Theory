@@ -4,5 +4,7 @@
 \contentsline {tcolorbox}{\numberline {3.3}Convergence of Empirical Risk}{17}{tcb@cnt@corollary.3.3}%
 \contentsline {tcolorbox}{\numberline {4.1}Excess Risk of $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle h_n$}\mathaccent "0362{h_n}$ - $\delta \to \epsilon $ relation}{24}{tcb@cnt@corollary.4.1}%
 \contentsline {tcolorbox}{\numberline {5.1}Sauer's lemma - bound on $S_\mathcal {H}(n)$ I}{33}{tcb@cnt@corollary.5.1}%
-\contentsline {tcolorbox}{\numberline {5.2}Convergence of Empirical Risk (VC-Theorem)}{33}{tcb@cnt@corollary.5.2}%
-\contentsline {tcolorbox}{\numberline {5.3}Excess Risk of $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle h_n$}\mathaccent "0362{h_n}$ - $\delta \to \epsilon $ relation (VC-Theorem)}{34}{tcb@cnt@corollary.5.3}%
+\contentsline {tcolorbox}{\numberline {5.2}Sauer's lemma - bound on $S_\mathcal {H}(n)$ II}{34}{tcb@cnt@corollary.5.2}%
+\contentsline {tcolorbox}{\numberline {5.3}Sauer's lemma - bound on $S_\mathcal {H}(n)$ III}{34}{tcb@cnt@corollary.5.3}%
+\contentsline {tcolorbox}{\numberline {5.4}Convergence of Empirical Risk (VC-Theorem)}{35}{tcb@cnt@corollary.5.4}%
+\contentsline {tcolorbox}{\numberline {5.5}Excess Risk of $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle h_n$}\mathaccent "0362{h_n}$ - $\delta \to \epsilon $ relation (VC-Theorem)}{35}{tcb@cnt@corollary.5.5}%
