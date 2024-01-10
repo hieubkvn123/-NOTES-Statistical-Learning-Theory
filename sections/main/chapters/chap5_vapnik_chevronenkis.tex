@@ -18,7 +18,7 @@ In the following section, we will review a notion for measuring complexity of fu
 \begin{definition}[Shattering Coefficient ($S_\Hf$)]
     The $n^{th}$ \textbf{Shattering coefficient} (sometimes called the \textbf{Growth function}) is defined as:
     \begin{align*}
-        \boxed{S_\Hf(n) = \max_{C\subset\X; |C|=n} \bigAbs{N_\Hf (C)}}
+        \boxed{S_\Hf(n) = \sup_{C\subset\X; |C|=n} \bigAbs{N_\Hf (C)}}
     \end{align*}
 
     \noindent Hence, we have:
@@ -34,8 +34,10 @@ In the following section, we will review a notion for measuring complexity of fu
 \begin{definition}[VC-dimension ($V_\Hf$)]
     The \textbf{VC dimension} of $\Hf$ is defined as:
     \begin{align*}
-        \boxed{V_\Hf = \max\bigCurl{
+        \boxed{V_\Hf = \sup\bigCurl{
             n : S_\Hf (n) = 2^n
+        }=\sup_{C\subset \X}\bigCurl{
+            |C| : \Hf \text{ shatters } C
         }}
     \end{align*}
 
@@ -65,17 +67,137 @@ In the following section, we will review a notion for measuring complexity of fu
 
 \subsection{Sauer's Lemma}
 \begin{theorem}{Sauer's Lemma}{sauer_lemma}
-    This is a bound on the shatter coefficient. Let $V=V_\Hf\le\infty$. For all $n\ge1$, we have:
+    This is a bound on the shatter coefficient. Let $d=V_\Hf\le\infty$. For all $n\ge1$, we have:
     \begin{align*}
-        S_\Hf(n) \le \sum_{k = 0}^V \begin{pmatrix}
+        S_\Hf(n) \le \sum_{k = 0}^d \begin{pmatrix}
             n \\ k
         \end{pmatrix}
     \end{align*}
 \end{theorem}
 
 \begin{proof*}[Theorem \ref{thm:sauer_lemma}]
-    
+    Given a function class $\Hf$ and a subset $C\subset\X$. For brevity, denote the restriction of $\Hf$ to $C$ as:
+    \begin{align*}
+        N_\Hf(C) = \Hf_C
+    \end{align*}
+
+    \noindent To prove the above theorem, we prove a stronger result: For all subset $C\subset\X$ where $|C|=n$, we have
+    \begin{align*}
+        |\Hf_C| \le \bigAbs{
+            \bigCurl{
+                B \subset C : \Hf \text{ shatters } B
+            }
+        } \le \sum_{k=0}^d \begin{pmatrix}
+            n\\k
+        \end{pmatrix}
+    \end{align*}
+
+    \noindent The second inequality holds because no set with size larger than $d$ is shattered by $\Hf$. To prove that the first inequality holds for subsets of any size $n\ge1$, we prove by induction:
+
+    \begin{itemize}
+        \item \textbf{Base case} : Let $n=1$. Hence, we have $C=\{x\}$ for $x\in\X$. Denote that:
+        \begin{align*}
+            \Phi_C = \bigCurl{
+                B \subset C : \Hf \text{ shatters } B
+            }
+        \end{align*}
+        \noindent We have:
+        
+        \[
+            \begin{cases}
+                \Hf \text{ shatters } C &\implies \Hf_C = \{0,1\} , \Phi_C = \{\emptyset, C\}
+                \\ \\
+                \Hf \text{ not shatter } C &\implies \Hf_C = \{0\} \text{ or } \{1\} , \Phi_C = \{\emptyset\}
+            \end{cases}  
+        \]
+
+        \noindent For both cases, we have $|\Hf_C| = |\Phi_C|$.
+
+        \item \textbf{Inductive case} : Assume that the first inequality holds for $n=m-1, m \ge 2$, We have to prove that it holds for $n=m$. Let $C=\{c_1, \dots, c_m\}$ and $C'=\{c_2, \dots, c_m\}$. Define the following label sets:
+        \begin{align*}
+            Y_0 &= \{(y_2, \dots, y_m) : (0, y_2, \dots, y_m) \in \Hf_C \vee (1, y_2, \dots, y_m) \in \Hf_C \}
+            \\ \\
+            Y_1 &= \{(y_2, \dots, y_m) : (0, y_2, \dots, y_m) \in \Hf_C \wedge (1, y_2, \dots, y_m) \in \Hf_C\}
+        \end{align*}
+
+        \noindent First, we notice that $Y_0 = \Hf_{C'}$. Hence, we have:
+        \begin{align*}
+            |Y_0| &= |\Hf_{C'}| \\
+                &\le \bigAbs{
+                    \bigCurl{
+                        B \subset C' : \Hf \text{ shatters } B
+                    }
+                } \\
+                &= \bigAbs{
+                    \bigCurl{
+                        B \subset C : c_1 \notin B, \Hf \text{ shatters } B
+                    }
+                }
+        \end{align*}
+
+        \noindent Next, we define the following sub-class of $\Hf$:
+        \begin{align*}
+            \Hf' = \biggCurl{
+                h \in \Hf : \exists h' \in \Hf \text{ s.t } h'(c) = \begin{cases}
+                    1 - h(c) &\text{if } c=c_1
+                    \\
+                    h(c) &\text{otherwise}
+                \end{cases} 
+            }
+        \end{align*}
+
+        \noindent Note that $Y_1 = \Hf'_{C'}$ and $\Hf'$ shatters $B\in C'$ implies $\Hf'$ shatters $B\cup\{c_1\}$ because for any $h'\in\Hf'$, there is always another function in $\Hf'$ that gives the opposite label to $c_1$. Hence, we have:
+        \begin{align*}
+            |Y_1| &= |\Hf'_{C'}| \\
+                &\le \bigAbs{
+                    \bigCurl{
+                        B \subset C' : \Hf' \text{ shatters } B
+                    }
+                } \\
+                &= \bigAbs{
+                    \bigCurl{
+                        B \subset C' : \Hf' \text{ shatters } B \cup \{c_1\}
+                    }
+                } \\
+                &= \bigAbs{
+                    \bigCurl{
+                        B \subset C : c_1\in B, \Hf' \text{ shatters } B
+                    }
+                } \\
+                &\le \bigAbs{
+                    \bigCurl{
+                        B \subset C : c_1\in B, \Hf \text{ shatters } B
+                    }
+                } 
+        \end{align*}
+
+        \noindent From the above, we have:
+        \begin{align*}
+            |\Hf_C| &= |Y_0| + |Y_1| \\
+                &\le \bigAbs{
+                    \bigCurl{
+                        B \subset C : c_1 \notin B, \Hf \text{ shatters } B
+                    }
+                } + \bigAbs{
+                    \bigCurl{
+                        B \subset C : c_1\in B, \Hf \text{ shatters } B
+                    }
+                } \\
+                &= \bigAbs{
+                    \bigCurl{
+                        B \subset C : \Hf \text{ shatters } B
+                    }
+                } \\
+                &\le \sum_{k=0}^d \begin{pmatrix}
+                    n\\k
+                \end{pmatrix}
+        \end{align*}
+    \end{itemize}
 \end{proof*}
+
+\begin{corollary}{Sauer's lemma - bound on $S_\Hf(n)$ I}{sauer_bound_on_shattering_coeff_I}
+    
+\end{corollary}
 
 \subsection{VC Theorem}
 \begin{theorem}{Uniform Deviation Bounds for non-finite $\Hf$}{udb_non_finite_h}
@@ -164,6 +286,7 @@ In the following section, we will review a notion for measuring complexity of fu
         }
     \end{align*}
 \end{proof*}
+
 
 \subsection{VC Classes}
 
