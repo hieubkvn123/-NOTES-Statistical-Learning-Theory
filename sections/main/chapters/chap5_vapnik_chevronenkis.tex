@@ -362,8 +362,130 @@ In the following section, we will review a notion for measuring complexity of fu
 
 
 \subsection{VC Classes}
+\begin{definition}[VC Class]
+    A \textbf{VC Class} is a set of classifiers $\Hf$ such that $V_\Hf < \infty$. In the following section, we will look at some class of classifiers where the VC dimension can be established or bounded.
+\end{definition}
 
+\noindent\newline\underline{\textbf{Example 1 } (Hypercubes)} : Consider the set of classifiers
+\begin{align*}
+    \Hf = \biggCurl{
+        \1{x \in R} : R = \prod_{i=1}^d [a_i, b_i], \ a_i < b_i
+    }
+\end{align*}
 
+\noindent In this case, for any $d\ge1$, no more than $2d+1$ points can be shattered by $\Hf$. Hence, $V_\Hf=2d$.
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{figures/vc_class_hypercubes_example.png}
+    \caption{Example when $d=2$. Four points can be shattered by $\Hf$ but no five points can be shattered by $\Hf$.}
+    \label{fig:vc_class_example_hypercubes}
+\end{figure}
+
+\noindent\newline\underline{\textbf{Example 2 } (Convex sets in $\R^2$)} : Let $\X=\R^2$. Consider the set of classifiers
+\begin{align*}
+    \Hf = \biggCurl{
+        \1{x\in C} : C \text{ is convex in } \R^2
+    }
+\end{align*}
+
+\noindent In this case, $V_\Hf=\infty$ because for any $n$ points on a circle and for any $1\le k \le n$, we can draw a polygon that includes $k$ points but not the remaining $n-k$ points for any selection of $k$ in $n$ points (Figure \ref{fig:vc_class_example_convexset}).
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{figures/vc_class_convex_set_example.png}
+    \caption{$\Hf$ can shatter any $n$ points on a circle.}
+    \label{fig:vc_class_example_convexset}
+\end{figure}
+
+\noindent\newline\underline{\textbf{Example 3 } (Finite $|\Hf|$)} : For any function class where $|\Hf|<\infty$, we have:
+\begin{align*}
+    N_\Hf(x_1, \dots, x_n) &= \bigAbs{\bigCurl{
+        (h(x_1), \dots, h(x_n)) : h \in \Hf
+    }} \le |\Hf| \\
+    \implies& S_\Hf(n) \le |\Hf| \\
+    \implies& V_\Hf \le \log_2|\Hf|
+\end{align*}
+
+\begin{proposition}{Steele \& Dudley}{steele_dudley}
+    Let $\F$ be the set of real-valued functions of the form:
+    \begin{align*}
+        \F = \bigCurl{
+            f: \mathbb{R}^d \to \mathbb{R}
+        }, \ dim(\F) = m
+    \end{align*}
+    \noindent Then, the following set of classifiers:
+    \begin{align*}
+        \Hf = \bigCurl{
+            \1{f(x) \ge 0} : f \in \F
+        }
+    \end{align*}
+
+    \noindent Has finite VC dimension. Specifically, $V_\Hf \le m$.
+\end{proposition}
+
+\begin{proof*}[Proposition \ref{prop:steele_dudley}]
+    Suppose that $\Hf$ shatters $m+1$ points in $C=(x_1, \dots, x_{m+1})$. Define the linear mapping $L_C:\F \to \R^{m+1}$ such that:
+    \begin{align*}
+        L_C(f) = (f(x_1), \dots, f(x_{m+1}))^T
+    \end{align*}
+
+    \begin{subproof}{\newline Claim : $L_C(\F)$ is a closed subspace in $\R^{m+1}$}
+        Let $\{l_n\}_{n=1}^\infty \subset L_C(\F)$ be a sequence and let $l_n\to l$ as $n\to\infty$. We can always choose a function $f\in\F$ such that:
+        \begin{align*}
+            f(x) = l, \ \forall x \in \mathbb{R}^m
+        \end{align*}
+
+        \noindent Hence, for all $\{l_n\}_{n=1}^\infty$ such that $l_n\to l$, the limit $l\in L_C(\F)$. Therefore, $L_C(\F)$ is closed in $\R^{m+1}$.
+    \end{subproof}
+
+    \noindent By the Hilbert Projection Theorem \cite{wiki:hilbert_projection_theorem}, we have:
+    \begin{align*}
+        \R^{m+1} = L_C(\F) \oplus L_C(\F)^\bot 
+    \end{align*}
+
+    \noindent Since $dim(\F)=m$, we have $dim(L_C(\F)) \le m$. Therefore, $dim(L_C(\F)^\bot) \ge 1$ and we have:
+    \begin{align*}
+        \forall f\in\F, \exists \gamma \in \R^{m+1}\setminus \{0\} : \gamma^TL(f) = 0 
+    \end{align*}
+
+    \noindent Equivalently,
+    \begin{align*}
+        \sum_{i=1}^{m+1}\gamma_i f(x_0) = 0 \implies \sum_{i, \gamma_i \ge 0} \gamma_if(x_i) = \sum_{j, \gamma_j < 0} -\gamma_j f(x_j)
+    \end{align*}
+
+    \noindent Since $\Hf$ shatters $x_1, \dots, x_{m+1}$. We define a classifier $h\in\Hf$ such that:
+    \begin{align*}
+        h(x_i) = \begin{cases}
+            1 &\text{if } \gamma_i \ge 0 
+            \\ \\
+            0 &\text{otherwise}
+        \end{cases} 
+        \implies
+        f(x_i) \ge 0 \iff \gamma_i \ge 0
+    \end{align*}
+    \noindent This implies that $\sum_{i:\gamma_i \ge 0}\gamma_if(x_i) \ge 0$ and $\sum_{j:\gamma_j < 0}-\gamma_j f(x_j) < 0$, which is a contradiction. Therefore, we have $V_\Hf<\infty$.
+\end{proof*}
+
+\begin{corollary}{Linear classifiers have finite $V_\Hf$}{linear_clf_has_finite_vcdim}
+    Let $\X=\R^d$ and define a function space $\F$ as:
+    \begin{align*}
+        \F = \bigCurl{
+            f:\R^d\to\R \Big| f(x) = w^Tx + b, \ w\in\R^d, b\in\R
+        }
+    \end{align*}
+
+    \noindent Then, define the set of linear classifiers as:
+    \begin{align*}
+        \Hf = \bigCurl{
+            \1{w^Tx+b\ge 0} \Big| w\in \R^d, b\in\R
+        }
+    \end{align*}
+
+    \noindent We have $V_\Hf\le d+1$.
+\end{corollary}
+
+\begin{proof*}{Corollary \ref{coro:linear_clf_has_finite_vcdim}}
+    Since $dim(\F)=d+1$, the above corollary is a direct consequence of proposition \ref{prop:steele_dudley}.
+\end{proof*}
 
 
 \subsection{VC Theorem for sets}

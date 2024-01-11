@@ -8,3 +8,4 @@
 \contentsline {tcolorbox}{\numberline {5.3}Sauer's lemma - bound on $S_\mathcal {H}(n)$ III}{34}{tcb@cnt@corollary.5.3}%
 \contentsline {tcolorbox}{\numberline {5.4}Convergence of Empirical Risk (VC-Theorem)}{35}{tcb@cnt@corollary.5.4}%
 \contentsline {tcolorbox}{\numberline {5.5}Excess Risk of $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle h_n$}\mathaccent "0362{h_n}$ - $\delta \to \epsilon $ relation (VC-Theorem)}{35}{tcb@cnt@corollary.5.5}%
+\contentsline {tcolorbox}{\numberline {5.6}Linear classifiers have finite $V_\mathcal {H}$}{38}{tcb@cnt@corollary.5.6}%
