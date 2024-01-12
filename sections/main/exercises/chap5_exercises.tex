@@ -36,5 +36,57 @@
 \end{exercise}
 
 \begin{solution*}[Exercise \ref{ex:exercise_5.2}]
-    
+    Given an arbitrary class of classifiers $\Hf$. Define the following class of sets:
+    \begin{align*}
+        \mathcal{G} = \bigCurl{
+            G_h \times \{0\} \cup G_h^c \times \{1\} : h \in \Hf
+        }
+    \end{align*}
+
+    \noindent Where for a given $h\in\Hf$, we have:
+    \begin{align*}
+        G_h = \bigCurl{
+            x \in \X : h(x) = 1
+        }
+    \end{align*}
+
+    \noindent Let $P_{XY}$ be the density function over $\X\times\Y$. For any $G\in\mathcal{G}$, we have:
+    \begin{align*}
+        P_{XY}(G) &= \pi_0P_{X|Y=0}(G) + \pi_1P_{X|Y=1}(G) \\
+            &= \pi_0P_{X|Y=0}\Big(G_h \times \{0\} \cup G_h^c \times \{1\}\Big)
+                + \pi_1P_{X|Y=1}\Big(G_h \times \{0\} \cup G_h^c \times \{1\}\Big) \\
+            &= \pi_0P_{X|Y=0}(G_h) + \pi_1P_{X|Y=1}(G_h^c) \\
+            &= \pi_0P_{X|Y=0}(h(X)=1) + \pi_1P(X|Y=1)(h(X)=0) \\
+            &= P(h(X) \ne Y) \\
+            &= R(h)
+    \end{align*}
+
+    \noindent Let $Q=P_{XY}$. We also have:
+    \begin{align*}
+        \widehat{Q}(G) = \frac{1}{n}\sum_{i=1}^n \1{(X_i, Y_i) \in G_h} = \frac{1}{n}\sum_{i=1}^n \1{h(X_1)\ne Y_i} = \widehat{R_n}(h)
+    \end{align*}
+
+
+    \noindent From the above, we have:
+    \begin{align*}
+        P\biggRound{
+            \sup_{h\in\mathcal{H}} \bigAbs{ \widehat{R_n}(h) - R(h) } \ge \epsilon
+        }
+        &= P\biggRound{
+            \sup_{G\in\mathcal{G}} \bigAbs{ \widehat{Q}(G) - Q(G) } \ge \epsilon
+        } \\
+        &\le 8S_\mathcal{G}(n)e^{-n\epsilon^2/32} \\
+        &=   8S_\mathcal{H}(n)e^{-n\epsilon^2/32} \\
+    \end{align*}
 \end{solution*}
+
+\begin{exercise}{}{exercise_5.3}
+    Let $\G_1$ and $\G_2$ denote two classes of sets:
+    \begin{itemize}
+        \item ${\bf (a)}$ $\G_1 \cap \G_2=\bigCurl{G_1\cap G_2: G_1\in\G_1, G_2 \in\G_2}$.
+        \item ${\bf (b)}$ $\G_1 \cup \G_2=\bigCurl{G_1\cup G_2: G_1\in\G_1, G_2 \in\G_2}$.
+    \end{itemize}
+
+    Show that:
+\end{exercise}
+
