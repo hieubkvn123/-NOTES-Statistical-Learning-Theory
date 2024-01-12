@@ -266,7 +266,7 @@ In the following section, we will review a notion for measuring complexity of fu
 \end{proof*}
 
 \subsection{VC Theorem}
-\begin{theorem}{Uniform Deviation Bounds for non-finite $\Hf$}{udb_non_finite_h}
+\begin{theorem}{VC Theorem (for classifiers)}{udb_non_finite_h}
     For any $n\ge1$ and $\epsilon>0$, we have:
     \begin{align*}
         P\biggRound{
@@ -489,7 +489,74 @@ In the following section, we will review a notion for measuring complexity of fu
 
 
 \subsection{VC Theorem for sets}
+\begin{definition}[VC Theory for sets]
+    Let $\mathcal{G}$ be a collection of subsets in $\X$. Let $C\subset\X$ and $C=\{x_1, \dots, x_n\}$. We have the following definitions for restriction of $\mathcal{G}$ to $C$, shattering coefficient and VC-dimension of $\mathcal{G}$:
+    \begin{align*}
+        N_\mathcal{G}(C) &= \bigAbs{ \bigCurl{ G \cap C : G \in \mathcal{G} } } \\
+        S_\mathcal{G}(n) &= \sup_{C\subset\X; |C|=n} \bigAbs{ N_\mathcal{G}(C) } \\
+        V_\mathcal{G}    &= \sup\bigCurl{ n : S_\mathcal{G}(n) = 2^n } = \sup_{C\subset\X}\bigCurl{ |C| : \mathcal{G} \text{ shatters } C }
+    \end{align*}
+\end{definition}
 
+\textbf{Remark} : In analogy to the definitions for classifier, sets and binary classifiers are equivalent via:
+\begin{align*}
+    G &\to h_G(x) = \1{x \in G} \\
+    h &\to G_h = \bigCurl{ x : h(x)=1 }
+\end{align*}
 
+\begin{theorem}{VC Theorem (for sets)}{vc_theorem_for_sets}
+    If $X_1, \dots, X_n\sim Q$ are identically independently distributed samples. Then for any collection $\mathcal{G}$ of subsets in $\X$, $\epsilon>0$, we have:
+    \begin{align*}
+        P\biggRound{
+            \sup_{G\in\mathcal{G}} \bigAbs{
+                \widehat{Q}(G) - Q(G) 
+            }\ge \epsilon
+        } \le 8S_\mathcal{G}(n)e^{-n\epsilon^2/32}
+    \end{align*}
 
+    \noindent Where $\widehat{Q}(G)$ is defined (similar to the empirical CDF) as:
+    \begin{align*}
+        \widehat{Q}(G) = \frac{1}{n}\sum_{i=1}^n \1{X_1\in G}
+    \end{align*}
+\end{theorem}
+
+\begin{proof*}[Theorem \ref{thm:vc_theorem_for_sets}]
+    Define the following class of classifiers:
+    \begin{align*}
+        \Hf = \bigCurl{
+            h_G = \1{x\in G} : G \in \mathcal{G}
+        }
+    \end{align*}
+
+    \noindent Define a density function over $\X\times\{0,1\}$ such that $\pi_0=1$, $P_{X|Y=0}=Q$ and $P_{X|Y=1}$ is arbitrary. For any $h_G\in \Hf$, we have:
+    \begin{align*}
+        R(h) &= P(h_G(X) \ne Y) \\
+        &= \pi_0P_{X|Y=0}(h_G(X) \ne 0) + \pi_1 P_{X|Y=1}(h_G(X) \ne 1) \\
+        &= \pi_0P_{X|Y=0}(h_G(X) = 1) + \pi_1 P_{X|Y=1}(h_G(X) = 0) \\
+        &= P_{X|Y=0}(h_G(X) = 1) \ \ \ (\text{Since } \pi_0=1, \pi_1=0)\\
+        &= Q(G)
+    \end{align*}
+
+    \noindent Similarly, we have:
+    \begin{align*}
+        \widehat{R_n}(h_G) = \frac{1}{n}\sum_{i=1}^n \1{h_G(X_i) = 1} = \frac{1}{n}\sum_{i=1}^n \1{X_i\in G} = \widehat{Q}(G)
+    \end{align*}
+
+    \noindent Therefore:
+    \begin{align*}
+        P\biggRound{
+            \sup_{G\in\mathcal{G}} \bigAbs{
+                \widehat{Q}(G) - Q(G) 
+            }\ge \epsilon
+        }
+        &= 
+        P\biggRound{
+            \sup_{h_G\in\mathcal{H}} \bigAbs{
+                \widehat{R_n}(h_G) - R(h_G) 
+            }\ge \epsilon
+        } \\
+        &\le 8S_\Hf(n)e^{-n\epsilon^2/32} \ \ \ (\text{Theorem }\ref{thm:udb_non_finite_h}) \\
+        &= 8S_\mathcal{G}(n)e^{-n\epsilon^2/32}
+    \end{align*}
+\end{proof*}
 
