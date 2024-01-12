@@ -1,0 +1,40 @@
+\begin{exercise}{}{exercise_5.1}
+    Determine the sample complexity $N(\epsilon, \delta)$ for ERM over a class $\Hf$ with VC dimension $V_\Hf<\infty$.
+\end{exercise}
+
+\begin{solution*}[Exercise \ref{ex:exercise_5.1}]
+    We have:
+    \begin{align*}
+        P\bigRound{R(\widehat{h_n}) - R_\Hf^* \ge \epsilon} 
+        &\le P\biggRound{
+            2\sup_{h\in\Hf}\bigAbs{ \widehat{R_n}(h) - R(h) } \ge \epsilon
+        } \\
+        &= P\biggRound{
+            \sup_{h\in\Hf}\bigAbs{ \widehat{R_n}(h) - R(h) } \ge \frac{\epsilon}{2}
+        } \\
+        &\le 8S_\Hf(n)e^{-n\epsilon^2/128} \ \ \ (\text{Theorem } \ref{thm:udb_non_finite_h}) \\
+        &\le 8(n+1)^{V_\Hf} e^{-n\epsilon^2/128} \ \ \ (\text{Corollary } \ref{coro:sauer_bound_on_shattering_coeff_I})
+    \end{align*}
+
+    \noindent Now let:
+    \begin{align*}
+        \delta &= 8(n+1)^{V_\Hf}e^{-n\epsilon^2/128} \\
+        \implies
+        \log\frac{\delta}{8} &= V_\Hf\log(n+1) - \frac{n\epsilon^2}{128}
+        \\
+        \implies
+        N(\epsilon, \delta) &= \frac{128}{\epsilon^2} \biggRound{
+            V_\Hf\log (n+1) - \log\frac{\delta}{8}
+        }
+    \end{align*}
+\end{solution*}
+
+\begin{exercise}{}{exercise_5.2}
+    Show that the VC Theorem for sets implies the VC Theorem for classifiers. 
+
+    \noindent\newline\textit{Hint : Consider the sets of the form $G'=G\times\{0\} \cup G^c \times \{1\} \subset \X\times\Y$.}
+\end{exercise}
+
+\begin{solution*}[Exercise \ref{ex:exercise_5.2}]
+    
+\end{solution*}

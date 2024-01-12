@@ -64,7 +64,6 @@ In the following section, we will review a notion for measuring complexity of fu
 \end{itemize}
 
 
-
 \subsection{Sauer's Lemma}
 \begin{theorem}{Sauer's Lemma}{sauer_lemma}
     This is a bound on the shatter coefficient. Let $d=V_\Hf\le\infty$. For all $n\ge1$, we have:
@@ -265,7 +264,8 @@ In the following section, we will review a notion for measuring complexity of fu
     \end{align*}
 \end{proof*}
 
-\subsection{VC Theorem}
+
+\subsection{VC Theorem for classifiers}
 \begin{theorem}{VC Theorem (for classifiers)}{udb_non_finite_h}
     For any $n\ge1$ and $\epsilon>0$, we have:
     \begin{align*}
@@ -530,7 +530,7 @@ In the following section, we will review a notion for measuring complexity of fu
 
     \noindent Define a density function over $\X\times\{0,1\}$ such that $\pi_0=1$, $P_{X|Y=0}=Q$ and $P_{X|Y=1}$ is arbitrary. For any $h_G\in \Hf$, we have:
     \begin{align*}
-        R(h) &= P(h_G(X) \ne Y) \\
+        R(h_G) &= P(h_G(X) \ne Y) \\
         &= \pi_0P_{X|Y=0}(h_G(X) \ne 0) + \pi_1 P_{X|Y=1}(h_G(X) \ne 1) \\
         &= \pi_0P_{X|Y=0}(h_G(X) = 1) + \pi_1 P_{X|Y=1}(h_G(X) = 0) \\
         &= P_{X|Y=0}(h_G(X) = 1) \ \ \ (\text{Since } \pi_0=1, \pi_1=0)\\
@@ -560,3 +560,48 @@ In the following section, we will review a notion for measuring complexity of fu
     \end{align*}
 \end{proof*}
 
+
+\begin{corollary}{Dvoretzky-Kiefer-Wolfowitz Inequality}{dkw_inequality}
+    Let $X\sim Q$ be a random variable on the real line $\R$ and denote $G_t=(-\infty, t]$. Then,
+    \begin{align*}
+        Q(G_t) &= P(X\le t) = F(t) \ \ \ \text{(CDF)} \\
+        \widehat{Q}(G_t) &= \frac{1}{n} \sum_{i=1}^n\1{x_i \le t} = \widehat{F_n}(t) \ \ \ \text{(Empirical CDF)}
+    \end{align*}
+
+    \noindent For all $n\ge1, \epsilon > 0$, we have:
+    \begin{align*}
+        P\biggRound{
+            \sup_{t \in \R} \bigAbs{ \widehat{F_n}(t) - F(t) } \ge \epsilon
+        } \le 8(n+1)e^{-n\epsilon^2/32}
+    \end{align*}
+\end{corollary}
+
+\begin{proof*}[Corollary \ref{coro:dkw_inequality}]
+    Let $\mathcal{G} = \bigCurl{ G_t: t\in\R }$, by theorem \ref{thm:vc_theorem_for_sets}, we have:
+    \begin{align*}
+        P\biggRound{
+            \sup_{G\in\mathcal{G}} \bigAbs{ \widehat{Q}(G) - Q(G) } \ge \epsilon
+        }
+        &= P\biggRound{
+            \sup_{t\in\R} \bigAbs{ \widehat{Q}(G_t) - Q(G_t) } \ge \epsilon
+        }\\
+        &= P\biggRound{
+            \sup_{t\in\R} \bigAbs{ \widehat{F_n}(t) - F(t) } \ge \epsilon
+        }\\
+        &\le 8S_\mathcal{G}(n)e^{-n\epsilon^2/32}
+    \end{align*}
+
+    \noindent For any set of $n$ points on the real line, there are $n+1$ ways to label them using half-open intervals. Hence $S_\mathcal{G}(n)=n+1$. Therefore:
+    \begin{align*}
+        P\biggRound{
+            \sup_{t\in\R} \bigAbs{ \widehat{F_n}(t) - F(t) } \ge \epsilon
+        }
+        &\le 8(n+1)e^{-n\epsilon^2/32}
+    \end{align*}
+\end{proof*}
+
+\newpage
+
+
+\subsection{End of chapter exercises}
+\input{sections/main/exercises/chap5_exercises.tex}
