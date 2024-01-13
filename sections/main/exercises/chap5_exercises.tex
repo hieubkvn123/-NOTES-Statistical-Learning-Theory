@@ -91,6 +91,103 @@
 \end{exercise}
 
 \begin{solution*}[Exercise \ref{ex:exercise_5.3}]
+    Proving each inequality one by one, we have:
+    \begin{subproof}{\newline Claim : $S_{\G_1 \cap \G_2}(n) \le S_{\G_1}(n)S_{\G_2}(n)$}
+        For any $\{x_1, \dots, x_n\} \subset \X$, denote the following set:
+
+        \begin{align*}
+            \F = \bigCurl{
+                G_1\cap\{x_1, \dots, x_n\} : G_1 \in \G_1
+            }
+        \end{align*}
+
+        \noindent Then, $\F$ is a collection of subsets of $\{x_1, \dots, x_n\}$. Furthermore, the cardinality of $\F$ is at most $S_{\G_1}(n)$. Now define the restriction of $\G_1\cap\G_2$ to $\{x_1, \dots, x_n\}$:
+
+        \begin{align*}
+            {\G_1 \cap \G_2}_{\{x_1, \dots, x_n \}}
+                &= \bigCurl{
+                    G_1 \cap G_2 \cap \{ x_1, \dots, x_n \} : G_1 \in \G_1, G_2 \in \G_2
+                } \\
+                &= \bigcup_{F \in \F} \bigCurl{
+                    G_2 \cap F : G_2 \in \G_2
+                }
+        \end{align*}
+
+        \noindent For each $F\in\F$, we have $|F| \le n$. Hence, we have:
+        \begin{align*}
+            \bigAbs{\bigCurl{
+                G_2 \cap F : G_2 \in \G_2
+            }} \le S_{\G_2}(n), \ \forall F \in \F
+        \end{align*}
+
+        \noindent Hence,
+        \begin{align*}
+            \bigAbs{{\G_1 \cap \G_2}_\{x_1, \dots, x_n \}} 
+                &= \biggAbs{
+                    \bigcup_{F \in \F} \bigCurl{
+                        G_2 \cap F : G_2 \in \G_2
+                    }
+                } \\
+                &\le \sum_{F\in\F} \bigAbs{ \bigCurl{
+                    G_2 \cap F : G_2 \in \G_2
+                }} \\
+                &\le \sum_{F\in\F} S_{\G_2}(n) = |\F|S_{\G_2}(n) \\
+                &\le S_{\G_1}(n) S_{\G_2}(n)
+        \end{align*}
+
+        \noindent Since the above is a uniform bound, we can take the supremum over all $\{x_1, \dots, x_n\}\subset \X$ and the inequality still holds. Hence,
+        \begin{align*}
+            \sup_{\{ x_1, \dots, x_n \} \subset \X} \bigAbs{
+                {\G_1 \cap \G_2}_\{x_1, \dots, x_n \}
+            } = S_{\G_1 \cap \G_2}(n) \le S_{\G_1}(n)S_{\G_2}(n)
+        \end{align*}
+    \end{subproof}
+
+    \begin{subproof}{\newline Claim : $S_{\G_1 \cup \G_2}(n) \le S_{\G_1}(n)S_{\G_2}(n)$}
+        For any $\{x_1, \dots, x_n \} \subset \X$, we define the following collections of subsets:
+        \begin{align*}
+            \F_1 &= \bigCurl{
+                G_1 \cap \{ x_1, \dots, x_n \} : G_1 \in \G_1
+            } \\
+            \F_2 &= \bigCurl{
+                G_2 \cap \{ x_2, \dots, x_n \} : G_2 \in \G_2
+            }
+        \end{align*}
+
+        \noindent Then we have:
+        \begin{align*}
+            {\G_1 \cup \G_2}_{\{x_1, \dots, x_n \}} 
+                &= \bigcup_{F_1 \in \F_1} \bigcup_{F_2\in\F_2} \{ F_1 \cup F_2 \}
+        \end{align*}
+
+        \noindent Since $|\F_1| \le S_{\G_1}(n)$ and $|\F_2| \le S_{\G_2}(n)$, we have:
+        \begin{align*}
+            \bigAbs{{\G_1 \cup \G_2}_{\{x_1, \dots, x_n \}}}
+                &= \biggAbs{\bigcup_{F_1 \in \F_1} \bigcup_{F_2\in\F_2} \{ F_1 \cup F_2 \}} \\
+                &\le |\F_1||\F_2| \\
+                &\le S_{\G_1}(n)S_{\G_2}(n)
+        \end{align*}
+
+        \noindent Taking the supremum over $\{x_1, \dots, x_n\}\subset\X$ for both sides, we have:
+        \begin{align*}
+            \sup_{\{x_1, \dots, x_n\}\subset\X} \bigAbs{{\G_1 \cup \G_2}_{\{x_1, \dots, x_n \}}} = S_{\G_1\cup\G_2}(n) \le S_{\G_1}(n)S_{\G_2}(n)
+        \end{align*}
+    \end{subproof}
+\end{solution*}
+
+
+\begin{exercise}{}{exercise_5.4}
+    Show that the following classes have finite VC dimension by exhibiting an explicit upperbound on the VC dimension.
+    \begin{itemize}
+        \item ${\bf (a)}$ $\X=\R^d, \Hf=\{ \1{f(x)\ge0} : f \text{ inhomogeneous quadratic polynomial} \}$.
+        \item ${\bf (b)}$ $\X=\R^d, \Hf=\{ \1{x \in C} : C \text{ is a closed sphere }\}$.
+        \item ${\bf (c)}$ $\X=\R^2, \Hf=\{ \1{x \in P_k} : P_k \text{ is a convex polygon of at most $k$ sides} \}$.
+        \item ${\bf (d)}$ $\X=\R^d, \Hf=\{ \1{x \in R_k} : R_k \text{ is a union of at most $k$ rectangles} \}$.
+    \end{itemize}
+\end{exercise}
+
+\begin{solution*}[Exercise \ref{ex:exercise_5.4}]
     
 \end{solution*}
+
 
