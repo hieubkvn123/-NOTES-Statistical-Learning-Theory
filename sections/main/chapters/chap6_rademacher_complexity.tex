@@ -1,7 +1,54 @@
 \newpage\section{Rademacher Complexity}
 \subsection{Bounded Difference Inequality}
+In the following section, we will discuss another concentration inequality that bounds the difference between functions of random sample and their mean given that the functions satisfy the \textbf{bounded difference property}.
 
+\begin{definition}[Bounded difference property]
+    Given a real-valued function $\phi:\X^n\to\R$. We say that $\phi$ satisfies the \textbf{bounded difference property} if $\exists c_1, \dots, c_n\in\X$ such that $\forall 1 \le i \le n$:
+    \begin{align*}
+        \sup_{\{x_1, \dots, x_n\}\subset\X, x_i' \in \X}
+        \biggAbs{
+            \phi(x_1, \dots, x_i, \dots, x_n) - \phi(x_1, \dots, x_i', \dots, x_n)
+        } \le c_i
+    \end{align*}
 
+    \noindent That is, substituting the value at the $i^{th}$ coordinate $x_i$ changes the value of $\phi$ by at most $c_i$.
+\end{definition}
+
+\begin{theorem}{Bounded Difference (McDiarmid's) Inequality}{bounded_diff_inequality}
+    Let $X_1, \dots, X_n$ be independent random variables (not necessarily identically distributed) and $\phi:\X^n \to \R$ be a function satisfying the bounded difference property. Then:
+    \begin{align*}
+        P\bigRound{
+            \bigAbs{
+                \phi(X_1, \dots, X_n) - \mathbb{E}\bigSquare{ \phi(X_1, \dots, X_n) }
+            } \ge t
+        } \le 2\exp\biggRound{
+            -\frac{2t^2}{\sum_{i=1}^n c_i^2}
+        }, \ \forall t > 0
+    \end{align*}
+\end{theorem}
+
+\noindent\textbf{Remark} : Assume that $X_i\in[a_i, b_i]$ and $\phi(X_1, \dots, X_n)=\sum_{i=1}^n X_i$. Then the bounded difference inequality recovers the Hoeffding's inequality \ref{thm:hoeffding_inequality}.
+
+\begin{proof*}[Theorem \ref{thm:bounded_diff_inequality}]
+    Define the following random variable:
+    \begin{align*}
+        V_i = \mathbb{E}[\phi|X_1, \dots, X_i] - \mathbb{E}[\phi|X_1, \dots, X_{i-1}]
+    \end{align*}
+
+    \noindent Denote $\phi(X_1, \dots, X_n)=\phi$ and $\mathbb{E}[\phi(X_1, \dots, X_n)] = \mu_\phi$ for brevity, we have:
+    \begin{align*}
+        \phi - \mu_\phi = \sum_{i=1}^n V_i
+    \end{align*}
+
+    \noindent Using the Chernoff's bounding method, we have:
+    \begin{align*}
+        P(\phi - \mu_\pi \ge t) 
+            &\le \inf_{s>0}e^{-st}M_{\phi-\mu_\pi}(s) \\
+            &= \inf_{s>0}e^{-st}\mathbb{E}\biggSquare{
+                \prod_{i=1}^n e^{sV_i}
+            }
+    \end{align*}
+\end{proof*}
 
 \subsection{Rademacher Complexity}
 
