@@ -15,7 +15,15 @@ In the following section, we will discuss another concentration inequality that 
 \end{definition}
 
 \begin{theorem}{Bounded Difference (McDiarmid's) Inequality}{bounded_diff_inequality}
-    Let $X_1, \dots, X_n$ be independent random variables (not necessarily identically distributed) and $\phi:\X^n \to \R$ be a function satisfying the bounded difference property. Then:
+    Let $X_1, \dots, X_n$ be independent random variables (not necessarily identically distributed) and $\phi:\X^n \to \R$ be a function satisfying the bounded difference property:
+    \begin{align*}
+        \sup_{\{x_1, \dots, x_n\}\subset\X, x_i' \in \X}
+        \biggAbs{
+            \phi(x_1, \dots, x_i, \dots, x_n) - \phi(x_1, \dots, x_i', \dots, x_n)
+        } \le c_i, \ \forall 1\le i \le n
+    \end{align*}
+
+    \noindent Then, we have:
     \begin{align*}
         P\biggRound{
             \bigAbs{
@@ -32,7 +40,7 @@ In the following section, we will discuss another concentration inequality that 
 \begin{proof*}[Theorem \ref{thm:bounded_diff_inequality}]
     Define the following random variable:
     \begin{align*}
-        V_i = \mathbb{E}[\phi|X_1, \dots, X_i] - \mathbb{E}[\phi|X_1, \dots, X_{i-1}]
+        V_i = \mathbb{E}\Big[\phi\Big|X_1, \dots, X_i\Big] - \mathbb{E}\Big[\phi\Big|X_1, \dots, X_{i-1}\Big]
     \end{align*}
 
     \noindent Denote $\phi(X_1, \dots, X_n)=\phi$ and $\mathbb{E}[\phi(X_1, \dots, X_n)] = \mu_\phi$ for brevity, we have:
@@ -45,8 +53,96 @@ In the following section, we will discuss another concentration inequality that 
         P(\phi - \mu_\pi \ge t) 
             &\le \inf_{s>0}e^{-st}M_{\phi-\mu_\pi}(s) \\
             &= \inf_{s>0}e^{-st}\mathbb{E}\biggSquare{
-                \prod_{i=1}^n e^{sV_i}
+                \exp\biggRound{
+                    s\sum_{i=1}^n V_i
+                }
             }
+    \end{align*}
+
+    \begin{subproof}{\newline Claim 1 : For all $1\le i\le n$, $a_i\le V_i \le b_i$ and $b_i-a_i\le c_i$.}
+        Define the infimum and supremum of $V_i$ as followed:
+
+        \begin{align*}
+            U_i &= \sup_{x\in\X}\biggCurl{
+                \E\bigSquare{\phi \Big| X_1, \dots, X_i=x} - \E\bigSquare{\phi\Big|X_1, \dots, X_{i-1}}
+            } \\
+            L_i &= \inf_{x\in\X}\biggCurl{
+                \E\bigSquare{\phi \Big| X_1, \dots, X_i=x} - \E\bigSquare{\phi\Big|X_1, \dots, X_{i-1}}
+            }
+        \end{align*}
+
+        \noindent Clearly, $U_i \ge V_i \ge L_i$. We have:
+        \begin{align*}
+            U_i - L_i
+                &= \sup_{x\in\X}\E\bigSquare{\phi\Big|X_1, \dots, X_{i-1}, X_i=x} - \inf_{x\in\X}\E\bigSquare{\phi\Big|X_1, \dots, X_{i-1}, X_i=x} \\
+                &= \sup_{x\in\X}\int\phi(X_1, \dots, X_{i-1}, x, x_{i+1}, \dots, x_n)dP(x_{i+1}, \dots, x_n|X_1, \dots, X_{i-1}, x) \\
+                & \ \ \ -\inf_{x\in\X}\int\phi(X_1, \dots, X_{i-1}, x, x_{i+1}, \dots, x_n)dP(x_{i+1}, \dots, x_n|X_1, \dots, X_{i-1}, x) \\
+                &= \sup_{x\in\X}\int\phi(X_1, \dots, X_{i-1}, x, x_{i+1}, \dots, x_n)dP(x_{i+1}, \dots, x_n) \\
+                & \ \ \ -\inf_{x\in\X}\int\phi(X_1, \dots, X_{i-1}, x, x_{i+1}, \dots, x_n)dP(x_{i+1}, \dots, x_n) \\
+                &= \sup_{x, y\in \X} \int\bigSquare{
+                    \phi(X_1, \dots, X_{i-1}, x, x_{i+1}, \dots, x_n) - \phi(X_1, \dots, X_{i-1}, y, x_{i+1}, \dots, x_n)
+                }dP(x_{i+1}, \dots, x_n) \\
+                &\le c_i \int dP(x_{i+1}, \dots, x_n) = c_i
+        \end{align*}
+    \end{subproof}
+
+    \begin{subproof}{\newline Claim 2 : $\E\bigSquare{ V_i\Big| X_1, \dots, X_{i-1} } = 0, \ \forall 1 \le i \le n$.}
+        We have:
+        \begin{align*}
+            \E\bigSquare{ V_i\Big| X_1, \dots, X_{i-1} } 
+                &= \E\biggSquare{ \E\bigSquare{\phi\Big|X_1, \dots, X_i} \Bigg| X_1, \dots, X_{i-1} }
+                - \E\bigSquare{ \E\bigSquare{\phi\Big|X_1, \dots, X_{i-1}} \Big| X_1, \dots, X_{i-1} } \\
+                &= \E\biggSquare{ \E\bigSquare{\phi\Big|X_1, \dots, X_i} \Bigg| X_1, \dots, X_{i-1} }
+                - \E\bigSquare{\phi\Big|X_1, \dots, X_{i-1}}
+        \end{align*}
+
+        \noindent By the tower property, we have:
+        \begin{align*}
+            \E\biggSquare{ \E\bigSquare{\phi\Big|X_1, \dots, X_i} \Bigg| X_1, \dots, X_{i-1} } = \E\bigSquare{\phi\Big|X_1, \dots, X_{i-1}}
+        \end{align*}
+
+        \noindent Hence, 
+        \begin{align*}
+            \E\bigSquare{ V_i\Big| X_1, \dots, X_{i-1} } &= \E\bigSquare{\phi\Big|X_1, \dots, X_{i-1}} - \E\bigSquare{\phi\Big|X_1, \dots, X_{i-1}} \\ &=0
+        \end{align*}
+    \end{subproof}
+
+    \noindent From the above claims, we can make use of the Hoeffding's lemma \ref{lem:hoeffding_lemma} to bound the moment generating functions. We have:
+    \begin{align*}
+        P(\phi - \mu_\pi \ge t) 
+        &= \inf_{s>0}e^{-st}\mathbb{E}\biggSquare{
+            \exp\biggRound{
+                s\sum_{i=1}^n V_i
+            }
+        } \\
+        &= \inf_{s>0}e^{-st}\E_{X_1, \dots, X_{n-1}}\E_{X_n|X_1, \dots, X_{n-1}}\biggSquare{
+            \exp\biggRound{
+                s\sum_{i=1}^n V_i
+            }
+        } \\
+        &= \inf_{s>0}e^{-st}\E_{X_n|X_1, \dots, X_{n-1}}\bigSquare{e^{sV_n}}\E_{X_1, \dots, X_{n-1}}\biggSquare{
+            \exp\biggRound{
+                s\sum_{i=1}^{n-1} V_i
+            }
+        }\\
+        &\le \inf_{s>0}\exp\biggRound{
+            -st + \frac{s^2c_n^2}{8}
+        }\E_{X_1, \dots, X_{n-1}}\biggSquare{
+            \exp\biggRound{
+                s\sum_{i=1}^{n-1} V_i
+            }
+        }  \ \ \ \text{(Lemma \ref{lem:hoeffding_lemma})} \\
+        &\vdots \\
+        &\le \inf_{s>0}\exp\biggRound{
+            -st + s^2 \sum_{i=1}^n \frac{c_i^2}{8}
+        }
+    \end{align*}
+
+    \noindent Substituting $s=\frac{4t}{\sum_{i=1}^n c_i^2}$ to minimize the upperbound (just like the proof for Hoeffding's inequality \ref{thm:hoeffding_inequality}). We have:
+    \begin{align*}
+        P(\phi - \mu_\pi \ge t) \le \exp\biggRound{
+            -\frac{2t^2}{\sum_{i=1}^n c_i^2}
+        }
     \end{align*}
 \end{proof*}
 
