@@ -147,8 +147,18 @@ In the following section, we will discuss another concentration inequality that 
 \end{proof*}
 
 \subsection{Rademacher Complexity}
+\textbf{Overview} : Rademacher Complexity is a measure for the richness of a class of real-valued functions. In this sense, it is similar to VC dimension. However, unlike VC dimension, the Rademacher Complexity is not restricted to binary functions.
 
+\begin{definition}[Empirical Rademacher Complexity]
+    Let $\G\subseteq[a,b]^{\mathcal{Z}}$ be a set of functions $\mathcal{Z} \to [a, b]$ where $a,b\in\R, a < b$. Let $Z_1, \dots, Z_n$ be an independently identically distributed random sample on $\mathcal{Z}$ following some distribution $P$. Denote $S=(Z_1, \dots, Z_n)$, we define the \textbf{Rademacher Complexity} as:
+    \begin{align*}
+        \ERC_S(\G) = \E\biggSquare{
+            \sup_{g\in\G} \frac{1}{n}\sum_{i=1}^n \sigma_i g(Z_i)
+        }
+    \end{align*}
 
+    \noindent Where $\sigma_i\sim Uniform(-1, 1)$ are known as \textbf{Rademacher random variables}. Note that $\ERC_S(\G)$ is random due to randomness in $S$.
+\end{definition}
 
 
 \subsection{Bounds for binary classification}
