@@ -50,7 +50,7 @@ In the following section, we will discuss another concentration inequality that 
 
     \noindent Using the Chernoff's bounding method, we have:
     \begin{align*}
-        P(\phi - \mu_\pi \ge t) 
+        P(\phi - \mu_\phi \ge t) 
             &\le \inf_{s>0}e^{-st}M_{\phi-\mu_\pi}(s) \\
             &= \inf_{s>0}e^{-st}\mathbb{E}\biggSquare{
                 \exp\biggRound{
@@ -109,7 +109,7 @@ In the following section, we will discuss another concentration inequality that 
 
     \noindent From the above claims, we can make use of the Hoeffding's lemma \ref{lem:hoeffding_lemma} to bound the moment generating functions. We have:
     \begin{align*}
-        P(\phi - \mu_\pi \ge t) 
+        P(\phi - \mu_\phi \ge t) 
         &= \inf_{s>0}e^{-st}\mathbb{E}\biggSquare{
             \exp\biggRound{
                 s\sum_{i=1}^n V_i
@@ -140,7 +140,7 @@ In the following section, we will discuss another concentration inequality that 
 
     \noindent Substituting $s=\frac{4t}{\sum_{i=1}^n c_i^2}$ to minimize the upperbound (just like the proof for Hoeffding's inequality \ref{thm:hoeffding_inequality}). We have:
     \begin{align*}
-        P(\phi - \mu_\pi \ge t) \le \exp\biggRound{
+        P(\phi - \mu_\phi \ge t) \le \exp\biggRound{
             -\frac{2t^2}{\sum_{i=1}^n c_i^2}
         }
     \end{align*}
@@ -150,15 +150,54 @@ In the following section, we will discuss another concentration inequality that 
 \textbf{Overview} : Rademacher Complexity is a measure for the richness of a class of real-valued functions. In this sense, it is similar to VC dimension. However, unlike VC dimension, the Rademacher Complexity is not restricted to binary functions.
 
 \begin{definition}[Empirical Rademacher Complexity]
-    Let $\G\subseteq[a,b]^{\mathcal{Z}}$ be a set of functions $\mathcal{Z} \to [a, b]$ where $a,b\in\R, a < b$. Let $Z_1, \dots, Z_n$ be an independently identically distributed random sample on $\mathcal{Z}$ following some distribution $P$. Denote $S=(Z_1, \dots, Z_n)$, we define the \textbf{Rademacher Complexity} as:
+    Let $\G\subseteq[a,b]^{\mathcal{Z}}$ be a set of functions $\mathcal{Z} \to [a, b]$ where $a,b\in\R, a < b$. Let $Z_1, \dots, Z_n$ be an independently identically distributed random sample on $\mathcal{Z}$ following some distribution $P$. Denote $S=(Z_1, \dots, Z_n)$, we define the \textbf{Empirical Rademacher Complexity} as:
     \begin{align*}
-        \ERC_S(\G) = \E\biggSquare{
+        \ERC_S(\G) = \E_\sigma\biggSquare{
             \sup_{g\in\G} \frac{1}{n}\sum_{i=1}^n \sigma_i g(Z_i)
         }
     \end{align*}
 
-    \noindent Where $\sigma_i\sim Uniform(-1, 1)$ are known as \textbf{Rademacher random variables}. Note that $\ERC_S(\G)$ is random due to randomness in $S$.
+    \noindent Where $\sigma=(\sigma_1, \dots, \sigma_n)^T$, $\sigma_i\sim Uniform(-1, 1)$ are known as \textbf{Rademacher random variables}. Note that $\ERC_S(\G)$ is random due to randomness in $S$.
 \end{definition}
+
+\begin{definition}[Rademacher Complexity]
+    The \textbf{Rademacher Complexity} of a function class $\G$ is defined as:
+    \begin{align*}
+        \RC_n(\G) = \E_S\bigSquare{ \ERC_S(\G) }
+    \end{align*}
+\end{definition}
+
+\begin{theorem}{One-sided Rademacher Complexity bound}{one_sided_rademacher_bound}
+    Let $Z$ be a random variable and $S=(Z_1, \dots, Z_n)$ be an independently identically distributed sample over $\mathcal{Z}$. Consider a class of functions $\G\subseteq [a,b]^\mathcal{Z}$. $\forall \delta > 0, g\in\G$, with at least probability $1-\delta$, we have:
+    \begin{align*}
+        {\bf (i)} \ \ \E\bigSquare{g(Z)} - \frac{1}{n} \sum_{i=1}^n g(Z_i) &\le 2\RC_n(\G) + (b-a)\sqrt{\frac{\log1/\delta}{2n}} \\
+        {\bf (ii)} \  \E\bigSquare{g(Z)} - \frac{1}{n} \sum_{i=1}^n g(Z_i) &\le 2\ERC_S(\G) + 3(b-a)\sqrt{\frac{\log2/\delta}{2n}}
+    \end{align*}
+\end{theorem}
+
+\begin{proof*}[Theorem \ref{thm:one_sided_rademacher_bound}]
+    
+\end{proof*}
+
+\begin{theorem}{Two-sided Rademacher Complexity bound}{two_sided_rademacher_bound}
+    Consider a set of classifiers $\G\subseteq[a,b]^\mathcal{Z}$. Then, $\forall \delta>0$, with probability of at least $1-\delta$, we have:
+    \begin{align*}
+        \sup_{g\in\G}\biggAbs{
+            \E\bigSquare{ g(Z) } - \frac{1}{n}\sum_{i=1}^n g(Z_i)
+        } &\le 2 \RC_n(\G) + (b-a)\sqrt{
+            \frac{\log 2/\delta}{2n}
+        } \\
+        \sup_{g\in\G}\biggAbs{
+            \E\bigSquare{ g(Z) } - \frac{1}{n}\sum_{i=1}^n g(Z_i)
+        } &\le 2 \ERC_n(\G) + 3(b-a)\sqrt{
+            \frac{\log 4/\delta}{2n}
+        }
+    \end{align*}
+\end{theorem}
+
+\begin{proof*}[Theorem \ref{thm:two_sided_rademacher_bound}]
+    (The proof of this theorem is left as an exercise).
+\end{proof*}
 
 
 \subsection{Bounds for binary classification}

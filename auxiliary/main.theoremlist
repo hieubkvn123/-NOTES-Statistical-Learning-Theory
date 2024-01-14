@@ -6,4 +6,6 @@
 \contentsline {tcolorbox}{\numberline {5.2}VC Theorem (for classifiers)}{34}{tcb@cnt@theorem.5.2}%
 \contentsline {tcolorbox}{\numberline {5.3}VC Theorem (for sets)}{39}{tcb@cnt@theorem.5.3}%
 \contentsline {tcolorbox}{\numberline {6.1}Bounded Difference (McDiarmid's) Inequality}{44}{tcb@cnt@theorem.6.1}%
-\contentsline {tcolorbox}{\numberline {A.1}Neyman-Pearson Lemma}{46}{tcb@cnt@theorem.A.1}%
+\contentsline {tcolorbox}{\numberline {6.2}One-sided Rademacher Complexity bound}{47}{tcb@cnt@theorem.6.2}%
+\contentsline {tcolorbox}{\numberline {6.3}Two-sided Rademacher Complexity bound}{47}{tcb@cnt@theorem.6.3}%
+\contentsline {tcolorbox}{\numberline {A.1}Neyman-Pearson Lemma}{49}{tcb@cnt@theorem.A.1}%
