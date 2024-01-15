@@ -1,20 +1,25 @@
 \subsection{Rademacher Complexity bound for linear function classes}
-In the following section, we will explore a simple exercise for bounding the (Empirical) Rademacher Complexity for linear function classes.
+In the following section, we will explore a simple exercise for bounding the Rademacher Complexity for linear function classes.
 
 \subsubsection{Problem Statement}
+\label{sec:rc_bound_lin_func_problem}
+
 \textbf{Problem} : Let $\F$ be a linear function class defined as followed:
 \begin{align*}
     \F = \bigCurl{
-        f:\R^d \to \R \Big| f(x) = ax, \|a\|_2 \le R
+        f:\R^d \to \R \Big| f(x) = wx, \|w\|_2 \le R
     }
 \end{align*}
 
 \noindent Our objective is to prove the following Rademacher Complexity bound:
 \begin{align*}
-    \ERC_n(\F) \le \tilde O \bigRound{
+    \RC_n(\F) \le \tilde O \biggRound{
         \frac{R}{\sqrt{n}}
     }
 \end{align*}
+
+\noindent Before solving the above problem, we have to get familiar with the definition of \textbf{covering number} and some related lemmas.
+
 
 \subsubsection{Covering Number}
 \begin{definition}[$\epsilon$-Cover]
@@ -23,13 +28,20 @@ In the following section, we will explore a simple exercise for bounding the (Em
         \forall v \in Q, \exists v'\in \mathcal{C} : \rho(v, v') \le \epsilon
     \end{align*}
 
-    \noindent Basically, $\mathcal{C}$ is an \textbf{$\epsilon$-ball overlapping $Q$}.
+    \noindent Basically, $\mathcal{C}$ is an \textbf{$\epsilon$-ball overlapping $Q$} (Figure \ref{fig:epsilon_cover}).
 \end{definition}
 
-\begin{definition}[Covering Number ($\mathcal{N}(\epsilon, Q, \rho$)]
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{figures/epsilon_cover.png}
+    \caption{Examples of $\epsilon$-covers.}
+    \label{fig:epsilon_cover}
+\end{figure}
+
+\begin{definition}[Covering Number of sets ($\mathcal{N}(Q, \epsilon, \rho$)]
     The \textbf{covering number} of a set $Q$ is defined as the minimum number of $\epsilon$-covers needed to completely contain $Q$:
     \begin{align*}
-        N(\epsilon, Q, \rho) = \text{minimum size of $\epsilon$-covers of $Q$ w.r.t $\rho$}
+        \mathcal{N}(Q, \epsilon, \rho) = \text{minimum size of $\epsilon$-covers of $Q$ w.r.t $\rho$}
     \end{align*}
 
     \noindent Visual illustration of covering number is included in figure \ref{fig:covering_number}.
@@ -38,7 +50,152 @@ In the following section, we will explore a simple exercise for bounding the (Em
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{figures/covering_number.png}
-    \caption{Covering number of $Q$ w.r.t a metric $\rho$.}
+    \caption{Example of covering number. For $\F$, the covering number is 5. For $\F'$, the covering number is 10.}
     \label{fig:covering_number}
 \end{figure}
+
+
+\begin{definition}[Covering number of function class ($\mathcal{N}(\F, \epsilon, \rho)$)]
+    Let $\F$ be a function class. Define the restriction of $\F$ to the observations $\{x_1, \dots, x_n\}$ as:
+    \begin{align*}
+        \F_{x_1, \dots, x_n} = \bigCurl{
+            (f(x_1), \dots, f(x_n)) : f \in \F
+        }
+    \end{align*}
+
+    \noindent Then, we can define the \textbf{Covering Number} for $\F$ as followed:
+    \begin{align*}
+        \mathcal{N}(\F, \epsilon, \rho) = \sup_{x_1, \dots, x_n} \mathcal{N}(\F_{x_1, \dots, x_n}, \epsilon, \rho)
+    \end{align*}
+
+    \noindent We can call $\mathcal{N}(\F_{x_1, \dots, x_n}, \epsilon, \rho)$ the \textbf{Empirical Covering Number}.
+\end{definition}
+
+\subsubsection{Bound on covering number of linear function class}
+\begin{lemma}{Bound on $\mathcal{N}(\F, \epsilon, \|.\|_2)$ for linear functions}{covering_num_bound_lin_func}
+    Let $\F$ be a linear function class defined as followed:
+    \begin{align*}
+        \F = \bigCurl{
+            f:\R^d\to\R \Big| f(x) = wx, \|w\|_q \le a, \|x\|_p \le b
+        }
+    \end{align*}
+
+    \noindent Where $p, q$ are Holder conjugates and $2\le p\le \infty$. Then, we have:
+    \begin{align*}
+        \log\mathcal{N}(\F, \epsilon, \|.\|_2) \le \Bigg\lceil \frac{a^2b^2}{\epsilon^2} \Bigg\rceil \log(2d+1)
+    \end{align*}
+
+    \noindent The proof of this lemma is discussed in Theorem 3 in \cite{article:tong_zhang}.
+\end{lemma}
+
+\begin{proof*}[Lemma \ref{lem:covering_num_bound_lin_func}]
+    
+\end{proof*}
+
+
+\subsubsection{Dudley's Theorem}
+\begin{theorem}{Dudley's Theorem}{dudley_theorem}
+    If $\F$ is a function class from $\mathcal{Z}\to\R$ (where $\mathcal{Z}$ is a vector space), then:
+    \begin{align*}
+        \ERC_S(\F) \le 12\int_0^\infty\sqrt{
+            \frac{\log \mathcal{N}(\F, \epsilon, \|.\|_2)}{n}
+        }d\epsilon
+    \end{align*}
+\end{theorem}
+\begin{proof*}[Theorem \ref{thm:dudley_theorem}]
+    
+\end{proof*}
+
+\noindent\newline\textbf{Remark} : Using theorem \ref{thm:dudley_theorem}, we can translate the covering number to the Empirical Rademacher Complexity given that the covering number has some special formulation and the function class $\F$ is bounded in $[-1, 1]$. For example:
+\begin{itemize}
+    \item ${\bf (i)} \ \mathcal{N}(\F, \epsilon, \|.\|^2) \approx (1/\epsilon)^R$.
+
+    \noindent Then we have $\log\mathcal{N}(\F, \epsilon, \|.\|^2) \approx R\log(1/\epsilon)$. Therefore,
+    \begin{align*}
+        \int_0^1 \sqrt{
+            \frac{\log \mathcal{N}(\F, \epsilon, \|.\|_2)}{n}
+        }d\epsilon = \int_0^1\sqrt{
+            \frac{R\log(1/\epsilon)}{n}
+        }d\epsilon \approx \sqrt{\frac{R}{n}}
+    \end{align*}
+
+    \item ${\bf (ii)} \ \mathcal{N}(\F, \epsilon, \|.\|^2) \approx a^{R/\epsilon}$.
+
+    \noindent Then we have $\log\mathcal{N}(\F, \epsilon, \|.\|^2) \approx \frac{R}{\epsilon}\log a$. Therefore,
+    \begin{align*}
+        \int_0^1 \sqrt{
+            \frac{\log \mathcal{N}(\F, \epsilon, \|.\|_2)}{n}
+        }d\epsilon &\approx \int_0^1\sqrt{
+            \frac{R}{n\epsilon}\log a 
+        }d\epsilon \\
+        &= \sqrt{
+            \frac{R}{n}\log a 
+        }\int_0^1 \sqrt{\frac{1}{\epsilon}}d\epsilon \\
+        &= \tilde O\biggRound{ \sqrt{\frac{R}{n}} }
+    \end{align*}
+
+    \item ${\bf (iii)} \ \mathcal{N}(\F, \epsilon, \|.\|^2) \approx a^{R/\epsilon^2}$.
+    
+    \noindent Then, we have $\log \mathcal{N}(\F, \epsilon, \|.\|^2)\approx \frac{R}{\epsilon^2}\log a$. Therefore,
+    \begin{align*}
+        \int_0^1 \sqrt{
+            \frac{\log \mathcal{N}(\F, \epsilon, \|.\|^2)}{n}
+        }d\epsilon \approx \sqrt{
+            \frac{R}{n}\log a 
+        }\int_0^1 \frac{1}{\epsilon}d\epsilon = \infty
+    \end{align*}
+\end{itemize}
+
+\subsubsection{Rademacher Complexity bound for linear functions class}
+In this section, we finally solve the problem stated in section \ref{sec:rc_bound_lin_func_problem}. First, consider the following lemma, then prove the proposition \ref{prop:rc_bound_for_lin_func}:
+
+\begin{theorem}{Dudley's Entropy Integral bound}{dudley_entropy_integral}
+    Let $\F$ be a real-valued function class taking values in $[-1, 1]$ and assume that ${\bf 0}\in\F$. Then,
+    \begin{align*}
+        \ERC_S(\F) \le \inf_{\alpha>0} \biggRound{
+            \frac{4\alpha}{\sqrt n} + \frac{12}{n}\int_\alpha^{\sqrt n} \sqrt{
+                \log\mathcal{N}(\F, \epsilon,\|.\|_2)
+            }d\epsilon
+        }
+    \end{align*}
+\end{theorem}
+\begin{proof*}[Theorem \ref{thm:dudley_entropy_integral}]
+    
+\end{proof*}
+
+
+\begin{proposition}{Rademacher Complexity bound for linear function class}{rc_bound_for_lin_func}
+    Given the following function class $\F$ whose range is bounded within $[-1, 1]$:
+    \begin{align*}
+        \F = \bigCurl{
+            f:\R^d\to\R \Big| f(x) = wx, \|w\|_2 \le a, \|x\|_2 \le b
+        }
+    \end{align*}
+
+    \noindent Then, we have the following bound for the Rademacher Complexity:
+    \begin{align*}
+        R_N(\F) \le \tilde O \biggRound{\frac{R}{\sqrt{n}}}, \ \ R = ab
+    \end{align*}
+\end{proposition}
+
+\begin{proof*}[Proposition \ref{prop:rc_bound_for_lin_func}]
+    \noindent From lemma \ref{lem:covering_num_bound_lin_func}, we have the following bound on the covering number of $\F$:
+    \begin{align*}
+        \log\mathcal{N}(\F, \epsilon, \|.\|_2) \le \Bigg\lceil \frac{R^2}{\epsilon^2} \Bigg\rceil \log(2d+1) \approx \frac{R^2}{\epsilon^2}\log D \ \ \ (\text{For some constant }D)
+    \end{align*}
+
+    \noindent Hence, from theorem \ref{thm:dudley_entropy_integral}, we have:
+    \begin{align*}
+        \int_\alpha^{\sqrt n} \sqrt{
+            \log\mathcal{N}(\F, \epsilon,\|.\|_2) 
+        }d\epsilon 
+            &\approx R\sqrt{\log D} \int_\alpha^{\sqrt n} \frac{1}{\epsilon}d\epsilon \\
+            &= R\sqrt{\log D}\biggRound{\log\sqrt{n} - \log\alpha}
+    \end{align*}
+
+    \noindent Hence, we have:
+    \begin{align*}
+        .
+    \end{align*}
+\end{proof*}
 
