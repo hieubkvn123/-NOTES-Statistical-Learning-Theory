@@ -153,7 +153,7 @@ In this section, we finally solve the problem stated in section \ref{sec:rc_boun
     Let $\F$ be a real-valued function class taking values in $[-1, 1]$ and assume that ${\bf 0}\in\F$. Then,
     \begin{align*}
         \ERC_S(\F) \le \inf_{\alpha>0} \biggRound{
-            \frac{4\alpha}{\sqrt n} + \frac{12}{n}\int_\alpha^{\sqrt n} \sqrt{
+            4\alpha + \frac{12}{\sqrt n}\int_\alpha^{\sqrt n} \sqrt{
                 \log\mathcal{N}(\F, \epsilon,\|.\|_2)
             }d\epsilon
         }
@@ -181,21 +181,39 @@ In this section, we finally solve the problem stated in section \ref{sec:rc_boun
 \begin{proof*}[Proposition \ref{prop:rc_bound_for_lin_func}]
     \noindent From lemma \ref{lem:covering_num_bound_lin_func}, we have the following bound on the covering number of $\F$:
     \begin{align*}
-        \log\mathcal{N}(\F, \epsilon, \|.\|_2) \le \Bigg\lceil \frac{R^2}{\epsilon^2} \Bigg\rceil \log(2d+1) \approx \frac{R^2}{\epsilon^2}\log D \ \ \ (\text{For some constant }D)
+        \log\mathcal{N}(\F, \epsilon, \|.\|_2) \le \Bigg\lceil \frac{R^2}{\epsilon^2} \Bigg\rceil \log(2d+1) < 2\frac{R^2}{\epsilon^2}\log(2d+1) = \frac{R^2}{\epsilon^2}\log(4d^2 + 4d + 1)
     \end{align*}
 
-    \noindent Hence, from theorem \ref{thm:dudley_entropy_integral}, we have:
+    \noindent The second inequality holds under the assumption that $R^2 > \epsilon^2$. Let $D = 4d^2 + 4d + 1$, we have:
     \begin{align*}
-        \int_\alpha^{\sqrt n} \sqrt{
-            \log\mathcal{N}(\F, \epsilon,\|.\|_2) 
-        }d\epsilon 
-            &\approx R\sqrt{\log D} \int_\alpha^{\sqrt n} \frac{1}{\epsilon}d\epsilon \\
-            &= R\sqrt{\log D}\biggRound{\log\sqrt{n} - \log\alpha}
+        \int_\alpha^{\sqrt n} \sqrt{\log\mathcal{N}(\F, \epsilon, \|.\|_2)} 
+            &< R\sqrt{\log D}\int_\alpha^{\sqrt n} \frac{1}{\epsilon}d\epsilon \\
+            &= R\sqrt{\log D}\bigRound{ \log\sqrt{n} - \log\alpha }
     \end{align*}
 
-    \noindent Hence, we have:
+    \noindent Using theorem \ref{thm:dudley_entropy_integral}, we have:
     \begin{align*}
-        .
+        \ERC_S(\F) 
+            &\le \inf_{\alpha>0}\biggRound{
+                4\alpha + \frac{12}{\sqrt n} \int_\alpha^{\sqrt n} \sqrt{\log\mathcal{N}(\F, \epsilon, \|.\|_2)} d\epsilon
+            } \\
+            &< \inf_{\alpha>0}\biggRound{
+                4\alpha + \frac{12}{\sqrt n} R\sqrt{\log D} \bigRound{ \log\sqrt{n} - \log\alpha }
+            }
+    \end{align*}
+
+    \noindent Letting $\alpha=\frac{3R}{\sqrt n}$, we have:
+    \begin{align*}
+        \ERC_S(\F) &< \frac{12R}{\sqrt n} + \frac{12R}{\sqrt n}\sqrt{\log D} \biggRound{ \log \sqrt{n} - \log\frac{3R}{\sqrt n} } \\
+        &= \frac{12R}{\sqrt n} \biggSquare{
+            1 + \sqrt{\log D}\log\frac{n}{3R}
+        } \\
+        &= \tilde O\biggRound{ \frac{R}{\sqrt n} }
+    \end{align*}
+
+    \noindent Since the right-hand-side does not depend on the sample $S$, we can just take expectation over the samples for both sides and we have:
+    \begin{align*}
+        \RC_N(\F) < \tilde O\biggRound{ \frac{R}{\sqrt n} }
     \end{align*}
 \end{proof*}
 
