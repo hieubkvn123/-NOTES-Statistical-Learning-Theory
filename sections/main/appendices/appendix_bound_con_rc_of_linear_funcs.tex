@@ -72,6 +72,10 @@ In the following section, we will explore a simple exercise for bounding the Rad
 \end{definition}
 
 \subsubsection{Massart's Lemma}
+\begin{theorem}{Massart's Lemma}{massart_lemma}
+    
+\end{theorem}
+
 
 
 \subsubsection{Dudley's Theorem}
@@ -160,6 +164,7 @@ In the following section, we will explore a simple exercise for bounding the Rad
         \ERC_S(\F) &\le \epsilon_n + \sum_{j=1}^n \E_\sigma\biggSquare{
             \sup_{h\in\Hf_j} \big<\sigma, h \big> \Bigg| x_1, \dots, x_n
         } \\
+        &= \epsilon_n + \sum_{j=1}^n \ERC_S(\Hf_j) \\
         &\le  \epsilon_n + \sum_{j=1}^n \sup_{h\in \Hf_j} \|h\|_2 \cdot \sqrt{
             \frac{2\log|\Hf_j|}{n}
         } \ \ \ (\text{Massart's lemma}) \\
