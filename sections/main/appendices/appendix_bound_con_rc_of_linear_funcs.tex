@@ -71,27 +71,6 @@ In the following section, we will explore a simple exercise for bounding the Rad
     \noindent We can call $\mathcal{N}(\F_{x_1, \dots, x_n}, \epsilon, \rho)$ the \textbf{Empirical Covering Number}.
 \end{definition}
 
-\subsubsection{Bound on covering number of linear function class}
-\begin{lemma}{Bound on $\mathcal{N}(\F, \epsilon, \|.\|_2)$ for linear functions}{covering_num_bound_lin_func}
-    Let $\F$ be a linear function class defined as followed:
-    \begin{align*}
-        \F = \bigCurl{
-            f:\R^d\to\R \Big| f(x) = wx, \|w\|_q \le a, \|x\|_p \le b
-        }
-    \end{align*}
-
-    \noindent Where $p, q$ are Holder conjugates and $2\le p\le \infty$. Then, we have:
-    \begin{align*}
-        \log\mathcal{N}(\F, \epsilon, \|.\|_2) \le \Bigg\lceil \frac{a^2b^2}{\epsilon^2} \Bigg\rceil \log(2d+1)
-    \end{align*}
-
-    \noindent The proof of this lemma is discussed in Theorem 3 in \cite{article:tong_zhang}.
-\end{lemma}
-
-\begin{proof*}[Lemma \ref{lem:covering_num_bound_lin_func}]
-    
-\end{proof*}
-
 \subsubsection{Massart's Lemma}
 
 
@@ -261,6 +240,29 @@ In the following section, we will explore a simple exercise for bounding the Rad
     \end{align*}
 \end{itemize}
 
+
+\subsubsection{Bound on covering number of linear function class}
+\begin{lemma}{Bound on $\mathcal{N}(\F, \epsilon, \|.\|_2)$ for linear functions}{covering_num_bound_lin_func}
+    Let $\F$ be a linear function class defined as followed:
+    \begin{align*}
+        \F = \bigCurl{
+            f:\R^d\to\R \Big| f(x) = wx, \|w\|_q \le a, \|x\|_p \le b
+        }
+    \end{align*}
+
+    \noindent Where $p, q$ are Holder conjugates and $2\le p\le \infty$. Then, we have:
+    \begin{align*}
+        \log\mathcal{N}(\F, \epsilon, \|.\|_2) \le \Bigg\lceil \frac{a^2b^2}{\epsilon^2} \Bigg\rceil \log(2d+1)
+    \end{align*}
+
+    \noindent The proof of this lemma is discussed in Theorem 3 in \cite{article:tong_zhang}.
+\end{lemma}
+
+\begin{proof*}[Lemma \ref{lem:covering_num_bound_lin_func}]
+    
+\end{proof*}
+
+
 \subsubsection{Rademacher Complexity bound for linear functions class}
 In this section, we finally solve the problem stated in section \ref{sec:rc_bound_lin_func_problem}. First, consider the following lemma, then prove the proposition \ref{prop:rc_bound_for_lin_func}:
 
@@ -284,7 +286,6 @@ In this section, we finally solve the problem stated in section \ref{sec:rc_boun
 \begin{proof*}[Theorem \ref{thm:dudley_entropy_integral}]
     
 \end{proof*}
-
 
 \begin{proposition}{Rademacher Complexity bound for linear function class}{rc_bound_for_lin_func}
     Given the following function class $\F$ whose range is bounded within $[-1, 1]$:
