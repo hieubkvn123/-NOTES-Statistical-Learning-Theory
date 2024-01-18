@@ -23,23 +23,23 @@ In the following section, we will explore a simple exercise for bounding the Rad
 
 \subsubsection{Covering Number}
 \begin{definition}[$\epsilon$-Cover]
-    Let $Q$ be a set. $\mathcal{C}$ is called an \textbf{$\epsilon$-cover} of $Q$ with respect to a metric $\rho$ if:
+    Let $Q$ be a set. A subset $\mathcal{C}\subset Q$ is called an \textbf{$\epsilon$-cover} of $Q$ with respect to a metric $\rho$ if:
     \begin{align*}
         \forall v \in Q, \exists v'\in \mathcal{C} : \rho(v, v') \le \epsilon
     \end{align*}
 
-    \noindent Basically, $\mathcal{C}$ is an \textbf{$\epsilon$-ball overlapping $Q$} (Figure \ref{fig:epsilon_cover}).
+    \noindent Basically, $\mathcal{C}$ can be thought of as a collection of centers of \textbf{$\epsilon$-balls overlapping $Q$} (Figure \ref{fig:epsilon_cover}).
 \end{definition}
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{figures/epsilon_cover.png}
-    \caption{Examples of $\epsilon$-covers.}
+    \caption{Examples of $\epsilon$-balls. The centers of the balls would form an $\epsilon$-cover if they completely contain $Q$.}
     \label{fig:epsilon_cover}
 \end{figure}
 
 \begin{definition}[Covering Number of sets ($\mathcal{N}(Q, \epsilon, \rho$)]
-    The \textbf{covering number} of a set $Q$ is defined as the minimum number of $\epsilon$-covers needed to completely contain $Q$:
+    The \textbf{covering number} of a set $Q$ is defined as the size of the smallest $\epsilon$-cover needed to completely contain $Q$. In other words, it is the minimum number of $\epsilon$-balls needed to completely contain $Q$:
     \begin{align*}
         \mathcal{N}(Q, \epsilon, \rho) = \text{minimum size of $\epsilon$-covers of $Q$ w.r.t $\rho$}
     \end{align*}
@@ -92,25 +92,140 @@ In the following section, we will explore a simple exercise for bounding the Rad
     
 \end{proof*}
 
+\subsubsection{Massart's Lemma}
+
 
 \subsubsection{Dudley's Theorem}
 \begin{theorem}{Dudley's Theorem}{dudley_theorem}
-    If $\F$ is a function class from $\mathcal{Z}\to\R$ (where $\mathcal{Z}$ is a vector space), then:
+    If $\F$ is a function class from $\mathcal{Z}\to\R$ (where $\mathcal{Z}$ is a vector space and the norm of $f\in\F$ is not necessarily bounded), then:
     \begin{align*}
-        \ERC_S(\F) \le 12\int_0^\infty\sqrt{
+        \ERC_S(\F) \le 12\int_0^{\sup_{f\in\F}\|f\|_2} \sqrt{
             \frac{\log \mathcal{N}(\F, \epsilon, \|.\|_2)}{n}
         }d\epsilon
     \end{align*}
+
+    \noindent Where for any $f\in\F$, given a sample $x_1, \dots, x_n$, we define the $\|.\|_2$ norm as followed:
+    \begin{align*}
+        \|f\|_2 = \sqrt{
+            \frac{1}{n}\sum_{i=1}^n f(x_i)^2
+        }
+    \end{align*}
 \end{theorem}
 \begin{proof*}[Theorem \ref{thm:dudley_theorem}]
-    
+    The main idea of the proof is via chaining. Define the following sequence $\{\epsilon_j\}_{j=0}^n$:
+    \begin{align*}
+        \begin{cases}
+            \epsilon_0 &= \sup_{f\in\F} \|f\|_2
+            \\ 
+            \epsilon_j &= 2^{-j}\epsilon_0
+        \end{cases}
+    \end{align*}
+
+    \noindent Next, we define the sequence of $\epsilon$-covers $\mathcal{N}_{\epsilon_j}$ corresponding to each $\epsilon_j$. By definition, we have:
+    \begin{align*}
+        \forall f\in\F, \exists g_j \in \mathcal{N}_{\epsilon_j} : \|f-g_j\|_2 \le \epsilon_j
+    \end{align*}
+
+    \noindent We can write any $f\in\F$ as the following telescoping sum:
+    \begin{align*}
+        f = f - g_n + \sum_{j=1}^n \bigRound{g_j - g_{j-1}}
+    \end{align*}
+
+    \noindent Now, define the Empirical Rademacher Complexity as followed:
+    \begin{align*}
+        \ERC_S(\F) = \E_\sigma\biggSquare{
+            \sup_{f\in\F} \frac{1}{n} \sum_{i=1}^n \sigma_i f(x_i) 
+        } = \E_\sigma\biggSquare{
+            \sup_{f\in\F} \big< \sigma, f \big> \Bigg| x_1, \dots, x_n
+        }
+    \end{align*}
+
+    \noindent We have:
+    \begin{align*}
+        \ERC_S(\F) &= \E_\sigma\biggSquare{
+            \sup_{f\in\F} \big< \sigma, f \big> \Bigg| x_1, \dots, x_n
+        }\\
+        &= \E_\sigma\biggSquare{
+            \sup_{f\in\F} \Big< \sigma, f - g_n + \sum_{j=1}^n \bigRound{g_j - g_{j-1}} \Big> \Bigg| x_1, \dots, x_n
+        } \\
+        &\le \E_\sigma\biggSquare{
+            \sup_{f\in\F} \big< \sigma, f-g_n\big> + \sup_{f\in\F} \sum_{j=1}^n \big<\sigma, g_j - g_{j-1}\big> \Bigg| x_1, \dots, x_n
+        } \ \ \ (\sup\Sigma \le \Sigma\sup) \\
+        &\le \|\sigma\|_2\cdot\|f-g_n \|_2 + \E_\sigma\biggSquare{
+            \sup_{f\in\F} \sum_{j=1}^n \big<\sigma, g_j - g_{j-1}\big> \Bigg| x_1, \dots, x_n
+        } \ \ \ (\text{Cauchy-Schwarz}) \\
+        &\le \epsilon_n + \E_\sigma\biggSquare{
+            \sup_{f\in\F} \sum_{j=1}^n \big<\sigma, g_j - g_{j-1}\big> \Bigg| x_1, \dots, x_n
+        } \\
+        &\le \epsilon_n + \sum_{j=1}^n \E_\sigma\biggSquare{
+            \sup_{f\in\F} \big<\sigma, g_j - g_{j-1}\big> \Bigg| x_1, \dots, x_n
+        }
+    \end{align*}
+
+    \noindent From here, note that:
+    \begin{align*}
+        \|g_j - g_{j-1}\|_2 \le \|g_j - f\|_2 + \|g_{j-1}-f\|_2 \le \epsilon_j + \epsilon_{j-1} = 3\epsilon_j
+    \end{align*}
+
+    \noindent Also, define the following classes of functions:
+    \begin{align*}
+        \Hf_j = \bigCurl{
+            g_j - g_{j-1}\Big| 
+            g_j \in \mathcal{N}_{\epsilon_j},
+            g_{j-1} \in \mathcal{N}_{\epsilon_{j-1}}
+        }
+    \end{align*}
+
+    \noindent Continuing the above, we have:
+    \begin{align*}
+        \ERC_S(\F) &\le \epsilon_n + \sum_{j=1}^n \E_\sigma\biggSquare{
+            \sup_{h\in\Hf_j} \big<\sigma, h \big> \Bigg| x_1, \dots, x_n
+        } \\
+        &\le  \epsilon_n + \sum_{j=1}^n \sup_{h\in \Hf_j} \|h\|_2 \cdot \sqrt{
+            \frac{2\log|\Hf_j|}{n}
+        } \ \ \ (\text{Massart's lemma}) \\
+        &\le \epsilon_n + \sum_{j=1}^n 6(\epsilon_j - \epsilon_{j-1}) \cdot \sqrt{
+            \frac{2\log|\Hf_j|}{n}
+        } \ \ \ \Big(\sup_{h\in \Hf_j} \|h\|_2 \le 3\epsilon_j \le 6(\epsilon_j - \epsilon_{j+1})\Big)
+    \end{align*}
+
+    \noindent Now we have:
+    \begin{align*}
+        |\Hf_j| \le |\mathcal{N}_{\epsilon_j}| \cdot |\mathcal{N}_{\epsilon_{j-1}}| \le |\mathcal{N}_{\epsilon_j}|^2
+    \end{align*}
+
+    \noindent Hence, we have:
+    \begin{align*}
+        \ERC_S(\F) &\le \epsilon_n + 6\sum_{j=1}^n (\epsilon_j - \epsilon_{j-1}) \cdot \sqrt{
+            \frac{2\log|\mathcal{N}_{\epsilon_j}|^2}{n}
+        } \\
+        &= \epsilon_n + 12\sum_{j=1}^n (\epsilon_j - \epsilon_{j-1}) \cdot \sqrt{
+            \frac{\log|\mathcal{N}_{\epsilon_j}|}{n}
+        } \\
+        &\le \epsilon_n + 12\sum_{j=1}^n \int_{\epsilon_{j+1}}^{\epsilon_j} \sqrt{
+            \frac{\log|\mathcal{N}_{\epsilon_j}|}{n}
+        }dt \\
+        &\le \epsilon_n + 12\sum_{j=1}^n \int_{\epsilon_{j+1}}^{\epsilon_j} \sqrt{
+            \frac{\log|\mathcal{N}_t|}{n}
+        }dt \\
+        &\le  \epsilon_n + 12 \int_{\epsilon_{n+1}}^{\epsilon_0} \sqrt{
+            \frac{\log|\mathcal{N}_t|}{n}
+        }dt
+    \end{align*}
+
+    \noindent Now take $n\to\infty$, we notice that $\epsilon_n\to0$ and the above inequality holds for every $\epsilon$-cover for $0<\epsilon<\epsilon_0=\sup_{f\in\F}\|f\|_2$. Therefore,
+    \begin{align*}
+        \ERC_S(\F) &\le 12 \int_{0}^{\sup_{f\in\F}\|f\|_2} \sqrt{
+            \frac{\log\mathcal{N}(\F, \epsilon, \|.\|_2)}{n}
+        }d\epsilon
+    \end{align*}
 \end{proof*}
 
 \noindent\newline\textbf{Remark} : Using theorem \ref{thm:dudley_theorem}, we can translate the covering number to the Empirical Rademacher Complexity given that the covering number has some special formulation and the function class $\F$ is bounded in $[-1, 1]$. For example:
 \begin{itemize}
-    \item ${\bf (i)} \ \mathcal{N}(\F, \epsilon, \|.\|^2) \approx (1/\epsilon)^R$.
+    \item ${\bf (i)} \ \mathcal{N}(\F, \epsilon, \|.\|_2) \approx (1/\epsilon)^R$.
 
-    \noindent Then we have $\log\mathcal{N}(\F, \epsilon, \|.\|^2) \approx R\log(1/\epsilon)$. Therefore,
+    \noindent Then we have $\log\mathcal{N}(\F, \epsilon, \|.\|_2) \approx R\log(1/\epsilon)$. Therefore,
     \begin{align*}
         \int_0^1 \sqrt{
             \frac{\log \mathcal{N}(\F, \epsilon, \|.\|_2)}{n}
@@ -119,9 +234,9 @@ In the following section, we will explore a simple exercise for bounding the Rad
         }d\epsilon \approx \sqrt{\frac{R}{n}}
     \end{align*}
 
-    \item ${\bf (ii)} \ \mathcal{N}(\F, \epsilon, \|.\|^2) \approx a^{R/\epsilon}$.
+    \item ${\bf (ii)} \ \mathcal{N}(\F, \epsilon, \|.\|_2) \approx a^{R/\epsilon}$.
 
-    \noindent Then we have $\log\mathcal{N}(\F, \epsilon, \|.\|^2) \approx \frac{R}{\epsilon}\log a$. Therefore,
+    \noindent Then we have $\log\mathcal{N}(\F, \epsilon, \|.\|_2) \approx \frac{R}{\epsilon}\log a$. Therefore,
     \begin{align*}
         \int_0^1 \sqrt{
             \frac{\log \mathcal{N}(\F, \epsilon, \|.\|_2)}{n}
@@ -150,13 +265,20 @@ In the following section, we will explore a simple exercise for bounding the Rad
 In this section, we finally solve the problem stated in section \ref{sec:rc_bound_lin_func_problem}. First, consider the following lemma, then prove the proposition \ref{prop:rc_bound_for_lin_func}:
 
 \begin{theorem}{Dudley's Entropy Integral bound}{dudley_entropy_integral}
-    Let $\F$ be a real-valued function class taking values in $[-1, 1]$ and assume that ${\bf 0}\in\F$. Then,
+    Let $\F$ be a real-valued function class and assume that ${\bf 0}\in\F$. Then,
     \begin{align*}
         \ERC_S(\F) \le \inf_{\alpha>0} \biggRound{
-            4\alpha + \frac{12}{\sqrt n}\int_\alpha^{\sqrt n} \sqrt{
+            4\alpha + \frac{12}{\sqrt n}\int_\alpha^{\sup_{f\in\F}\|f\|_2} \sqrt{
                 \log\mathcal{N}(\F, \epsilon,\|.\|_2)
             }d\epsilon
         }
+    \end{align*}
+
+    \noindent Where we define the $\|.\|_2$ norm as followed:
+    \begin{align*}
+        \|f\|_2 = \sqrt{
+            \frac{1}{n}\sum_{i=1}^n f(x_i)^2
+        }, \ f\in\F
     \end{align*}
 \end{theorem}
 \begin{proof*}[Theorem \ref{thm:dudley_entropy_integral}]
@@ -174,7 +296,7 @@ In this section, we finally solve the problem stated in section \ref{sec:rc_boun
 
     \noindent Then, we have the following bound for the Rademacher Complexity:
     \begin{align*}
-        R_N(\F) \le \tilde O \biggRound{\frac{R}{\sqrt{n}}}, \ \ R = ab
+        \RC_n(\F) \le \tilde O \biggRound{\frac{R}{\sqrt{n}}}, \ \ R = ab
     \end{align*}
 \end{proposition}
 
