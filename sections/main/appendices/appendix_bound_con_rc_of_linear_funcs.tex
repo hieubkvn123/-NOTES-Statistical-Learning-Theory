@@ -84,7 +84,134 @@ In the following section, we will explore a simple exercise for bounding the Rad
 \end{theorem}
 
 \begin{proof*}[Theorem \ref{thm:massart_lemma}]
-    
+    For all $t\ge0$, we have:
+    \begin{align*}
+        \exp\biggRound{
+            t\E_\sigma\biggSquare{
+                \sup_{u\in A} \sum_{i=1}^n \sigma_i u_i
+            }
+        } &= \exp\biggRound{
+            \E_\sigma\biggSquare{
+                t\sup_{u\in A} \sum_{i=1}^n \sigma_i u_i
+            }
+        } \\
+        &\le \E_\sigma \biggSquare{
+            \exp\biggRound{
+                t\sup_{u\in A} \sum_{i=1}^n \sigma_i u_i
+            }
+        } \ \ \ (\text{Jensen's Inequality}) \\
+        &= \E_\sigma \biggSquare{
+            \sup_{u\in A} \exp\biggRound{
+                t\sum_{i=1}^n \sigma_i u_i
+            }
+        } \ \ \ (\text{Exponential is strictly increasing}) \\
+        &\le \sum_{u \in A} \E_\sigma\biggSquare{
+            \exp\biggRound{
+                t\sum_{i=1}^n \sigma_i u_i
+            }
+        }
+    \end{align*}
+
+    \noindent Since all Rademacher variables $\sigma_i$ are independent, we have:
+    \begin{align*}
+        \exp\biggRound{
+            t\E_\sigma\biggSquare{
+                \sup_{u\in A} \sum_{i=1}^n \sigma_i u_i
+            }
+        } &\le \sum_{u \in A} \prod_{i=1}^n \mathbb{E}_{\sigma_i} \bigSquare{
+            \exp(t\sigma_iu_i)
+        } \\
+        &= \sum_{u \in A} \prod_{i=1}^n M_{\sigma_i} (tu_i)
+    \end{align*}
+
+    \noindent We know that $\E[\sigma_i]=0$ for every $1\le i \le n$ and $-1\le \sigma_i \le 1$ with probability $1$. Hence, by Hoeffding's lemma \ref{lem:hoeffding_lemma}, we have:
+    \begin{align*}
+        \exp\biggRound{
+            t\E_\sigma\biggSquare{
+                \sup_{u\in A} \sum_{i=1}^n \sigma_i u_i
+            }
+        } &\le \sum_{u \in A} \prod_{i=1}^n M_{\sigma_i} (tu_i) \\
+        &\le \sum_{u \in A} \prod_{i=1}^n \exp\biggRound{
+            \frac{4t^2u_i^2}{8}
+        } = \sum_{u \in A} \prod_{i=1}^n \exp\biggRound{
+            \frac{t^2u_i^2}{2}
+        } \\
+        &=  \sum_{u \in A} \exp\biggRound{
+            \frac{t^2}{2}\sum_{i=1}^n u_i^2
+        } \\
+        &=  \sum_{u \in A} \exp\biggRound{
+            \frac{t^2\|u\|_2^2}{2}
+        } \\
+        &\le  \sum_{u \in A} \exp\biggRound{
+            \frac{t^2r^2}{2}
+        } = |A|\exp\biggRound{
+            \frac{t^2r^2}{2}
+        }
+    \end{align*}
+
+    \noindent Taking the log from both sides, we have:
+    \begin{align*}
+        t\E_\sigma\biggSquare{
+            \sup_{u\in A} \sum_{i=1}^n \sigma_i u_i
+        } &\le \log|A| + \frac{t^2r^2}{2} \\
+        \implies \E_\sigma\biggSquare{
+            \sup_{u\in A} \sum_{i=1}^n \sigma_i u_i
+        } &\le \inf_{t\ge0} \biggRound{
+            \frac{\log|A|}{t} + \frac{tr^2}{2}
+        }
+    \end{align*}
+
+    \noindent Setting the right hand side's derivative with respect to $t\ge0$ to $0$, we find that $t = r^{-1}\sqrt{2\log|A|}$. Plugging this value into the above bound, we have:
+    \begin{align*}
+        \E_\sigma\biggSquare{
+            \sup_{u\in A} \sum_{i=1}^n \sigma_i u_i
+        } &\le r\sqrt{2\log|A|}
+    \end{align*}
+\end{proof*}
+
+\begin{corollary}{Massart's lemma bound on $\ERC_S(\F)$}{massart_lemma_bound_on_rc}
+    Let $\F$ be a function class and let $Q$ be its output space. Given a dataset $S=\{x_1, \dots, x_n\}$, define the following norm for every $f\in\F$:
+    \begin{align*}
+        \|f\|_2 = \sqrt{
+            \frac{1}{n}\sum_{i=1}^n f(x_1)^2
+        }
+    \end{align*}
+
+    \noindent Then, we have the following bound on the Empirical Rademacher Complexity:
+    \begin{align*}
+        \ERC_S(\F) \le \sup_{f\in\F}\|f\|_2 \sqrt{
+            \frac{2\log|\F|}{n}
+        }
+    \end{align*}
+\end{corollary}
+
+\begin{proof*}[Corollary \ref{coro:massart_lemma_bound_on_rc}]
+    Let $r=\sup_{q\in Q} \|q\|_2$ where the norm applied on the output space is the $l^2$ norm (without the scaling factor $\frac{1}{\sqrt n}$). We have:
+    \begin{align*}
+        \sup_{f\in\F}\|f\|_2 
+            &= \sup_{f\in\F} \sqrt{
+                \frac{1}{n} \sum_{i=1}^n f(x_i)^2
+            } \\
+            &= \frac{1}{\sqrt{n}} \sup_{q \in Q}\sqrt{
+                \sum_{i=1}^n q_i^2
+            } \\
+            &= \frac{r}{\sqrt n} \\
+        \implies 
+        r &= \sqrt{n}\sup_{f\in\F}\|f\|_2 
+    \end{align*} 
+
+    \noindent We have:
+    \begin{align*}
+        \ERC_S(\F) &= \mathbb{E}_\sigma \biggSquare{
+            \sup_{f\in\F}\frac{1}{n}\sum_{i=1}^n\sigma_i f(x_i)
+        } \\
+        &= \mathbb{E}_\sigma \biggSquare{
+            \sup_{q\in Q}\frac{1}{n}\sum_{i=1}^n\sigma_i q_i
+        } \\
+        &\le \frac{r\sqrt{2\log|Q|}}{n} \ \ \ (\text{Massart's lemma \ref{thm:massart_lemma}}) \\
+        &= \sup_{f\in\F}\|f\|_2 \frac{\sqrt{2n\log|Q|}}{n} \\
+        &= \sup_{f\in\F}\|f\|_2 \sqrt{\frac{2\log|\F|}{n}}
+    \end{align*}
 \end{proof*}
 
 
