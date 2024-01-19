@@ -412,8 +412,8 @@ In this section, we finally solve the problem stated in section \ref{sec:rc_boun
     Let $\F$ be a real-valued function class and assume that ${\bf 0}\in\F$, $S=\{x_1, \dots, x_n\}$ is a dataset. Then,
     \begin{align*}
         \ERC_S(\F) \le \inf_{\alpha>0} \biggRound{
-            4\alpha + \frac{12}{\sqrt n}\int_\alpha^{\sup_{f\in\F}\|f\|_2} \sqrt{
-                \log\mathcal{N}(\F, \epsilon,\|.\|_2)
+            4\alpha + 12\int_\alpha^{\sup_{f\in\F}\|f\|_2} \sqrt{
+                \frac{\log\mathcal{N}(\F, \epsilon,\|.\|_2)}{n}
             }d\epsilon
         }
     \end{align*}
@@ -426,10 +426,57 @@ In this section, we finally solve the problem stated in section \ref{sec:rc_boun
     \end{align*}
 \end{theorem}
 \begin{proof*}[Theorem \ref{thm:dudley_entropy_integral}]
-    
+    This proof extend the proof for the more general Dudley's theorem \ref{thm:dudley_theorem}. From the proof, we have:
+    \begin{align*}
+        \ERC_S(\F) &\le \epsilon_n + 12 \int_{\epsilon_{n+1}}^{\epsilon_0} \sqrt{
+            \frac{\log\mathcal{N}(\F, \epsilon, \|.\|_2)}{n}
+        }dt
+    \end{align*}
+
+    \noindent Where $\epsilon_0=\sup_{f\in\F}\|f\|_2$ and for every $j\ge1$ we have $\epsilon_j = 2^{-j}\epsilon_0$. $\mathcal{N}(\F, \epsilon, \|.\|_2)$ is the size of the minimum $\epsilon$-cover.
+
+    \noindent\newline Let $\alpha\ge0$, pick the sample size $n$ such that:
+    \begin{align*}
+        n = \sup_{j\ge1} \bigCurl{j : \epsilon_j \ge 2\alpha}
+    \end{align*}
+
+    \noindent Hence, for any choice of sample size of at least $n+1$, we have:
+    \begin{align*}
+        \epsilon_{n+1} \le 2\alpha \implies \epsilon_n = 2\epsilon_{n+1} \le 4\alpha
+    \end{align*}
+
+    \noindent We also have:
+    \begin{align*}
+        \epsilon_{n+1} = \frac{\epsilon_n}{2} \ge \frac{2\alpha}{2} = \alpha
+    \end{align*}
+
+    \noindent Therefore, we have:
+    \begin{align*}
+        \ERC_S(\F) &\le \epsilon_n + 12 \int_{\epsilon_{n+1}}^{\epsilon_0} \sqrt{
+            \frac{\log\mathcal{N}(\F, \epsilon, \|.\|_2)}{n}
+        }dt \\
+        &\le 4\alpha + 12 \int_{\epsilon_{n+1}}^{\epsilon_0} \sqrt{
+            \frac{\log\mathcal{N}(\F, \epsilon, \|.\|_2)}{n}
+        }dt \ \ \ (\epsilon_n \le 4\alpha) \\
+        &\le 4\alpha + 12 \int_{\alpha}^{\epsilon_0} \sqrt{
+            \frac{\log\mathcal{N}(\F, \epsilon, \|.\|_2)}{n}
+        }dt \ \ \ (\epsilon_{n+1} \ge \alpha) \\
+        &=  4\alpha + 12 \int_{\alpha}^{\sup_{f\in\F}\|f\|_2} \sqrt{
+            \frac{\log\mathcal{N}(\F, \epsilon, \|.\|_2)}{n}
+        }dt 
+    \end{align*}
+
+    \noindent Since the left-hand-side does not depend on $\alpha$, we can take the infimum over $\alpha>0$ to obtain the tightest bound:
+    \begin{align*}
+        \ERC_S(\F) &\le \inf_{\alpha>0}\biggRound{
+            4\alpha + 12 \int_{\alpha}^{\sup_{f\in\F}\|f\|_2} \sqrt{
+                \frac{\log\mathcal{N}(\F, \epsilon, \|.\|_2)}{n}
+            }dt 
+        }
+    \end{align*}
 \end{proof*}
 
-\begin{proposition}{$\RC_n(\F)$ bound for linear function class}{rc_bound_for_lin_func}
+\begin{proposition}{$\RC_n(\F)$ bound for linear function class (covering numbers)}{rc_bound_for_lin_func}
     Given the following function class $\F$ whose range is bounded within $[-1, 1]$:
     \begin{align*}
         \F = \bigCurl{
