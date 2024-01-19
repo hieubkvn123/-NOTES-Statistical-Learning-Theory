@@ -41,7 +41,7 @@ In the following section, we will explore a simple exercise for bounding the Rad
 \begin{definition}[Covering Number of sets ($\mathcal{N}(Q, \epsilon, \rho$)]
     The \textbf{covering number} of a set $Q$ is defined as the size of the smallest $\epsilon$-cover needed to completely contain $Q$. In other words, it is the minimum number of $\epsilon$-balls needed to completely contain $Q$:
     \begin{align*}
-        \mathcal{N}(Q, \epsilon, \rho) = \text{minimum size of $\epsilon$-covers of $Q$ w.r.t $\rho$}
+        \mathcal{N}(Q, \epsilon, \rho) = \text{minimum size of $\epsilon$-cover of $Q$ w.r.t $\rho$}
     \end{align*}
 
     \noindent Visual illustration of covering number is included in figure \ref{fig:covering_number}.
@@ -73,9 +73,19 @@ In the following section, we will explore a simple exercise for bounding the Rad
 
 \subsubsection{Massart's Lemma}
 \begin{theorem}{Massart's Lemma}{massart_lemma}
-    
+    Let $A\subseteq \R^n$ and $|A|<\infty$. Let $r=\sup_{u\in A}\|u\|_2$ ($\|.\|_2$ is the $l^2$ norm). Then,
+    \begin{align*}
+        \mathbb{E}_\sigma\biggSquare{
+            \frac{1}{n} \sup_{u\in A}\sum_{i=1}^n \sigma_iu_i 
+        } \le \frac{r\sqrt{2\ln|A|}}{n}
+    \end{align*}
+
+    \noindent Where $u = \begin{pmatrix} u_1 & \dots & u_n \end{pmatrix}^T$.
 \end{theorem}
 
+\begin{proof*}[Theorem \ref{thm:massart_lemma}]
+    
+\end{proof*}
 
 
 \subsubsection{Dudley's Theorem}
@@ -272,7 +282,7 @@ In the following section, we will explore a simple exercise for bounding the Rad
 In this section, we finally solve the problem stated in section \ref{sec:rc_bound_lin_func_problem}. First, consider the following lemma, then prove the proposition \ref{prop:rc_bound_for_lin_func}:
 
 \begin{theorem}{Dudley's Entropy Integral bound}{dudley_entropy_integral}
-    Let $\F$ be a real-valued function class and assume that ${\bf 0}\in\F$. Then,
+    Let $\F$ be a real-valued function class and assume that ${\bf 0}\in\F$, $S=\{x_1, \dots, x_n\}$ is a dataset. Then,
     \begin{align*}
         \ERC_S(\F) \le \inf_{\alpha>0} \biggRound{
             4\alpha + \frac{12}{\sqrt n}\int_\alpha^{\sup_{f\in\F}\|f\|_2} \sqrt{
@@ -292,7 +302,7 @@ In this section, we finally solve the problem stated in section \ref{sec:rc_boun
     
 \end{proof*}
 
-\begin{proposition}{Rademacher Complexity bound for linear function class}{rc_bound_for_lin_func}
+\begin{proposition}{$\RC_n(\F)$ bound for linear function class}{rc_bound_for_lin_func}
     Given the following function class $\F$ whose range is bounded within $[-1, 1]$:
     \begin{align*}
         \F = \bigCurl{
@@ -314,27 +324,33 @@ In this section, we finally solve the problem stated in section \ref{sec:rc_boun
 
     \noindent The second inequality holds under the assumption that $R^2 > \epsilon^2$. Let $D = 4d^2 + 4d + 1$, we have:
     \begin{align*}
-        \int_\alpha^{\sqrt n} \sqrt{\log\mathcal{N}(\F, \epsilon, \|.\|_2)} 
-            &< R\sqrt{\log D}\int_\alpha^{\sqrt n} \frac{1}{\epsilon}d\epsilon \\
-            &= R\sqrt{\log D}\bigRound{ \log\sqrt{n} - \log\alpha }
+        \log\mathcal{N}(\F, \epsilon, \|.\|_2) < \frac{R^2}{\epsilon^2} \log D
+    \end{align*}
+
+    \noindent Since $\F$ is bounded in the $[-1, 1]$ range, we have that $\sup_{f\in\F}\|f\|_2 \le 1$. Hence, we have:
+    \begin{align*}
+        \int_\alpha^{\sup_{f\in\F}\|f\|_2} \sqrt{\log\mathcal{N}(\F, \epsilon, \|.\|_2)} d\epsilon
+            &\le \int_\alpha^1 \sqrt{\log\mathcal{N}(\F, \epsilon, \|.\|_2)} d\epsilon \\
+            &< R\sqrt{\log D}\int_\alpha^1 \frac{1}{\epsilon}d\epsilon \\
+            &= R\sqrt{\log D}\bigRound{ - \log\alpha }
     \end{align*}
 
     \noindent Using theorem \ref{thm:dudley_entropy_integral}, we have:
     \begin{align*}
         \ERC_S(\F) 
             &\le \inf_{\alpha>0}\biggRound{
-                4\alpha + \frac{12}{\sqrt n} \int_\alpha^{\sqrt n} \sqrt{\log\mathcal{N}(\F, \epsilon, \|.\|_2)} d\epsilon
+                4\alpha + \frac{12}{\sqrt n} \int_\alpha^{\sup_{f\in\F}\|f\|_2} \sqrt{\log\mathcal{N}(\F, \epsilon, \|.\|_2)} d\epsilon
             } \\
             &< \inf_{\alpha>0}\biggRound{
-                4\alpha + \frac{12}{\sqrt n} R\sqrt{\log D} \bigRound{ \log\sqrt{n} - \log\alpha }
+                4\alpha + \frac{12}{\sqrt n} R\sqrt{\log D} \bigRound{ - \log\alpha }
             }
     \end{align*}
 
     \noindent Letting $\alpha=\frac{3R}{\sqrt n}$, we have:
     \begin{align*}
-        \ERC_S(\F) &< \frac{12R}{\sqrt n} + \frac{12R}{\sqrt n}\sqrt{\log D} \biggRound{ \log \sqrt{n} - \log\frac{3R}{\sqrt n} } \\
+        \ERC_S(\F) &< \frac{12R}{\sqrt n} + \frac{12R}{\sqrt n}\sqrt{\log D} \biggRound{ - \log\frac{3R}{\sqrt n} } \\
         &= \frac{12R}{\sqrt n} \biggSquare{
-            1 + \sqrt{\log D}\log\frac{n}{3R}
+            1 - \sqrt{\log D}\log\frac{3R}{\sqrt{n}}
         } \\
         &= \tilde O\biggRound{ \frac{R}{\sqrt n} }
     \end{align*}
@@ -342,6 +358,13 @@ In this section, we finally solve the problem stated in section \ref{sec:rc_boun
     \noindent Since the right-hand-side does not depend on the sample $S$, we can just take expectation over the samples for both sides and we have:
     \begin{align*}
         \RC_n(\F) < \tilde O\biggRound{ \frac{R}{\sqrt n} }
+    \end{align*}
+
+    \noindent \textbf{Remark} : In fact, we do not have to specify the bound range $[-1, 1]$ of $\F$ and make the above result more general:
+    \begin{align*}
+        \ERC_S(\F) &< \frac{12R}{\sqrt n}\biggSquare{
+            1 + \log\sup_{f\in\F}\|f\|_2 - \sqrt{\log D}\log\frac{3R}{\sqrt{n}}
+        } = \tilde O\biggRound{ \frac{R}{\sqrt n} }
     \end{align*}
 \end{proof*}
 
