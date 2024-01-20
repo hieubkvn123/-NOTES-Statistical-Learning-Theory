@@ -1,5 +1,5 @@
 \subsection{Rademacher Complexity bound for linear function classes}
-In the following section, we will explore a simple exercise for bounding the Rademacher Complexity for linear function classes.
+In the following section, we will explore a simple exercise for bounding the Rademacher Complexity for linear function classes. We will first look into the important theorems and lemmas. Then, we will tackle the problem at the end of this section.
 
 \subsubsection{Problem Statement}
 \label{sec:rc_bound_lin_func_problem}
@@ -156,7 +156,7 @@ In the following section, we will explore a simple exercise for bounding the Rad
         } &\le \log|A| + \frac{t^2r^2}{2} \\
         \implies \E_\sigma\biggSquare{
             \sup_{u\in A} \sum_{i=1}^n \sigma_i u_i
-        } &\le \inf_{t\ge0} \biggRound{
+        } &\le \inf_{t>0} \biggRound{
             \frac{\log|A|}{t} + \frac{tr^2}{2}
         }
     \end{align*}
@@ -384,6 +384,22 @@ In the following section, we will explore a simple exercise for bounding the Rad
 
 
 \subsubsection{Bound on covering number of linear function class}
+\begin{theorem}{Maurey's Sparsification Lemma}{maurey_sparsification_elmma}
+    In a Hilbert space $\Hf$ equiped with a norm $\|.\|$, let $f\in\Hf$ where $f=\sum_{j=1}^d w_jg_j, \ \ g_j\in\Hf$ such that $\|g_j\| \le b, w_j \ge 0$ and $\alpha=\sum_{j=1}^d w_j \le 1$. Then, for any $n\ge1$, there exists non-negative integers $k_1, \dots, k_d\ge0$ such that $\sum_{j=1}^d k_j \le n$ and:
+    \begin{align*}
+        \Bigg\|
+            f - \sum_{j=1}^d \frac{k_j}{n} g_j 
+        \Bigg\|^2
+        \le \frac{\alpha b^2 - \|f\|^2}{n}
+    \end{align*}
+\end{theorem}
+
+\noindent \textbf{Remark} : The intuition of theorem \ref{thm:maurey_sparsification_elmma} is that if we have a function from a Hilbert space which can be written as linear combination of bounded functions. Then, we can estimate the coefficients $w_j$ using integer solutions $k_j$. The higher $n$ gets, the more accurately we can estimate the coefficients.
+
+\begin{proof*}[Theorem \ref{thm:maurey_sparsification_elmma}]
+    The proof of this theorem is too technical for this note. However, a rigorous proof is provided in the following paper \cite{article:bartlett} (Lemma A.6).
+\end{proof*}
+
 \begin{lemma}{Bound on $\mathcal{N}(\F, \epsilon, \|.\|_2)$ for linear functions}{covering_num_bound_lin_func}
     Let $\F$ be a linear function class defined as followed:
     \begin{align*}
@@ -399,9 +415,65 @@ In the following section, we will explore a simple exercise for bounding the Rad
 
     \noindent The proof of this lemma is discussed in Theorem 3 in \cite{article:tong_zhang}.
 \end{lemma}
-
 \begin{proof*}[Lemma \ref{lem:covering_num_bound_lin_func}]
-    
+    For $f\in\F$, we can write:
+    \begin{align*}
+        f(x) &= \sum_{j=1}^d x_j \cdot w_j \\
+        \|x\|_p &= \biggRound{
+            \sum_{j=1}^d |x_j|^p
+        }^{1/p} \le b \\
+        \|w\|_q &= \biggRound{
+            \sum_{j=1}^d |w_j|^q
+        }^{1/q} \le a
+    \end{align*}
+
+    \noindent We define the following:
+    \begin{align*}
+        g_j(x) &= \frac{n^{1/p}ab}{|x_j|}x_j, \ \ w_j' = \frac{|x_j|}{n^{1/p}ab}w_j, \ \ (n\ge1)
+    \end{align*}
+
+    \noindent By Holder's inequality, we can check that:
+    \begin{align*}
+        \sum_{j=1}^d |w_j'| 
+            &= \sum_{j=1}^d \frac{|x_j|}{n^{1/p}ab} |w_j| \\
+            &\le \frac{1}{n^{1/p}ab}\biggRound{
+                \sum_{j=1}^d |x_j|^p
+            }^{1/p}\biggRound{
+                \sum_{j=1}^d |w_j|^q 
+            }^{1/q} \\
+            &= \frac{\|x\|_p \|w\|_q}{n^{1/p}ab} \\
+            &\le \frac{1}{n^{1/p}} \\
+            &\le 1
+    \end{align*}
+
+    \noindent By the definition of $g_j$, we know that:
+    \begin{align*}
+        \forall x \in \R^d : g_j(x) \le n^{1/p}ab \implies \|g_j\|_2 \le n^{1/2}ab
+    \end{align*}
+
+    \noindent Furthermore, for all $f\in\F$, we can write:
+    \begin{align*}
+        f(x) = \sum_{j=1}^d w_j x_j \implies f := \sum_{j=1}^{d}|w_j'|\cdot[sgn(w_j')g_j]
+    \end{align*}
+
+    \noindent Hence, if we choose $\lceil (ab/\epsilon)^2 \rceil \ge K \ge (ab/\epsilon)^2$, by theorem \ref{thm:maurey_sparsification_elmma}, we can always find integers $k_1, \dots, k_d$ such that $\sum_{j=1}^{d}|k_j| \le K$ and:
+    \begin{align*}
+        \Bigg\| 
+            f - \sum_{j=1}^{d} \frac{k_j}{K}g_j
+        \Bigg\|_2^2 
+            &\le \frac{na^2b^2\sum_{j=1}^{d}|w_j'| - \|f\|_2^2}{K} \\
+            &\le \frac{na^2b^2 - \|f\|_2^2}{K} \\
+            &\le \frac{na^2b^2}{K} \\
+            &\le n\epsilon^2
+    \end{align*}
+
+    \noindent \textbf{Remark} : Note that the above norm refers to the standard $l^2$ norm. However, when we switch to the norm used in covering number and Rademacher Complexity (with the scaling factor $\frac{1}{\sqrt n}$), the $n$ on the right-hand-side vanishes.
+
+    \noindent\newline From the above, the covering number of $\F$ will not exceed the number of integer solutions for $\sum_{j=1}^{d}|k_j| \le K$, which is $(2d+1)^K$. Hence, we have:
+    \begin{align*}
+        \log\mathcal{N}(\F, \epsilon, \|.\|_2) &\le K\log(2d+1) \\
+        &\le \Bigg\lceil \frac{a^2b^2}{\epsilon^2} \Bigg\rceil \log(2d+1)
+    \end{align*}
 \end{proof*}
 
 
@@ -489,7 +561,6 @@ In this section, we finally solve the problem stated in section \ref{sec:rc_boun
         \RC_n(\F) \le \tilde O \biggRound{\frac{R}{\sqrt{n}}}, \ \ R = ab
     \end{align*}
 \end{proposition}
-
 \begin{proof*}[Proposition \ref{prop:rc_bound_for_lin_func}]
     \noindent From lemma \ref{lem:covering_num_bound_lin_func}, we have the following bound on the covering number of $\F$:
     \begin{align*}
