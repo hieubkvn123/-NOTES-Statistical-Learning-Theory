@@ -548,7 +548,7 @@ In this section, we finally solve the problem stated in section \ref{sec:rc_boun
     \end{align*}
 \end{proof*}
 
-\begin{proposition}{$\RC_n(\F)$ bound for linear function class (covering numbers)}{rc_bound_for_lin_func}
+\begin{proposition}{$\RC_n(\F)$ bound for linear function class (covering number)}{rc_bound_for_lin_func}
     Given the following function class $\F$ whose range is bounded within $[-1, 1]$:
     \begin{align*}
         \F = \bigCurl{
@@ -610,6 +610,46 @@ In this section, we finally solve the problem stated in section \ref{sec:rc_boun
         \ERC_S(\F) &< \frac{12R}{\sqrt n}\biggSquare{
             1 + \log\sup_{f\in\F}\|f\|_2 - \sqrt{\log D}\log\frac{3R}{\sqrt{n}}
         } = \tilde O\biggRound{ \frac{R}{\sqrt n} }
+    \end{align*}
+\end{proof*}
+
+
+\begin{proposition}{$\RC_n(\F)$ bound for linear function class (no covering number)}{rc_bound_for_lin_func_wo_covering_number}
+    The following proposition presents an upper bound for the Rademacher Complexity without dependence on the dimensionality $d$. Let $\F$ be a function class (not necessarily linear) and $Q$ is its output space such that:
+    \begin{align*}
+        R = \sup_{q\in Q} \|q\|_2
+    \end{align*}
+
+    \noindent Then, we have the following bound on the Rademacher Complexity:
+    \begin{align*}
+        R_n(\F) \le \frac{R}{\sqrt n}
+    \end{align*}
+\end{proposition}
+
+\begin{proof*}[Proposition \ref{prop:rc_bound_for_lin_func_wo_covering_number}]
+    Let $S$ be samples with $n$ elements, we have:
+    \begin{align*}
+        \RC_n(\F) 
+            &= \frac{1}{n}\E_S\E_\sigma \biggSquare{
+                \sup_{q\in Q} \big< \sigma, q \big>
+            } \\
+            &\le \frac{1}{n} \E_S\E_\sigma \biggSquare{
+                \sup_{q\in Q} \|\sigma\|_2 \cdot \|q\|_2
+            } \ \ \ (\text{Cauchy-Schwarz}) \\
+            &= \frac{1}{n} \E_S\E_\sigma \biggSquare{
+                \|\sigma\|_2 \cdot \sup_{q\in Q} \|q\|_2
+            } \\
+            &= \frac{R}{n} \E_S\E_\sigma \bigSquare{\|\sigma\|_2} \\
+            &= \frac{R}{n} \E_\sigma \bigSquare{\|\sigma\|_2} \\
+            &= \frac{R}{n} \E_\sigma \biggSquare{
+                \sqrt{
+                    \sum_{i=1}^n \sigma_i^2
+                }
+            } \\
+            &\le \frac{R}{n}\sqrt{
+                \sum_{i=1}^n \E_\sigma [\sigma_i^2]
+            } \ \ \ (\text{Jenen's Inequality}) \\
+            &= \frac{R}{\sqrt n}
     \end{align*}
 \end{proof*}
 
