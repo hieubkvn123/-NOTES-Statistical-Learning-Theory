@@ -309,8 +309,15 @@
     \end{subproof}
 
     \begin{subproof}{\newline ${\bf (d)}$ $\X=\R^d, \Hf=\{ \1{x \in R_k} : R_k \text{ is a union of at most $k$ rectangles} \}$}
-        
+        We can re-define the classifiers class as followed:
+        \begin{align*}
+            \Hf
+                &=\{ \1{x \in R_k} : R_k \text{ is a union of at most $k$ rectangles} \} \\
+                &=\biggCurl{\bigvee_{i=1}^n \1{x\in \mathcal{R}_i} : \mathcal{R}_i \text{ is a rectangle }, n\le k}
+        \end{align*}
     \end{subproof}
+
+    \noindent Since the class of hyper-rectangles have finite VC-dimension of $2d$, by corollary \ref{coro:vc_bound_ensembled_clf}, we have that $\Hf$ also has finite VC-dimension.
 \end{solution*}
 
 
