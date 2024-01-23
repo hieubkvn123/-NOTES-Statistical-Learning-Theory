@@ -188,7 +188,63 @@
 
 \begin{solution*}[Exercise \ref{ex:exercise_5.4}]
     In the following exercise, we will mostly make use of proposition \ref{prop:steele_dudley} to bound the VC dimension of the above function classes:
-    
+    \begin{subproof}{\newline ${\bf (a)}$ $\X=\R^d, \Hf=\{ \1{f(x)\ge0} : f \text{ inhomogeneous quadratic polynomial} \}$}
+        Define the following function class of $d$-dimensional inhomogeneous quadratic polynomials:
+        \begin{align*}
+            \F_1=\bigCurl{
+                f:\R^d\to\R \Big| f({\bf x}) = {\bf x^TAx} + {\bf b^Tx} + c, {\bf A} \in \R^{d\times d}, \text{ symmetric}.  \ {\bf b}\in\R^d, c\in\R 
+            }
+        \end{align*}
+
+        \noindent For any $f\in\F_1$, we can write:
+        \begin{align*}
+            f({\bf x}) &= \underbrace{\sum_{k=1}^d a_k x_k^2 + 2\sum_{i=1}^d \sum_{j=i+1}^d a_{ij}x_ix_j}_{{\bf x^TAx}} + \underbrace{\sum_{l=1}^d b_l x_l}_{{\bf b^Tx}} + c
+        \end{align*}
+
+        \noindent Hence, we have the following basis functions for $\F_1$:
+        \begin{align*}
+            \mathcal{B} = \bigCurl{
+                1, \underbrace{x_1^2, \dots, x_d^2}_{d}, \underbrace{x_1x_2, \dots, x_{d-1}x_d}_{\frac{d(d-1)}{2}}, \underbrace{x_1, \dots, x_d}_{d}
+            }
+        \end{align*}
+
+        \noindent Therefore, we have:
+        \begin{align*}
+            \dim(\F_1) = |\mathcal{B}| = \frac{d(d-1)}{2} + 2d + 1
+        \end{align*}
+
+        \noindent Therefore, by proposition \ref{prop:steele_dudley}, we have:
+        \begin{align*}
+            V_\Hf \le \dim(\F_1) = \frac{d(d-1)}{2} + 2d + 1
+        \end{align*}
+    \end{subproof}
+
+    \begin{subproof}{\newline ${\bf (b)}$ $\X=\R^d, \Hf=\{ \1{x \in C} : C \text{ is a closed sphere }\}$}
+        Denote the following function class:
+        \begin{align*}
+            \F_2 = \biggCurl{
+                f:\R^d \to \R \Big| f({\bf x}) = c^2 - \sum_{i=1}^d (x_i - a_i)^2, c\in \R, a_i \in \R
+            }    
+        \end{align*}
+        
+        \noindent Where $c$ denotes the radius of the hypersphere and the vector $(a_1, \dots, a_d)^T\in\R^d$ is the coordinates of the center. We can rewrite the class of classifiers as followed:
+        \begin{align*}
+            \Hf&=\{ \1{x \in C} : C \text{ is a closed sphere }\} \\
+            &= \biggCurl{
+                \1{f({\bf x}) \ge 0} \Big| f \in \F_2
+            }
+        \end{align*}
+
+        \noindent We notice that:
+        \begin{align*}
+            \F_2 \subset \F_1 \implies \dim(\F_2) \le \dim(\F_1)
+        \end{align*}
+
+        \noindent Hence, by proposition \ref{prop:steele_dudley}, we have:
+        \begin{align*}
+            V_\Hf \le \dim(\F_2) \le \dim(\F_1) \le \frac{d(d-1)}{2} + 2d + 1
+        \end{align*}
+    \end{subproof}
 \end{solution*}
 
 
