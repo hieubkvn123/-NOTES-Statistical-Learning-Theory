@@ -131,7 +131,7 @@
                 &\le \sum_{F\in\F} \bigAbs{ \bigCurl{
                     G_2 \cap F : G_2 \in \G_2
                 }} \\
-                &\le \sum_{F\in\F} S_{\G_2}(n) = |\F|S_{\G_2}(n) \\
+                &\le \sum_{F\in\F} S_{\G_2}(n) = |\F|S_{\G_2}(n)  \ \ \ (\text{Since } |F| \le n, \forall F\in F)  \\
                 &\le S_{\G_1}(n) S_{\G_2}(n)
         \end{align*}
 
@@ -174,6 +174,39 @@
         \end{align*}
     \end{subproof}
 \end{solution*}
+
+\noindent \textbf{Remark} : We can extend the proof for exercise \ref{ex:exercise_5.3} to function classes. Hence, we have the following Corollary for the VC-dimension of ensembled classifiers:
+
+\begin{corollary}{VC-dimension bound for ensembled classifiers}{vc_bound_ensembled_clf}
+    Let $\Hf_1$ and $\Hf_2$ be two classes of classifiers and define:
+    \begin{itemize}
+        \item $(\bf a)$ $\Hf_1\cap\Hf_2 = \bigCurl{ \1{h_1(x)=1 \wedge h_2(x)=1} : h_1 \in \Hf_1, h_2\in\Hf_2 }$.
+        \item $(\bf b)$ $\Hf_1\cup\Hf_2 = \bigCurl{ \1{h_1(x)=1 \vee h_2(x)=1} : h_1 \in \Hf_1, h_2\in\Hf_2 }$.
+    \end{itemize}
+
+    \noindent We have that $S_{\Hf_1\cap\Hf_2}(n)\le S_{\Hf_1}(n)S_{\Hf_2}(n)$ and $S_{\Hf_1\cup\Hf_2}(n)\le S_{\Hf_1}(n)S_{\Hf_2}(n)$. Furthermore, we have:
+    \begin{align*}
+        V_{\Hf_1}, V_{\Hf_2} < \infty \implies V_{\Hf_1\cap\Hf_2} < \infty \text{ and } V_{\Hf_1\cup\Hf_2} < \infty
+    \end{align*}
+\end{corollary}
+
+\begin{proof*}[Corollary \ref{coro:vc_bound_ensembled_clf}]
+    The translation of the results in exercise \ref{ex:exercise_5.3} to function classes is trivial. The main point is to prove the second point of the corollary. 
+    
+    \noindent\newline Assume that the statement does not hold. Hence, $V_{\Hf_1\cap\Hf_2}=\infty$ and $S_{\Hf_1\cap\Hf_2}(n) = 2^n, \forall n\ge1$. By Sauer's lemma \ref{thm:sauer_lemma}, since $V_{\Hf_1}, V_{\Hf_2} < \infty$, we have:
+    \begin{align*}
+        S_{\Hf_1}(n) &\le (n+1)^{V_{\Hf_1}} \implies \log S_{\Hf_1}(n) \le V_{\Hf_1}\log(n+1) \\
+        S_{\Hf_2}(n) &\le (n+1)^{V_{\Hf_2}} \implies \log S_{\Hf_2}(n) \le V_{\Hf_2}\log(n+1)
+    \end{align*} 
+
+    \noindent Therefore, we have:
+    \begin{align*}
+        \log S_{\Hf_1\cap\Hf_2}(n) &\le \log S_{\Hf_1}(n) + \log S_{\Hf_2}(n) \\
+        \implies n\log 2 &\le (V_{\Hf_1} + V_{\Hf_2})\log(n+1), \ \forall n\ge1
+    \end{align*}
+
+    \noindent However, this is not true since the left-hand-side evolves linearly while the right-hand-side evolves logarithmically. Therefore, we have a contraction $\implies V_{\Hf_1\cap\Hf_2} < \infty$. We can repeat the same argument for $V_{\Hf_1\cup\Hf_2}$.
+\end{proof*}
 
 
 \begin{exercise}{}{exercise_5.4}
@@ -223,11 +256,11 @@
         Denote the following function class:
         \begin{align*}
             \F_2 = \biggCurl{
-                f:\R^d \to \R \Big| f({\bf x}) = c^2 - \sum_{i=1}^d (x_i - a_i)^2, c\in \R, a_i \in \R
+                f:\R^d \to \R \Big| f({\bf x}) = r^2 - \sum_{i=1}^d (x_i - c_i)^2, r\in \R, c_i \in \R
             }    
         \end{align*}
         
-        \noindent Where $c$ denotes the radius of the hypersphere and the vector $(a_1, \dots, a_d)^T\in\R^d$ is the coordinates of the center. We can rewrite the class of classifiers as followed:
+        \noindent Where $r$ denotes the radius of the hypersphere and the vector $(c_1, \dots, c_d)^T\in\R^d$ is the coordinates of the center. We can rewrite the class of classifiers as followed:
         \begin{align*}
             \Hf&=\{ \1{x \in C} : C \text{ is a closed sphere }\} \\
             &= \biggCurl{
@@ -244,6 +277,10 @@
         \begin{align*}
             V_\Hf \le \dim(\F_2) \le \dim(\F_1) \le \frac{d(d-1)}{2} + 2d + 1
         \end{align*}
+    \end{subproof}
+
+    \begin{subproof}{\newline ${\bf (c)}$ $\X=\R^2, \Hf=\{ \1{x \in P_k} : P_k \text{ is a convex polygon of at most $k$ sides} \}$}
+        
     \end{subproof}
 \end{solution*}
 
