@@ -280,6 +280,35 @@
     \end{subproof}
 
     \begin{subproof}{\newline ${\bf (c)}$ $\X=\R^2, \Hf=\{ \1{x \in P_k} : P_k \text{ is a convex polygon of at most $k$ sides} \}$}
+        We can think of $\1{x\in P_k}$ as an ensemble of $k$ different linear classifiers in $\R^2$. This is illustrated in figure \ref{fig:convex_polygon_classifier}.
+
+        \begin{figure}[!ht]
+            \centering
+            \includegraphics[width=\textwidth]{figures/convex_polygon_classifier.png}
+            \caption{Convex polygon comprises of three linear classifiers of the form $\1{f_i(x, y)\ge0}$ where $f_1(x, y) = 2x-y-3$, $f_2(x, y)=3x+y-8$ and $f_3(x, y)=5-x$.}
+            \label{fig:convex_polygon_classifier}
+        \end{figure}
+
+        \noindent We define the class of linear classifiers in $\R^2$ as followed:
+        \begin{align*}
+            \mathcal{L} = \bigCurl{
+                \1{f(x, y) \ge 0} : f(x, y) = ax + by + c \text{ where } a, b, c \in \R
+            }
+        \end{align*}
+
+        \noindent Hence, we can rewrite the classifiers class of convex polygons as:
+        \begin{align*}
+            \Hf
+                &=\{ \1{x \in P_k} : P_k \text{ is a convex polygon of at most $k$ sides} \} \\
+                &= \biggCurl{
+                    \bigwedge_{i=1}^n \1{f_i(x, y) \ge 0} : f_i \in \mathcal{L}, n \le k
+                }
+        \end{align*}
+
+        \noindent Since $V_\mathcal{L}<\infty$, by corollary \ref{coro:vc_bound_ensembled_clf}, we also have $V_\Hf<\infty$.
+    \end{subproof}
+
+    \begin{subproof}{\newline ${\bf (d)}$ $\X=\R^d, \Hf=\{ \1{x \in R_k} : R_k \text{ is a union of at most $k$ rectangles} \}$}
         
     \end{subproof}
 \end{solution*}
