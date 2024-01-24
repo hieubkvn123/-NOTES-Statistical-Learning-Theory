@@ -178,7 +178,7 @@ In the following section, we will discuss another concentration inequality that 
 \begin{proof*}[Theorem \ref{thm:one_sided_rademacher_bound}]
     For notation brevity, define:
     \begin{align*}
-        \widehat{\E_S}[g] = \frac{1}{n}\sum_{i=1}^n g(Z_i); \ \E\bigSquare{g(Z)} = \E[g]
+        \widehat{\E_S}[g] &= \frac{1}{n}\sum_{i=1}^n g(Z_i); \ \E\bigSquare{g(Z)} = \E[g] \\
     \end{align*}
     
     \begin{subproof}{\newline ${\bf (i)} \ \ \E[g] - \widehat{\E_S}[g] \le 2\RC_n(\G) + (b-a)\sqrt{\frac{\log1/\delta}{2n}}$}
@@ -278,7 +278,49 @@ In the following section, we will discuss another concentration inequality that 
     \end{align*}
 
     \begin{subproof}{\newline ${\bf (ii)} \ \ \E[g] - \widehat{\E_S}[g] \le 2\ERC_n(\G) + 3(b-a)\sqrt{\frac{\log2/\delta}{2n}}$}
-        
+        We will first verify that the Empirical Rademacher Complexity satisfies the bounded difference property. Let $S=(X_1, \dots, X_n)$ and $S_i'=(Y_1, \dots, Y_n)$ such that $Y_j=X_j, \forall j \ne i, 1 \le i \le n$. We have:
+        \begin{align*}
+            \bigAbs{ \ERC_S(\G) - \ERC_{S_i'}(\G) } 
+                &\le \biggAbs{
+                    \E_\sigma\biggSquare{
+                        \sup_{g\in\G} \frac{1}{n} \biggRound{
+                            \sum_{j=1}^n \sigma_j g(X_j) - \sum_{j=1}^n \sigma_j g(Y_j)
+                        }
+                    }
+                } \\
+                &= \biggAbs{
+                    \E_\sigma\biggSquare{
+                        \sup_{g\in\G} \frac{1}{n} \sum_{j=1}^n \sigma_j (g(X_j) - g(Y_j))
+                    }
+                } \\
+                &= \biggAbs{
+                    \E_\sigma\biggSquare{
+                        \sup_{g\in\G} \frac{1}{n} \sum_{j=1}^n (g(X_j) - g(Y_j))
+                    }
+                } \ \ \ (\sigma_i \text{ are symmetric}) \\
+                &= \biggAbs{
+                    \E_\sigma\biggSquare{
+                        \sup_{g\in\G} \frac{1}{n} \bigRound{
+                            g(X_i) - g(Y_i)
+                        }
+                    }
+                } \\
+                &\le \frac{b-a}{n}
+        \end{align*}
+
+        \noindent Therefore, by the bounded difference inequality, with at least $1-\delta/2$ probability, we have:
+        \begin{align*}
+            \ERC_S(\G) - \E_S\bigSquare{\ERC_S(\G)} &\ge (a-b)\sqrt{\frac{\log 2/\delta}{2n}} \\
+            \implies \ERC_S(\G) - \RC_n(\G) &\ge (a-b)\sqrt{\frac{\log 2/\delta}{2n}} \\
+            \implies \RC_n(\G)  &\le \ERC_S(\G) + (b-a)\sqrt{\frac{\log 2/\delta}{2n}}
+        \end{align*}
+
+        \noindent From ${\bf (i)}$ we also have, with a probability of at least $1-\delta/2$, we have:
+        \begin{align*}
+            \phi(S) \le 2\RC_n(\G) + (b-a)\sqrt{
+                \frac{\log 2/\delta}{2n}
+            }
+        \end{align*}
     \end{subproof}
 \end{proof*}
 
