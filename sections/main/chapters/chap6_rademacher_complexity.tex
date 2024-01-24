@@ -176,7 +176,110 @@ In the following section, we will discuss another concentration inequality that 
 \end{theorem}
 
 \begin{proof*}[Theorem \ref{thm:one_sided_rademacher_bound}]
+    For notation brevity, define:
+    \begin{align*}
+        \widehat{\E_S}[g] = \frac{1}{n}\sum_{i=1}^n g(Z_i); \ \E\bigSquare{g(Z)} = \E[g]
+    \end{align*}
     
+    \begin{subproof}{\newline ${\bf (i)} \ \ \E[g] - \widehat{\E_S}[g] \le 2\RC_n(\G) + (b-a)\sqrt{\frac{\log1/\delta}{2n}}$}
+        Define the following function:
+        \begin{align*}
+            \phi(S) = \sup_{g\in\G} \bigCurl{
+                \E[g] - \widehat{\E_S}[g]
+            }
+        \end{align*}
+
+        \noindent First, we check that $\phi$ has the bounded difference property. Define $S'_i=(Z_1, \dots, Z_i', \dots, Z_n)$, we have:
+        \begin{align*}
+            \bigAbs{\phi(S) - \phi(S'_i)} 
+                &= \biggAbs{
+                    \sup_{g\in\G} \bigCurl{\E[g] - \widehat{E_S}[g]} - \sup_{g\in\G}\bigCurl{\E[g] - \widehat{\E_{S_i'}}[g]}
+                } \\
+                &\le \biggAbs{
+                    \sup_{g\in\G} \bigCurl{ \widehat{\E_{S_i'}}[g] - \widehat{E_S}[g] }
+                } \ \ \ \Big(\sup A - \sup B \le \sup \bigCurl{A - B} \Big) \\
+                &= \biggAbs{
+                    \frac{1}{n} \sup_{g\in\G} \bigRound{ g(Z_i') - g(Z_i) }
+                } \\
+                &\le \frac{b-a}{n}
+        \end{align*}
+
+        \noindent By the Bounded Difference Inequality, we have:
+        \begin{align*}
+            P\biggRound{
+                \phi(S) - \E[\phi(S)] \le t
+            } &\ge 1 - \exp\biggRound{
+                -\frac{2t^2}{\sum_{i=1}^n (b - a)^2/n^2}
+            }, \ \ \ t\ge 0 \\
+            &= 1 - \exp\biggRound{
+                -\frac{2nt^2}{(b - a)^2}
+            }
+        \end{align*}
+
+        \noindent Now, let:
+        \begin{align*}
+            \delta = \exp\biggRound{
+                -\frac{2nt^2}{(b - a)^2}
+            } \implies t = (b-a)\sqrt{
+                \frac{\log 1/\delta}{2n}
+            }
+        \end{align*}
+
+        \noindent Hence, for all $\delta>0$, with probability of at least $1-\delta$, we have:
+        \begin{align*}
+            \phi(S) \le \E[\phi(S)] + (b-a)\sqrt{
+                \frac{\log 1/\delta}{2n}
+            } \ \ \ (1)
+        \end{align*}
+    \end{subproof}
+
+    \noindent Now, to establish ${\bf (i)}$, we have to show that $\E[\phi(S)] \le 2\RC_n(\G)$. Let $S'=(Z_1', \dots, Z_n')$. We have:
+    \begin{align*}
+        \E[\phi(S)] 
+            &= \E_S\biggSquare{ \sup_{g\in\G} \bigCurl{ \E[g] - \widehat{E_S}[g] } } \\
+            &= \E_S\biggSquare{
+                \sup_{g\in\G} \bigCurl{
+                    E_{S'} \bigSquare{ \widehat{E_{S'}}[g] - \widehat{E_S}[g]}
+                }
+            } \ \ \ \Big(\E[g] = \E_{S'}\widehat{E_{S'}}[g]\Big) \\
+            &\le \E_{S, S'} \biggSquare{
+                \sup_{g\in\G} \bigCurl{
+                    \widehat{E_{S'}}[g] - \widehat{E_S}[g]
+                }
+            } \ \ \ \Big( \text{Jensen's Inequality : } \sup \E \le \E\sup \Big) \\
+            &= \E_{S, S'} \biggSquare{
+                \sup_{g\in\G} \frac{1}{n}\sum_{i=1}^n \bigRound{
+                    g(Z_i') - g(Z_i)
+                }
+            } \\
+            &= \E_{\sigma, S, S'} \biggSquare{
+                \sup_{g\in\G} \frac{1}{n}\sum_{i=1}^n \sigma_i\bigRound{
+                    g(Z_i') - g(Z_i)
+                }
+            } \ \ \ (Z_i, Z_i' \text{ are i.i.d, }\sigma_i \text{ are symmetric}) \\
+            &\le E_{\sigma, S'} \biggSquare{
+                \sup_{g\in\G} \frac{1}{n}\sum_{i=1}^n \sigma_ig(Z_i')
+            } + E_{\sigma, S} \biggSquare{
+                \sup_{g\in\G} \frac{1}{n}\sum_{i=1}^n (-\sigma_i)g(Z_i)
+            } \ \ \ (\sup(f_1 + f_2) \le \sup f_1 + \sup f_2) \\
+            &=  E_{\sigma, S'} \biggSquare{
+                \sup_{g\in\G} \frac{1}{n}\sum_{i=1}^n \sigma_ig(Z_i')
+            } + E_{\sigma, S} \biggSquare{
+                \sup_{g\in\G} \frac{1}{n}\sum_{i=1}^n \sigma_ig(Z_i)
+            } \ \ \ (\text{Rademacher variables are symmetric})  \\
+            &= 2\RC_n(\G) \ \ \ (2)
+    \end{align*}
+
+    \noindent From $(1)$ and $(2)$, we have:
+    \begin{align*}
+        \phi(S) \le 2\RC_n(\G) + (b-a)\sqrt{
+            \frac{\log 1/\delta}{2n}
+        }
+    \end{align*}
+
+    \begin{subproof}{\newline ${\bf (ii)} \ \ \E[g] - \widehat{\E_S}[g] \le 2\ERC_n(\G) + 3(b-a)\sqrt{\frac{\log2/\delta}{2n}}$}
+        
+    \end{subproof}
 \end{proof*}
 
 \begin{theorem}{Two-sided Rademacher Complexity bound}{two_sided_rademacher_bound}

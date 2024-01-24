@@ -7,9 +7,9 @@
 \contentsline {tcolorbox}{\numberline {5.3}VC Theorem (for sets)}{39}{tcb@cnt@theorem.5.3}%
 \contentsline {tcolorbox}{\numberline {6.1}Bounded Difference (McDiarmid's) Inequality}{47}{tcb@cnt@theorem.6.1}%
 \contentsline {tcolorbox}{\numberline {6.2}One-sided Rademacher Complexity bound}{50}{tcb@cnt@theorem.6.2}%
-\contentsline {tcolorbox}{\numberline {6.3}Two-sided Rademacher Complexity bound}{50}{tcb@cnt@theorem.6.3}%
-\contentsline {tcolorbox}{\numberline {A.1}Neyman-Pearson Lemma}{52}{tcb@cnt@theorem.A.1}%
-\contentsline {tcolorbox}{\numberline {A.2}Massart's Lemma}{55}{tcb@cnt@theorem.A.2}%
-\contentsline {tcolorbox}{\numberline {A.3}Dudley's Theorem}{57}{tcb@cnt@theorem.A.3}%
-\contentsline {tcolorbox}{\numberline {A.4}Maurey's Sparsification Lemma}{60}{tcb@cnt@theorem.A.4}%
-\contentsline {tcolorbox}{\numberline {A.5}Dudley's Entropy Integral bound}{62}{tcb@cnt@theorem.A.5}%
+\contentsline {tcolorbox}{\numberline {6.3}Two-sided Rademacher Complexity bound}{51}{tcb@cnt@theorem.6.3}%
+\contentsline {tcolorbox}{\numberline {A.1}Neyman-Pearson Lemma}{53}{tcb@cnt@theorem.A.1}%
+\contentsline {tcolorbox}{\numberline {A.2}Massart's Lemma}{56}{tcb@cnt@theorem.A.2}%
+\contentsline {tcolorbox}{\numberline {A.3}Dudley's Theorem}{58}{tcb@cnt@theorem.A.3}%
+\contentsline {tcolorbox}{\numberline {A.4}Maurey's Sparsification Lemma}{61}{tcb@cnt@theorem.A.4}%
+\contentsline {tcolorbox}{\numberline {A.5}Dudley's Entropy Integral bound}{63}{tcb@cnt@theorem.A.5}%
