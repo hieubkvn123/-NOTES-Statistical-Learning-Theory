@@ -321,6 +321,28 @@ In the following section, we will discuss another concentration inequality that 
                 \frac{\log 2/\delta}{2n}
             }
         \end{align*}
+
+        \noindent Now denote the following events:
+        \begin{align*}
+            A &:= \biggCurl{
+                \RC_n(\G) \le \ERC_S(\G) + (b-a)\sqrt{ \frac{\log 2/\delta}{2n} }
+            } \\
+            B &:= \biggCurl{
+                \phi(S) \le 2 \RC_n(\G) + (b-a)\sqrt{ \frac{\log 2/\delta}{2n} }
+            }
+        \end{align*}
+
+        \noindent We have:
+        \begin{align*}
+            P\biggRound{\biggCurl{
+                \phi(S) \le 2\ERC_S(\G) + 3(b-a)\sqrt{
+                    \frac{\log 2/\delta}{2n}
+                }
+            }} &\ge P(A\cap B) \\
+            &= 1 - P(\overline{A} \cup \overline{B}) \\
+            &\ge 1 - \bigRound{P(\overline{A}) + P(\overline{B})} \\
+            &= 1 - (\delta/2 + \delta/2) = 1 - \delta
+        \end{align*}
     \end{subproof}
 \end{proof*}
 
