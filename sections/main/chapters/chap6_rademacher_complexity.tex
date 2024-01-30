@@ -168,7 +168,7 @@ In the following section, we will discuss another concentration inequality that 
 \end{definition}
 
 \begin{theorem}{One-sided Rademacher Complexity bound}{one_sided_rademacher_bound}
-    Let $Z$ be a random variable and $S=(Z_1, \dots, Z_n)$ be an independently identically distributed sample over $\mathcal{Z}$. Consider a class of functions $\G\subseteq [a,b]^\mathcal{Z}$. $\forall \delta > 0, g\in\G$, with at least probability $1-\delta$, we have:
+    Let $Z$ be a random variable and $S=(Z_1, \dots, Z_n)$ be an independently identically distributed sample over $\mathcal{Z}$. Consider a class of functions $\G\subseteq [a,b]^\mathcal{Z}$. $\forall \delta > 0, g\in\G$, with at least probability $1-\delta$ with respect to the draw of sample $S$, we have:
     \begin{align*}
         {\bf (i)} \ \ \E\bigSquare{g(Z)} - \frac{1}{n} \sum_{i=1}^n g(Z_i) &\le 2\RC_n(\G) + (b-a)\sqrt{\frac{\log1/\delta}{2n}} \\
         {\bf (ii)} \  \E\bigSquare{g(Z)} - \frac{1}{n} \sum_{i=1}^n g(Z_i) &\le 2\ERC_S(\G) + 3(b-a)\sqrt{\frac{\log2/\delta}{2n}}
@@ -347,7 +347,7 @@ In the following section, we will discuss another concentration inequality that 
 \end{proof*}
 
 \begin{theorem}{Two-sided Rademacher Complexity bound}{two_sided_rademacher_bound}
-    Consider a set of classifiers $\G\subseteq[a,b]^\mathcal{Z}$. Then, $\forall \delta>0$, with probability of at least $1-\delta$, we have:
+    Consider a set of classifiers $\G\subseteq[a,b]^\mathcal{Z}$. Then, $\forall \delta>0$, with probability of at least $1-\delta$ with respect to the draw of sample $S$, we have:
     \begin{align*}
         \sup_{g\in\G}\biggAbs{
             \E\bigSquare{ g(Z) } - \frac{1}{n}\sum_{i=1}^n g(Z_i)
