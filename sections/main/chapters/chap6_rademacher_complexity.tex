@@ -368,8 +368,49 @@ In the following section, we will discuss another concentration inequality that 
 
 
 \subsection{Bounds for binary classification}
+\textbf{Overview} : Given the following, 
+\begin{itemize}
+    \item $\X$ is a feature space and $\Y=\{-1, 1\}$ be a label space.
+    \item $\Hf\subset\{-1, 1\}^{\X}$ : A set of binary classifiers.
+    \item $\G=\bigCurl{ g_h : \X\times\Y \to \{0,1\} \Big| g_h(x, y) = \1{h(x)\ne y}, h\in\Hf }$ : Every function $g_h\in\G$ is the risk function of $h\in\Hf$.
+    \item $S=\{(X_i, Y_i)\}_{i=1}^n\subset \X\times \Y$ is a sample dataset.
+\end{itemize}
 
+\begin{lemma}{$\ERC_S(\G) = \frac{1}{2}\ERC_S(\Hf)$}{rh_equals_half_rg}
+    We have the following equality:
+    \begin{align*}
+        \ERC_S(\G) = \frac{1}{2}\ERC_S(\Hf)
+    \end{align*}
+\end{lemma}
 
+\begin{proof*}[Lemma \ref{lem:rh_equals_half_rg}]
+    From definition, we have:
+    \begin{align*}
+        \ERC_S(\G) 
+            &= \E_\sigma\biggSquare{
+                \sup_{h\in\Hf} \frac{1}{n} \sum_{i=1}^n \sigma_i \1{h(X_i)\ne Y_i} 
+            } \\
+            &= \E_\sigma\biggSquare{
+                \sup_{h\in\Hf} \frac{1}{n} \sum_{i=1}^n \sigma_i \frac{1-Y_ih(X_i)}{2} 
+            } \\
+            &= \E_\sigma\biggSquare{
+                \frac{1}{2n}\sum_{i=1}^n \sigma_i + \frac{1}{2}\sup_{h\in \Hf}\frac{1}{n} \sum_{i=1}^n \sigma_i(-Y_i)h(X_i)
+            } \\ 
+            &= \frac{1}{2n} \underbrace{\E_\sigma\biggSquare{
+                \sum_{i=1}^n \sigma_i
+            }}_{=0} + \frac{1}{2}\E_\sigma\biggSquare{
+                \sup_{h\in \Hf}\frac{1}{n} \sum_{i=1}^n \sigma_i(-Y_i)h(X_i)
+            } \\
+            &= \frac{1}{2}\E_\sigma\biggSquare{
+                \sup_{h\in \Hf}\frac{1}{n} \sum_{i=1}^n \sigma_i h(X_i)
+            } \ \ \ (\sigma_i \text{ and } \sigma_i(-Y_i) \text{ has the same distribution}) \\
+            &= \frac{1}{2}\ERC_S(\Hf)
+    \end{align*}
+\end{proof*}
+
+\begin{corollary}{UDB for binary classification using Rademacher Complexity}{udb_bin_clf_rademacher}
+    
+\end{corollary}
 
 
 \subsection{Proof of VC Inequality}
