@@ -409,8 +409,61 @@ In the following section, we will discuss another concentration inequality that 
 \end{proof*}
 
 \begin{corollary}{UDB for binary classification using Rademacher Complexity}{udb_bin_clf_rademacher}
-    
+    For all $\delta>0$, with probability of at least $1-\delta$, we have:
+    \begin{align*}
+        \sup_{h\in\Hf} \bigRound{
+            R(h) - \widehat{R_n}(h)
+        } &\le \RC_n(\Hf) + \sqrt{
+            \frac{\log 1/\delta}{2n}
+        } \\
+        \sup_{h\in\Hf} \bigRound{
+            R(h) - \widehat{R_n}(h)
+        } &\le \ERC_S(\Hf) + 3\sqrt{
+            \frac{\log 2/\delta}{2n}
+        }
+    \end{align*}
+
+    \noindent We can also derive a two-sided UDB by replacing $\delta$ with $\delta/2$:
+    \begin{align*}
+        \sup_{h\in\Hf} \bigAbs{
+            R(h) - \widehat{R_n}(h)
+        } &\le \RC_n(\Hf) + \sqrt{
+            \frac{\log 2/\delta}{2n}
+        } \\
+        \sup_{h\in\Hf} \bigAbs{
+            R(h) - \widehat{R_n}(h)
+        } &\le \ERC_S(\Hf) + 3\sqrt{
+            \frac{\log 4/\delta}{2n}
+        }
+    \end{align*}
 \end{corollary}
+
+\begin{proof*}[Corollary \ref{coro:udb_bin_clf_rademacher}]
+    Define the following function space:
+    \begin{align*}
+        \G = \bigCurl{
+            g_h : \X \times \Y \to \{0,1\} \Big| g_h(x, y) = \1{h(x)\ne y}, h\in\Hf
+        }
+    \end{align*}
+
+    \noindent By theorem \ref{thm:one_sided_rademacher_bound}, we have:
+    \begin{align*}
+        \sup_{g_h\in\G} \bigRound{\E[g_h] - \widehat{E_S}[g_h]}
+            &= \sup_{h\in\Hf} \bigRound{\E[\1{h(X)\ne Y}] - \widehat{E_S}[\1{h(X)\ne Y}]} \\
+            &= \sup_{h\in\Hf} \bigRound{R(h) - \widehat{R_n}(h)} \\
+            &\le 2\RC_n(\G) + \sqrt{\frac{\log 1/\delta}{2n}} \ \ \ (\text{Theorem \ref{thm:one_sided_rademacher_bound}}) \\
+            &= \RC_n(\Hf) + \sqrt{\frac{\log 1/\delta}{2n}} \ \ \ \biggRound{
+                \text{Since } \ERC_S(\G) = \frac{1}{2}\ERC_S(\Hf)
+            }
+    \end{align*}
+
+    \noindent Similarly, from theorem \ref{thm:one_sided_rademacher_bound}, we can also derive the following inequality:
+    \begin{align*}
+        \sup_{h\in\Hf} \bigRound{R(h) - \widehat{R_n}(h)} \le \ERC_S(\Hf) + 3\sqrt{\frac{\log 2/\delta}{2n}}
+    \end{align*}
+
+    \noindent By replacing $\delta$ with $\delta/2$, following the same arguments, we obtain the two-sided bounds.
+\end{proof*}
 
 
 \subsection{Proof of VC Inequality}
