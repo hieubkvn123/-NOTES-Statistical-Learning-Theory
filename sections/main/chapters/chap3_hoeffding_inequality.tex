@@ -96,7 +96,7 @@ Before diving into Hoeffding's inequality, we need to go through the following l
 \begin{proof*}[Theorem \ref{thm:hoeffding_inequality}]
     Using the Chernoff's bounds, we have:
     \begin{align*}
-        P\bigRound{\bigAbs{S_n - \mathbb{E}[S_n]} \ge t}
+        P\bigRound{S_n - \mathbb{E}[S_n] \ge t}
             &\le \inf_{s>0} e^{-st}M_{S_n - \mathbb{E}[S_n]}(s) \\
             &= \inf_{s>0}e^{-st}\mathbb{E}\bigSquare{
                 e^{s(S_n - \mathbb{E}[S_n])}
@@ -127,7 +127,7 @@ Before diving into Hoeffding's inequality, we need to go through the following l
 
     \noindent Letting $c = \sum_{i=1}^n(b_i-a_i)^2$, we now can derive the tightest Chernoff's bound as followed:
     \begin{align*}
-        P\bigRound{\bigAbs{S_n - \mathbb{E}[S_n]} \ge t}
+        P\bigRound{S_n - \mathbb{E}[S_n] \ge t}
             &\le \exp\biggRound{
                 -\frac{4t^2}{c} + \frac{16t^2}{c^2} \cdot \frac{c}{8}
             } = \exp\biggRound{
@@ -136,6 +136,20 @@ Before diving into Hoeffding's inequality, we need to go through the following l
             &= \exp\biggRound{
                 -\frac{2t^2}{\sum_{i=1}^n(b_i - a_i)^2}
             }
+    \end{align*}
+
+    \noindent Repeating the same argument, we can also prove that:
+    \begin{align*}
+        P\bigRound{\mathbb{E}[S_n] - S_n \ge t} &\le \exp\biggRound{
+            -\frac{2t^2}{\sum_{i=1}^n(b_i - a_i)^2}
+        }
+    \end{align*}
+
+    \noindent Combining the two sides of the inequality, we have:
+    \begin{align*}
+        P\bigRound{\bigAbs{S_n - \mathbb{E}[S_n]} \ge t} &\le 2\exp\biggRound{
+            -\frac{2t^2}{\sum_{i=1}^n(b_i - a_i)^2}
+        }
     \end{align*}
 \end{proof*}
 
@@ -173,10 +187,10 @@ Before diving into Hoeffding's inequality, we need to go through the following l
         &= P\biggRound{
             \biggAbs{n\widehat{R_n}(h) - \mathbb{E}[n\widehat{R_n}(h)]} \ge n\epsilon
         } \\
-        &\le \exp\biggRound{
+        &\le 2\exp\biggRound{
             - \frac{2n^2\epsilon^2}{\sum_{i=1}^n (b_i - a_i)^2}
         } \ \ \ \text{(Hoeffding's inequality)} \\
-        &= e^{-2n\epsilon^2}
+        &= 2e^{-2n\epsilon^2}
     \end{align*}
 \end{proof*}
 

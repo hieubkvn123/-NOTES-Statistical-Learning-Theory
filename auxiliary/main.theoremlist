@@ -8,8 +8,9 @@
 \contentsline {tcolorbox}{\numberline {6.1}Bounded Difference (McDiarmid's) Inequality}{47}{tcb@cnt@theorem.6.1}%
 \contentsline {tcolorbox}{\numberline {6.2}One-sided Rademacher Complexity bound}{50}{tcb@cnt@theorem.6.2}%
 \contentsline {tcolorbox}{\numberline {6.3}Two-sided Rademacher Complexity bound}{52}{tcb@cnt@theorem.6.3}%
-\contentsline {tcolorbox}{\numberline {A.1}Neyman-Pearson Lemma}{56}{tcb@cnt@theorem.A.1}%
-\contentsline {tcolorbox}{\numberline {A.2}Massart's Lemma}{59}{tcb@cnt@theorem.A.2}%
-\contentsline {tcolorbox}{\numberline {A.3}Dudley's Theorem}{61}{tcb@cnt@theorem.A.3}%
-\contentsline {tcolorbox}{\numberline {A.4}Maurey's Sparsification Lemma}{64}{tcb@cnt@theorem.A.4}%
-\contentsline {tcolorbox}{\numberline {A.5}Dudley's Entropy Integral bound}{66}{tcb@cnt@theorem.A.5}%
+\contentsline {tcolorbox}{\numberline {6.4}One-sided VC Inequality}{54}{tcb@cnt@theorem.6.4}%
+\contentsline {tcolorbox}{\numberline {A.1}Neyman-Pearson Lemma}{57}{tcb@cnt@theorem.A.1}%
+\contentsline {tcolorbox}{\numberline {A.2}Massart's Lemma}{60}{tcb@cnt@theorem.A.2}%
+\contentsline {tcolorbox}{\numberline {A.3}Dudley's Theorem}{62}{tcb@cnt@theorem.A.3}%
+\contentsline {tcolorbox}{\numberline {A.4}Maurey's Sparsification Lemma}{65}{tcb@cnt@theorem.A.4}%
+\contentsline {tcolorbox}{\numberline {A.5}Dudley's Entropy Integral bound}{67}{tcb@cnt@theorem.A.5}%
