@@ -170,8 +170,8 @@ In the following section, we will discuss another concentration inequality that 
 \begin{theorem}{One-sided Rademacher Complexity bound}{one_sided_rademacher_bound}
     Let $Z$ be a random variable and $S=(Z_1, \dots, Z_n)$ be an independently identically distributed sample over $\mathcal{Z}$. Consider a class of functions $\G\subseteq [a,b]^\mathcal{Z}$. $\forall \delta > 0, g\in\G$, with at least probability $1-\delta$ with respect to the draw of sample $S$, we have:
     \begin{align*}
-        {\bf (i)} \ \ \E\bigSquare{g(Z)} - \frac{1}{n} \sum_{i=1}^n g(Z_i) &\le 2\RC_n(\G) + (b-a)\sqrt{\frac{\log1/\delta}{2n}} \\
-        {\bf (ii)} \  \E\bigSquare{g(Z)} - \frac{1}{n} \sum_{i=1}^n g(Z_i) &\le 2\ERC_S(\G) + 3(b-a)\sqrt{\frac{\log2/\delta}{2n}}
+        {\bf (i)} \ \ \sup_{g\in\G}\biggCurl{\E\bigSquare{g(Z)} - \frac{1}{n} \sum_{i=1}^n g(Z_i)} &\le 2\RC_n(\G) + (b-a)\sqrt{\frac{\log1/\delta}{2n}} \\
+        {\bf (ii)} \  \sup_{g\in\G}\biggCurl{\E\bigSquare{g(Z)} - \frac{1}{n} \sum_{i=1}^n g(Z_i)} &\le 2\ERC_S(\G) + 3(b-a)\sqrt{\frac{\log2/\delta}{2n}}
     \end{align*}
 \end{theorem}
 
@@ -363,7 +363,35 @@ In the following section, we will discuss another concentration inequality that 
 \end{theorem}
 
 \begin{proof*}[Theorem \ref{thm:two_sided_rademacher_bound}]
-    (The proof of this theorem is left as an exercise).
+    Repeating the same arguments as the one-sided Rademacher complexity bounds proof in \ref{thm:one_sided_rademacher_bound}, we can prove that with probability of at least $1-\delta$, we have:
+    \begin{align*}
+        \inf_{g\in\G} \biggCurl{
+            \E\bigSquare{ g(Z) } - \frac{1}{n}\sum_{i=1}^n g(Z_i)
+        } &\ge -2\RC_n(\G) + (a-b)\sqrt{
+            \frac{\log 1/\delta}{2n}
+        } \\
+        \inf_{g\in\G} \biggCurl{
+            \E\bigSquare{ g(Z) } - \frac{1}{n}\sum_{i=1}^n g(Z_i)
+        } &\ge -2\ERC_S(\G) + 3(a-b)\sqrt{
+            \frac{\log 2/\delta}{2n}
+        }
+    \end{align*}
+
+    \noindent Changing the probability from $1-\delta$ to $1-\delta/2$ and combine the above bounds with the bounds in theorem \ref{thm:one_sided_rademacher_bound}, we have:
+    \begin{align*}
+        \sup_{g\in\G} \biggAbs{
+            \E\bigSquare{ g(Z) } - \frac{1}{n}\sum_{i=1}^n g(Z_i)
+        } &\le 2\RC_n(\G) + (b-a)\sqrt{
+            \frac{\log 2/\delta}{2n}
+        } \\
+        \sup_{g\in\G} \biggAbs{
+            \E\bigSquare{ g(Z) } - \frac{1}{n}\sum_{i=1}^n g(Z_i)
+        } &\le 2\ERC_S(\G) + 3(b-a)\sqrt{
+            \frac{\log 4/\delta}{2n}
+        }
+    \end{align*}
+
+    \noindent With probability of at least $1-\delta$.
 \end{proof*}
 
 
@@ -519,7 +547,7 @@ In the following section, we will prove a slightly looser VC bound compared to t
     \begin{align*}
         \sup_{h\in\Hf} \bigRound{
             R(h) - \widehat{R_n}(h)
-        } &\le \RC_h(\Hf) + \sqrt{
+        } &\le \RC_n(\Hf) + \sqrt{
             \frac{\log 1/\delta}{2n}
         } \\
         &\le \sqrt{\frac{2\log S_\Hf(n)}{n}} + \sqrt{\frac{\log 1/\delta}{2n}} \\
@@ -528,7 +556,7 @@ In the following section, we will prove a slightly looser VC bound compared to t
         } \ \ \ (\sqrt{a} + \sqrt{b} \le 2\sqrt{a+b}) \\
         &= \sqrt{
             \frac{8(\log S_\Hf(n) + (\log 1/\delta)/4)}{n}
-        } \\
+        }  \tag{*} \\
         &\le \sqrt{
             \frac{8(\log S_\Hf(n) + \log 1/\delta)}{n}
         }
@@ -539,6 +567,15 @@ In the following section, we will prove a slightly looser VC bound compared to t
         \epsilon = \sqrt{
             \frac{8(\log S_\Hf(n) + \log 1/\delta)}{n}
         } \implies \delta = S_\Hf(n)e^{-n\epsilon^2/8}
+    \end{align*}
+
+    \noindent Hence, for all $\epsilon > 0$, we have:
+    \begin{align*}
+        P\biggRound{
+            \sup_{h\in\Hf} \bigRound{
+                R(h) - \widehat{R_n}(h)
+            } \ge \epsilon
+        } \le S_\Hf(n)e^{-n\epsilon^2/8}
     \end{align*}
 \end{proof*}
 
@@ -563,5 +600,89 @@ In the following section, we will prove a slightly looser VC bound compared to t
 \end{theorem}
 
 \begin{proof*}[Theorem \ref{thm:two_sided_vc_inequality}]
-    
+    Repeating the same arguments as theorem \ref{thm:one_sided_rademacher_bound}, we can also prove that:
+    \begin{align*}
+        P\biggRound{
+            \inf_{h\in\Hf} \bigRound{
+                R(h) - \widehat{R_n}(h)
+            } \le -\epsilon 
+        } \le S_\Hf(n)e^{-n\epsilon^2/8}
+    \end{align*}
+
+    \noindent Hence, combining the bounds, we have:
+    \begin{align*}
+        P\biggRound{
+            \sup_{h\in\Hf} \bigAbs{
+                R(h) - \widehat{R_n}(h)
+            } \ge \epsilon 
+        } 
+        &\le P\biggRound{
+            \inf_{h\in\Hf} \bigRound{
+                R(h) - \widehat{R_n}(h)
+            } \le -\epsilon 
+        } + P\biggRound{
+            \sup_{h\in\Hf} \bigRound{
+                R(h) - \widehat{R_n}(h)
+            } \ge \epsilon 
+        } \\
+        &\le 2S_\Hf(n)e^{-n\epsilon^2/8}
+    \end{align*}
 \end{proof*}
+
+\noindent Now we proceed to prove theorem \ref{thm:vc_theorem_for_clf} by modifying the proof for the one-sided VC inequality (theorem \ref{thm:one_sided_vc_inequality}) starting from the inequality $(*)$. The idea is to improve the power of the exponent at the expense of the constant in front of the exponent.
+
+\begin{proof*}[Theorem \ref{thm:vc_theorem_for_clf}]
+    From theorem \ref{thm:one_sided_vc_inequality} proof, we have:
+    \begin{align*}
+        \sup_{h\in\Hf} \bigRound{ R(h) - \widehat{R_n}(h) }
+        &\le \sqrt{
+            \frac{8(\log S_\Hf(n) + (\log 1/\delta)/4)}{n}
+        } \\
+        &\le \sqrt{
+            \frac{32(\log S_\Hf(n) + \log 1/\delta + \log 4)}{n}
+        } \\
+        &= \sqrt{
+            \frac{32(\log4S_\Hf(n) + \log1/\delta)}{n}
+        }
+    \end{align*}
+
+    \noindent Now, we set:
+    \begin{align*}
+        \epsilon = \sqrt{
+            \frac{32(\log4S_\Hf(n) + \log1/\delta)}{n}
+        } 
+        &\implies \epsilon^2 = \frac{32(\log4S_\Hf(n) + \log1/\delta)}{n} \\
+        &\implies \log\frac{4S_\Hf(n)}{\delta} = \frac{n\epsilon^2}{32} \\
+        &\implies \log\frac{\delta}{4S_\Hf(n)} = -\frac{n\epsilon^2}{32} \\
+        &\implies \frac{\delta}{4S_\Hf(n)} = e^{-n\epsilon^2/32} \\
+        &\implies \delta = 4S_\Hf(n)e^{-n\epsilon^2/32}
+    \end{align*}
+
+    \noindent Therefore, for all $\epsilon > 0$, we have:
+    \begin{align*}
+        P\biggRound{
+            \sup_{h\in\Hf} \bigRound{
+                R(h) - \widehat{R_n}(h)
+            } \ge \epsilon
+        } \le 4S_\Hf(n)e^{-n\epsilon^2/32}
+    \end{align*}
+
+    \noindent Using the same arguments, we have:
+    \begin{align*}
+        P\biggRound{
+            \inf_{h\in\Hf} \bigRound{
+                R(h) - \widehat{R_n}(h)
+            } \le -\epsilon
+        } \le 4S_\Hf(n)e^{-n\epsilon^2/32}
+    \end{align*}
+
+    \noindent Hence, we obtain the following two-sided bound:
+    \begin{align*}
+        P\biggRound{
+            \sup_{h\in\Hf}\bigAbs{
+                R(h) - \widehat{R_n}(h)
+            } \ge \epsilon
+        } \le 8S_\Hf(n)e^{-n\epsilon^2/32}
+    \end{align*}
+\end{proof*}
+

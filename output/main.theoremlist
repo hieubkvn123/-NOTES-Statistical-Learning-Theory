@@ -5,5 +5,13 @@
 \contentsline {tcolorbox}{\numberline {5.1}Sauer's Lemma}{32}{tcb@cnt@theorem.5.1}%
 \contentsline {tcolorbox}{\numberline {5.2}VC Theorem (for classifiers)}{35}{tcb@cnt@theorem.5.2}%
 \contentsline {tcolorbox}{\numberline {5.3}VC Theorem (for sets)}{39}{tcb@cnt@theorem.5.3}%
-\contentsline {tcolorbox}{\numberline {6.1}Bounded Difference (McDiarmid's) Inequality}{44}{tcb@cnt@theorem.6.1}%
-\contentsline {tcolorbox}{\numberline {A.1}Neyman-Pearson Lemma}{48}{tcb@cnt@theorem.A.1}%
+\contentsline {tcolorbox}{\numberline {6.1}Bounded Difference (McDiarmid's) Inequality}{47}{tcb@cnt@theorem.6.1}%
+\contentsline {tcolorbox}{\numberline {6.2}One-sided Rademacher Complexity bound}{50}{tcb@cnt@theorem.6.2}%
+\contentsline {tcolorbox}{\numberline {6.3}Two-sided Rademacher Complexity bound}{52}{tcb@cnt@theorem.6.3}%
+\contentsline {tcolorbox}{\numberline {6.4}One-sided VC Inequality}{55}{tcb@cnt@theorem.6.4}%
+\contentsline {tcolorbox}{\numberline {6.5}Two-sided VC Inequality}{56}{tcb@cnt@theorem.6.5}%
+\contentsline {tcolorbox}{\numberline {A.1}Neyman-Pearson Lemma}{59}{tcb@cnt@theorem.A.1}%
+\contentsline {tcolorbox}{\numberline {A.2}Massart's Lemma}{62}{tcb@cnt@theorem.A.2}%
+\contentsline {tcolorbox}{\numberline {A.3}Dudley's Theorem}{64}{tcb@cnt@theorem.A.3}%
+\contentsline {tcolorbox}{\numberline {A.4}Maurey's Sparsification Lemma}{67}{tcb@cnt@theorem.A.4}%
+\contentsline {tcolorbox}{\numberline {A.5}Dudley's Entropy Integral bound}{69}{tcb@cnt@theorem.A.5}%
