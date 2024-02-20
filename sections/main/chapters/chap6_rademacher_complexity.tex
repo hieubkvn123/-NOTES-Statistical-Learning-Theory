@@ -363,16 +363,32 @@ In the following section, we will discuss another concentration inequality that 
 \end{theorem}
 
 \begin{proof*}[Theorem \ref{thm:two_sided_rademacher_bound}]
-    Repeating the same arguments as the one-sided Rademacher complexity bounds proof in \ref{thm:one_sided_rademacher_bound}, we can prove that with probability of at least $1-\delta$, we have:
+    Note that we have:
     \begin{align*}
-        \inf_{g\in\G} \biggCurl{
-            \E\bigSquare{ g(Z) } - \frac{1}{n}\sum_{i=1}^n g(Z_i)
-        } &\ge -2\RC_n(\G) + (a-b)\sqrt{
+        P\biggRound{
+            \sup|A| < \epsilon
+        } &= P\biggRound{
+            \Big\{ \sup A < \epsilon \Big\} \cap \Big\{\sup -A < \epsilon \Big\}
+        } \\
+        \implies
+        P\biggRound{
+            \sup|A| < \epsilon
+        } &= 1 - P\biggRound{
+            \Big\{ \sup A \ge \epsilon \Big\} \cup \Big\{\sup -A \ge \epsilon \Big\}
+        } \\
+        &\ge 1 - \Bigg[ P\bigRound{\bigCurl{\sup A \ge \epsilon}} + P\bigRound{\bigCurl{\sup -A \ge \epsilon}} \Bigg]
+    \end{align*}
+
+    \noindent Repeating the same arguments as the one-sided Rademacher complexity bounds proof in \ref{thm:one_sided_rademacher_bound}, we can prove that with probability of at least $1-\delta$, we have:
+    \begin{align*}
+        \sup_{g\in\G} \biggCurl{
+            \frac{1}{n}\sum_{i=1}^n g(Z_i) - \E\bigSquare{ g(Z) }
+        } &\le 2\RC_n(\G) + (b-a)\sqrt{
             \frac{\log 1/\delta}{2n}
         } \\
-        \inf_{g\in\G} \biggCurl{
-            \E\bigSquare{ g(Z) } - \frac{1}{n}\sum_{i=1}^n g(Z_i)
-        } &\ge -2\ERC_S(\G) + 3(a-b)\sqrt{
+        \sup_{g\in\G} \biggCurl{
+            \frac{1}{n}\sum_{i=1}^n g(Z_i) - \E\bigSquare{ g(Z) }
+        } &\le 2\ERC_S(\G) + 3(b-a)\sqrt{
             \frac{\log 2/\delta}{2n}
         }
     \end{align*}
@@ -686,3 +702,6 @@ In the following section, we will prove a slightly looser VC bound compared to t
     \end{align*}
 \end{proof*}
 
+\newpage
+\subsection{End of chapter exercises}
+\input{sections/main/exercises/chap6_exercises.tex}
