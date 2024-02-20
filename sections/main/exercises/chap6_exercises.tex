@@ -1,7 +1,72 @@
 \begin{exercise}{}{exercise_6.1}
     Can you improve the constants in the empirical Rademacher complexity bound:
-    
+    \begin{align*}
+        \E\bigSquare{g(Z)} - \frac{1}{n}\sum_{i=1}^n g(Z_i) \le 2\ERC_S(\G) + 3(b-a)\sqrt{
+            \frac{\log 2/\delta}{2n}
+        }
+    \end{align*}
     \noindent through a single, direct application of the bounded diﬀerence inequality?
 \end{exercise}
 
+\begin{solution*}[Exercise \ref{ex:exercise_6.1} - \color{red}{Needs thorough check later} \color{black}]
+    Given the sample $S=\{Z_1, \dots, Z_i, \dots, Z_n \}$ and define $S_i = \{Z_1, \dots, Z_i', \dots, Z_n \}$ for $1\le i \le n$. Define the following function:
+    \begin{align*}
+        \phi(S) &= \widehat{\E_S}[g] - \ERC_S(\G) \\
+            &= \frac{1}{n}\sum_{i=1}^n g(Z_i) - \E_\sigma\biggSquare{
+                \sup_{g\in\G}\frac{1}{n} \sum_{i=1}^n \sigma_i g(Z_i)
+            }
+    \end{align*}
+
+    \noindent Note that we have:
+    \begin{align*}
+        \E[\phi(S)] &= \E\bigSquare{
+            \widehat{\E_S}[g] - \ERC_S(\G)
+        } = \E[g] - \RC_n(\G)
+    \end{align*}
+
+    \noindent We now check the bounded difference property of $\phi(S)$, for $1\le i \le n$, we have:
+    \begin{align*}
+        |\phi(S) - \phi(S_i)| &= \biggAbs{
+            \frac{1}{n}\bigRound{g(Z_i) - g(Z_i')} - \E_\sigma\biggSquare{
+                \sup_{g\in\G} \frac{1}{n}\sigma_i\bigRound{g(Z_i) - g(Z_i')}
+            }
+        } \\
+        &= \biggAbs{
+            \frac{1}{n}\bigRound{g(Z_i) - g(Z_i')} - \E_\sigma\biggSquare{
+                \sup_{g\in\G} \frac{1}{n}\bigRound{g(Z_i) - g(Z_i')}
+            }
+        } \ \ \ (\text{Since $\sigma_i\in\{-1, 1\}$}) \\
+        &\le 2\cdot\frac{b-a}{n}
+    \end{align*}
+
+    \noindent Hence, by the bounded difference inequality, let $\epsilon > 0$, we have:
+    \begin{align*}
+        P\bigRound{
+            \phi(S) - \E[\phi(S)] \ge \epsilon
+        } &\le \exp\biggRound{
+            -\frac{2\epsilon^2}{\sum_{i=1}^n 4(b-a)^2/n^2}
+        } \\
+        &= \exp\biggRound{
+            -\frac{n\epsilon^2}{2(b-a)^2}
+        }
+    \end{align*}
+
+    \noindent Letting $\delta = \exp\biggRound{-\frac{n\epsilon^2}{2(b-a)^2}}$, we have:
+    \begin{align*}
+        \epsilon &= (b-a)\sqrt{
+            \frac{2\log 1/\delta}{n}
+        }
+    \end{align*}
+
+    \noindent Therefore, with probability of at least $1-\delta$ ($\delta>0$), we have:
+    \begin{align*}
+        \phi(S) - \E[\phi(S)] &\le (b-a)\sqrt{
+            \frac{2\log 1/\delta}{n}
+        } \\
+        \implies
+        \widehat{\E_S}[g] - \E[g] &\le (\ERC_S(\G) - \RC_n(\G)) + (b-a)\sqrt{
+            \frac{2\log 1/\delta}{n}
+        }
+    \end{align*}
+\end{solution*}
 
