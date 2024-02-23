@@ -13,11 +13,11 @@
             "state": {
               "type": "canvas",
               "state": {
-                "file": "Fundamentals of SLT.canvas",
+                "file": "sections/Fundamentals of SLT.canvas",
                 "viewState": {
-                  "x": 1223.88723709857,
-                  "y": 171.74997665356918,
-                  "zoom": -0.8804554129818727
+                  "x": 1499.363539545004,
+                  "y": 623.1101246609982,
+                  "zoom": -1.213788746315206
                 }
               }
             }
@@ -88,7 +88,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Fundamentals of SLT.canvas",
+                "file": "sections/Fundamentals of SLT.canvas",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -105,7 +105,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Fundamentals of SLT.canvas",
+                "file": "sections/Fundamentals of SLT.canvas",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -128,7 +128,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Fundamentals of SLT.canvas"
+                "file": "sections/Fundamentals of SLT.canvas"
               }
             }
           }
@@ -151,14 +151,15 @@
   },
   "active": "e702aaa74f90ad34",
   "lastOpenFiles": [
-    "main.canvas",
-    "Fundamentals of SLT.canvas",
+    "sections/Vapnik-Chevronenkis Theory.canvas",
+    "SLT Main.canvas",
+    "sections/Fundamentals of SLT.canvas",
     "Fundamentals of SLT.canvas.canvas",
     "SLT-mindmap.canvas.canvas",
     "Untitled.md",
     "Untitled 1.md",
     "proofs/Hoeffding's Lemma.md",
     "proofs/Hoeffding's Inequality.md",
-    "proofs"
+    "sections"
   ]
 }

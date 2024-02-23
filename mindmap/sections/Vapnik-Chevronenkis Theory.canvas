@@ -1,0 +1,20 @@
+{
+	"nodes":[
+		{"id":"2e8731bd091df9c4","type":"text","text":"**Restriction** : Let $\\mathcal{H}$ be a class of $\\mathcal{X}\\to\\mathcal{Y}$ functions. Restriction of $\\mathcal{H}$ to $\\{x_1, \\dots, x_n\\}\\subset\\mathcal{X}$ is defined as\n$$\n\\mathcal{H}_{\\{x_1, \\dots, x_n\\}} = \\Big\\{ (h(x_1), \\dots, h(x_n)) \\Big| h\\in\\mathcal{H} \\Big\\}\n$$","x":200,"y":-480,"width":341,"height":145},
+		{"id":"012fd63b644cec9f","type":"text","text":"**Shattering coefficient** : Also called the growth function, the Shattering coefficient $S_\\mathcal{H}(n)$ is defined as\n$$\nS_\\mathcal{H}(n) = \\sup_{\\{x_1, \\dots, x_n\\}\\subseteq\\mathcal{X}} \\Big|\\mathcal{H}_{\\{x_1, \\dots, x_n\\}}\\Big|\n$$","x":200,"y":-269,"width":341,"height":163},
+		{"id":"cd541ddfc5d8a91b","type":"text","text":"- $\\Big|\\mathcal{H}_{\\{x_1, \\dots, x_n\\}}\\Big|\\le 2^n, \\ \\forall \\{x_1, \\dots, x_n\\}\\subseteq \\mathcal{X}$.\n- $S_\\mathcal{H}(n) \\le 2^n, \\ \\forall n \\ge 1$.","x":661,"y":-328,"width":379,"height":89},
+		{"id":"70a1c357d2f1520b","type":"text","text":"**VC-dimension** : The VC dimension of a function class $\\mathcal{H}$ is the largest $n\\ge1$ such that $S_\\mathcal{H}(n)=2^n$.\n$$\nV_\\mathcal{H} = \\sup\\Big\\{ n\\ge1 \\Big| S_\\mathcal{H}(n) = 2^n \\Big\\}\n$$","x":200,"y":-26,"width":341,"height":146},
+		{"id":"f2a4d5c117568130","type":"text","text":"Vapnik-Chevronenkis Theory","x":-500,"y":-86,"width":274,"height":60,"color":"3"},
+		{"id":"575df6f5ea6378f5","type":"text","text":"Important definitions","x":-160,"y":-269,"width":229,"height":60},
+		{"id":"7b52fb2bbd5509a9","x":-150,"y":272,"width":250,"height":60,"type":"text","text":"Sauer's Lemma"}
+	],
+	"edges":[
+		{"id":"248bb4bee5aa561f","fromNode":"f2a4d5c117568130","fromSide":"right","toNode":"575df6f5ea6378f5","toSide":"left"},
+		{"id":"84b4ec1455b36480","fromNode":"575df6f5ea6378f5","fromSide":"right","toNode":"2e8731bd091df9c4","toSide":"left"},
+		{"id":"8a2de4bbbcdd4fbc","fromNode":"575df6f5ea6378f5","fromSide":"right","toNode":"012fd63b644cec9f","toSide":"left"},
+		{"id":"3262057d6048b379","fromNode":"575df6f5ea6378f5","fromSide":"right","toNode":"70a1c357d2f1520b","toSide":"left"},
+		{"id":"4e2775c39def88dd","fromNode":"012fd63b644cec9f","fromSide":"right","toNode":"cd541ddfc5d8a91b","toSide":"left"},
+		{"id":"d4a279d7030300f0","fromNode":"2e8731bd091df9c4","fromSide":"right","toNode":"cd541ddfc5d8a91b","toSide":"left"},
+		{"id":"362d7cc8cfe7af5c","fromNode":"f2a4d5c117568130","fromSide":"right","toNode":"7b52fb2bbd5509a9","toSide":"left"}
+	]
+}

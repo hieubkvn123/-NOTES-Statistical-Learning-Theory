@@ -23,8 +23,6 @@
 		{"id":"25f55758b38dfa35","type":"text","text":"$\\eta(x)=P(Y=1|X=x)$","x":906,"y":-930,"width":250,"height":60},
 		{"id":"69f8e4987507f4c7","type":"text","text":"$h^*(x)=\\mathbb{1}_{\\{\\eta(x)\\ge \\frac{1}{2}\\}}$","x":906,"y":-840,"width":250,"height":60},
 		{"id":"c051e219cf5c66ea","type":"text","text":"$\\widehat{h_n}=\\mathcal{L}_n\\Big(\\Big\\{(X_i, Y_i)\\Big\\}_{i=1}^n\\Big)$","x":837,"y":-1413,"width":243,"height":60},
-		{"id":"ab8be6138e4d207a","type":"text","text":"Markov\n$P(X\\ge t)\\le \\frac{1}{t}\\mathbb{E}[X], \\ (t>0)$","x":628,"y":-373,"width":250,"height":60},
-		{"id":"d0f9af0e15c1faa6","type":"text","text":"Chebyshev\n$P(|X-\\mu|\\ge t)\\le \\sigma^2/t^2, \\ (t>0)$","x":625,"y":-230,"width":253,"height":60},
 		{"id":"4b974d024d413ba8","type":"text","text":"**Hoeffding's Lemma** : Let $V$ be a random variable on $\\mathbb{R}$ and $\\mathbb{E}[V]=0$. Suppose with probability one, we have $a\\le V \\le b$.\n$$\n\\begin{align*}\n\t\\mathbb{E}\\Big[e^{sV}\\Big] \\le \\exp\\Bigg(\n\t\\frac{s^2(b-a)^2}{8}\n\t\\Bigg)\n\\end{align*}\n$$\n","x":686,"y":6,"width":422,"height":179},
 		{"id":"81a96a9efbd04bab","type":"text","text":"Hoeffding's inequality","x":416,"y":185,"width":155,"height":60},
 		{"id":"7fa9b561bb95e779","type":"text","text":"**Hoeffding's Inequality** : Let $Z_1, \\dots, Z_n$ be independent random variables on $\\mathbb{R}$ such that $a_i\\le Z_i \\le b_i$ for $1\\le i \\le n$. Let $S_n=\\sum_{i=1}^nZ_i$, we have:\n$$\n\\begin{align*}\nP\\Big( \n\\Big| S_n - \\mathbb{E}[S_n] \\Big| \\ge t\n\\Big) \\le 2\\exp\\Bigg(\n-\\frac{2t^2}{\\sum_{i=1}^n (b_i-a_i)^2}\n\\Bigg), \\ \\ t >0\n\\end{align*} \n$$","x":686,"y":245,"width":540,"height":179},
@@ -37,7 +35,9 @@
 		{"id":"74420908e7b45e68","type":"text","text":"**Proposition** (Bound excess Risk of $\\widehat{h_n}$) : We have\n$$\nR(\\widehat{h_n}) - R^*_\\mathcal{H} \\le 2\\sup_{h\\in\\mathcal{H}}\\Big|\\widehat{R_n}(h) - R(h)\\Big|\n$$","x":686,"y":1240,"width":375,"height":120},
 		{"id":"789f6bcc28c5c70e","type":"text","text":"**PAC-learnability** : We say that $\\widehat{h_n}$ is PAC-learnable if:\n$$\n\\forall \\epsilon, \\delta >0 : n \\ge N(\\epsilon,\\delta) \\implies P\\Big(\nR(\\widehat{h_n}) - R_\\mathcal{H}^*\\ge\\epsilon\n\\Big)\\le\\delta\n$$","x":686,"y":1420,"width":434,"height":100},
 		{"id":"09de2fcf19deb6dc","type":"text","text":"Empirical Risk Minimization","x":100,"y":541,"width":260,"height":60},
-		{"id":"ca600c67ae95bb53","type":"text","text":"Statistical learning theory","x":-760,"y":-190,"width":280,"height":50,"color":"1"}
+		{"id":"ca600c67ae95bb53","type":"text","text":"Statistical learning theory","x":-760,"y":-190,"width":280,"height":50,"color":"1"},
+		{"id":"d0f9af0e15c1faa6","type":"text","text":"Chebyshev\n$P(|X-\\mu|\\ge t)\\le \\sigma^2/t^2, \\ (t>0)$","x":683,"y":-230,"width":253,"height":60},
+		{"id":"ab8be6138e4d207a","type":"text","text":"Markov\n$P(X\\ge t)\\le \\frac{1}{t}\\mathbb{E}[X], \\ (t>0)$","x":686,"y":-373,"width":250,"height":60}
 	],
 	"edges":[
 		{"id":"bc72fa885e08bf6a","fromNode":"ca600c67ae95bb53","fromSide":"right","toNode":"5266d73411459d7e","toSide":"left"},
