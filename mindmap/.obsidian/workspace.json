@@ -1,0 +1,160 @@
+{
+  "main": {
+    "id": "e240acfa9792dfe4",
+    "type": "split",
+    "children": [
+      {
+        "id": "17f43222381693b7",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e702aaa74f90ad34",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "SLT-mindmap.canvas.canvas",
+                "viewState": {
+                  "x": 512.9884206163964,
+                  "y": 2375.224930599308,
+                  "zoom": -0.8198315465201143
+                }
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "153974f17d1d5e64",
+    "type": "split",
+    "children": [
+      {
+        "id": "c6cc57e86d79bf02",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "9342f7699e98eb8e",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "b04b7c389b633b51",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "da396eef7feb49c1",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "b060dcc4cee97fd3",
+    "type": "split",
+    "children": [
+      {
+        "id": "b6b3f748c16b0c8e",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e52b9962c5f99e82",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "SLT-mindmap.canvas.canvas",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "e606694b5165e3e7",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "SLT-mindmap.canvas.canvas",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "3aacb7239ce9e874",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "89ea9995f29370db",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "SLT-mindmap.canvas.canvas"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "e702aaa74f90ad34",
+  "lastOpenFiles": [
+    "proofs/Hoeffding's Lemma.md",
+    "SLT-mindmap.canvas.canvas",
+    "proofs/Hoeffding's Inequality.md",
+    "proofs",
+    "Untitled.md"
+  ]
+}
