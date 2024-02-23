@@ -15,9 +15,9 @@
               "state": {
                 "file": "sections/Vapnik-Chevronenkis Theory.canvas",
                 "viewState": {
-                  "x": 607.7751947571041,
-                  "y": 2060.3083157936785,
-                  "zoom": -0.6107747006150033
+                  "x": 648.217881933671,
+                  "y": 3316.76898095699,
+                  "zoom": -0.21077470061500336
                 }
               }
             }
@@ -72,7 +72,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "b060dcc4cee97fd3",
