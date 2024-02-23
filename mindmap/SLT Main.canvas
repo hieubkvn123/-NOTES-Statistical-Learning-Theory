@@ -2,7 +2,7 @@
 	"nodes":[
 		{"id":"447bb8ad2d9e7d79","type":"text","text":"Statistical Learning Theory","x":-661,"y":-115,"width":250,"height":60},
 		{"id":"50680eea688dfd2e","type":"file","file":"sections/Fundamentals of SLT.canvas","x":-260,"y":-420,"width":280,"height":240},
-		{"id":"c69dc8dc03e9f677","x":-260,"y":-55,"width":280,"height":275,"type":"file","file":"sections/Vapnik-Chevronenkis Theory.canvas"}
+		{"id":"c69dc8dc03e9f677","type":"file","file":"sections/Vapnik-Chevronenkis Theory.canvas","x":-260,"y":-55,"width":280,"height":275}
 	],
 	"edges":[
 		{"id":"880faa3cb03ce9ef","fromNode":"447bb8ad2d9e7d79","fromSide":"right","toNode":"50680eea688dfd2e","toSide":"left"},

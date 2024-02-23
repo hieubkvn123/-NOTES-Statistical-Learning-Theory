@@ -1,12 +1,26 @@
 {
 	"nodes":[
-		{"id":"2e8731bd091df9c4","type":"text","text":"**Restriction** : Let $\\mathcal{H}$ be a class of $\\mathcal{X}\\to\\mathcal{Y}$ functions. Restriction of $\\mathcal{H}$ to $\\{x_1, \\dots, x_n\\}\\subset\\mathcal{X}$ is defined as\n$$\n\\mathcal{H}_{\\{x_1, \\dots, x_n\\}} = \\Big\\{ (h(x_1), \\dots, h(x_n)) \\Big| h\\in\\mathcal{H} \\Big\\}\n$$","x":200,"y":-480,"width":341,"height":145},
-		{"id":"012fd63b644cec9f","type":"text","text":"**Shattering coefficient** : Also called the growth function, the Shattering coefficient $S_\\mathcal{H}(n)$ is defined as\n$$\nS_\\mathcal{H}(n) = \\sup_{\\{x_1, \\dots, x_n\\}\\subseteq\\mathcal{X}} \\Big|\\mathcal{H}_{\\{x_1, \\dots, x_n\\}}\\Big|\n$$","x":200,"y":-269,"width":341,"height":163},
-		{"id":"cd541ddfc5d8a91b","type":"text","text":"- $\\Big|\\mathcal{H}_{\\{x_1, \\dots, x_n\\}}\\Big|\\le 2^n, \\ \\forall \\{x_1, \\dots, x_n\\}\\subseteq \\mathcal{X}$.\n- $S_\\mathcal{H}(n) \\le 2^n, \\ \\forall n \\ge 1$.","x":661,"y":-328,"width":379,"height":89},
-		{"id":"70a1c357d2f1520b","type":"text","text":"**VC-dimension** : The VC dimension of a function class $\\mathcal{H}$ is the largest $n\\ge1$ such that $S_\\mathcal{H}(n)=2^n$.\n$$\nV_\\mathcal{H} = \\sup\\Big\\{ n\\ge1 \\Big| S_\\mathcal{H}(n) = 2^n \\Big\\}\n$$","x":200,"y":-26,"width":341,"height":146},
-		{"id":"f2a4d5c117568130","type":"text","text":"Vapnik-Chevronenkis Theory","x":-500,"y":-86,"width":274,"height":60,"color":"3"},
 		{"id":"575df6f5ea6378f5","type":"text","text":"Important definitions","x":-160,"y":-269,"width":229,"height":60},
-		{"id":"7b52fb2bbd5509a9","x":-150,"y":272,"width":250,"height":60,"type":"text","text":"Sauer's Lemma"}
+		{"id":"91919b46709f7074","type":"text","text":"VC Theorem for set","x":460,"y":1240,"width":220,"height":60},
+		{"id":"407e9210c0aed9aa","type":"text","text":"Equivalent definitions from classifiers","x":1010,"y":1240,"width":250,"height":60},
+		{"id":"298de0c62f02e775","type":"text","text":"**For classifier** : Let $n\\ge1$ and $\\epsilon>0$, we have\n$$\nP\\Bigg( \\sup_{h\\in\\mathcal{H}}\\Big| \\widehat{R_n}(h) - R(h) \\Big| \\ge \\epsilon \\Bigg) \\le 8S_\\mathcal{H}(n)e^{-n\\epsilon^2/32}\n$$","x":460,"y":830,"width":380,"height":120},
+		{"id":"697af70bb4d09fa6","type":"text","text":"**Restriction**: Let $\\mathcal{G}\\subset\\mathcal{P(X)}$. The restriction of $\\mathcal{G}$ to $\\{x_1, \\dots, x_n\\}\\subset \\mathcal{X}$ is\n$$\n\\mathcal{G}_{\\{x_1,\\dots, x_n\\}} = \\Big\\{\nG\\cap\\{x_1,\\dots, x_n\\} \\Big| G\\in\\mathcal{G} \n\\Big\\}\n$$","x":1470,"y":1206,"width":364,"height":128},
+		{"id":"1693a73cf8361a6c","type":"text","text":"**VC Theorem** : Let $X_1, \\dots, X_n\\sim Q$ be $i.i.d$ random variables, $Q$ is a CDF. Then, for any $\\mathcal{G}\\subset \\mathcal{P}(\\mathcal{X}), \\epsilon>0$, we have:\n$$\nP\\Bigg( \n\\sup_{G\\in\\mathcal{G}}\\Big| \\widehat{Q}(G) - Q(G) \\Big|\\ge\\epsilon\n\\Bigg) \\le 8S_\\mathcal{G}(n)e^{-n\\epsilon^2/32}\n$$\nWhere:\n$$\nQ(G) = P(X\\in G), \\ \\ \\widehat{Q}(G)=\\frac{1}{n}\\sum_{i=1}^n \\mathbb{1}_{\\{X_i\\in G\\}}\n$$","x":1470,"y":1836,"width":460,"height":304},
+		{"id":"7b52fb2bbd5509a9","type":"text","text":"**Sauer's Lemma** : For all $n\\ge 1$, we have\n$$\nS_\\mathcal{H}(n) \\le \\sum_{k=0}^{V_\\mathcal{H}}\\begin{pmatrix}n \\\\ k \\end{pmatrix}\n$$","x":460,"y":380,"width":340,"height":120},
+		{"id":"d8f6df7ba246aeb3","type":"text","text":"**Shattering coefficient**: \n$$\nS_\\mathcal{G}(n)=\\sup_{\\{x_1,\\dots, x_n\\}\\subset\\mathcal{X}}\\Big| \\mathcal{G}_{\\{x_1, \\dots, x_n\\}}\\Big|\n$$","x":1470,"y":1360,"width":364,"height":120},
+		{"id":"de41ec8ce4c8dac7","type":"text","text":"**VC-dimension**: \n$$\nV_\\mathcal{G}=\\sup\\Big\\{n\\ge1\\Big| S_\\mathcal{G}(n)=2^n\\Big\\}\n$$","x":1470,"y":1520,"width":364,"height":120},
+		{"id":"cd541ddfc5d8a91b","type":"text","text":"- $\\Big|\\mathcal{H}_{\\{x_1, \\dots, x_n\\}}\\Big|\\le 2^n, \\ \\forall \\{x_1, \\dots, x_n\\}\\subseteq \\mathcal{X}$.\n- $S_\\mathcal{H}(n) \\le 2^n, \\ \\forall n \\ge 1$.","x":921,"y":-379,"width":379,"height":89},
+		{"id":"012fd63b644cec9f","type":"text","text":"**Shattering coefficient** : Also called the growth function, the Shattering coefficient $S_\\mathcal{H}(n)$ is defined as\n$$\nS_\\mathcal{H}(n) = \\sup_{\\{x_1, \\dots, x_n\\}\\subseteq\\mathcal{X}} \\Big|\\mathcal{H}_{\\{x_1, \\dots, x_n\\}}\\Big|\n$$","x":460,"y":-320,"width":341,"height":163},
+		{"id":"70a1c357d2f1520b","type":"text","text":"**VC-dimension** : The VC dimension of a function class $\\mathcal{H}$ is the largest $n\\ge1$ such that $S_\\mathcal{H}(n)=2^n$.\n$$\nV_\\mathcal{H} = \\sup\\Big\\{ n\\ge1 \\Big| S_\\mathcal{H}(n) = 2^n \\Big\\}\n$$","x":460,"y":-77,"width":341,"height":146},
+		{"id":"2e8731bd091df9c4","type":"text","text":"**Restriction** : Let $\\mathcal{H}$ be a class of $\\mathcal{X}\\to\\mathcal{Y}$ functions. Restriction of $\\mathcal{H}$ to $\\{x_1, \\dots, x_n\\}\\subset\\mathcal{X}$ is defined as\n$$\n\\mathcal{H}_{\\{x_1, \\dots, x_n\\}} = \\Big\\{ (h(x_1), \\dots, h(x_n)) \\Big| h\\in\\mathcal{H} \\Big\\}\n$$","x":460,"y":-531,"width":341,"height":145},
+		{"id":"faffe4e67c2b5a34","type":"text","text":"**Corollary 3** : For $n\\ge V_\\mathcal{H}>2$\n$$\nS_\\mathcal{H}(n)\\le n^{V_\\mathcal{H}}\n$$","x":1010,"y":560,"width":298,"height":100},
+		{"id":"a68a0be1ebc52707","type":"text","text":"**Corollary 1** : If $V_\\mathcal{H}<\\infty$ then for all $n\\ge1$, we have\n$$\nS_\\mathcal{H}(n) \\le (n+1)^{V_\\mathcal{H}}\n$$","x":1010,"y":220,"width":298,"height":108},
+		{"id":"dce7274dbddbfddc","type":"text","text":"**Corollary 2** : For $n\\ge V_\\mathcal{H}$\n$$\nS_\\mathcal{H}(n)\\le \\Bigg( \\frac{ne}{V_\\mathcal{H}} \\Bigg)^{V_\\mathcal{H}}\n$$","x":1010,"y":380,"width":298,"height":120},
+		{"id":"8aa45bf9adce0d45","type":"text","text":"**Corollary** : We have\n$$\nP\\Big( \nR(\\widehat{h_n}) - R_\\mathcal{H}^* \\ge \\epsilon\n\\Big) \\le 8S_\\mathcal{H}(n)e^{-n\\epsilon^2/128}\n$$\nMeaning, with probability of at least $1-\\delta$, we have\n$$\nR(\\widehat{h_n})-R_\\mathcal{H}^* \\le \\sqrt{\n\\frac{128}{n}\\Bigg[ V_\\mathcal{H}\\log(n+1) + \\log 8/\\delta \\Bigg]\n}\n$$","x":1010,"y":769,"width":460,"height":242},
+		{"id":"051ba16eecf6223e","type":"text","text":"VC Theorem","x":-160,"y":860,"width":229,"height":60},
+		{"id":"18f3714e1d1b52dd","type":"text","text":"**From set to classifier**:\n$$\n\\mathcal{H}= \\Big\\{h_G=\\mathbb{1}_{\\{x\\in G\\}}\\Big|G\\in\\mathcal{G}\\Big\\}\n$$\n\n**From classifier to set**:\n$$\n\\mathcal{G}=\\Bigg\\{G_h=\\Big\\{x\\in\\mathcal{X}\\Big|\\mathbb{1}_{\\{h(x)=1\\}} \\Big\\}\\Bigg|h\\in\\mathcal{H}\\Bigg\\}\n$$","x":1943,"y":1360,"width":317,"height":220},
+		{"id":"391f5faa1b694076","type":"text","text":"VC Classes","x":-160,"y":2440,"width":229,"height":51},
+		{"id":"f2a4d5c117568130","type":"text","text":"Vapnik-Chevronenkis Theory","x":-840,"y":860,"width":274,"height":60,"color":"3"}
 	],
 	"edges":[
 		{"id":"248bb4bee5aa561f","fromNode":"f2a4d5c117568130","fromSide":"right","toNode":"575df6f5ea6378f5","toSide":"left"},
@@ -15,6 +29,21 @@
 		{"id":"3262057d6048b379","fromNode":"575df6f5ea6378f5","fromSide":"right","toNode":"70a1c357d2f1520b","toSide":"left"},
 		{"id":"4e2775c39def88dd","fromNode":"012fd63b644cec9f","fromSide":"right","toNode":"cd541ddfc5d8a91b","toSide":"left"},
 		{"id":"d4a279d7030300f0","fromNode":"2e8731bd091df9c4","fromSide":"right","toNode":"cd541ddfc5d8a91b","toSide":"left"},
-		{"id":"362d7cc8cfe7af5c","fromNode":"f2a4d5c117568130","fromSide":"right","toNode":"7b52fb2bbd5509a9","toSide":"left"}
+		{"id":"362d7cc8cfe7af5c","fromNode":"f2a4d5c117568130","fromSide":"right","toNode":"7b52fb2bbd5509a9","toSide":"left"},
+		{"id":"6c6c5ef2701b977a","fromNode":"7b52fb2bbd5509a9","fromSide":"right","toNode":"a68a0be1ebc52707","toSide":"left"},
+		{"id":"a52a480d28e431f0","fromNode":"7b52fb2bbd5509a9","fromSide":"right","toNode":"dce7274dbddbfddc","toSide":"left"},
+		{"id":"a3a1295b8524a103","fromNode":"7b52fb2bbd5509a9","fromSide":"right","toNode":"faffe4e67c2b5a34","toSide":"left"},
+		{"id":"390347dd3f273e41","fromNode":"f2a4d5c117568130","fromSide":"right","toNode":"051ba16eecf6223e","toSide":"left"},
+		{"id":"0c6f17eed591f71b","fromNode":"051ba16eecf6223e","fromSide":"right","toNode":"298de0c62f02e775","toSide":"left"},
+		{"id":"168d33ad5569c6e7","fromNode":"298de0c62f02e775","fromSide":"right","toNode":"8aa45bf9adce0d45","toSide":"left"},
+		{"id":"8d64b9521a204f34","fromNode":"051ba16eecf6223e","fromSide":"right","toNode":"91919b46709f7074","toSide":"left"},
+		{"id":"3e6debb3bfbfc594","fromNode":"91919b46709f7074","fromSide":"right","toNode":"407e9210c0aed9aa","toSide":"left"},
+		{"id":"d55952be4b7592b4","fromNode":"91919b46709f7074","fromSide":"right","toNode":"1693a73cf8361a6c","toSide":"left"},
+		{"id":"3d9d8695821d6182","fromNode":"407e9210c0aed9aa","fromSide":"right","toNode":"697af70bb4d09fa6","toSide":"left"},
+		{"id":"44af89c0323f853f","fromNode":"407e9210c0aed9aa","fromSide":"right","toNode":"d8f6df7ba246aeb3","toSide":"left"},
+		{"id":"670ac46ca62b87d6","fromNode":"407e9210c0aed9aa","fromSide":"right","toNode":"de41ec8ce4c8dac7","toSide":"left"},
+		{"id":"218a51ab8123646a","fromNode":"407e9210c0aed9aa","fromSide":"right","toNode":"18f3714e1d1b52dd","toSide":"left"},
+		{"id":"8880f6abc9df8638","fromNode":"18f3714e1d1b52dd","fromSide":"bottom","toNode":"1693a73cf8361a6c","toSide":"top"},
+		{"id":"e11bf5697a8788d3","fromNode":"f2a4d5c117568130","fromSide":"right","toNode":"391f5faa1b694076","toSide":"left"}
 	]
 }
