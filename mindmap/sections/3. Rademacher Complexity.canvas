@@ -21,7 +21,14 @@
 		{"id":"ac1756215ecf7758","type":"text","text":"**One-sided**: With probability of at least $1-\\delta$\n$$\nP\\Bigg(\n\\sup_{h\\in\\mathcal{H}}\\Big\\{ R(h) - \\widehat{R_n}(h) \\Big\\} \\ge \\epsilon\n\\Bigg) \\le S_\\mathcal{H}(n)e^{-n\\epsilon^2/8}\n$$","x":1000,"y":1590,"width":380,"height":130},
 		{"id":"6bb065ca15150cf7","type":"text","text":"**Two-sided**: With probability of at least $1-\\delta$\n$$\nP\\Bigg(\n\\sup_{h\\in\\mathcal{H}}\\Big| R(h) - \\widehat{R_n}(h) \\Big| \\ge \\epsilon\n\\Bigg) \\le 2S_\\mathcal{H}(n)e^{-n\\epsilon^2/8}\n$$","x":1000,"y":1780,"width":380,"height":130},
 		{"id":"b10d9ca7372dc428","type":"text","text":"**Tighter Two-sided** (VC Theorem): With probability of at least $1-\\delta$\n$$\nP\\Bigg(\n\\sup_{h\\in\\mathcal{H}}\\Big| R(h) - \\widehat{R_n}(h) \\Big| \\ge \\epsilon\n\\Bigg) \\le 8S_\\mathcal{H}(n)e^{-n\\epsilon^2/32}\n$$","x":1500,"y":1775,"width":427,"height":140},
-		{"id":"cf3c452859a831f8","type":"text","text":"Rademacher Complexity","x":-680,"y":400,"width":250,"height":60,"color":"5"}
+		{"id":"2895ab744bf4d9f8","type":"text","text":"Dudley's Theorem","x":-144,"y":2240,"width":250,"height":60},
+		{"id":"3696ca430fb332d1","type":"text","text":"Covering number","x":609,"y":2240,"width":250,"height":60},
+		{"id":"37127658c41c21b3","type":"text","text":"**Empirical Covering Number** : Let $\\mathcal{F}$ be a function class and $S=(x_1, \\dots, x_n)$. The Empirical Covering Number is defined as\n$$\n\\begin{align*}\n\\mathcal{N}(\\mathcal{F}_S, \\epsilon, \\rho) =& \\text{ least number of $\\epsilon$-balls (w.r.t $\\rho$)}\\\\\n&\\text{ needed to cover $\\mathcal{F}_S$}\n\\end{align*}\n$$","x":980,"y":2179,"width":472,"height":182},
+		{"id":"d0c66c4d9ac22bc5","type":"text","text":"**Covering Number** : Let $\\mathcal{F}$ be a function class. The covering number of $\\mathcal{F}$ is defined as\n$$\n\\mathcal{N}(\\mathcal{F}, \\epsilon, \\rho) = \\sup_{S\\subset\\mathcal{X}}\\mathcal{N}(\\mathcal{F}_S, \\epsilon, \\rho)\n$$","x":980,"y":2400,"width":472,"height":140},
+		{"id":"572266f2cb755d50","type":"text","text":"Dudley's Entropy Integral bound","x":609,"y":2940,"width":250,"height":60},
+		{"id":"31cc472f60f42272","type":"text","text":"**Basic bounds** : Let $\\mathcal{F}$ be a class of functions from $\\mathcal{Z}\\to\\mathbb{R}$. We have\n$$\n\\widehat{\\mathfrak{R}_S}(\\mathcal{F}) \\le 12\\int_0^{\\sup_{f\\in\\mathcal{F}}\\|f\\|_{L^2(P_n)}}\\sqrt{\\frac{\\log\\mathcal{N}\\Big(\\mathcal{F}, \\epsilon, \\|.\\|_{L^2(P_n)}\\Big)}{n}}d\\epsilon\n$$","x":980,"y":2740,"width":520,"height":170},
+		{"id":"45477e3353f12f76","type":"text","text":"**Tighter bounds** : Let $\\mathcal{F}$ be a class of functions from $\\mathcal{Z}\\to\\mathbb{R}$. We have\n$$\n\\widehat{\\mathfrak{R}_S}(\\mathcal{F}) \\le \\inf_{\\alpha>0}\\Bigg\\{\n4\\alpha + 12\\int_0^{\\sup_{f\\in\\mathcal{F}}\\|f\\|_{L^2(P_n)}} \\sqrt{\n\t\\frac{\\log\\mathcal{N}\\Big( \\mathcal{F}, \\epsilon, \\|.\\|_{L^2(P_n)} \\Big)}{n}\n}d\\epsilon\n\\Bigg\\}\n$$","x":980,"y":3040,"width":520,"height":180},
+		{"id":"cf3c452859a831f8","type":"text","text":"Rademacher Complexity","x":-760,"y":598,"width":250,"height":60,"color":"5"}
 	],
 	"edges":[
 		{"id":"f25883491b42fb5f","fromNode":"cf3c452859a831f8","fromSide":"right","toNode":"123022b37554fda6","toSide":"left"},
@@ -49,6 +56,13 @@
 		{"id":"7bb4765ce567a6c2","fromNode":"f8319d0765f21718","fromSide":"right","toNode":"eb06b7512ab5424a","toSide":"left"},
 		{"id":"b6a0f6778de08153","fromNode":"eb06b7512ab5424a","fromSide":"right","toNode":"ac1756215ecf7758","toSide":"left"},
 		{"id":"a6e82ae2e27d85fb","fromNode":"eb06b7512ab5424a","fromSide":"right","toNode":"6bb065ca15150cf7","toSide":"left"},
-		{"id":"6da313fb28a10989","fromNode":"6bb065ca15150cf7","fromSide":"right","toNode":"b10d9ca7372dc428","toSide":"left"}
+		{"id":"6da313fb28a10989","fromNode":"6bb065ca15150cf7","fromSide":"right","toNode":"b10d9ca7372dc428","toSide":"left"},
+		{"id":"0f17a6425f154213","fromNode":"cf3c452859a831f8","fromSide":"right","toNode":"2895ab744bf4d9f8","toSide":"left"},
+		{"id":"ee64008193336112","fromNode":"2895ab744bf4d9f8","fromSide":"right","toNode":"3696ca430fb332d1","toSide":"left"},
+		{"id":"4d4b5fa36bd99bec","fromNode":"3696ca430fb332d1","fromSide":"right","toNode":"37127658c41c21b3","toSide":"left"},
+		{"id":"58195de345b3a5e8","fromNode":"3696ca430fb332d1","fromSide":"right","toNode":"d0c66c4d9ac22bc5","toSide":"left"},
+		{"id":"bbccb37f2f1a6774","fromNode":"2895ab744bf4d9f8","fromSide":"right","toNode":"572266f2cb755d50","toSide":"left"},
+		{"id":"85fc268960ef3dce","fromNode":"572266f2cb755d50","fromSide":"right","toNode":"31cc472f60f42272","toSide":"left"},
+		{"id":"a8e6ea586c49d3c7","fromNode":"572266f2cb755d50","fromSide":"right","toNode":"45477e3353f12f76","toSide":"left"}
 	]
 }
