@@ -1,11 +1,13 @@
 {
 	"nodes":[
-		{"id":"447bb8ad2d9e7d79","type":"text","text":"Statistical Learning Theory","x":-661,"y":-115,"width":250,"height":60},
-		{"id":"50680eea688dfd2e","type":"file","file":"sections/Fundamentals of SLT.canvas","x":-260,"y":-420,"width":280,"height":240},
-		{"id":"c69dc8dc03e9f677","type":"file","file":"sections/Vapnik-Chevronenkis Theory.canvas","x":-260,"y":-55,"width":280,"height":275}
+		{"id":"50680eea688dfd2e","type":"file","file":"sections/1. Fundamentals of SLT.canvas","x":-260,"y":-420,"width":280,"height":240,"color":"1"},
+		{"id":"c69dc8dc03e9f677","type":"file","file":"sections/2. Vapnik-Chevronenkis Theory.canvas","x":-260,"y":-55,"width":280,"height":275,"color":"3"},
+		{"id":"447bb8ad2d9e7d79","type":"text","text":"Statistical Learning Theory","x":-840,"y":53,"width":250,"height":60,"color":"6"},
+		{"id":"ac5e546e479be47e","type":"file","file":"sections/3. Rademacher Complexity.canvas","x":-260,"y":340,"width":280,"height":275,"color":"5"}
 	],
 	"edges":[
 		{"id":"880faa3cb03ce9ef","fromNode":"447bb8ad2d9e7d79","fromSide":"right","toNode":"50680eea688dfd2e","toSide":"left"},
-		{"id":"7cc2f432fc599a2e","fromNode":"447bb8ad2d9e7d79","fromSide":"right","toNode":"c69dc8dc03e9f677","toSide":"left"}
+		{"id":"7cc2f432fc599a2e","fromNode":"447bb8ad2d9e7d79","fromSide":"right","toNode":"c69dc8dc03e9f677","toSide":"left"},
+		{"id":"4f35e5ad6e5fd2f0","fromNode":"447bb8ad2d9e7d79","fromSide":"right","toNode":"ac5e546e479be47e","toSide":"left"}
 	]
 }

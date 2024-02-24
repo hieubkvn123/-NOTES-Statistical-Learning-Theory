@@ -13,11 +13,11 @@
             "state": {
               "type": "canvas",
               "state": {
-                "file": "sections/Vapnik-Chevronenkis Theory.canvas",
+                "file": "SLT Main.canvas",
                 "viewState": {
-                  "x": 648.217881933671,
-                  "y": 3316.76898095699,
-                  "zoom": -0.21077470061500336
+                  "x": -360.29417879417883,
+                  "y": 98.68347193347194,
+                  "zoom": -0.2430254923665806
                 }
               }
             }
@@ -72,8 +72,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "b060dcc4cee97fd3",
@@ -89,7 +88,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "sections/Vapnik-Chevronenkis Theory.canvas",
+                "file": "SLT Main.canvas",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -106,7 +105,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "sections/Vapnik-Chevronenkis Theory.canvas",
+                "file": "SLT Main.canvas",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -129,7 +128,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "sections/Vapnik-Chevronenkis Theory.canvas"
+                "file": "SLT Main.canvas"
               }
             }
           }
@@ -152,9 +151,10 @@
   },
   "active": "e702aaa74f90ad34",
   "lastOpenFiles": [
+    "sections/3. Rademacher Complexity.canvas",
     "SLT Main.canvas",
-    "sections/Vapnik-Chevronenkis Theory.canvas",
-    "sections/Fundamentals of SLT.canvas",
+    "sections/2. Vapnik-Chevronenkis Theory.canvas",
+    "sections/1. Fundamentals of SLT.canvas",
     "Fundamentals of SLT.canvas.canvas",
     "SLT-mindmap.canvas.canvas",
     "Untitled.md",
