@@ -1,0 +1,28 @@
+.cm-strong,
+.markdown-preview-section strong {
+  color: #BB29BB !important;
+  font-weight : bolder;
+}
+
+
+/* Different color for italic */
+.cm-em {
+    color: #f54775;
+	font-style: italic !important;
+}
+
+/* of italics in Preview  all notes in a vault */
+.markdown-preview-section em {
+    color: #f54775 !important;
+	font-style: normal !important;
+}
+
+/* hide strike-through */
+.markdown-preview-view ul>li.task-list-item {
+    text-decoration: underline;
+}
+
+.markdown-source-view.mod-cm6 .HyperMD-task-line[data-task="x"] {
+    text-decoration: underline;
+    font-weight: 500;
+}
