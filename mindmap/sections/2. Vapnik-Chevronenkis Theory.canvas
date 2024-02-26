@@ -30,7 +30,8 @@
 		{"id":"18f3714e1d1b52dd","type":"text","text":"**From set to classifier**:\n$$\n\\mathcal{H}= \\Big\\{h_G=\\mathbb{1}_{\\{x\\in G\\}}\\Big|G\\in\\mathcal{G}\\Big\\}\n$$\n\n**From classifier to set**:\n$$\n\\mathcal{G}=\\Bigg\\{G_h=\\Big\\{x\\in\\mathcal{X}\\Big|\\mathbb{1}_{\\{h(x)=1\\}} \\Big\\}\\Bigg|h\\in\\mathcal{H}\\Bigg\\}\n$$","x":1474,"y":1718,"width":317,"height":220},
 		{"id":"1693a73cf8361a6c","type":"text","text":"**VC Theorem** : Let $X_1, \\dots, X_n\\sim Q$ be $i.i.d$ random variables, $Q$ is a CDF. Then, for any $\\mathcal{G}\\subset \\mathcal{P}(\\mathcal{X}), \\epsilon>0$, we have:\n$$\nP\\Bigg( \n\\sup_{G\\in\\mathcal{G}}\\Big| \\widehat{Q}(G) - Q(G) \\Big|\\ge\\epsilon\n\\Bigg) \\le 8S_\\mathcal{G}(n)e^{-n\\epsilon^2/32}\n$$\nWhere:\n$$\nQ(G) = P(X\\in G), \\ \\ \\widehat{Q}(G)=\\frac{1}{n}\\sum_{i=1}^n \\mathbb{1}_{\\{X_i\\in G\\}}\n$$","x":1474,"y":2056,"width":460,"height":304},
 		{"id":"c639ba2b1c38ce34","type":"text","text":"**Steele & Dudley theorem**: Let $\\mathcal{F}$ be a vector space of real-valued functions such that\n$$\n\\mathcal{F}=\\Big\\{ f : \\mathbb{R}^d\\to\\mathbb{R}\\Big\\}, \\ \\ \\dim(\\mathcal{F}) = m\n$$\nThen, the following class of classifiers has finite VC-dimension:\n$$\n\\mathcal{H} = \\Bigg\\{ \\mathbb{1}_{\\{f(x)\\ge 0\\}}\\Bigg| f\\in\\mathcal{F}\\Bigg\\} \\implies V_\\mathcal{H} \\le m\n$$","x":335,"y":3240,"width":565,"height":260},
-		{"id":"908f6667bca27b65","x":1056,"y":3220,"width":504,"height":300,"type":"text","text":"**Corollary** : Let $\\mathcal{X}=\\mathbb{R}^d$ and define the following function class\n$$\n\\mathcal{F} = \\Bigg\\{f:\\mathcal{X}\\to\\mathbb{R} \\Bigg| f(x) = w^Tx+b, w\\in\\mathbb{R}^d, b\\in\\mathbb{R} \\Bigg\\}\n$$\nThen, define the set of linear classifiers as\n$$\n\\mathcal{H}=\\Bigg\\{ \\mathbb{1}_{\\{f(x)\\ge0\\}}\\Bigg| f\\in\\mathcal{F} \\Bigg\\}\n$$\nThen we have $\\dim(\\mathcal{H})=d+1$ and $V_\\mathcal{H}\\le d+1$.\n"}
+		{"id":"908f6667bca27b65","type":"text","text":"**Corollary** : Let $\\mathcal{X}=\\mathbb{R}^d$ and define the following function class\n$$\n\\mathcal{F} = \\Bigg\\{f:\\mathcal{X}\\to\\mathbb{R} \\Bigg| f(x) = w^Tx+b, w\\in\\mathbb{R}^d, b\\in\\mathbb{R} \\Bigg\\}\n$$\nThen, define the set of linear classifiers as\n$$\n\\mathcal{H}=\\Bigg\\{ \\mathbb{1}_{\\{f(x)\\ge0\\}}\\Bigg| f\\in\\mathcal{F} \\Bigg\\}\n$$\nThen we have $\\dim(\\mathcal{H})=d+1$ and $V_\\mathcal{H}\\le d+1$.\n","x":1056,"y":3220,"width":504,"height":300},
+		{"id":"ca394a60a8f3d255","x":2240,"y":1839,"width":920,"height":738,"type":"link","url":"https://nowak.ece.wisc.edu/SLT09/lecture19.pdf"}
 	],
 	"edges":[
 		{"id":"248bb4bee5aa561f","fromNode":"f2a4d5c117568130","fromSide":"right","toNode":"575df6f5ea6378f5","toSide":"left"},
@@ -64,6 +65,7 @@
 		{"id":"4f8f55ae605e3adf","fromNode":"3bfb137fdd20f43d","fromSide":"right","toNode":"b753ad3436270999","toSide":"left"},
 		{"id":"990c1e5a7feaee55","fromNode":"3bfb137fdd20f43d","fromSide":"right","toNode":"8dfc0086a11df65b","toSide":"left"},
 		{"id":"cf751ceae8953986","fromNode":"391f5faa1b694076","fromSide":"right","toNode":"c639ba2b1c38ce34","toSide":"left"},
-		{"id":"a4a0f0fa237646e8","fromNode":"c639ba2b1c38ce34","fromSide":"right","toNode":"908f6667bca27b65","toSide":"left"}
+		{"id":"a4a0f0fa237646e8","fromNode":"c639ba2b1c38ce34","fromSide":"right","toNode":"908f6667bca27b65","toSide":"left"},
+		{"id":"c8d3659f4f7fc747","fromNode":"1693a73cf8361a6c","fromSide":"right","toNode":"ca394a60a8f3d255","toSide":"left","label":"Complete\nproof"}
 	]
 }
