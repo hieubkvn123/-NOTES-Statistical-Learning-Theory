@@ -13,11 +13,11 @@
             "state": {
               "type": "canvas",
               "state": {
-                "file": "sections/2. Vapnik-Chevronenkis Theory.canvas",
+                "file": "sections/3. Rademacher Complexity.canvas",
                 "viewState": {
-                  "x": 2706.625279983785,
-                  "y": 2187.573681836051,
-                  "zoom": 0.1216605236670033
+                  "x": 2070,
+                  "y": 2972.5,
+                  "zoom": 0
                 }
               }
             }
@@ -88,7 +88,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "sections/2. Vapnik-Chevronenkis Theory.canvas",
+                "file": "sections/3. Rademacher Complexity.canvas",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -105,7 +105,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "sections/2. Vapnik-Chevronenkis Theory.canvas",
+                "file": "sections/3. Rademacher Complexity.canvas",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -128,7 +128,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "sections/2. Vapnik-Chevronenkis Theory.canvas"
+                "file": "sections/3. Rademacher Complexity.canvas"
               }
             }
           }
@@ -152,9 +152,9 @@
   "active": "e702aaa74f90ad34",
   "lastOpenFiles": [
     "SLT Main.canvas",
-    "sections/2. Vapnik-Chevronenkis Theory.canvas",
-    "sections/3. Rademacher Complexity.canvas",
     "sections/1. Fundamentals of SLT.canvas",
+    "sections/3. Rademacher Complexity.canvas",
+    "sections/2. Vapnik-Chevronenkis Theory.canvas",
     "Fundamentals of SLT.canvas.canvas",
     "SLT-mindmap.canvas.canvas",
     "Untitled.md",
