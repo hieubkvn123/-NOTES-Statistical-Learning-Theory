@@ -15,23 +15,22 @@
 \noindent and consider the following loss function:
 \begin{align*}
     l_r(\vecbf{z}) &= \begin{cases}
-        0 & \text{if } \vecbf{z} \ge 1 \\
-        1 - \vecbf{z} &\text{if } \vecbf{z} \in (0,1) \\ 
-        1 &\text{Otherwise}
+        0 & \text{if } \vecbf{z} \ge r \\
+        1 - \vecbf{z}/r &\text{if } \vecbf{z} \in (0,r) \\ 
+        1 &\text{if } \vecbf{z} \le 0
     \end{cases} \\
-    l(f_\vecbf{w}(x), y) &= l_r\Bigg(f_\vecbf{w}(x)_y - \max_{k\ne y} f_\vecbf{w}(x)_k\Bigg)
 \end{align*}
 
-\noindent Let $\epsilon > 0$ and $\mathcal{C}_\epsilon$ be the minimum $\epsilon$-cover of $W$ with respect to the Frobenius norm $\|.\|_F$. Suppose that for all $1\le k \le K$, we have:
+\noindent Let $\epsilon > 0$ and $\mathcal{C}_\epsilon(W)$ be the minimum $\epsilon$-cover of $W$ with respect to the Frobenius norm $\|.\|_F$. Suppose that for all $1\le k \le K$, we have:
 \begin{align*}
     \bigAbs{
         f_\vecbf{w}(x)_k - f_\vecbf{\bar{w}}(x)_k
     } \le \epsilon
 \end{align*}
 
-\noindent Where $\vecbf{\bar{w}} = \arg\min_{\vecbf{w'} \in \mathcal{C}_\epsilon} \| \vecbf{w}-\vecbf{w'} \|_F$. Derive the bound for:
+\noindent Where $\vecbf{\bar{w}} = \arg\min_{\vecbf{w'} \in \mathcal{C}_\epsilon} \| \vecbf{w}-\vecbf{w'} \|_F$. Derive the bound for the Rademacher complexity of the loss function class $\RC_n(\mathcal{L}_r)$ where:
 \begin{align*}
-    \bigAbs{
-        l(f_\vecbf{w}(x), y) - l(f_\vecbf{\bar{w}}(x), y)
+    \mathcal{L}_r = \biggCurl{
+        (x, y)\mapsto l_r\bigRound{ f_\vecbf{w}(x)_y - \max_{k\ne y} f_\vecbf{w}(x)_k } \Bigg| f_{\vecbf{w}} \in \F 
     }
 \end{align*}
