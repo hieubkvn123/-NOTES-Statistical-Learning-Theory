@@ -615,6 +615,27 @@ In this section, we finally solve the problem stated in section \ref{sec:rc_boun
 \end{proof*}
 
 
+\begin{proposition}{$\RC_n(\mathcal{F})$ bound for linear function class (Depending on $d$)}{rc_bound_for_lin_func_d}
+    Given the following function class $\F$ whose range is bounded within $[-1, 1]$:
+    \begin{align*}
+        \F = \bigCurl{
+            f:\R^d\to\R \Big| f(x) = wx, \|w\|_2 \le a, \|x\|_2 \le b
+        }
+    \end{align*}
+
+    \noindent Then, we can obtain the following bound for the Rademacher Complexity:
+    \begin{align*}
+        \RC_n(\F) \le \tilde O \Bigg( \sqrt{
+            \frac{d}{n}
+        } \Bigg)
+    \end{align*}
+\end{proposition}
+
+\begin{proof*}[Proposition \ref{prop:rc_bound_for_lin_func_d}]
+    
+\end{proof*}
+
+
 \begin{proposition}{$\RC_n(\F)$ bound for linear function class (no covering number)}{rc_bound_for_lin_func_wo_covering_number}
     The following proposition presents an upper bound for the Rademacher Complexity without dependence on the dimensionality $d$. Let $\F$ be a function class (not necessarily linear) and $Q$ is its output space such that:
     \begin{align*}
