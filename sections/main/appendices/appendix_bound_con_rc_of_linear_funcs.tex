@@ -632,7 +632,72 @@ In this section, we finally solve the problem stated in section \ref{sec:rc_boun
 \end{proposition}
 
 \begin{proof*}[Proposition \ref{prop:rc_bound_for_lin_func_d}]
-    
+    By lemma A.8 of \cite{article:long_and_sedghi}, a ball in $\R^d$ with radius $\kappa>0$, denoted $\mathcal{B}_\kappa$, with respect to the $l^2$ norm has the following covering number bound:
+    \begin{align*}
+        \mathcal{N}(\mathcal{B}_\kappa, \epsilon, \|.\|_2) \le \Bigg\lceil 
+            \biggRound{\frac{3\kappa}{\epsilon}}^d
+        \Bigg\rceil \le \biggRound{1 + \frac{3\kappa}{\epsilon}}^d
+    \end{align*}
+
+    \noindent Let $W$ be the set of vectors in $\R^d$ whose $l^2$ norm is bounded by $a\in\R$. By the above lemma, the covering number of $W$ has the following bound:
+    \begin{align*}
+        \mathcal{N}(W, \epsilon, \|.\|_2) \le \biggRound{
+            1 + \frac{3a}{\epsilon}
+        }^d
+    \end{align*}
+
+    \begin{subproof}{Bounding the covering number of $\mathcal{F}$}
+        Given a sample $S=\{x_1, \dots, x_n\}$ in $\R^d$, we define the norm of $f\in\F$ as followed:
+        \begin{align*}
+            \|f\|_2  = \sqrt{
+                \frac{1}{n}\sum_{i=1}^n f(x_i)^2
+            }
+        \end{align*}
+
+        \noindent For all $w\in W$, we have a corresponding function in $\F$, denote it as $f_w$. Denote $\mathcal{C}_\epsilon(W)$ as the $\epsilon$-cover of $W$ and let $\bar{w}\in\mathcal{C}_\epsilon(W)$ be the member of the $\epsilon$-cover that is closest to $w\in W$. We have:
+        
+        \begin{align*}
+            \| f_w - f_{\bar{w}} \|_2 
+                &= \sqrt{
+                    \frac{1}{n}\sum_{i=1}^n (f_w-f_{\bar{w}})(x_i)^2
+                }\\
+                &= \sqrt{
+                    \frac{1}{n}\sum_{i=1}^n \big<w-\bar{w}, x_i\big>^2
+                } \\
+                &\le \sqrt{
+                    \frac{1}{n}\sum_{i=1}^n \|w-\bar{w}\|_2^2 \cdot \|x_i\|_2^2
+                } \ \ \ \text{(Cauchy-Schwarz)} \\
+                &= \sqrt{
+                    \frac{1}{n}\sum_{i=1}^n \epsilon^2b^2
+                } = \epsilon b
+        \end{align*}
+
+        \noindent From the above, we have:
+        \begin{align*}
+            \forall f_w \in \F : \exists \bar{w} \in \mathcal{C}_{\epsilon/b}(W) \text{ such that } \|f_w - f_{\bar{w}}\|_2 \le \epsilon
+        \end{align*}
+
+        \noindent Therefore,
+        \begin{align*} 
+            \mathcal{N}(\F, \epsilon, \|.\|_2) &\le \biggRound{1+\frac{3ab}{\epsilon}}^d 
+        \end{align*}
+    \end{subproof}
+
+    \noindent By Dudley's Entropy Integral bound \ref{thm:dudley_entropy_integral}, we have:
+    \begin{align*}
+        \ERC_S(\F) &\le \inf_{\alpha>0}\biggCurl{4\alpha + \frac{12}{\sqrt{n}}\int_\alpha^{\sup_{f\in\F}\|f\|_2} \sqrt{\log\mathcal{N}(\F, \epsilon, \|.\|_2)}d\epsilon} \\
+        &\le \inf_{\alpha>0}\biggCurl{4\alpha + 12\sqrt{\frac{d}{n}}\int_\alpha^1 \sqrt{\log\biggRound{1+\frac{3ab}{\epsilon}}}d\epsilon} \ \ \ \bigRound{\sup_{f\in\F}\|f\|_2\le 1} \\
+        &\le \inf_{\alpha>0}\biggCurl{
+            4\alpha + 12\sqrt{\frac{d}{n}}(1-\alpha)\sqrt{\log\biggRound{
+                1+\frac{3ab}{\alpha}
+            }
+        }}
+    \end{align*}
+
+    \noindent Setting a small value for $\alpha>0$, we have:
+    \begin{align*}
+        \ERC_S(\F) \le \tilde O\biggRound{\sqrt{\frac{d}{n}}}
+    \end{align*}
 \end{proof*}
 
 
