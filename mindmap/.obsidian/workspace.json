@@ -15,9 +15,9 @@
               "state": {
                 "file": "sections/3. Rademacher Complexity.canvas",
                 "viewState": {
-                  "x": 1506.8004787744117,
-                  "y": 1979.3514176538436,
-                  "zoom": -0.5242011299462745
+                  "x": 1851.5296894385,
+                  "y": 390.42019750262915,
+                  "zoom": -1.8575344632796076
                 }
               }
             }
@@ -149,7 +149,7 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "9342f7699e98eb8e",
+  "active": "e702aaa74f90ad34",
   "lastOpenFiles": [
     "SLT Main.canvas",
     "sections/2. Vapnik-Chevronenkis Theory.canvas",

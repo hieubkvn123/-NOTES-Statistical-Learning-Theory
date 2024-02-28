@@ -10,7 +10,6 @@
 		{"id":"0d1b651420477147","type":"text","text":"With probability of at least $1-\\delta$, we have:\n$$\n\\begin{align*}\n\\sup_{g\\in\\mathcal{G}}\\Big| \\mathbb{E}[g] - \\widehat{\\mathbb{E}_S}[g]\\Big| &\\le 2\\mathfrak{R}_n(\\mathcal{G}) + (b-a)\\sqrt{\\frac{\\log 2/\\delta}{2n}} \\\\\n\\sup_{g\\in\\mathcal{G}}\\Big| \\mathbb{E}[g] - \\widehat{\\mathbb{E}_S}[g]\\Big| &\\le 2\\widehat{\\mathfrak{R}_S}(\\mathcal{G}) + 3(b-a)\\sqrt{\\frac{\\log 4/\\delta}{2n}}\n\\end{align*}\n$$","x":1000,"y":900,"width":400,"height":176},
 		{"id":"3aab70989580cc9c","type":"text","text":"$\\mathcal{H}\\subset\\{-1,1\\}^\\mathcal{X}$, with probability of at least $1-\\delta$, we have:\n$$\n\\begin{align*}\n\\sup_{h\\in\\mathcal{H}}\\Big\\{R(h)-\\widehat{R_n}(h)\\Big\\} &\\le \\mathfrak{R}_n(\\mathcal{H})+\\sqrt{\\frac{\\log1/\\delta}{2n}}\\\\\n\\sup_{h\\in\\mathcal{H}}\\Big\\{R(h)-\\widehat{R_n}(h)\\Big\\} &\\le \\widehat{\\mathfrak{R}_S}(\\mathcal{H})+3\\sqrt{\\frac{\\log2/\\delta}{2n}}\n\\end{align*}\n$$","x":1580,"y":528,"width":421,"height":200},
 		{"id":"0bc666b161fc15ec","type":"text","text":"$\\mathcal{H}\\subset\\{-1,1\\}^\\mathcal{X}$, with probability of at least $1-\\delta$, we have:\n$$\n\\begin{align*}\n\\sup_{h\\in\\mathcal{H}}\\Big|R(h)-\\widehat{R_n}(h)\\Big| &\\le \\mathfrak{R}_n(\\mathcal{H})+\\sqrt{\\frac{\\log2/\\delta}{2n}}\\\\\n\\sup_{h\\in\\mathcal{H}}\\Big|R(h)-\\widehat{R_n}(h)\\Big| &\\le \\widehat{\\mathfrak{R}_S}(\\mathcal{H})+3\\sqrt{\\frac{\\log4/\\delta}{2n}}\n\\end{align*}\n$$","x":1580,"y":882,"width":421,"height":212},
-		{"id":"18eccc3e2107a1a6","type":"text","text":"With probability of at least $1-\\delta$, we have\n$$\n\\mathfrak{R}_n(\\mathcal{G})\\le \\widehat{\\mathfrak{R}_S}(\\mathcal{G}) +(b-a)\\sqrt{\\frac{\\log 1/\\delta}{2n}}\n$$","x":1015,"y":-118,"width":370,"height":126},
 		{"id":"f8319d0765f21718","type":"text","text":"# VC Inequality","x":-144,"y":1260,"width":250,"height":60},
 		{"id":"efc18928dc24f83e","type":"text","text":"**Massart Lemma**: Let $A\\subset\\mathbb{R}^n$ and $|A|<\\infty$. Let $r=\\sup_{u\\in A}\\|u\\|_2$ where $\\|.\\|_2$ is the $l^2$ norm. Then\n$$\n\\mathbb{E}_\\sigma\\Bigg[\n\\sup_{u\\in A}\\frac{1}{n}\\sum_{i=1}^n\\sigma_iu_i\n\\Bigg] \\le \\frac{r\\sqrt{2\\log|A|}}{n}\n$$","x":348,"y":1220,"width":511,"height":140},
 		{"id":"0c2ec733df1b876c","type":"text","text":"**Massart lemma bound on $\\widehat{\\mathfrak{R}_S}(\\mathcal{G})$**: Let $\\mathcal{G}$ be a finite function class and $S=\\{x_1, \\dots, x_n\\}$ be a random sample. Letting $r=\\sup_{g\\in\\mathcal{G}}\\|g\\|_{L^2(P_n)}$, we have\n$$\n\\widehat{\\mathfrak{R}_S}(\\mathcal{G}) \\le r\\sqrt{\\frac{2\\log|\\mathcal{G}|}{n}}\n$$\nWhere we have:\n$$\n\\|g\\|_{L^2(P_n)} = \\sqrt{\\frac{1}{n}\\sum_{i=1}^nf(x_i)^2}\n$$\n","x":1000,"y":1150,"width":600,"height":280},
@@ -30,7 +29,12 @@
 		{"id":"1a4b722934b85ba3","type":"text","text":"# Rademacher complexity bounds","x":-144,"y":565,"width":250,"height":127},
 		{"id":"fbb97990f68dd491","type":"text","text":"# Rademacher complexity","x":-144,"y":35,"width":250,"height":84},
 		{"id":"123022b37554fda6","type":"text","text":"# Bounded Difference (McDiarmid) Inequality","x":-144,"y":-284,"width":250,"height":170},
-		{"id":"2895ab744bf4d9f8","type":"text","text":"# Dudley's Theorem","x":-144,"y":2228,"width":250,"height":84}
+		{"id":"2895ab744bf4d9f8","type":"text","text":"# Dudley's Theorem","x":-144,"y":2228,"width":250,"height":84},
+		{"id":"18eccc3e2107a1a6","type":"text","text":"With probability of at least $1-\\delta$, we have\n$$\n\\mathfrak{R}_n(\\mathcal{G})\\le \\widehat{\\mathfrak{R}_S}(\\mathcal{G}) +(b-a)\\sqrt{\\frac{\\log 1/\\delta}{2n}}\n$$","x":1015,"y":14,"width":370,"height":126},
+		{"id":"c2a007184005a9aa","x":1135,"y":-258,"width":250,"height":60,"type":"text","text":"Properties of Rademacher Complexity"},
+		{"id":"4e2aea49b955b059","type":"text","text":"$$\n\\begin{align*}\n(ii) \\ \\ \\widehat{\\mathfrak{R}_S}(conv(\\mathcal{G})) &= \\widehat{\\mathfrak{R}_S}(\\mathcal{G}) \\\\\nconv(\\mathcal{G}) &= \\Bigg\\{ \\sum_{i=1}^n |\\alpha_i|g_i \\ \\Bigg| \\ \\sum_{i=1}^n |\\alpha_i|=1, g_i \\in \\mathcal{G} \\Bigg\\}\n\\end{align*}\n$$","x":1541,"y":-296,"width":430,"height":139},
+		{"id":"ad05f2a3fc2a8174","x":1541,"y":-118,"width":319,"height":85,"type":"text","text":"$$\n(iii) \\ \\ \\widehat{\\mathfrak{R}_S}(\\mathcal{G}_1 + \\mathcal{G}_2) = \\widehat{\\mathfrak{R}_S}(\\mathcal{G}_1) + \\widehat{\\mathfrak{R}_S}(\\mathcal{G}_2)\n$$"},
+		{"id":"d4c4fb8a3c54b7ef","x":1541,"y":-438,"width":250,"height":100,"type":"text","text":"$$\n(i) \\ \\ \\widehat{\\mathfrak{R}_S}(c\\mathcal{G} + d) = |c|\\widehat{\\mathfrak{R}_S}(\\mathcal{G})\n$$"}
 	],
 	"edges":[
 		{"id":"f25883491b42fb5f","fromNode":"cf3c452859a831f8","fromSide":"right","toNode":"123022b37554fda6","toSide":"left"},
@@ -68,6 +72,10 @@
 		{"id":"a8e6ea586c49d3c7","fromNode":"572266f2cb755d50","fromSide":"right","toNode":"45477e3353f12f76","toSide":"left"},
 		{"id":"43f4bc9606819194","fromNode":"3696ca430fb332d1","fromSide":"right","toNode":"dd394ad4d68d828d","toSide":"left"},
 		{"id":"e0c194c20db0f485","fromNode":"dd394ad4d68d828d","fromSide":"right","toNode":"00cbe66a7d99e4a8","toSide":"left","label":"Proof"},
-		{"id":"95284c2acb2affcb","fromNode":"45477e3353f12f76","fromSide":"right","toNode":"00cbe66a7d99e4a8","toSide":"left","label":"Proof"}
+		{"id":"95284c2acb2affcb","fromNode":"45477e3353f12f76","fromSide":"right","toNode":"00cbe66a7d99e4a8","toSide":"left","label":"Proof"},
+		{"id":"9830c1e8e61b93f8","fromNode":"61215c58fa4dc4f7","fromSide":"right","toNode":"c2a007184005a9aa","toSide":"left"},
+		{"id":"3a8783b0c8d324fc","fromNode":"c2a007184005a9aa","fromSide":"right","toNode":"d4c4fb8a3c54b7ef","toSide":"left"},
+		{"id":"c030773da3279de7","fromNode":"c2a007184005a9aa","fromSide":"right","toNode":"4e2aea49b955b059","toSide":"left"},
+		{"id":"ef9b9f4758447a2b","fromNode":"c2a007184005a9aa","fromSide":"right","toNode":"ad05f2a3fc2a8174","toSide":"left"}
 	]
 }
