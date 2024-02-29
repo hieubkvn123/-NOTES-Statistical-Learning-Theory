@@ -1,14 +1,14 @@
 \begin{exercise}{}{exercise_6.1}
     Can you improve the constants in the empirical Rademacher complexity bound:
     \begin{align*}
-        \E\bigSquare{g(Z)} - \frac{1}{n}\sum_{i=1}^n g(Z_i) \le 2\ERC_S(\G) + 3(b-a)\sqrt{
+        \sup_{g\in\G}\biggCurl{\E\bigSquare{g(Z)} - \frac{1}{n}\sum_{i=1}^n g(Z_i)} \le 2\ERC_S(\G) + 3(b-a)\sqrt{
             \frac{\log 2/\delta}{2n}
         }
     \end{align*}
     \noindent through a single, direct application of the bounded diﬀerence inequality?
 \end{exercise}
 
-\begin{solution*}[Exercise \ref{ex:exercise_6.1} - \color{red}{Needs thorough check later} \color{black}]
+\begin{solution*}[Exercise \ref{ex:exercise_6.1} - \color{red}{Wrong, to be fixed later} \color{black}]
     Given the sample $S=\{Z_1, \dots, Z_i, \dots, Z_n \}$ and define $S_i = \{Z_1, \dots, Z_i', \dots, Z_n \}$ for $1\le i \le n$. Define the following function:
     \begin{align*}
         \phi(S) &= \widehat{\E_S}[g] - \ERC_S(\G) \\
