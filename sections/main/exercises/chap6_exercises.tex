@@ -74,7 +74,7 @@
     \textbf{Definition} (Partition classifier) : Let $\Pi=\bigCurl{A_1, \dots, A_k}$ be a fixed partition of $\X$. The partition classifiers assign labels that corresponds to the partitions. Specifically, we define the following set of classifiers:
     \begin{align*}
         \Hf = \biggCurl{
-            h : \X \to \{a_1, \dots, a_k\} \Bigg| h(x) = \sum_{i=1}^k a_i \1{A_i}(x)
+            h : \X \to \{a_1, \dots, a_k\} \Bigg| h(x) = \sum_{j=1}^k a_j \1{x\in A_j}, \ a_j \in \{-1,1\}
         }
     \end{align*}
 
@@ -82,6 +82,55 @@
 \end{exercise}
 
 \begin{solution*}[Exercise \ref{ex:exercise_6.2}]
-    
+    We have:
+    \begin{align*}
+        \ERC_S(\Hf) 
+            &= \E_\sigma\biggSquare{
+                \sup_{h\in \Hf} \frac{1}{n} \sum_{i=1}^n \sigma_i h(X_i)
+            } \\
+            &= \frac{1}{n} \E_\sigma\biggSquare{
+                \sup_{a_1, \dots, a_k} \sum_{i=1}^n \sigma_i \sum_{j=1}^k a_j \1{X_i\in A_j}
+            } \\
+            &= \frac{1}{n} \E_\sigma\biggSquare{
+                \sup_{a_1, \dots, a_k} \sum_{j=1}^k \sum_{i=1}^n \sigma_i a_j \1{X_i\in A_j}
+            } \\
+            &= \frac{1}{n} \E_\sigma\biggSquare{
+                \sup_{a_1, \dots, a_k} \sum_{j=1}^k \sum_{i\in[n]; X_i \in A_j} \sigma_i a_j
+            } \\
+            &= \frac{1}{n} \E_\sigma\biggSquare{
+                \sum_{j=1}^k \sup_{a_j\in\{-1, 1\}} \sum_{i\in[n]; X_i \in A_j} \sigma_i a_j
+            } \\
+            &= \frac{1}{n}\sum_{j=1}^k \E_\sigma\biggSquare{
+                \sup_{a_j\in\{-1, 1\}} a_j \sum_{i\in[n]; X_i \in A_j} \sigma_i
+            }
+    \end{align*}
+
+    \noindent Given a sample of Rademacher variables, to maximize the sum of those variables, the strategy is to multiply the entire sample with the dominant sign. For example,
+    \begin{align*}
+        \{-1, -1, 1\} &\to \{1, 1, -1\} &&\Sigma = 1 \\
+        \{1, 1, -1\} &\to \{1, 1, -1\} &&\Sigma = 1
+    \end{align*}
+
+    \noindent This is equivalent to taking the absolute value of the sum. Hence, we have:
+    \begin{align*}
+        \ERC_S(\Hf) 
+            &= \frac{1}{n}\sum_{j=1}^k \E_\sigma\biggSquare{
+                \biggAbs{
+                    \sum_{i\in[n]; X_i \in A_j} \sigma_i
+                }
+            } \\
+            &= \frac{1}{n}\sum_{j=1}^k \E_\sigma\biggSquare{
+                \biggAbs{
+                    \sum_{i \in \mathcal{N}_j} \sigma_i
+                }
+            }, \ \ \ \mathcal{N}_j = \bigCurl{ i : X_i \in A_j } 
+    \end{align*}
+
+    \noindent We can model $\bigAbs{\sum_{i\in \mathcal{N}_j}\sigma_i}$ as the absolute difference between two binomial variables with distribution $Binomial(n_j, p=\frac{1}{2})$ where $n_j=|\mathcal{N}_j|$. For each $j\in \{1, \dots, k\}$, denote that:
+    \begin{align*}
+        \biggAbs{
+            \sum_{i \in \mathcal{N}_j} \sigma_i
+        } &= \bigAbs{ X_j - Y_j } \text{ where } X_j, Y_j \sim Binomial\Bigg(n_j, p=\frac{1}{2}\Bigg)
+    \end{align*}
 \end{solution*}
 
