@@ -132,5 +132,46 @@
             \sum_{i \in \mathcal{N}_j} \sigma_i
         } &= \bigAbs{ X_j - Y_j } \text{ where } X_j, Y_j \sim Binomial\Bigg(n_j, p=\frac{1}{2}\Bigg)
     \end{align*}
+
+    \begin{subproof}{Compute $P\bigRound{\bigAbs{X_j - Y_j} = z}$ for $z\ne 0$}
+        For the case when $X_j \ne Y_j$, we have:
+        \begin{align*}
+            P\bigRound{\bigAbs{X_j - Y_j} = z} 
+                &= P\bigRound{X_j = z + Y_j} + P\bigRound{Y_j = z + X_j}
+        \end{align*}
+
+        \noindent Since the two events are independent and has the same probability (due to the fact that $X_j$ and $Y_j$ are identically distributed). By the law of total probability, we have:
+        \begin{align*}
+            P\bigRound{X_j = z + Y_j}
+                &= \sum_{y=1}^{n_j - z} P(X_j = z + Y_j | Y_j = y)P(Y_j = y) \\
+                &= \sum_{y=1}^{n_j - z} \biggSquare{\begin{pmatrix} n_j \\ z + y \end{pmatrix} \frac{1}{2^{n_j}}} \biggSquare{ \begin{pmatrix} n_j \\ y \end{pmatrix} \frac{1}{2^{n_j}} } \\
+                &= \frac{1}{2^{2n_j}}\sum_{y=1}^{n_j-z} \begin{pmatrix} n_j \\ y \end{pmatrix} \begin{pmatrix} n_j \\ z + y \end{pmatrix} \\
+                &= \frac{1}{2^{2n_j}}\sum_{y=1}^{n_j-z} \begin{pmatrix} n_j \\ y \end{pmatrix} \begin{pmatrix} n_j \\ n_j - z - y \end{pmatrix} \\
+                &= \frac{1}{2^{2n_j}}\begin{pmatrix}
+                    2n_j \\ n_j - z
+                \end{pmatrix} \ \ \ \text{(Vandermonde's Identity)}
+        \end{align*}
+
+        \noindent Hence, for $X_j\ne Y_j$, we have:
+        \begin{align*}
+            P\bigRound{\bigAbs{X_j - Y_j} = z} &= 2 \times \frac{1}{2^{2n_j}}\begin{pmatrix}
+                2n_j \\ n_j - z
+            \end{pmatrix} \\
+            &= \frac{1}{2^{2n_j-1}}\begin{pmatrix}
+                2n_j \\ n_j - z
+            \end{pmatrix}
+        \end{align*}
+    \end{subproof}
+
+    \begin{subproof}{Compute $\E\bigSquare{\bigAbs{X_j - Y_j}}$}
+        Now that we have the PMF for $\bigAbs{X_j - Y_j}$, we have:
+        \begin{align*}
+            \E\bigSquare{\bigAbs{X_j - Y_j}}
+                &= \sum_{z=1}^{n_j} z \times P\bigRound{\bigAbs{X_j - Y_j} = z} \\
+                &= \frac{1}{2^{2n_j - 1}} \sum_{z=1}^{n_j} z \times \begin{pmatrix}
+                    2n_j \\ n_j - z
+                \end{pmatrix}
+        \end{align*}
+    \end{subproof}
 \end{solution*}
 
