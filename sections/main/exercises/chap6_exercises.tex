@@ -159,6 +159,9 @@
             \end{pmatrix} \\
             &= \frac{1}{2^{2n_j-1}}\begin{pmatrix}
                 2n_j \\ n_j - z
+            \end{pmatrix} \\
+            &= \frac{1}{2^{2n_j-1}}\begin{pmatrix}
+                2n_j \\ n_j + z
             \end{pmatrix}
         \end{align*}
     \end{subproof}
@@ -169,7 +172,7 @@
             \E\bigSquare{\bigAbs{X_j - Y_j}}
                 &= \sum_{z=1}^{n_j} z \times P\bigRound{\bigAbs{X_j - Y_j} = z} \\
                 &= \frac{1}{2^{2n_j - 1}} \sum_{z=1}^{n_j} z \times \begin{pmatrix}
-                    2n_j \\ n_j - z
+                    2n_j \\ n_j + z
                 \end{pmatrix}
         \end{align*}
     \end{subproof}
