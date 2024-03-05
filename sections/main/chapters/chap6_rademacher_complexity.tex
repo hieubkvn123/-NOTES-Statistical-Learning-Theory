@@ -572,33 +572,7 @@ In the following section, we will prove a slightly looser VC bound compared to t
 \end{theorem}
 
 \begin{proof*}[Theorem \ref{thm:two_sided_vc_inequality}]
-    Repeating the same arguments as theorem \ref{thm:one_sided_rademacher_bound}, we can also prove that:
-    \begin{align*}
-        P\biggRound{
-            \inf_{h\in\Hf} \bigRound{
-                R(h) - \widehat{R_n}(h)
-            } \le -\epsilon 
-        } \le S_\Hf(n)e^{-n\epsilon^2/8}
-    \end{align*}
-
-    \noindent Hence, combining the bounds, we have:
-    \begin{align*}
-        P\biggRound{
-            \sup_{h\in\Hf} \bigAbs{
-                R(h) - \widehat{R_n}(h)
-            } \ge \epsilon 
-        } 
-        &\le P\biggRound{
-            \inf_{h\in\Hf} \bigRound{
-                R(h) - \widehat{R_n}(h)
-            } \le -\epsilon 
-        } + P\biggRound{
-            \sup_{h\in\Hf} \bigRound{
-                R(h) - \widehat{R_n}(h)
-            } \ge \epsilon 
-        } \\
-        &\le 2S_\Hf(n)e^{-n\epsilon^2/8}
-    \end{align*}
+    The proof of this theorem is included in exercise \ref{ex:exercise_6.5}.
 \end{proof*}
 
 \noindent Now we proceed to prove theorem \ref{thm:vc_theorem_for_clf} by modifying the proof for the one-sided VC inequality (theorem \ref{thm:one_sided_vc_inequality}) starting from the inequality $(*)$. The idea is to improve the power of the exponent at the expense of the constant in front of the exponent.
