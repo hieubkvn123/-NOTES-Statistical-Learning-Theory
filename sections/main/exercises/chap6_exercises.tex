@@ -191,12 +191,14 @@
 
 
 \begin{exercise}{}{exercise_6.3}
-    Let $\G, \G_1, \G_2 \subset [a,b]^{\mathcal{Z}}$. Let $c, d \in \R$. Show that:
+    Let $\G, \G_1, \G_2 \subset [a,b]^{\mathcal{Z}}$. Let $c, d \in \R$. Prove the following properties of the empirical Rademacher Complexity:
     \begin{itemize}
         \item $\ERC_S(c\G + d) = |c|\ERC_S(\G)$ where $c\G+d=\bigCurl{g'(z) = c\cdot g(z) + d \Big| g\in\G}$.
         \item $\ERC_S(conv(\G))=\ERC_S(\G)$ where $conv(\G)=\bigCurl{\sum_{i=1}^n \alpha_ig_i\Big|\alpha_i\ge0, \sum_{i=1}^n\alpha_i=1, g_i\in\G}$.
         \item $\ERC_S(\G_1 + \G_2)=\ERC_S(\G_1) + \ERC_S(\G_2)$ where $\G_1 + \G_2 = \bigCurl{g_1 + g_2 \Big| g_1\in\G_1, g_2\in\G_2}$.
     \end{itemize}
+
+    \noindent As a result, the above properties also apply to the Rademacher Complexity.
 \end{exercise}
 
 \begin{solution*}[Exercise \ref{ex:exercise_6.3}]
@@ -252,5 +254,73 @@
                 &= \ERC_S(\G)
         \end{align*}
     \end{subproof}
+\end{solution*}
+
+\begin{exercise}{}{exercise_6.4}
+    Prove theorem \ref{thm:two_sided_rademacher_bound} (Two-sided Rademacher Complexity bounds).
+\end{exercise}
+
+\begin{solution*}[Exercise \ref{ex:exercise_6.4}]
+    Applying theorem \ref{thm:one_sided_rademacher_bound} for $-\G$, for any $0<\delta<1$, we have:
+    \begin{align*}
+        P\biggRound{
+            \sup_{g'\in -\G}\biggCurl{
+                \E[g'(Z)] - \frac{1}{n}\sum_{i=1}^n g'(Z_i)
+            } \le 2\RC_n(-\G) + (b-a)\sqrt{\frac{\log 2/\delta}{2n}}
+        }&\ge 1 - \delta/2 \\
+        \implies P\biggRound{
+            \sup_{g\in\G}\biggCurl{
+                \frac{1}{n}\sum_{i=1}^n g(Z_i) - \E[g(Z)]
+            } \le 2\RC_n(-\G) + (b-a)\sqrt{\frac{\log 2/\delta}{2n}}
+        }&\ge 1 - \delta/2 \\
+        \implies P\biggRound{
+            \sup_{g\in\G}\biggCurl{
+                \frac{1}{n}\sum_{i=1}^n g(Z_i) - \E[g(Z)]
+            } \ge 2\RC_n(-\G) + (b-a)\sqrt{\frac{\log 2/\delta}{2n}}
+        }&\le \delta/2
+    \end{align*}
+
+    \noindent Since $\RC_n(-\G) = |-1|\cdot \RC_n(\G) = \RC_n(\G)$, we have:
+    \begin{align*}
+        P\biggRound{
+            \sup_{g\in\G}\biggCurl{
+                \frac{1}{n}\sum_{i=1}^n g(Z_i) - \E[g(Z)]
+            } \ge 2\RC_n(\G) + (b-a)\sqrt{\frac{\log 2/\delta}{2n}}
+        }&\le \delta/2
+    \end{align*}
+
+    \noindent Now, we have:
+    \begin{align*}
+        P(\sup|A| \ge \epsilon) &= P\bigRound{\bigCurl{\sup\{A\} \ge \epsilon} \cup \bigCurl{\sup\{-A\} \ge \epsilon}} \\
+        &\le P\bigRound{\bigCurl{\sup\{A\} \ge \epsilon}} + P\bigRound{\bigCurl{\sup\{-A\} \ge \epsilon}}
+    \end{align*}
+
+    \noindent Letting $\epsilon = 2\RC_n(\G) + (b-a)\sqrt{\frac{\log 2/\delta}{2n}}$, we have:
+    \begin{align*}
+        P\biggRound{
+            \sup_{g\in\G}\biggAbs{
+                \E[g(Z)] - \frac{1}{n}\sum_{i=1}^n g(Z_i)
+        } \ge \epsilon}
+        &\le P\biggRound{
+            \sup_{g\in\G}\biggCurl{
+                \frac{1}{n}\sum_{i=1}^n g(Z_i) - \E[g(Z)]
+            } \ge \epsilon
+        } \\
+        & + \underbrace{P\biggRound{
+            \sup_{g\in\G}\biggCurl{
+                \E[g(Z)] - \frac{1}{n}\sum_{i=1}^n g(Z_i)
+            } \ge \epsilon
+        }}_{\text{Original one-sided bound}} \\
+        &\le \delta/2 + \delta/2 = \delta
+    \end{align*}
+
+    \noindent Applying theorem \ref{thm:one_sided_rademacher_bound} and the same reasoning for $-\G$ for the empirical Rademacher Complexity bound, we also have:
+    \begin{align*}
+        P\biggRound{
+            \sup_{g\in\G}\biggAbs{
+                \frac{1}{n}\sum_{i=1}^n g(Z_i) - \E[g(Z)]
+            } \ge 2\ERC_S(\G) + 3(b-a)\sqrt{\frac{\log 4/\delta}{2n}}
+        }&\le \delta/2 + \delta/2 = \delta
+    \end{align*}
 \end{solution*}
 
