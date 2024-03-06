@@ -30,9 +30,11 @@
 		{"id":"b753ad3436270999","type":"text","text":"**Convex polygons in $\\mathbb{R}^2$**: \n$$\n\\mathcal{H}=\\Bigg\\{\n\\mathbb{1}_{\\{x\\in P_k\\}} \\Bigg| P_k \\text{ is at most $k$-sided}\n\\Bigg\\}\n$$","x":1008,"y":3146,"width":400,"height":120},
 		{"id":"8dfc0086a11df65b","type":"text","text":"**Union of rectangles**: Let $\\mathcal{X}=\\mathbb{R}^d$\n$$\n\\mathcal{H}=\\Bigg\\{\n\\mathbb{1}_{\\{x\\in R_k\\}} \\Bigg| R_k \\text{ is union of at most $k$ rectangles}\n\\Bigg\\}\n$$","x":1008,"y":3340,"width":400,"height":120},
 		{"id":"908f6667bca27b65","type":"text","text":"**Corollary** : Let $\\mathcal{X}=\\mathbb{R}^d$ and define the following function class\n$$\n\\mathcal{F} = \\Bigg\\{f:\\mathcal{X}\\to\\mathbb{R} \\Bigg| f(x) = w^Tx+b, w\\in\\mathbb{R}^d, b\\in\\mathbb{R} \\Bigg\\}\n$$\nThen, define the set of linear classifiers as\n$$\n\\mathcal{H}=\\Bigg\\{ \\mathbb{1}_{\\{f(x)\\ge0\\}}\\Bigg| f\\in\\mathcal{F} \\Bigg\\}\n$$\nThen we have $\\dim(\\mathcal{H})=d+1$ and $V_\\mathcal{H}\\le d+1$.\n","x":964,"y":3740,"width":504,"height":300},
-		{"id":"ccbcfd285e238159","x":464,"y":2520,"width":250,"height":60,"type":"text","text":"Tighter VC Inequalities"},
 		{"id":"013f058f00009f50","type":"text","text":"**Definition** : VC classes are function classes with _finite VC dimension_.","x":243,"y":2840,"width":343,"height":60},
-		{"id":"b5f7bbede7f0fcd0","x":2190,"y":2008,"width":400,"height":400,"type":"file","file":"docs/VC-theorem-proof.pdf"}
+		{"id":"b5f7bbede7f0fcd0","type":"file","file":"docs/VC-theorem-proof.pdf","x":2190,"y":2008,"width":400,"height":400},
+		{"id":"ccbcfd285e238159","type":"text","text":"Tighter VC Inequalities","x":464,"y":2560,"width":250,"height":60},
+		{"id":"f0c6094d3f7a656c","type":"text","text":"$$\nP\\Bigg(\\sup_{h\\in\\mathcal{H}}\\Big\\{ R(h) - \\widehat{R_n}(h) \\Big\\} \\ge \\epsilon\\Bigg) \\le S_\\mathcal{H}(n)e^{-n\\epsilon^2/8}\n$$","x":922,"y":2408,"width":397,"height":104},
+		{"id":"4aa518e03009363f","type":"text","text":"$$\nP\\Bigg(\\sup_{h\\in\\mathcal{H}}\\Big| R(h) - \\widehat{R_n}(h) \\Big| \\ge \\epsilon\\Bigg) \\le 2S_\\mathcal{H}(n)e^{-n\\epsilon^2/8}\n$$","x":922,"y":2660,"width":397,"height":100}
 	],
 	"edges":[
 		{"id":"248bb4bee5aa561f","fromNode":"f2a4d5c117568130","fromSide":"right","toNode":"575df6f5ea6378f5","toSide":"left"},
@@ -69,6 +71,8 @@
 		{"id":"529333866c85ede9","fromNode":"051ba16eecf6223e","fromSide":"right","toNode":"7b52fb2bbd5509a9","toSide":"left"},
 		{"id":"0f6a4a8d7906ef4b","fromNode":"051ba16eecf6223e","fromSide":"right","toNode":"ccbcfd285e238159","toSide":"left"},
 		{"id":"5fe7bb6ab3bec247","fromNode":"1693a73cf8361a6c","fromSide":"right","toNode":"b5f7bbede7f0fcd0","toSide":"left","label":"Proof"},
-		{"id":"de7bc422bb4f36f9","fromNode":"298de0c62f02e775","fromSide":"right","toNode":"b5f7bbede7f0fcd0","toSide":"left","label":"Proof"}
+		{"id":"de7bc422bb4f36f9","fromNode":"298de0c62f02e775","fromSide":"right","toNode":"b5f7bbede7f0fcd0","toSide":"left","label":"Proof"},
+		{"id":"b6da6f27c7cb73bf","fromNode":"ccbcfd285e238159","fromSide":"right","toNode":"f0c6094d3f7a656c","toSide":"left","label":"One-sided"},
+		{"id":"bb165ab26fafa2b3","fromNode":"ccbcfd285e238159","fromSide":"right","toNode":"4aa518e03009363f","toSide":"left","label":"Two-sided"}
 	]
 }
