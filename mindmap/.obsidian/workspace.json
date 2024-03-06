@@ -15,9 +15,9 @@
               "state": {
                 "file": "sections/2. Vapnik-Chevronenkis Theory.canvas",
                 "viewState": {
-                  "x": 2606.9424603862235,
-                  "y": 2110.458057991657,
-                  "zoom": -0.21167280966633
+                  "x": 2312.8622721921274,
+                  "y": 1733.9375881250005,
+                  "zoom": -1.3333333333333333
                 }
               }
             }
@@ -151,6 +151,9 @@
   },
   "active": "e702aaa74f90ad34",
   "lastOpenFiles": [
+    "docs/VC-theorem-proof.pdf",
+    "docs/A-probabilistic-theory-of-pattern-recognition.pdf",
+    "docs",
     "A-probabilistic-theory-of-pattern-recognition.pdf",
     "sections/3. Rademacher Complexity.canvas",
     "SLT Main.canvas",
