@@ -13,11 +13,11 @@
             "state": {
               "type": "canvas",
               "state": {
-                "file": "sections/3. Rademacher Complexity.canvas",
+                "file": "sections/2. Vapnik-Chevronenkis Theory.canvas",
                 "viewState": {
-                  "x": 1304.183391612583,
-                  "y": 167.17515022429507,
-                  "zoom": 0.4757988700537254
+                  "x": 2606.9424603862235,
+                  "y": 2110.458057991657,
+                  "zoom": -0.21167280966633
                 }
               }
             }
@@ -88,7 +88,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "sections/3. Rademacher Complexity.canvas",
+                "file": "sections/2. Vapnik-Chevronenkis Theory.canvas",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -105,7 +105,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "sections/3. Rademacher Complexity.canvas",
+                "file": "sections/2. Vapnik-Chevronenkis Theory.canvas",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -128,7 +128,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "sections/3. Rademacher Complexity.canvas"
+                "file": "sections/2. Vapnik-Chevronenkis Theory.canvas"
               }
             }
           }
@@ -149,11 +149,12 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "9342f7699e98eb8e",
+  "active": "e702aaa74f90ad34",
   "lastOpenFiles": [
+    "A-probabilistic-theory-of-pattern-recognition.pdf",
+    "sections/3. Rademacher Complexity.canvas",
     "SLT Main.canvas",
     "sections/2. Vapnik-Chevronenkis Theory.canvas",
-    "sections/3. Rademacher Complexity.canvas",
     "styles",
     "sections/1. Fundamentals of SLT.canvas",
     "Fundamentals of SLT.canvas.canvas",

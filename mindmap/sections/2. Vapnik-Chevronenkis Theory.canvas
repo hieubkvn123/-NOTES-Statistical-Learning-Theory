@@ -1,6 +1,5 @@
 {
 	"nodes":[
-		{"id":"7b52fb2bbd5509a9","type":"text","text":"**Sauer's Lemma** : For all $n\\ge 1$, we have\n$$\nS_\\mathcal{H}(n) \\le \\sum_{k=0}^{V_\\mathcal{H}}\\begin{pmatrix}n \\\\ k \\end{pmatrix}\n$$","x":460,"y":380,"width":340,"height":120},
 		{"id":"cd541ddfc5d8a91b","type":"text","text":"- $\\Big|\\mathcal{H}_{\\{x_1, \\dots, x_n\\}}\\Big|\\le 2^n, \\ \\forall \\{x_1, \\dots, x_n\\}\\subseteq \\mathcal{X}$.\n- $S_\\mathcal{H}(n) \\le 2^n, \\ \\forall n \\ge 1$.","x":921,"y":-379,"width":379,"height":89},
 		{"id":"012fd63b644cec9f","type":"text","text":"**Shattering coefficient** : Also called the growth function, the Shattering coefficient $S_\\mathcal{H}(n)$ is defined as\n$$\nS_\\mathcal{H}(n) = \\sup_{\\{x_1, \\dots, x_n\\}\\subseteq\\mathcal{X}} \\Big|\\mathcal{H}_{\\{x_1, \\dots, x_n\\}}\\Big|\n$$","x":460,"y":-320,"width":341,"height":163},
 		{"id":"70a1c357d2f1520b","type":"text","text":"**VC-dimension** : The VC dimension of a function class $\\mathcal{H}$ is the largest $n\\ge1$ such that $S_\\mathcal{H}(n)=2^n$.\n$$\nV_\\mathcal{H} = \\sup\\Big\\{ n\\ge1 \\Big| S_\\mathcal{H}(n) = 2^n \\Big\\}\n$$","x":460,"y":-77,"width":341,"height":146},
@@ -17,8 +16,6 @@
 		{"id":"53d86d491c8dac09","type":"text","text":"**Closed sphere**: Let $\\mathcal{X}=\\mathbb{R}^d$\n$$\n\\mathcal{H}=\\Bigg\\{\n\\mathbb{1}_{\\{x\\in C\\}} \\Bigg| C \\text{ is closed sphere}\n\\Bigg\\}\n$$","x":1100,"y":2435,"width":400,"height":120},
 		{"id":"b753ad3436270999","type":"text","text":"**Convex polygons in $\\mathbb{R}^2$**: \n$$\n\\mathcal{H}=\\Bigg\\{\n\\mathbb{1}_{\\{x\\in P_k\\}} \\Bigg| P_k \\text{ is at most $k$-sided}\n\\Bigg\\}\n$$","x":1100,"y":2626,"width":400,"height":120},
 		{"id":"8dfc0086a11df65b","type":"text","text":"**Union of rectangles**: Let $\\mathcal{X}=\\mathbb{R}^d$\n$$\n\\mathcal{H}=\\Bigg\\{\n\\mathbb{1}_{\\{x\\in R_k\\}} \\Bigg| R_k \\text{ is union of at most $k$ rectangles}\n\\Bigg\\}\n$$","x":1100,"y":2820,"width":400,"height":120},
-		{"id":"8aa45bf9adce0d45","type":"text","text":"**Corollary** : We have\n$$\nP\\Big( \nR(\\widehat{h_n}) - R_\\mathcal{H}^* \\ge \\epsilon\n\\Big) \\le 8S_\\mathcal{H}(n)e^{-n\\epsilon^2/128}\n$$\nMeaning, with probability of at least $1-\\delta$, we have\n$$\nR(\\widehat{h_n})-R_\\mathcal{H}^* \\le \\sqrt{\n\\frac{128}{n}\\Bigg[ V_\\mathcal{H}\\log(n+1) + \\log 8/\\delta \\Bigg]\n}\n$$","x":1014,"y":807,"width":460,"height":242},
-		{"id":"298de0c62f02e775","type":"text","text":"**For classifier** : Let $n\\ge1$ and $\\epsilon>0$, we have\n$$\nP\\Bigg( \\sup_{h\\in\\mathcal{H}}\\Big| \\widehat{R_n}(h) - R(h) \\Big| \\ge \\epsilon \\Bigg) \\le 8S_\\mathcal{H}(n)e^{-n\\epsilon^2/32}\n$$","x":464,"y":868,"width":380,"height":120},
 		{"id":"051ba16eecf6223e","type":"text","text":"# VC Theorem","x":-156,"y":898,"width":229,"height":60},
 		{"id":"91919b46709f7074","type":"text","text":"VC Theorem for set","x":464,"y":1278,"width":220,"height":60},
 		{"id":"407e9210c0aed9aa","type":"text","text":"Equivalent definitions from classifiers","x":1014,"y":1278,"width":250,"height":60},
@@ -29,9 +26,12 @@
 		{"id":"1693a73cf8361a6c","type":"text","text":"**VC Theorem** : Let $X_1, \\dots, X_n\\sim Q$ be $i.i.d$ random variables, $Q$ is a CDF. Then, for any $\\mathcal{G}\\subset \\mathcal{P}(\\mathcal{X}), \\epsilon>0$, we have:\n$$\nP\\Bigg( \n\\sup_{G\\in\\mathcal{G}}\\Big| \\widehat{Q}(G) - Q(G) \\Big|\\ge\\epsilon\n\\Bigg) \\le 8S_\\mathcal{G}(n)e^{-n\\epsilon^2/32}\n$$\nWhere:\n$$\nQ(G) = P(X\\in G), \\ \\ \\widehat{Q}(G)=\\frac{1}{n}\\sum_{i=1}^n \\mathbb{1}_{\\{X_i\\in G\\}}\n$$","x":1474,"y":2056,"width":460,"height":304},
 		{"id":"c639ba2b1c38ce34","type":"text","text":"**Steele & Dudley theorem**: Let $\\mathcal{F}$ be a vector space of real-valued functions such that\n$$\n\\mathcal{F}=\\Big\\{ f : \\mathbb{R}^d\\to\\mathbb{R}\\Big\\}, \\ \\ \\dim(\\mathcal{F}) = m\n$$\nThen, the following class of classifiers has finite VC-dimension:\n$$\n\\mathcal{H} = \\Bigg\\{ \\mathbb{1}_{\\{f(x)\\ge 0\\}}\\Bigg| f\\in\\mathcal{F}\\Bigg\\} \\implies V_\\mathcal{H} \\le m\n$$","x":335,"y":3240,"width":565,"height":260},
 		{"id":"908f6667bca27b65","type":"text","text":"**Corollary** : Let $\\mathcal{X}=\\mathbb{R}^d$ and define the following function class\n$$\n\\mathcal{F} = \\Bigg\\{f:\\mathcal{X}\\to\\mathbb{R} \\Bigg| f(x) = w^Tx+b, w\\in\\mathbb{R}^d, b\\in\\mathbb{R} \\Bigg\\}\n$$\nThen, define the set of linear classifiers as\n$$\n\\mathcal{H}=\\Bigg\\{ \\mathbb{1}_{\\{f(x)\\ge0\\}}\\Bigg| f\\in\\mathcal{F} \\Bigg\\}\n$$\nThen we have $\\dim(\\mathcal{H})=d+1$ and $V_\\mathcal{H}\\le d+1$.\n","x":1056,"y":3220,"width":504,"height":300},
-		{"id":"ca394a60a8f3d255","type":"link","url":"https://nowak.ece.wisc.edu/SLT09/lecture19.pdf","x":2240,"y":1839,"width":920,"height":738},
 		{"id":"575df6f5ea6378f5","type":"text","text":"# Important definitions","x":-160,"y":-280,"width":229,"height":84},
-		{"id":"f2a4d5c117568130","type":"text","text":"Vapnik-Chevronenkis Theory","x":-840,"y":898,"width":234,"height":60,"color":"3"}
+		{"id":"f2a4d5c117568130","type":"text","text":"Vapnik-Chevronenkis Theory","x":-840,"y":898,"width":234,"height":60,"color":"3"},
+		{"id":"7b52fb2bbd5509a9","type":"text","text":"**Sauer's Lemma** : For all $n\\ge 1$, we have\n$$\nS_\\mathcal{H}(n) \\le \\sum_{k=0}^{V_\\mathcal{H}}\\begin{pmatrix}n \\\\ k \\end{pmatrix}\n$$","x":460,"y":370,"width":340,"height":140},
+		{"id":"298de0c62f02e775","type":"text","text":"**For classifier** : Let $n\\ge1$ and $\\epsilon>0$, we have\n$$\nP\\Bigg( \\sup_{h\\in\\mathcal{H}}\\Big| \\widehat{R_n}(h) - R(h) \\Big| \\ge \\epsilon \\Bigg) \\le 8S_\\mathcal{H}(n)e^{-n\\epsilon^2/32}\n$$","x":1474,"y":868,"width":380,"height":120},
+		{"id":"8aa45bf9adce0d45","type":"text","text":"**Corollary** : We have\n$$\nP\\Big( \nR(\\widehat{h_n}) - R_\\mathcal{H}^* \\ge \\epsilon\n\\Big) \\le 8S_\\mathcal{H}(n)e^{-n\\epsilon^2/128}\n$$\nMeaning, with probability of at least $1-\\delta$, we have\n$$\nR(\\widehat{h_n})-R_\\mathcal{H}^* \\le \\sqrt{\n\\frac{128}{n}\\Bigg[ V_\\mathcal{H}\\log(n+1) + \\log 8/\\delta \\Bigg]\n}\n$$","x":2160,"y":807,"width":460,"height":242},
+		{"id":"9686af45f4865202","x":2190,"y":2008,"width":400,"height":400,"type":"file","file":"A-probabilistic-theory-of-pattern-recognition.pdf"}
 	],
 	"edges":[
 		{"id":"248bb4bee5aa561f","fromNode":"f2a4d5c117568130","fromSide":"right","toNode":"575df6f5ea6378f5","toSide":"left"},
@@ -65,7 +65,8 @@
 		{"id":"990c1e5a7feaee55","fromNode":"3bfb137fdd20f43d","fromSide":"right","toNode":"8dfc0086a11df65b","toSide":"left"},
 		{"id":"cf751ceae8953986","fromNode":"391f5faa1b694076","fromSide":"right","toNode":"c639ba2b1c38ce34","toSide":"left"},
 		{"id":"a4a0f0fa237646e8","fromNode":"c639ba2b1c38ce34","fromSide":"right","toNode":"908f6667bca27b65","toSide":"left"},
-		{"id":"c8d3659f4f7fc747","fromNode":"1693a73cf8361a6c","fromSide":"right","toNode":"ca394a60a8f3d255","toSide":"left","label":"Complete\nproof"},
-		{"id":"529333866c85ede9","fromNode":"051ba16eecf6223e","fromSide":"right","toNode":"7b52fb2bbd5509a9","toSide":"left"}
+		{"id":"529333866c85ede9","fromNode":"051ba16eecf6223e","fromSide":"right","toNode":"7b52fb2bbd5509a9","toSide":"left"},
+		{"id":"26a8a1278f155489","fromNode":"298de0c62f02e775","fromSide":"right","toNode":"9686af45f4865202","toSide":"left","label":"Proof"},
+		{"id":"3ccf43a05c175e14","fromNode":"1693a73cf8361a6c","fromSide":"right","toNode":"9686af45f4865202","toSide":"left","label":"Proof"}
 	]
 }
