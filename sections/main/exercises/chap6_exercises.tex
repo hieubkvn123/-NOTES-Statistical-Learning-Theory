@@ -329,5 +329,54 @@
 \end{exercise}
 
 \begin{solution*}[Exercise \ref{ex:exercise_6.5}]
-    Applying theorem \ref{thm:one_sided_vc_inequality} for $-\Hf$, we have:
+    Applying theorem \ref{thm:one_sided_vc_inequality} for $-\Hf$, with probability at $1-\delta/2$, we have:
+    \begin{align*}
+        \sup_{h'\in -\Hf} \bigCurl{R(h') - \widehat{R_n}(h')}  &\le \sqrt{
+            \frac{8(\log S_{-\Hf}(n) + \log 2/\delta)}{n}
+        } \\
+        \implies
+        \sup_{h\in \Hf} \bigCurl{R(-h) - \widehat{R_n}(-h)}  &\le \sqrt{
+            \frac{8(\log S_\Hf(n) + \log 2/\delta)}{n}
+        } \ \ \ (S_\Hf(n) = S_{-\Hf}(n)) \\
+        \implies \sup_{h\in \Hf} \bigCurl{\bigSquare{1-R(h)} - \bigSquare{1-\widehat{R_n}(h)}}  &\le \sqrt{
+            \frac{8(\log S_\Hf(n) + \log 2/\delta)}{n}
+        } \\
+        \implies
+        \sup_{h\in \Hf} \bigCurl{\widehat{R_n}(h) - R(h)}  &\le \sqrt{
+            \frac{8(\log S_\Hf(n) + \log 2/\delta)}{n}
+        }
+    \end{align*}
+
+    \noindent Now we set:
+    \begin{align*}
+        \epsilon = \sqrt{
+            \frac{8(\log S_\Hf(n) + \log 2/\delta)}{n}
+        } \implies \delta = 2S_\Hf(n)e^{-n\epsilon^2/8}
+    \end{align*}
+
+    \noindent Therefore, for $\epsilon>0$, we have:
+    \begin{align*}
+        P\biggRound{
+            \sup_{h\in\Hf} \bigAbs{
+                R(h) - \widehat{R_n}(h)
+            } \ge \epsilon
+        } &\le P\biggRound{
+            \sup_{h\in\Hf} \bigCurl{
+                R(h) - \widehat{R_n}(h)
+            } \ge \epsilon
+        } + P\biggRound{
+            \sup_{h\in\Hf} \bigCurl{
+                \widehat{R_n}(h) - R(h)
+            } \ge \epsilon
+        } \\
+        &\le \delta/2 + \delta/2 = \delta \\ 
+        &= 2S_\Hf(n)e^{-n\epsilon^2/8}
+    \end{align*}
+
+    \noindent In other words, with probability of at least $1-\delta$, we have:
+    \begin{align*}
+        \sup_{h\in\Hf} \bigAbs{R(h) - \widehat{R_n}(h)} \le \sqrt{
+            \frac{8(\log S_\Hf(n) + \log 2/\delta)}{n}
+        }
+    \end{align*}
 \end{solution*}
