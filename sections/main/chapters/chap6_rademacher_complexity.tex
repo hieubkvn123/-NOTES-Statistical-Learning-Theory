@@ -465,7 +465,7 @@ In the following section, we will discuss another concentration inequality that 
     \noindent By replacing $\delta$ with $\delta/2$, following the same arguments, we obtain the two-sided bounds.
 \end{proof*}
 
-\subsection{Proof of VC Inequality}
+\subsection{Loose VC inequalities}
 \label{sec:proof_of_vc_inequality}
 
 In the following section, we will prove a slightly looser VC bound compared to theorem \ref{thm:vc_theorem_for_clf}. Then, we go ahead to improve the bound by improving the constant at the exponent at the expense of larger term in front of the exponential.
@@ -575,62 +575,27 @@ In the following section, we will prove a slightly looser VC bound compared to t
     The proof of this theorem is included in exercise \ref{ex:exercise_6.5}.
 \end{proof*}
 
-\noindent Now we proceed to prove theorem \ref{thm:vc_theorem_for_clf} by modifying the proof for the one-sided VC inequality (theorem \ref{thm:one_sided_vc_inequality}) starting from the inequality $(*)$. The idea is to improve the power of the exponent at the expense of the constant in front of the exponent.
 
+\subsection{Proof of VC inequality}
+\noindent Now we proceed to prove theorem \ref{thm:vc_theorem_for_clf}, the tighter VC inequality compared to theorem \ref{thm:one_sided_vc_inequality} and \ref{thm:two_sided_vc_inequality}. This requires much more work.
 \begin{proof*}[Theorem \ref{thm:vc_theorem_for_clf}]
-    From theorem \ref{thm:one_sided_vc_inequality} proof, we have:
-    \begin{align*}
-        \sup_{h\in\Hf} \bigRound{ R(h) - \widehat{R_n}(h) }
-        &\le \sqrt{
-            \frac{8(\log S_\Hf(n) + (\log 1/\delta)/4)}{n}
-        } \\
-        &\le \sqrt{
-            \frac{32(\log S_\Hf(n) + \log 1/\delta + \log 4)}{n}
-        } \\
-        &= \sqrt{
-            \frac{32(\log4S_\Hf(n) + \log1/\delta)}{n}
-        }
-    \end{align*}
-
-    \noindent Now, we set:
-    \begin{align*}
-        \epsilon = \sqrt{
-            \frac{32(\log4S_\Hf(n) + \log1/\delta)}{n}
-        } 
-        &\implies \epsilon^2 = \frac{32(\log4S_\Hf(n) + \log1/\delta)}{n} \\
-        &\implies \log\frac{4S_\Hf(n)}{\delta} = \frac{n\epsilon^2}{32} \\
-        &\implies \log\frac{\delta}{4S_\Hf(n)} = -\frac{n\epsilon^2}{32} \\
-        &\implies \frac{\delta}{4S_\Hf(n)} = e^{-n\epsilon^2/32} \\
-        &\implies \delta = 4S_\Hf(n)e^{-n\epsilon^2/32}
-    \end{align*}
-
-    \noindent Therefore, for all $\epsilon > 0$, we have:
-    \begin{align*}
-        P\biggRound{
-            \sup_{h\in\Hf} \bigRound{
-                R(h) - \widehat{R_n}(h)
-            } \ge \epsilon
-        } \le 4S_\Hf(n)e^{-n\epsilon^2/32}
-    \end{align*}
-
-    \noindent Using the same arguments, we have:
-    \begin{align*}
-        P\biggRound{
-            \inf_{h\in\Hf} \bigRound{
-                R(h) - \widehat{R_n}(h)
-            } \le -\epsilon
-        } \le 4S_\Hf(n)e^{-n\epsilon^2/32}
-    \end{align*}
-
-    \noindent Hence, we obtain the following two-sided bound:
-    \begin{align*}
-        P\biggRound{
-            \sup_{h\in\Hf}\bigAbs{
-                R(h) - \widehat{R_n}(h)
-            } \ge \epsilon
-        } \le 8S_\Hf(n)e^{-n\epsilon^2/32}
-    \end{align*}
+    
 \end{proof*}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \newpage
 \subsection{End of chapter exercises}
