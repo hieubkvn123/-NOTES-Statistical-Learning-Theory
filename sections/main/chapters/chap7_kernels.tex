@@ -103,3 +103,12 @@ In this section we will discuss what a metric space is and the criteria for a Pr
 
     \noindent We say that $\bigRound{M, d}$ is a \textbf{complete metric space} if and only if \textbf{every Cauchy sequence converges to an element in $M$}.
 \end{definition}
+
+\begin{definition}[Hilbert Space]
+    A Pre-Hilbert Space $\bigRound{V, \inner{.,.}}$ is a \textbf{Hilbert Space} if $\bigRound{V, d_{\|.\|}}$ is a complete metric space where $d_{\|.\|}$ is the metric induced by the inner product:
+    \begin{align*}
+        d_{\|.\|}(x, y) = \|x - y\|, \ x, y \in V
+    \end{align*}
+
+    \noindent Where $\|u\| = \sqrt{\inner{u, u}}$ for $u\in V$.
+\end{definition}
