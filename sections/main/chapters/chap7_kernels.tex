@@ -1,8 +1,8 @@
 \newpage
 \section{Kernels and Hilbert Spaces}
-\subsection{Review of Hilbert Spaces}
+\subsection{Pre-Hilbert Spaces}
 
-\begin{definition}[Inner product space]
+\begin{definition}[Pre-Hilbert Spaces]
     A \underline{real} inner product space (IPS) is a pair $\bigRound{V, \inner{.,.}}$ where $V$ is a \underline{real} vector space equipped with and inner product $\inner{.,.}: V\times V \to \R$ that satisfies:
     \begin{itemize}
         \item \textbf{Positive semi-definiteness} : $\inner{u,u}\ge0, \ \forall u\in V$ and $\inner{u,u}=0\iff u=0$.
@@ -12,4 +12,27 @@
 
     \noindent We can also call $\bigRound{V, \inner{.,.}}$ a \textbf{Pre-Hilbert Space}.
 \end{definition}
+
+\begin{proposition}{Normed induced by Pre-Hilbert Spaces}{norm_induced_by_pre_hilbert_space}
+    If $V$ is a Pre-Hilbert space with an inner product $\inner{.,.}$. Then,
+    \begin{align*}
+        \|u\| = \sqrt{\inner{u,u}}, \ \forall u \in V
+    \end{align*}
+
+    \noindent Is a norm on $V$.
+\end{proposition}
+
+\begin{proof*}[Proposition \ref{prop:norm_induced_by_pre_hilbert_space}]
+    
+\end{proof*}
+
+\begin{proposition}{Cauchy-Schwarz Inequality}{cauchy_schwarz_inequality}
+    
+\end{proposition}
+
+
+
+
+\subsection{Hilbert Spaces}
+In this section we will discuss what a metric space is and the criteria for a Pre-Hilbert space to be a Hilbert space.
 
