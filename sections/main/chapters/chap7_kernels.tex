@@ -23,13 +23,41 @@
 \end{proposition}
 
 \begin{proof*}[Proposition \ref{prop:norm_induced_by_pre_hilbert_space}]
-    
+    To prove that $\|.\|$ is a norm on $V$, we have to prove that it satisfies the following properties: absolute homogeneity, positive semi-definiteness and triangle inequality. 
+
+    \begin{itemize}
+        \item \textbf{Absolute homogeneity} : Let $\alpha\in\R$ and $u\in V$, we have
+        \begin{align*}
+            \|\alpha u \| &= \inner{\alpha u, \alpha u}^{\frac{1}{2}} \\
+            &= \bigRound{\alpha^2 \inner{u, u}}^{\frac{1}{2}} \ \ \ \text{(Linearity of inner product)} \\
+            &= |\alpha| \cdot \inner{u, u}^{\frac{1}{2}} \\
+            &= |\alpha| \cdot \|u\|
+        \end{align*}
+
+        \item \textbf{Positive semi-definiteness} : This property is inferred directly from the positive semi-definiteness of inner product.
+        \item \textbf{Triangle inequality} : Let $u, v\in V$, we have
+        \begin{align*}
+            \|u + v\| &= \inner{u+v, u+v}^{\frac{1}{2}} \\
+            &= \bigRound{\inner{u, u} + 2\inner{u, v} + \inner{v, v}}^{\frac{1}{2}} \\
+            &= \bigRound{\|u\|^2 + 2\inner{u, v} + \|v\|^2}^{\frac{1}{2}} \\
+            &\le \bigRound{\|u\|^2 + 2\|u\|\cdot\|v\| + \|v\|^2}^{\frac{1}{2}} \ \ \ \text{(Cauchy-Schwarz Inequality)} \\
+            &= \|u\| + \|v\|
+        \end{align*}
+    \end{itemize}
+
+    \noindent Note that the proof for triangle inequality makes use of the Cauchy-Schwarz inequality, which we will prove shortly. 
 \end{proof*}
 
 \begin{proposition}{Cauchy-Schwarz Inequality}{cauchy_schwarz_inequality}
-    
+    Let $\bigRound{V, \inner{.,.}}$ be a Pre-Hilbert space, we have:
+    \begin{align*}
+        \Big|\inner{u, v}\Big| \le \|u\|\cdot\|v\|, \ \forall u, v \in V
+    \end{align*}
 \end{proposition}
 
+\begin{proof*}[Proposition \ref{prop:cauchy_schwarz_inequality}]
+    
+\end{proof*}
 
 
 
