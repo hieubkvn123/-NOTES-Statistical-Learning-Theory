@@ -56,7 +56,27 @@
 \end{proposition}
 
 \begin{proof*}[Proposition \ref{prop:cauchy_schwarz_inequality}]
-    
+    Consider the following matrix:
+    \begin{align*}
+        G(u, v) = \begin{pmatrix}
+            \inner{u, u} & \inner{u, v} 
+            \\ \\
+            \inner{v, u} & \inner{v, v}
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+            \|u\|^2 & \inner{u, v} 
+            \\ \\
+            \inner{v, u} & \|v\|^2
+        \end{pmatrix}
+    \end{align*}
+
+    \noindent Notice that all elements of $G(u, v)$ are non-negative. Hence, $G(u, v)$ is positive semi-definite and we have:
+    \begin{align*}
+        \det\bigRound{G(u, v)} \ge 0 &\implies \|u\|^2 \cdot \|v\|^2 - \inner{u, v} \cdot \inner{v, u} \ge 0 \\
+        &\implies \|u\|^2 \cdot \|v\|^2 \ge \inner{u, v} \cdot \inner{v, u} \\
+        &\implies \|u\| \cdot \|v\| \ge \Big| \inner{u, v} \Big|
+    \end{align*}
 \end{proof*}
 
 
