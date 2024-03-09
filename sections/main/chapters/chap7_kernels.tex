@@ -119,9 +119,51 @@ In this section, we will discuss two important theorems, namely the \textbf{Hilb
 \subsubsection{Projection Theorem}
 The \textbf{Hilbert Projection Theorem} talks about the condition when any vector in a Hilbert Space will have a unique projection onto a subspace. Before proving the theorem, we look at the Polarization Identity.
 
+\noindent \textbf{Note} : From here, we denote Hilbert Spaces as $H$.
+
 \begin{lemma}{Polarization Identity}{polarization_identity}
-    
+    Let $H$ be a Hilbert Space. For all $f,g\in H$, we have:
+    \begin{align*}
+        \|f + g\|^2 + \|f - g\|^2 = 2\bigRound{ \|f\|^2 + \|g\|^2 }
+    \end{align*}
 \end{lemma}
+
+\begin{proof*}[Lemma \ref{lem:polarization_identity}]
+    We have:
+    \begin{align*}
+        \|f+g\|^2 &= \inner{f + g, f + g} \\
+            &= \|f\|^2 + 2 \inner{f, g} + \|g\|^2 \ \ \ (1) \\
+        \|f-g\|^2 &= \inner{f - g, f - g} \\
+            &= \|f\|^2 - 2 \inner{f, g} + \|g\|^2 \ \ \ (2) \\
+    \end{align*}
+
+    \noindent Combining $(1)$ and $(2)$ yields the Polarization Identity.
+\end{proof*}
+
+\begin{theorem}{Hilbert Projection Theorem}{hilbert_projection_theorem}
+    Let $H$ be a Hilbert Space and $V\subseteq H$ be a \underline{closed subspace}. For any $f\in H$, there exists a \underline{unique} $v \in V$ such that:
+    \begin{align*}
+        v = \arg\min_{v^* \in V} \| f - v^*\|
+    \end{align*}
+
+    In other words, \textbf{there exists a unique minimizer if and only if the subspace is closed}.
+\end{theorem}
+
+\begin{proof*}[Theorem \ref{thm:hilbert_projection_theorem}]
+    In this proof, without loss of generality, we work with the minimizer for the norm squared rather than the norm.
+
+    \begin{subproof}{Claim : $V$ is closed $\implies$ unique minimizer exists}
+        Suppose that $V$ is a closed subspace of $H$. Since $H$ is a complete metric space, $V$ is also complete. Now let:
+        \begin{align*}
+            \alpha^2 = \inf_{v^* \in V } \| f - v^*\|^2
+        \end{align*}
+
+        \noindent Since for all $v\in V$, we have $\|f - v\|^2 \ge \alpha^2$. Choose a sequence $\{v_n\}_{n=1}^\infty \subset V$ such that:
+        \begin{align*}
+            0 \le \|f - v_n \|^2 - \alpha^2 \le \frac{1}{n}
+        \end{align*}
+    \end{subproof}
+\end{proof*}
 
 
 \subsubsection{Representation Theorem}
