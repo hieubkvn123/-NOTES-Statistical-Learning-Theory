@@ -146,7 +146,7 @@ The \textbf{Hilbert Projection Theorem} talks about the condition when any vecto
         v = \arg\min_{v^* \in V} \| f - v^*\|
     \end{align*}
 
-    In other words, \textbf{there exists a unique minimizer if and only if the subspace is closed}.
+    In other words, \textbf{there exists a unique minimizer inside the subspace if and only if the subspace is closed}.
 \end{theorem}
 
 \begin{proof*}[Theorem \ref{thm:hilbert_projection_theorem}]
@@ -160,8 +160,40 @@ The \textbf{Hilbert Projection Theorem} talks about the condition when any vecto
 
         \noindent Since for all $v\in V$, we have $\|f - v\|^2 \ge \alpha^2$. Choose a sequence $\{v_n\}_{n=1}^\infty \subset V$ such that:
         \begin{align*}
-            0 \le \|f - v_n \|^2 - \alpha^2 \le \frac{1}{n}
+            0 \le \|f - v_n \|^2 - \alpha^2 \le \frac{1}{n} \ \ \ (1)
         \end{align*}
+
+        \noindent For any $m, n \in \mathbb{N}$, we have:
+        \begin{align*}
+            \|f - v_n\|^2 + \|f - v_m\|^2 - 2\alpha^2 \le \frac{1}{m} + \frac{1}{n}
+        \end{align*}
+
+        \noindent By Polarization Identity \ref{lem:polarization_identity}, we have $\|f-v_n\|^2 + \|f-v_m\|^2 = \frac{1}{2}\bigRound{\|v_n-v_m\|^2 + \|2f - (v_n+v_m)\|^2}$. Hence, we have:
+        \begin{align*}
+            \|v_n-v_m\|^2 + \|2f - (v_n+v_m)\|^2 - 4\alpha^2 &\le \frac{2}{m} + \frac{2}{n} \\
+            \implies \|v_n-v_m\|^2 + 4\biggRound{
+                \Bigg\| f - \frac{v_n + v_m}{2} \Bigg\|^2 - \alpha^2
+            } &\le \frac{2}{m} + \frac{2}{n} \ \ \ (2)
+        \end{align*}
+
+        \noindent Since $\frac{v_n + v_m}{2}\in V$, we have:
+        \begin{align*}
+            \Bigg\| f - \frac{v_n + v_m}{2} \Bigg\|^2 \ge \alpha \implies \|v_n-v_m\|^2 + 4\biggRound{
+                \Bigg\| f - \frac{v_n + v_m}{2} \Bigg\|^2 - \alpha^2
+            } \ge \|v_n-v_m\|^2 \ \ \ (3)
+        \end{align*}
+
+        \noindent From $(2)$ and $(3)$, we have:
+        \begin{align*}
+            \|v_n-v_m\|^2 \le \frac{2}{m} + \frac{2}{n} 
+        \end{align*}
+
+        \noindent Taking $m, n \to \infty$, we have $\|v_n-v_m\|^2\to 0$. Therefore, $\{v_n\}_{n=1}^\infty$ is a Cauchy sequence. Since $V$ is a complete metric space, $v_n \to v \in V$. From $(1)$ we have:
+        \begin{align*}
+            \|f - v\|^2 = \lim_{n\to\infty} \|f - v_n\|^2 = \alpha^2 
+        \end{align*}
+
+        \noindent Hence, $v$ is the unique minimizer and it is in $V$.
     \end{subproof}
 \end{proof*}
 
