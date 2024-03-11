@@ -251,18 +251,30 @@ The \textbf{Hilbert Projection Theorem} talks about the condition when any vecto
 \begin{proof*}[Corollary \ref{coro:hilbert_space_direct_sum}]
     By the Projection Theorem, there exists a unique $x\in V$ such that:
     \begin{align*}
-        \|f - x \|^2 \le \|f - v\|^2, \ \forall v \in V
+        \|f - x \| \le \|f - v\|, \ \forall v \in V
     \end{align*}
 
-    \noindent Hence, letting $y = f - x$, we have:
+    \noindent Letting $y = f - x$, we have:
     \begin{align*}
-        \|y\|^2 \le \|y + (x - v)\|^2, \ \forall v \in V
+        \|y\| \le \|y + (x - v)\|, \ \forall v \in V
     \end{align*}
 
-    \noindent Letting $x - V = \bigCurl{x - v \Big| v \in V}$. We can re-write the above as:
+    \noindent Since both $x, v \in V$ and $V$ is a vector space (closed under addition and scalar multiplication), we have $x - v \in V$. Therefore, we can write:
     \begin{align*}
-        \|y\|^2 \le \|y - u\|^2, \ \forall u \in x - V
+        \|y\| \le \|y + v\|, \ \forall v\in V
     \end{align*}
+    
+    \noindent The above inequality holds if and only if:
+    \begin{align*}
+        \inner{y, v} = 0, \ \forall v \in V \implies y \in V^\perp
+    \end{align*}
+
+    \noindent Therefore, for all $f\in H$, we can write:
+    \begin{align*}
+        f = x + y, \ x \in V, \ y \in V^\perp
+    \end{align*}
+
+    \noindent Hence, $H = V \oplus V^\perp$.
 \end{proof*}
 
 
