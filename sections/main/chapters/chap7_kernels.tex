@@ -193,7 +193,44 @@ The \textbf{Hilbert Projection Theorem} talks about the condition when any vecto
             \|f - v\|^2 = \lim_{n\to\infty} \|f - v_n\|^2 = \alpha^2 
         \end{align*}
 
-        \noindent Hence, $v$ is the unique minimizer and it is in $V$.
+        \noindent Hence, We have proven that a minimizer indeed exists in $V$. Now, we have to prove that the minimizer is actually unique. Suppose that we have another $\hat v \in V$ such that:
+        \begin{align*}
+            \hat v = \arg\min_{v^*\in V} \|f - v^*\|^2
+        \end{align*}
+
+        \noindent Then, by the Polarization Identity \ref{lem:polarization_identity}, we have:
+        \begin{align*}
+            2\alpha^2 &= \|f - v\|^2 + \|f - \hat v\|^2 \\
+                &= \frac{1}{2}\bigRound{\|v - \hat v\|^2 + \| 2f - (v + \hat v) \|^2} \ \ \ \text{(Polarization Identity)} \\
+                &= \frac{1}{2} \|v - \hat v \|^2 + 2\Bigg\| f - \frac{v + \hat v}{2} \Bigg\|^2 \\
+                &\ge \frac{1}{2} \|v - \hat v \|^2 + 2\alpha^2 \ \ \ \Bigg( \text{Since } \frac{v+\hat v}{2} \in V \Bigg)
+        \end{align*}
+
+        \noindent From the above, we have:
+        \begin{align*}
+            0 \ge \frac{1}{2} \|v - \hat v \|^2 \ge 0 \implies \|v - \hat v \|^2 = 0
+        \end{align*}
+
+        \noindent Therefor, $v = \hat v$ and the minimizer is unique.
+    \end{subproof}
+
+    \begin{subproof}{\newline Claim : unique minimizer exists $\implies$ $V$ is closed}
+        Suppose that $V$ is not closed, meaning it does not contain all its limit points. Hence, there exists a sequence $\{f_n\}_{n=1}^\infty \subset V$ such that $f_n \to f \in H \setminus V$. By the assumption, there exists $v\in V$ such that:
+        \begin{align*}
+            \|f - v\|^2 = \inf_{v^*\in V}\|f - v^*\|^2
+        \end{align*}
+
+        \noindent But then, we have:
+        \begin{align*}
+            0 \le \|f - v\|^2 \le \|f - f_n\|^2
+        \end{align*}
+
+        \noindent Therefore,
+        \begin{align*}
+            0 \le \|f - v\|^2 \le \lim_{n\to\infty} \|f - f_n\|^2 = 0 \implies f = v
+        \end{align*}
+
+        \noindent This means that $f \in V \implies$ contradiction. Hence, we can conclude that $V$ is a closed subspace of $H$.
     \end{subproof}
 \end{proof*}
 
