@@ -249,7 +249,20 @@ The \textbf{Hilbert Projection Theorem} talks about the condition when any vecto
 \end{corollary}
 
 \begin{proof*}[Corollary \ref{coro:hilbert_space_direct_sum}]
-    
+    By the Projection Theorem, there exists a unique $x\in V$ such that:
+    \begin{align*}
+        \|f - x \|^2 \le \|f - v\|^2, \ \forall v \in V
+    \end{align*}
+
+    \noindent Hence, letting $y = f - x$, we have:
+    \begin{align*}
+        \|y\|^2 \le \|y + (x - v)\|^2, \ \forall v \in V
+    \end{align*}
+
+    \noindent Letting $x - V = \bigCurl{x - v \Big| v \in V}$. We can re-write the above as:
+    \begin{align*}
+        \|y\|^2 \le \|y - u\|^2, \ \forall u \in x - V
+    \end{align*}
 \end{proof*}
 
 
