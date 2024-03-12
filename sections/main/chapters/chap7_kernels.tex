@@ -285,5 +285,51 @@ The \textbf{Hilbert Projection Theorem} talks about the condition when any vecto
     \end{align*}
 \end{proof*}
 
+\begin{corollary}{$H = \ker(\Phi) \oplus \ker(\Phi)^\perp$}{hilbert_direct_sum_kernel}
+    Let $H$ be a Hilbert Space and $\Phi:H\to\R$ (or $\mathbb{C}$) be a bounded linear functional (whose definition is stated below). We define the \textbf{kernel} of $\Phi$ as the set:
+    \begin{align*}
+        \ker(\Phi) = \bigCurl{ x \in H \ \Big| \ \Phi(x) = 0 }
+    \end{align*}
+
+    \noindent Then, we can write $H$ as the direct sum:
+    \begin{align*}
+        H = \ker(\Phi) \oplus \ker(\Phi)^\perp
+    \end{align*}
+\end{corollary}
+
+\begin{proof*}[Corollary \ref{coro:hilbert_direct_sum_kernel}]
+    Since $\Phi$ is a bounded linear functional in a complete metric space, it is continuous. Hence, the pre-image of any closed subset of $\R$ is closed. Hence, we have:
+    \begin{align*}
+        \ker(\Phi) = \Phi^{-1}(\{0\}) \text{ is closed}
+    \end{align*}
+
+    \noindent Therefore, by corollary \ref{coro:hilbert_space_direct_sum}, we have:
+    \begin{align*}
+        H = \ker(\Phi) \oplus \ker(\Phi)^\perp
+    \end{align*}
+\end{proof*}
+
 
 \subsubsection{Representation Theorem}
+\begin{definition}[Bounded linear functional]
+    Let $V$ be a complete metric space (or Banach space). A mapping $\Phi:V \to \R$ (or $\mathbb{C}$) is called a \textbf{bounded linear functional} if it satisfies: 
+    \begin{itemize}
+        \item \textbf{Linearity} : $\Phi(\alpha f + \beta g) = \alpha\Phi(f) + \beta\Phi(g)$ for $\alpha, \beta\in\R$ and $f, g\in V$.
+        \item \textbf{Boundedness} : $\exists C > 0 : |\Phi(f)| \le C\cdot \|f\|, \ \forall f \in V$.
+    \end{itemize}
+\end{definition}
+
+
+\begin{theorem}{Riesz Representation Theorem}{riesz_representation_theorem}
+    Let $H$ be a Hilbert Space and $\Phi:H\to \R$ (or $\mathbb{C}$) be a bounded linear functional. Then,
+    \begin{align*}
+        \exists g\in H \text{ such that } \Phi(f) = \inner{f, g}, \ \forall f \in H
+    \end{align*}
+
+    \noindent We call $g\in H$ the \textbf{Riesz representation} of $\Phi$.
+\end{theorem}
+
+\begin{proof*}[Theorem \ref{thm:riesz_representation_theorem}]
+    
+\end{proof*}
+
