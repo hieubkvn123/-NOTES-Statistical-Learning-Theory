@@ -143,7 +143,7 @@ The \textbf{Hilbert Projection Theorem} talks about the condition when any vecto
 \begin{theorem}{Hilbert Projection Theorem}{hilbert_projection_theorem}
     Let $H$ be a Hilbert Space and $V\subseteq H$ be a \underline{closed subspace}. For any $f\in H$, there exists a \underline{unique} $v \in V$ such that:
     \begin{align*}
-        v = \arg\min_{v^* \in V} \| f - v^*\|
+        \|f  - v\| = \inf_{v^* \in V} \| f - v^*\|
     \end{align*}
 
     In other words, \textbf{there exists a unique minimizer inside the subspace if and only if the subspace is closed}.
@@ -251,30 +251,38 @@ The \textbf{Hilbert Projection Theorem} talks about the condition when any vecto
 \begin{proof*}[Corollary \ref{coro:hilbert_space_direct_sum}]
     By the Projection Theorem, there exists a unique $x\in V$ such that:
     \begin{align*}
-        \|f - x \| \le \|f - v\|, \ \forall v \in V
+        \|f - x \|^2 \le \|f - v\|^2, \ \forall v \in V
     \end{align*}
 
-    \noindent Letting $y = f - x$, we have:
+    \noindent Let $v = x + \lambda z$ where $\lambda\in\R$ is a scalar and $z \in V$. Then, we have:
     \begin{align*}
-        \|y\| \le \|y + (x - v)\|, \ \forall v \in V
-    \end{align*}
-
-    \noindent Since both $x, v \in V$ and $V$ is a vector space (closed under addition and scalar multiplication), we have $x - v \in V$. Therefore, we can write:
-    \begin{align*}
-        \|y\| \le \|y + v\|, \ \forall v\in V
+        \|f - x\|^2 &\le \|f - (x + \lambda z)\|^2, \ \forall z \in V \\
+        &= \|(f - x) - \lambda z\|^2 \\
+        &= \|f - x\|^2 + |\lambda|^2\|z\|^2 - 2\lambda \inner{f-x, z}
     \end{align*}
     
     \noindent The above inequality holds if and only if:
     \begin{align*}
-        \inner{y, v} = 0, \ \forall v \in V \implies y \in V^\perp
+        |\lambda|^2\|z\|^2 - 2\lambda \inner{f-x, z} \ge 0
     \end{align*}
 
-    \noindent Therefore, for all $f\in H$, we can write:
+    \noindent Plugging $\lambda = \frac{\inner{f-x, z}}{\|z\|^2}$ into the above inequality, we have:
     \begin{align*}
-        f = x + y, \ x \in V, \ y \in V^\perp
+        \frac{\Big| \inner{f-x, z} \Big|^2}{\|z\|^2} \le 0 \implies \inner{f-x, z} = 0, \ \forall z \in V
     \end{align*}
 
-    \noindent Hence, $H = V \oplus V^\perp$.
+    \noindent From the above, we conclude that for all $f\in H$, we have:
+    \begin{align*}
+        f = x + y \text{ where } \begin{cases}
+            x &= \arg\min_{v^*\in V}\|f - v^*\|^2 \\
+            y &= f - x, \ y \in V^\perp
+        \end{cases}
+    \end{align*}
+
+    \noindent In other words, we have:
+    \begin{align*}
+        H = V \oplus V^\perp
+    \end{align*}
 \end{proof*}
 
 
