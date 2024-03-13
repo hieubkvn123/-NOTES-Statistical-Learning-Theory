@@ -319,12 +319,26 @@ The \textbf{Hilbert Projection Theorem} talks about the condition when any vecto
     \end{itemize}
 \end{definition}
 
+\begin{definition}[Dual space]
+    Let $V$ be a complete metric space (or Banach space). The dual space of $V$, denoted as $V^*$, is the space of all bounded linear functionals from $V$ to $\R$ (or $\mathbb{C}$):
+    \begin{align*}
+        V^* = \bigCurl{
+            \Phi : V \to \R \Big| \Phi \text{ linear and bounded }
+        }
+    \end{align*}
+
+    \noindent For any $\Phi\in V^*$, we define the operator norm as:
+    \begin{align*}
+        \|\Phi\|_{V^*} = \sup_{v\in V, \|v\|=1} \bigAbs{\Phi(z)}
+    \end{align*}
+\end{definition}
 
 \begin{theorem}{Riesz Representation Theorem}{riesz_representation_theorem}
     Let $H$ be a Hilbert Space and $\Phi:H\to \R$ (or $\mathbb{C}$) be a bounded linear functional. Then,
-    \begin{align*}
-        \exists g\in H \text{ such that } \Phi(f) = \inner{f, g}, \ \forall f \in H
-    \end{align*}
+    \begin{itemize}
+        \item $\exists g\in H \text{ such that } \Phi(f) = \inner{f, g}, \ \forall f \in H$.
+        \item $\|\Phi\|_{H^*} = \|g\|_H$.
+    \end{itemize}
 
     \noindent We call $g\in H$ the \textbf{Riesz representation} of $\Phi$.
 \end{theorem}
