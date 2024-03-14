@@ -22,14 +22,7 @@
 \end{align*}
 
 % \noindent Let $\epsilon > 0$ and $\mathcal{C}_\epsilon(W)$ be the minimum $\epsilon$-cover of $W$ with respect to the Frobenius norm $\|.\|_F$. Suppose that for all $1\le k \le K$, we have:
-\noindent Let $\epsilon > 0$ and $\mathcal{C}_\epsilon(W)$ be the minimum $\epsilon$-cover of $W$ with respect to the infinity norm $\|.\|_\infty$. Meaning, for all $1\le k \le K$, we have:
-\begin{align*}
-    \bigAbs{
-        f_\vecbf{w}(x)_k - f_\vecbf{\bar{w}}(x)_k
-    } \le \epsilon
-\end{align*}
-
-\noindent Where $\vecbf{\bar{w}} = \arg\min_{\vecbf{w'} \in \mathcal{C}_\epsilon(W)} \| \vecbf{w}-\vecbf{w'} \|_\infty$. Derive the bound for the Rademacher complexity of the loss function class $\RC_n(\mathcal{L}_r)$ where:
+\noindent Derive the bound for the Rademacher complexity of the loss function class $\RC_n(\mathcal{L}_r)$ where:
 \begin{align*}
     \mathcal{L}_r = \biggCurl{
         (x, y)\mapsto l_r\bigRound{ f_\vecbf{w}(x)_y - \max_{k\ne y} f_\vecbf{w}(x)_k } \Bigg| f_{\vecbf{w}} \in \F 
@@ -37,59 +30,31 @@
 \end{align*}
 
 \subsubsection{Rough proof sketch}
-\textbf{Bounding the covering number of $\mathcal{L}_r$} : Let $L_\vecbf{w} \in \mathcal{L}_r$ and $S=\bigCurl{(x_i, y_i)}_{i=1}^n$ be a sample. Define the following norm:
+\textbf{Bounding the covering number of $\mathcal{L}_r$} : Let $L_\vecbf{w} \in \mathcal{L}_r$ where
+\begin{align*}
+    L_\vecbf{w}(x,y) =  l_r\bigRound{ f_\vecbf{w}(x)_y - \max_{k\ne y} f_\vecbf{w}(x)_k }
+\end{align*}
+
+
+\noindent and $S=\bigCurl{(x_i, y_i)}_{i=1}^n$ be a sample dataset. Define the following norm:
 \begin{align*}
     \|L_\vecbf{w}\|_{\mathcal{L}_r} = \sqrt{
         \frac{1}{n} \sum_{i=1}^n L_\vecbf{w}(x_i, y_i)^2
     }
 \end{align*}
 
-\noindent Let $\vecbf{\bar w} = \arg\min_{\vecbf{w'} \in \mathcal{C}_\epsilon(W)}\| \vecbf{w}-\vecbf{w'} \|_\infty$, for $x\in\R^d, y \in \{1, \dots, K\}$, we have:
+\noindent Let $\vecbf{w}, \vecbf{\bar w}\in W$. For any pair $(x_i, y_i) \in S$, we have:
 \begin{align*}
-    \bigAbs{L_\vecbf{w}(x, y) - L_\vecbf{\bar w}(x, y)}
+    \bigAbs{L_\vecbf{w}(x_i, y_i) - L_\vecbf{\bar w}(x_i, y_i)}
         &= \bigAbs{
-            l_r\bigRound{ f_\vecbf{w}(x)_y - \max_{k\ne y} f_\vecbf{w}(x)_k } - l_r\bigRound{ f_\vecbf{\bar w}(x)_y - \max_{k\ne y} f_\vecbf{\bar w}(x)_k }
+            l_r\bigRound{ f_\vecbf{w}(x_i)_{y_i} - \max_{k\ne y_i} f_\vecbf{w}(x_i)_k } - l_r\bigRound{ f_\vecbf{\bar w}(x_i)_{y_i} - \max_{k\ne y_i} f_\vecbf{\bar w}(x_i)_k }
         } \\
         &\le \frac{1}{r}\bigAbs{
-            \bigRound{f_\vecbf{w}(x)_y - f_\vecbf{\bar w}(x)_y} + \bigRound{\max_{k\ne y} f_\vecbf{\bar w}(x)_k - \max_{k\ne y} f_\vecbf{w}(x)_k}
+            \bigRound{f_\vecbf{w}(x_i)_{y_i} - f_\vecbf{\bar w}(x_i)_{y_i}} + \bigRound{\max_{k\ne y_i} f_\vecbf{\bar w}(x_i)_k - \max_{k\ne y_i} f_\vecbf{w}(x_i)_k}
         }\ \ \ (l_r \text{ is } 1/r-\text{Lipchitz}) \\
         &\le \frac{1}{r}\bigAbs{
-            \bigRound{f_\vecbf{w}(x)_y - f_\vecbf{\bar w}(x)_y} + \bigRound{\max_{k\ne y} \bigCurl{f_\vecbf{\bar w}(x)_k - f_\vecbf{w}(x)_k}}
+            \bigRound{f_\vecbf{w}(x_i)_{y_i} - f_\vecbf{\bar w}(x_i)_{y_i}} + \bigRound{\max_{k\ne y_i} \bigCurl{f_\vecbf{\bar w}(x_i)_k - f_\vecbf{w}(x_i)_k}}
         } \\
-        &\le \frac{2\epsilon}{r}
+        &\le \frac{2}{r}\sup_{(x_i^*, y_i^*) \in S} \bigAbs{f_\vecbf{w}(x_i^*)_{y_i^*} - f_\vecbf{\bar w}(x_i^*)_{y_i^*}}
 \end{align*}
 
-\noindent Therefore, we have:
-\begin{align*}
-    \|L_\vecbf{w} - L_\vecbf{\bar w}\|_{\mathcal{L}_r} &= \sqrt{
-        \frac{1}{n} \sum_{i=1}^n \bigAbs{L_\vecbf{w}(x_i, y_i) - L_\vecbf{\bar w}(x_i, y_i)}^2
-    } \\
-    &\le  \sqrt{
-        \frac{1}{n} \sum_{i=1}^n \frac{4\epsilon^2}{r^2}
-    } = \frac{2\epsilon}{r}
-\end{align*}
-
-\noindent Remember that $\epsilon$ is the constant of $W$'s covering with respect to the $\|.\|_\infty$ norm. Hence, we have:
-\begin{align*}
-    \mathcal{N}\bigRound{\mathcal{L}_r, \epsilon, \|.\|_{\mathcal{L}_r}} &\le \mathcal{N}\bigRound{W, \epsilon', \|.\|_\infty}, \ \ \ \text{where } \epsilon' = \frac{r\epsilon}{2} \\
-        &= \mathcal{N}\bigRound{\F, \epsilon', \|.\|_\infty}, \ \ \ (*)
-\end{align*}
-
-\noindent \color{red}{Note that in $(*)$, we can equate the covering number with respect to $\|.\|_\infty$ of $\F$ with $W$ because we assume that $\|x\|_2\le 1$}.\color{black} By proposition 4 of \cite{article:ledent_and_mustafa}, we have:
-\begin{align*}
-    \log \mathcal{N}\bigRound{\F, \epsilon, \|.\|_\infty} \le \frac{36R^2}{\epsilon^2} \log_2\biggRound{
-        \frac{8R}{\epsilon} + 7
-    }
-\end{align*}
-
-\noindent Therefore,
-\begin{align*}
-    \log \mathcal{N}\bigRound{\mathcal{L}_r, \epsilon, \|.\|_{\mathcal{L}_r}} \le \log \mathcal{N}\bigRound{\F, \epsilon', \|.\|_\infty} \le \frac{144R^2}{r^2\epsilon^2} \log_2\biggRound{
-        \frac{16R}{r\epsilon} + 7
-    }
-\end{align*}
-
-\noindent\textbf{Dudley's entropy integral} : From the above bound on the covering number of $\mathcal{L}_r$, we have:
-\begin{align*}
-    \ERC_S(\mathcal{L}_r) &\le 4\alpha + \frac{12}{\sqrt n}\int_\alpha^1 \sqrt{\log \mathcal{N}\bigRound{\mathcal{L}_r, \epsilon, \|.\|_{\mathcal{L}_r}} }d\epsilon, \ \ \ (\alpha > 0)
-\end{align*}
