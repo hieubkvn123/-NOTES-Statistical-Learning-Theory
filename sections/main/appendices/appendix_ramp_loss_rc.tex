@@ -43,6 +43,16 @@
     }
 \end{align*}
 
+\noindent We have to find an $\epsilon$-covering with respect to $\|.\|_{\mathcal{L}_r}$, denoted as $\mathcal{C}_\epsilon({\mathcal{L}_r}_{|_S}, \|.\|_{\mathcal{L}_r})$. Meaning, $\forall L_\vecbf{w}\in\mathcal{L}_r$, $\exists L_\vecbf{\bar w} \in \mathcal{C}_\epsilon(\mathcal{L}_r, \|.\|_{\mathcal{L}_r})$ such that:
+\begin{align*}
+    \|L_\vecbf{w} - L_\vecbf{\bar w}\|_{\mathcal{L}_r} = \sqrt{
+        \frac{1}{n} \sum_{i=1}^n \bigRound{
+            L_\vecbf{w}(x_i, y_i) - L_\vecbf{\bar w}(x_i, y_i)
+        }^2
+    } \le \epsilon
+\end{align*}
+
+
 \noindent Let $\vecbf{w}, \vecbf{\bar w}\in W$. For any pair $(x_i, y_i) \in S$, we have:
 \begin{align*}
     \bigAbs{L_\vecbf{w}(x_i, y_i) - L_\vecbf{\bar w}(x_i, y_i)}
@@ -55,6 +65,6 @@
         &\le \frac{1}{r}\bigAbs{
             \bigRound{f_\vecbf{w}(x_i)_{y_i} - f_\vecbf{\bar w}(x_i)_{y_i}} + \bigRound{\max_{k\ne y_i} \bigCurl{f_\vecbf{\bar w}(x_i)_k - f_\vecbf{w}(x_i)_k}}
         } \\
-        &\le \frac{2}{r}\sup_{(x_i^*, y_i^*) \in S} \bigAbs{f_\vecbf{w}(x_i^*)_{y_i^*} - f_\vecbf{\bar w}(x_i^*)_{y_i^*}}
+        &\le \frac{1}{r}\bigAbs{f_\vecbf{w}(x_i)_{y_i} - f_\vecbf{\bar w}(x_i)_{y_i}} + \frac{1}{r}\max_{k\ne y_i}\bigAbs{f_{\vecbf{\bar w}}(x_i)_k - f_\vecbf{w}(x_i)_k}
 \end{align*}
 
