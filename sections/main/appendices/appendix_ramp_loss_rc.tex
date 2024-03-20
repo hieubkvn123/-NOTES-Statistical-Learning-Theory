@@ -53,16 +53,6 @@
 \end{align*}
 
 \noindent\textbf{Remark 1} : Bounding each component.\newline
-\noindent By theorem 4 in \cite{article:tong_zhang}, we have:
-\begin{align*}
-    \log_2\mathcal{N}\bigRound{
-        \bigCurl{\vecbf{x} \mapsto \vecbf{wx} : \|\vecbf{x}\|_2 \le 1, \|\vecbf{w}\|_2 \le R}, \epsilon, \|.\|_\infty
-    } \le \frac{36R^2}{\epsilon^2}\log_2\biggRound{
-        \frac{8Rn}{\epsilon} + 6n + 1
-    }
-\end{align*}
-
-
 \noindent For any $f_\vecbf{w}\in\F$, we have:
 \begin{align*}
     f_\vecbf{w} = \begin{pmatrix}
@@ -78,17 +68,34 @@
     \end{pmatrix}
 \end{align*}
 
-\noindent Where $\vecbf{w}_j$ is the $j^{th}$ row of $\vecbf{w}$ for $j=\{1, \dots, K\}$. Since $\|\vecbf{w}\|_F \le R$, we have $\|\vecbf{w}_j\|_2\le R$ for all $j\in \{1, \dots, K\}$. Therefore, by Zhang's we have:
+\noindent Where $\vecbf{w}_j$ is the $j^{th}$ row of $\vecbf{w}$ for $j=\{1, \dots, K\}$. Define the following classes:
 \begin{align*}
-    \log_2\mathcal{N}\bigRound{
-        \bigCurl{
-            f_\vecbf{w}^{(j)} : \|x\|_2 \le 1, f_\vecbf{w}\in \F
-        }, \epsilon, \|.\|_\infty
-    } \le \frac{36R^2}{\epsilon^2}\log_2\biggRound{
-        \frac{8Rn}{\epsilon} + 6n + 1
-    }, \ \ j = \{1, \dots, K\}
+    \F_j = \bigCurl{f_\vecbf{w}^{(j)} : f_\vecbf{w} \in \F} = \bigCurl{\vecbf{x} \mapsto \vecbf{w}_j\vecbf{x} : \vecbf{w} \in W}, \ \ j \in \{1, \dots, K\}
 \end{align*}
 
+\noindent By theorem 4 in \cite{article:tong_zhang}, we have:
+\begin{align*}
+    \log_2\mathcal{N}\bigRound{
+        \G, \epsilon, \|.\|_\infty
+    } &\le \frac{36a^2b^2}{\epsilon^2}\log_2\biggRound{
+        \frac{8ab}{\epsilon}n + 6n + 1
+    } \\
+    \text{Where : } \G &=  \bigCurl{
+        \vecbf{x} \to \vecbf{wx} : \|\vecbf{x}\|_2 \le b, \|\vecbf{w}\|_2 \le a
+    }
+\end{align*}
+
+\noindent Where for a sample dataset $S$, we define the $\|.\|_\infty$ for any $g\in \G$ as:
+\begin{align*}
+    \|g\|_\infty = \sup_{x_i \in S} |x_i|
+\end{align*} 
+
+\noindent Since for any $\vecbf{w}\in W$, we have $\|\vecbf{w}\|_F\le R$. Therefore, for all $j\in\{1, \dots, K\}$, we have $\|\vecbf{w}_j\|_2\le R$. Hence,
+\begin{align*}
+    \log_2\mathcal{N}\bigRound{F_j, \epsilon, \|.\|_\infty} \le \frac{36R^2}{\epsilon^2}\log_2\biggRound{\frac{8Rn}{\epsilon} + 6n + 1}
+\end{align*}
+
+\noindent \color{red}As convenient as this is, we still have to bound all components of the outputs of functions in $\F$.\color{black}
 
 \noindent\textbf{\newline Remark 2} : Bounding all components.\newline
 \noindent Let $\vecbf{w}, \vecbf{\bar w}\in W$. For any pair $(x_i, y_i) \in S$, we have:
@@ -103,6 +110,14 @@
         &\le \frac{1}{r}\bigAbs{
             \bigRound{f_\vecbf{w}(x_i)_{y_i} - f_\vecbf{\bar w}(x_i)_{y_i}} + \bigRound{\max_{k\ne y_i} \bigCurl{f_\vecbf{\bar w}(x_i)_k - f_\vecbf{w}(x_i)_k}}
         } \\
-        &\le \frac{1}{r}\bigAbs{f_\vecbf{w}(x_i)_{y_i} - f_\vecbf{\bar w}(x_i)_{y_i}} + \frac{1}{r}\max_{k\ne y_i}\bigAbs{f_{\vecbf{\bar w}}(x_i)_k - f_\vecbf{w}(x_i)_k}
+        &\le \frac{1}{r}\bigAbs{f_\vecbf{w}(x_i)_{y_i} - f_\vecbf{\bar w}(x_i)_{y_i}} + \frac{1}{r}\max_{k\ne y_i}\bigAbs{f_{\vecbf{\bar w}}(x_i)_k - f_\vecbf{w}(x_i)_k} \\
+        &\le \frac{2}{r}\sup_{\substack{x_i \in S \\ j \in \{1, \dots, K\}}}\bigAbs{
+            f_\vecbf{w}^{(j)}(x_i) - f^{(j)}_\vecbf{\bar w}(x_i)
+        } \\
+        &= \frac{2}{r}\sup_{j\in\{1, \dots, K\}} \|f^{(j)}_\vecbf{w} - f^{(j)}_\vecbf{\bar w}\|_\infty \\
+        &= \frac{2}{r}\max\bigCurl{\vecbf{w}_jx_i}_{\substack{i\in\{1, \dots, n\}, \\j\in\{1, \dots, K\}}}
 \end{align*}
+
+\noindent Now, define the following class of functions:
+
 
