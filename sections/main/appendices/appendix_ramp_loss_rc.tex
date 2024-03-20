@@ -38,14 +38,14 @@
 
 \noindent and $S=\bigCurl{(x_i, y_i)}_{i=1}^n$ be a sample dataset. Define the following norm:
 \begin{align*}
-    \|L_\vecbf{w}\|_{\mathcal{L}_r} = \sqrt{
+    \|L_\vecbf{w}\|_2 = \sqrt{
         \frac{1}{n} \sum_{i=1}^n L_\vecbf{w}(x_i, y_i)^2
     }
 \end{align*}
 
-\noindent We have to find an $\epsilon$-covering with respect to $\|.\|_{\mathcal{L}_r}$, denoted as $\mathcal{C}_\epsilon({\mathcal{L}_r}_{|_S}, \|.\|_{\mathcal{L}_r})$. Meaning, $\forall L_\vecbf{w}\in\mathcal{L}_r$, $\exists L_\vecbf{\bar w} \in \mathcal{C}_\epsilon(\mathcal{L}_r, \|.\|_{\mathcal{L}_r})$ such that:
+\noindent We have to find an $\epsilon$-covering with respect to $\|.\|_2$ norm, denoted as $\mathcal{C}_\epsilon({\mathcal{L}_r}_{|_S}, \|.\|_2)$. Meaning, $\forall L_\vecbf{w}\in\mathcal{L}_r$, $\exists L_\vecbf{\bar w} \in \mathcal{C}_\epsilon({\mathcal{L}_r}_{|_S}, \|.\|_2)$ such that:
 \begin{align*}
-    \|L_\vecbf{w} - L_\vecbf{\bar w}\|_{\mathcal{L}_r} = \sqrt{
+    \|L_\vecbf{w} - L_\vecbf{\bar w}\|_2 = \sqrt{
         \frac{1}{n} \sum_{i=1}^n \bigRound{
             L_\vecbf{w}(x_i, y_i) - L_\vecbf{\bar w}(x_i, y_i)
         }^2
@@ -115,7 +115,7 @@
             f_\vecbf{w}^{(j)}(x_i) - f^{(j)}_\vecbf{\bar w}(x_i)
         } \\
         &= \frac{2}{r}\sup_{j\in\{1, \dots, K\}} \|f^{(j)}_\vecbf{w} - f^{(j)}_\vecbf{\bar w}\|_\infty \\
-        &= \frac{2}{r}\max\bigCurl{(\vecbf{w}_j - \vecbf{\bar w}_j)x_i}_{\substack{i\in\{1, \dots, n\}, \\j\in\{1, \dots, K\}}}
+        &= \frac{2}{r}\max\bigCurl{\bigAbs{(\vecbf{w}_j - \vecbf{\bar w}_j)x_i}}_{\substack{i\in\{1, \dots, n\}, \\j\in\{1, \dots, K\}}} \ \ \ (1)
 \end{align*}
 
 \noindent Now, define the following class of functions:
@@ -151,3 +151,29 @@
     } 
 \end{align*}
 
+\noindent In other words, if we denote $\mathcal{C}_\epsilon(\Hf_{|S'}, \|.\|_\infty)$ as the minimum $\epsilon$-covering for $\Hf_{|S'}$ with respect to the $\|.\|_\infty$ norm, we have:
+\begin{align*}
+    \bigAbs{
+        \mathcal{C}_\epsilon(\Hf_{|S'}, \|.\|_\infty)
+    } \le \frac{36R^2}{\epsilon^2}\log_2\biggRound{\biggRound{
+        \frac{8R}{\epsilon} + 7}nK
+    }
+\end{align*}
+
+\noindent And for any $h\in \Hf$ parameterized by $\beta=\begin{pmatrix} \vecbf{w_1} &\dots &\vecbf{w_K}\end{pmatrix}$, there exists $\bar h$, parameterized by $\bar\beta=\begin{pmatrix} \vecbf{\bar w_1} &\dots &\vecbf{\bar w_K}\end{pmatrix}$, such that $\|h - \bar h\|_\infty \le \epsilon$. Hence, we have:
+\begin{align*}
+    \|h - \bar h\|_\infty &= \sup_{x_{i, j} \in S'} \bigAbs{h(x_{i,j}) - \bar h(x_{i,j})} \\
+        &= \sup_{x_{i,j}\in S'}\bigAbs{(\beta - \bar\beta)x_{i,j}} \\
+        &= \max_{\substack{x_i\in S \\ j\in\{1, \dots, K\}}}\bigAbs{(\vecbf{w}_j - \vecbf{\bar w}_j)x_i} < \epsilon \ \ \ (2)
+\end{align*}
+
+\noindent From $(1)$ and $(2)$, we have:
+\begin{align*}
+    \log_2\mathcal{N}\bigRound{{\mathcal{L}_r}_{|S}, \epsilon, \|.\|_2} 
+    &\le \log_2\mathcal{N}\bigRound{\Hf_{|S'}, r\epsilon/2, \|.\|_\infty}
+    \le \frac{144R^2}{r^2\epsilon^2}\log_2\biggRound{
+        \biggRound{
+            \frac{16R}{r\epsilon} + 7
+        }nK
+    }
+\end{align*}
