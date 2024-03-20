@@ -21,7 +21,6 @@
     \end{cases} \\
 \end{align*}
 
-% \noindent Let $\epsilon > 0$ and $\mathcal{C}_\epsilon(W)$ be the minimum $\epsilon$-cover of $W$ with respect to the Frobenius norm $\|.\|_F$. Suppose that for all $1\le k \le K$, we have:
 \noindent Derive the bound for the Rademacher complexity of the loss function class $\RC_n(\mathcal{L}_r)$ where:
 \begin{align*}
     \mathcal{L}_r = \biggCurl{
@@ -30,7 +29,7 @@
 \end{align*}
 
 \subsubsection{Rough proof sketch}
-\textbf{Bounding the covering number of $\mathcal{L}_r$} : Let $L_\vecbf{w} \in \mathcal{L}_r$ where
+\textbf{1. Bounding the covering number of $\mathcal{L}_r$} : Let $L_\vecbf{w} \in \mathcal{L}_r$ where
 \begin{align*}
     L_\vecbf{w}(x,y) =  l_r\bigRound{ f_\vecbf{w}(x)_y - \max_{k\ne y} f_\vecbf{w}(x)_k }
 \end{align*}
@@ -177,3 +176,5 @@
         }nK
     }
 \end{align*}
+
+\noindent\newline\textbf{2. Dudley's Entropy Integral} : 
