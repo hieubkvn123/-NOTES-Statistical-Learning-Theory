@@ -52,7 +52,45 @@
     } \le \epsilon
 \end{align*}
 
+\noindent\textbf{Remark 1} : Bounding each component.\newline
+\noindent By theorem 4 in \cite{article:tong_zhang}, we have:
+\begin{align*}
+    \log_2\mathcal{N}\bigRound{
+        \bigCurl{\vecbf{x} \mapsto \vecbf{wx} : \|\vecbf{x}\|_2 \le 1, \|\vecbf{w}\|_2 \le R}, \epsilon, \|.\|_\infty
+    } \le \frac{36R^2}{\epsilon^2}\log_2\biggRound{
+        \frac{8Rn}{\epsilon} + 6n + 1
+    }
+\end{align*}
 
+
+\noindent For any $f_\vecbf{w}\in\F$, we have:
+\begin{align*}
+    f_\vecbf{w} = \begin{pmatrix}
+        f_\vecbf{w}^{(1)}(x) \\
+        \vdots \\
+        f_\vecbf{w}^{(K)}(x)
+    \end{pmatrix}
+    = 
+    \begin{pmatrix}
+        \vecbf{w}_{1}x \\
+        \vdots \\
+        \vecbf{w}_{K}x
+    \end{pmatrix}
+\end{align*}
+
+\noindent Where $\vecbf{w}_j$ is the $j^{th}$ row of $\vecbf{w}$ for $j=\{1, \dots, K\}$. Since $\|\vecbf{w}\|_F \le R$, we have $\|\vecbf{w}_j\|_2\le R$ for all $j\in \{1, \dots, K\}$. Therefore, by Zhang's we have:
+\begin{align*}
+    \log_2\mathcal{N}\bigRound{
+        \bigCurl{
+            f_\vecbf{w}^{(j)} : \|x\|_2 \le 1, f_\vecbf{w}\in \F
+        }, \epsilon, \|.\|_\infty
+    } \le \frac{36R^2}{\epsilon^2}\log_2\biggRound{
+        \frac{8Rn}{\epsilon} + 6n + 1
+    }, \ \ j = \{1, \dots, K\}
+\end{align*}
+
+
+\noindent\textbf{\newline Remark 2} : Bounding all components.\newline
 \noindent Let $\vecbf{w}, \vecbf{\bar w}\in W$. For any pair $(x_i, y_i) \in S$, we have:
 \begin{align*}
     \bigAbs{L_\vecbf{w}(x_i, y_i) - L_\vecbf{\bar w}(x_i, y_i)}
