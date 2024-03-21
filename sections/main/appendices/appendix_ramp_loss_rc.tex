@@ -29,7 +29,29 @@
 \end{align*}
 
 \subsubsection{Approach 1 : Using covering number}
-\textbf{1. Bounding the covering number of $\mathcal{L}_r$} : Let $\vecbf{w}, \vecbf{\bar w}\in W$. For any pair $(x_i, y_i) \in S$, we have:
+\noindent\textbf{Overview} : Let $L_\vecbf{w} \in \mathcal{L}_r$ where
+\begin{align*}
+    L_\vecbf{w}(x,y) =  l_r\bigRound{ f_\vecbf{w}(x)_y - \max_{k\ne y} f_\vecbf{w}(x)_k }
+\end{align*}
+
+
+\noindent and $S=\bigCurl{(x_i, y_i)}_{i=1}^n$ be a sample dataset. Define the following norm:
+\begin{align*}
+    \|L_\vecbf{w}\|_2 = \sqrt{
+        \frac{1}{n} \sum_{i=1}^n L_\vecbf{w}(x_i, y_i)^2
+    }
+\end{align*}
+
+\noindent We have to find an $\epsilon$-covering with respect to $\|.\|_2$ norm, denoted as $\mathcal{C}_\epsilon({\mathcal{L}_r}_{|_S}, \|.\|_2)$. Meaning, $\forall L_\vecbf{w}\in\mathcal{L}_r$, $\exists L_\vecbf{\bar w} \in \mathcal{C}_\epsilon({\mathcal{L}_r}_{|_S}, \|.\|_2)$ such that:
+\begin{align*}
+    \|L_\vecbf{w} - L_\vecbf{\bar w}\|_2 = \sqrt{
+        \frac{1}{n} \sum_{i=1}^n \bigRound{
+            L_\vecbf{w}(x_i, y_i) - L_\vecbf{\bar w}(x_i, y_i)
+        }^2
+    } \le \epsilon
+\end{align*}
+
+\noindent\textbf{1. Bounding the covering number of $\mathcal{L}_r$} : Let $\vecbf{w}, \vecbf{\bar w}\in W$. For any pair $(x_i, y_i) \in S$, we have:
 \begin{align*}
     \bigAbs{L_\vecbf{w}(x_i, y_i) - L_\vecbf{\bar w}(x_i, y_i)}
         &= \bigAbs{
@@ -109,33 +131,40 @@
     }
 \end{align*}
 
-\noindent\newline\textbf{2. Dudley's Entropy Integral} : 
-
-
-\subsubsection{Approach 2 : Using contraction inequality}
-Let $L_\vecbf{w} \in \mathcal{L}_r$ where
+\noindent\newline\textbf{2. Dudley's Entropy Integral} : Using theorem \ref{thm:dudley_entropy_integral}, we have:
 \begin{align*}
-    L_\vecbf{w}(x,y) =  l_r\bigRound{ f_\vecbf{w}(x)_y - \max_{k\ne y} f_\vecbf{w}(x)_k }
+    \ERC_S(\mathcal{L}_r) \le 4\alpha + \frac{12}{\sqrt n}\int_{\alpha}^1 \sqrt{\log\mathcal{N}\bigRound{\mathcal{L}_r, \epsilon, \|.\|_2}}d\epsilon, \ \alpha > 0 
 \end{align*}
 
-
-\noindent and $S=\bigCurl{(x_i, y_i)}_{i=1}^n$ be a sample dataset. Define the following norm:
+\noindent Note that we made use of the fact that $\sup_{\vecbf{z} \in \R} l_r(\vecbf{z}) = 1$. Hence, $\sup_{L_\vecbf{w}\in\mathcal{L}_r} \|L_\vecbf{w}\|_2 = 1$. Hence, the upper limit of the integral is $1$. From the above covering number bound, we have:
 \begin{align*}
-    \|L_\vecbf{w}\|_2 = \sqrt{
-        \frac{1}{n} \sum_{i=1}^n L_\vecbf{w}(x_i, y_i)^2
+    \ERC_S(\mathcal{L}_r) 
+        &\le 4\alpha + \frac{144R}{r\sqrt n}\int_{\alpha}^1 \frac{1}{\epsilon}\sqrt{\log\biggRound{
+            \biggRound{\frac{16R}{r\epsilon}+7
+        }nK}}d\epsilon \\
+        &\le 4\alpha + \frac{144R}{r\sqrt n} (1-\alpha) \sqrt{
+            \log\biggRound{\biggRound{
+                \frac{16R}{r} + 7
+            }nK}
+        } \ \ \ \text{(Setting $\epsilon=1$)}
+\end{align*}
+
+\noindent Let $\alpha \to 0$, we have the following upperbound:
+\begin{align*}
+    \ERC_S(\mathcal{L}_r) \le \frac{144R}{r\sqrt{n}}\sqrt{
+        \log\biggRound{\biggRound{
+            \frac{16R}{r} + 7
+        }nK}
     }
 \end{align*}
 
-\noindent We have to find an $\epsilon$-covering with respect to $\|.\|_2$ norm, denoted as $\mathcal{C}_\epsilon({\mathcal{L}_r}_{|_S}, \|.\|_2)$. Meaning, $\forall L_\vecbf{w}\in\mathcal{L}_r$, $\exists L_\vecbf{\bar w} \in \mathcal{C}_\epsilon({\mathcal{L}_r}_{|_S}, \|.\|_2)$ such that:
+\noindent Therefore, we have:
 \begin{align*}
-    \|L_\vecbf{w} - L_\vecbf{\bar w}\|_2 = \sqrt{
-        \frac{1}{n} \sum_{i=1}^n \bigRound{
-            L_\vecbf{w}(x_i, y_i) - L_\vecbf{\bar w}(x_i, y_i)
-        }^2
-    } \le \epsilon
+    \RC_n(\mathcal{L}_r) \le \tilde O\biggRound{\frac{R}{\sqrt{n}}}
 \end{align*}
 
-\noindent\textbf{Remark 1} : Bounding each component.\newline
+\subsubsection{Approach 2 : Using contraction inequality}
+\noindent\textbf{Remark 1} : Bounding the covering number of each component of the output.\newline
 \noindent For any $f_\vecbf{w}\in\F$, we have:
 \begin{align*}
     f_\vecbf{w} = \begin{pmatrix}
