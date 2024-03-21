@@ -164,7 +164,7 @@
 \end{align*}
 
 \subsubsection{Approach 2 : Using contraction inequality}
-\noindent\textbf{Remark 1} : Bounding the covering number of each component of the output.\newline
+\noindent\textbf{1. Find Rademacher complexity of each output component} : First, we bound the covering number of each component of the output then work out the Rademacher complexity.\newline
 \noindent For any $f_\vecbf{w}\in\F$, we have:
 \begin{align*}
     f_\vecbf{w} = \begin{pmatrix}
@@ -185,27 +185,46 @@
     \F_j = \bigCurl{f_\vecbf{w}^{(j)} : f_\vecbf{w} \in \F} = \bigCurl{\vecbf{x} \mapsto \vecbf{w}_j\vecbf{x} : \vecbf{w} \in W}, \ \ j \in \{1, \dots, K\}
 \end{align*}
 
-\noindent By theorem 4 in \cite{article:tong_zhang}, we have:
+\noindent\newline Since for any $\vecbf{w}\in W$, we have $\|\vecbf{w}\|_F\le R$. Therefore, for all $j\in\{1, \dots, K\}$, we have $\|\vecbf{w}_j\|_2\le R$. Hence, by theorem 3 in \cite{article:tong_zhang}, we have:
 \begin{align*}
-    \log_2\mathcal{N}\bigRound{
-        \G_{|S}, \epsilon, \|.\|_\infty
-    } &\le \frac{36a^2b^2}{\epsilon^2}\log_2\biggRound{
-        \frac{8ab}{\epsilon}n + 6n + 1
-    } \\
-    \text{Where : } \G &=  \bigCurl{
-        \vecbf{x} \to \vecbf{wx} : \|\vecbf{x}\|_2 \le b, \|\vecbf{w}\|_2 \le a
-    }
+    \log_2\mathcal{N}\bigRound{\F_j, \epsilon, \|.\|_2} \le \Bigg\lceil \frac{R^2}{\epsilon^2} \Bigg\rceil \log_2(2d+1) \le 2\frac{R^2}{\epsilon^2}\log_2(2d+1)
 \end{align*}
 
-\noindent Where for a sample dataset $S$, we define the $\|.\|_\infty$ for any $g\in \G$ as:
+\noindent Assuming that $R\ge\epsilon$. Hence, by Dudley's \ref{thm:dudley_entropy_integral}, we have:
 \begin{align*}
-    \|g\|_\infty = \sup_{x_i \in S} |x_i|
-\end{align*} 
-
-\noindent Since for any $\vecbf{w}\in W$, we have $\|\vecbf{w}\|_F\le R$. Therefore, for all $j\in\{1, \dots, K\}$, we have $\|\vecbf{w}_j\|_2\le R$. Hence,
-\begin{align*}
-    \log_2\mathcal{N}\bigRound{{F_j}_{|S}, \epsilon, \|.\|_\infty} \le \frac{36R^2}{\epsilon^2}\log_2\biggRound{\frac{8Rn}{\epsilon} + 6n + 1}
+    \ERC_S(\F_j) &\le 4\alpha + \frac{12R}{\sqrt{n}}\sqrt{\log D} \int_\alpha^R \frac{1}{\epsilon}d\epsilon, \ \ \ D = (2d+1)^2 \\
+    &= 4\alpha + \frac{12R}{\sqrt{n}}\sqrt{\log D}\log\frac{R}{\alpha} \\
+    &= \frac{12R}{\sqrt n} \biggRound{1 + \sqrt{\log D}\log\frac{\sqrt n}{3}}, \ \ \ \text{Setting } \alpha = \frac{3R}{\sqrt n} \\
+    \implies
+    \RC_n(\F_j) &\le \frac{12R}{\sqrt n} \biggRound{1 + \sqrt{\log D}\log\frac{\sqrt n}{3}} = \tilde O\biggRound{\frac{R}{\sqrt{n}}}
 \end{align*}
 
-\noindent \color{red}As convenient as this is, we still have to bound all components of the outputs of functions in $\F$.\color{black}
+\noindent\textbf{2. Using $l_\infty$ contraction inequality} : By theorem 1 in \cite{article:foster}, if we have $\phi_1, \dots, \phi_n$, where $\phi_i:\R^K \to \R$, being $L$-Lipchitz with respect to the $l_\infty$ norm, meaning $|\phi_j(x)-\phi_j(y)| \le L\cdot\|x-y\|_\infty$. We have:
+\begin{align*}
+    \frac{1}{n}\E_\sigma\biggSquare{
+        \sup_{f_\vecbf{w}\in \F}\sum_{i=1}^n \sigma_i \phi_i(f_\vecbf{w}(x_i))
+    } \le \tilde O\bigRound{L\sqrt{K}} \cdot \max_{j\in\{1, \dots, K\}} \RC_n(\F_j)
+\end{align*}
+
+\noindent For any $z\in\R^K$, define the function $\psi_j(z)=z_j - \max_{k\ne j}z_k$ and for any $(x_i, y_i)\in S$, let $\phi_i(f_\vecbf{w}(x_i)) = (l_r\circ \psi_{y_i})(f_\vecbf{w}(x_i))$. We have:
+\begin{align*}
+    \ERC_S(\mathcal{L}_r) 
+        &= \frac{1}{n}\E_\sigma\biggSquare{
+            \sup_{f_\vecbf{w}\in \F} \sum_{i=1}^n \sigma_i l_r\bigRound{f_\vecbf{w}(x_i)_{y_i} - \max_{k\ne y_i} f_\vecbf{w}(x_i)_k}
+        } \\
+        &= \frac{1}{n}\E_\sigma\biggSquare{
+            \sup_{f_\vecbf{w}\in \F} \sum_{i=1}^n \sigma_i \phi_i(f_\vecbf{w}(x_i))
+        }
+\end{align*}
+
+\noindent Following similar arguments as $(1)$, we know that $l_r \circ \psi_{j}, \ \ j\in\{1, \dots, K\}$ is $2/r$-Lipchitz continuous with respect to the $l_\infty$ norm. Hence, we have:
+\begin{align*}
+    \ERC_S(\mathcal{L}_r) 
+        &\le \tilde O\biggRound{
+            \frac{2\sqrt{K}}{r}
+        }\cdot \max_{j\in\{1, \dots, K \}} \RC_n(\F_j) \\
+        &= \tilde O\biggRound{
+            2/r \cdot R\sqrt{\frac{K}{n}}
+        }
+\end{align*}
 
