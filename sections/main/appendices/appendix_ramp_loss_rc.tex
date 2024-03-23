@@ -142,25 +142,30 @@
         &\le 4\alpha + \frac{144R}{r\sqrt n}\int_{\alpha}^1 \frac{1}{\epsilon}\sqrt{\log\biggRound{
             \biggRound{\frac{16R}{r\epsilon}+7
         }nK}}d\epsilon \\
-        &\le 4\alpha + \frac{144R}{r\sqrt n} (1-\alpha) \sqrt{
+        &< 4\alpha + \frac{144R}{r\sqrt n} \cdot  \sqrt{
             \log\biggRound{\biggRound{
-                \frac{16R}{r} + 7
+                \frac{16R}{r\alpha} + 7
             }nK}
-        } \ \ \ \text{(Setting $\epsilon=1$)}
+        }\int_\alpha^1 \frac{1}{\epsilon}d\epsilon \\
+        &= 4\alpha + \frac{144R}{r\sqrt n} \cdot  \sqrt{
+            \log\biggRound{\biggRound{
+                \frac{16R}{r\alpha} + 7
+            }nK}
+        }\bigRound{-\log\alpha}
 \end{align*}
 
-\noindent Let $\alpha \to 0$, we have the following upperbound:
+\noindent Setting $\alpha = \frac{36R}{r\sqrt n}$, we have the following upperbound:
 \begin{align*}
-    \ERC_S(\mathcal{L}_r) \le \frac{144R}{r\sqrt{n}}\sqrt{
+    \ERC_S(\mathcal{L}_r) \le \frac{144R}{r\sqrt{n}}\biggSquare{1 + \sqrt{
         \log\biggRound{\biggRound{
-            \frac{16R}{r} + 7
+            \frac{4}{9}\sqrt{n} + 7
         }nK}
-    }
+    }\log\biggRound{\frac{r\sqrt n}{36R}}}
 \end{align*}
 
 \noindent Therefore, we have:
 \begin{align*}
-    \RC_n(\mathcal{L}_r) \le \tilde O\biggRound{\frac{R}{\sqrt{n}}}
+    \RC_n(\mathcal{L}_r) \le \tilde O\biggRound{\frac{R}{r\sqrt{n}}}
 \end{align*}
 
 \subsubsection{Approach 2 : Using contraction inequality}
@@ -224,7 +229,7 @@
             \frac{2\sqrt{K}}{r}
         }\cdot \max_{j\in\{1, \dots, K \}} \RC_n(\F_j) \\
         &= \tilde O\biggRound{
-            2/r \cdot R\sqrt{\frac{K}{n}}
+           \frac{R\sqrt{K}}{r\sqrt n}
         }
 \end{align*}
 
@@ -282,24 +287,32 @@
 \noindent \textbf{2. Dudley's Entropy Integral} : By Dudley's \ref{thm:dudley_entropy_integral}, we have:
 \begin{align*}
     \ERC_S(\mathcal{L}_r) &\le 4\alpha + \frac{12}{\sqrt n}\int_\alpha^1 \sqrt{\log \mathcal{N}\bigRound{{\mathcal{L}_r}_{|S}, \epsilon, \|.\|_2}}d\epsilon, \ \ \ \alpha > 0 \\
-    &= 4\alpha + 144R\sqrt{\frac{K}{n}}\int_\alpha^1 \frac{1}{\epsilon}\sqrt{
+    &= 4\alpha + \frac{144R\sqrt K}{r\sqrt n} \int_\alpha^1 \frac{1}{\epsilon}\sqrt{
         \log\biggRound{
             \biggRound{\frac{16R}{r\epsilon} + 7}n
         } 
     }d\epsilon \\
-    &\le 4\alpha + 144R\sqrt{\frac{K}{n}}(1-\alpha)\sqrt{
+    &< 4\alpha + \frac{144R\sqrt K}{r\sqrt n}\cdot\sqrt{
         \log\biggRound{
-            \biggRound{\frac{16R}{r} + 7}n
+            \biggRound{\frac{16R}{r\alpha} + 7}n
         } 
-    } \ \ \ \text{(Setting $\epsilon=1$)}
+    }\int_{\alpha}^1 \frac{1}{\epsilon}d\epsilon \\
+    &= 4\alpha + \frac{144R\sqrt K}{r\sqrt n}\cdot\sqrt{
+        \log\biggRound{
+            \biggRound{\frac{16R}{r\alpha} + 7}n
+        } 
+    }\bigRound{-\log\alpha}
 \end{align*}
 
-\noindent Let $\alpha \to 0$, we have:
+\noindent Setting $\alpha = \frac{36R\sqrt{K}}{r\sqrt n}$, we have:
 \begin{align*}
-    \ERC_S(\mathcal{L}_r) &\le 144R\sqrt{\frac{K}{n}}\sqrt{
+    \ERC_S(\mathcal{L}_r) &< \frac{144R\sqrt K}{r\sqrt n}\biggSquare{1 + \sqrt{
         \log\biggRound{
-            \biggRound{\frac{16R}{r} + 7}n
+            \biggRound{\frac{4\sqrt n}{9\sqrt K} + 7}n
         } 
-    } = \tilde O\biggRound{R\sqrt{\frac{K}{n}}}
+    }\log\biggRound{\frac{r\sqrt{n}}{36R\sqrt K}}} \\
+    &= \tilde O\biggRound{
+        \frac{R\sqrt K}{r\sqrt n}
+    }
 \end{align*}
 
