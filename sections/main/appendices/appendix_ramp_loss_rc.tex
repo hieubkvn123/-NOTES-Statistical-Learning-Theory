@@ -241,25 +241,14 @@
     }, \ \ j \in \{ 1, \dots, K \}
 \end{align*}
 
-\noindent Denote $C^{(j)}_\epsilon$ as the minimum $\epsilon$-cover of ${\F_j}_{|S}$. Meaning, for all $f_\vecbf{w} \in \F$:
+\noindent Denote $C^{(j)}_\epsilon$ as the minimum (internal) $\epsilon$-cover of $\F_j=\bigCurl{\vecbf{x} \mapsto \vecbf{w}_j \vecbf{x}: \vecbf{w}\in W}$ with respect to the $\|.\|_\infty$ norm. Meaning, for any $f_\vecbf{w} \in \F$:
 \begin{align*}
-    \exists v_j \in C^{(j)}_\epsilon : \|f_\vecbf{w}^{(j)} - v_j \|_\infty = \sup_{i \in \{1, \dots, n \}}\bigAbs{f_\vecbf{w}^{(j)}(x_i) - v_j} < \epsilon
+    \exists f_\vecbf{\bar w}^{(j)} \in C^{(j)}_\epsilon : \|f_\vecbf{w}^{(j)} - f_\vecbf{\bar w}^{(j)} \|_\infty = \sup_{i \in \{1, \dots, n \}}\bigAbs{f_\vecbf{w}^{(j)}(x_i) - f_\vecbf{\bar w}^{(j)}(x_i)} < \epsilon, \ \ \ \vecbf{\bar w}\in W
 \end{align*}
 
 \noindent Therefore, for any $f_\vecbf{w}\in \F$:
 \begin{align*}
-    \exists \begin{pmatrix}
-        v_1 & \dots & v_K
-    \end{pmatrix}^T \in C^{(1)}_\epsilon \times \dots \times C^{(K)}_\epsilon : \max_{j\in \{1, \dots, K \}} \|f_\vecbf{w}^{(j)} - v_j\|_\infty = \max_{
-        \substack{ j \in \{1, \dots, K \}\\ i \in \{1, \dots, n\}}
-    }\bigAbs{
-        f_\vecbf{w}^{(j)}(x_i) - v_j
-    } < \epsilon
-\end{align*}
-
-\noindent Since $C^{(j)}_\epsilon\subset {\F_j}_{|S}$ for all $j\in\{1,\dots, K\}$, there exists $f_\vecbf{\bar w}\in \F$  such that $v_j=f_\vecbf{\bar w}^{(j)}(x_i),  \ \forall j\in\{1,\dots, K\}$. Therefore, for all $f_\vecbf{w}\in\F$:
-\begin{align*}
-    \exists f_\vecbf{\bar w}(x_i) \in C^{(1)}_\epsilon \times \dots \times C^{(K)}_\epsilon : \max_{
+    \exists f_\vecbf{\bar w} \in C^{(1)}_\epsilon \times \dots \times C^{(K)}_\epsilon : \max_{j\in \{1, \dots, K \}} \|f_\vecbf{w}^{(j)} - f_\vecbf{\bar w}^{(j)}\|_\infty = \max_{
         \substack{ j \in \{1, \dots, K \}\\ i \in \{1, \dots, n\}}
     }\bigAbs{
         f_\vecbf{w}^{(j)}(x_i) - f_\vecbf{\bar w}^{(j)}(x_i) 
