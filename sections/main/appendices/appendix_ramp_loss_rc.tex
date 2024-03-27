@@ -324,7 +324,7 @@
 \end{theorem}
 
 \begin{proof*}[Theorem \ref{thm:l_infty_contraction_inequality}]
-    
+    The proof was included in theorem 1 of \cite{article:foster}.
 \end{proof*}
 
 
@@ -332,10 +332,33 @@
 \begin{lemma}{External-internal covering numbers}{external_internal_cover}
     Let $(X, \|.\|)$ be a normed space and consider a subspace $V\subset X$. Let $\epsilon > 0$ and denote $\mathcal{N}(V, \epsilon, \|.\|)$ as the (internal) covering number of $V$, $\mathcal{N}^{ext}(V, \epsilon, \|.\|)$ as the external covering number of $V$. We have:
     \begin{align*}
-        \mathcal{N}(V, \epsilon, \|.\|) \le \mathcal{N}^{ext}(V, \epsilon/2, \|.\|)
+        \mathcal{N}\bigRound{V, \epsilon, \|.\|} \le \mathcal{N}^{ext}\bigRound{V, \epsilon/2, \|.\|}
     \end{align*} 
 \end{lemma}
 
 \begin{proof*}[Lemma \ref{lem:external_internal_cover}]
-    
+    Let $\mathcal{C}_{\epsilon/2}^{ext}\bigRound{V, \|.\|}=\bigCurl{v_1^{ext}, \dots, v_{N_0}^{ext}}$ be the minimal $\epsilon/2$-cover of $V$ with respect to the norm $\|.\|$ where $N_0 = \bigAbs{\mathcal{C}_{\epsilon/2}^{ext}\bigRound{V, \|.\|}} = \mathcal{N}^{ext}\bigRound{V, \epsilon/2, \|.\|}$. We have:
+    \begin{align*}
+        V \subseteq \bigcup_{i=1}^{N_0} \mathcal{B}_{\epsilon/2}(v_i^{ext})
+    \end{align*}
+
+    \noindent Where for $\epsilon>0$, $\mathcal{B}_{\epsilon}(x)$ is the $\epsilon$-ball centered around $x$. For every $v_i^{ext}\in \mathcal{C}_{\epsilon/2}^{ext}\bigRound{V, \|.\|}$, we have:
+    \begin{align*}
+        V \cap \mathcal{B}_{\epsilon/2}(v_i^{ext}) \ne \emptyset
+    \end{align*}
+
+    \noindent Otherwise, $v_i^{ext}$ is redundant which contradicts the fact that $\mathcal{C}_{\epsilon/2}^{ext}\bigRound{V, \|.\|}$ is a minimum external $\epsilon/2$-cover of $V$. Hence, for all $v_i^{ext}$, we have:
+    \begin{align*}
+        \exists v_i^{in} \in V \cap \mathcal{B}_{\epsilon/2}(v_i^{ext}) : \mathcal{B}_{\epsilon/2}(v_i^{ext}) \subset \mathcal{B}_{\epsilon}(v_i^{in})
+    \end{align*}
+
+    \noindent Therefore, we have:
+    \begin{align*}
+        V \subseteq \bigcup_{i=1}^{N_0} \mathcal{B}_{\epsilon/2}(v_i^{ext}) \subseteq \bigcup_{i=1}^{N_0}\mathcal{B}_\epsilon(v_i^{in})
+    \end{align*}
+
+    \noindent Notice that from the above, it is possible to cover $V$ with fewer than $N_0$ $\epsilon$-balls $\mathcal{B}_\epsilon(v_i^{in})$. Hence, we have:
+    \begin{align*}
+        \mathcal{N}\bigRound{V, \epsilon, \|.\|} \le N_0 = \mathcal{N}^{ext}\bigRound{V, \epsilon/2, \|.\|}
+    \end{align*}
 \end{proof*}
