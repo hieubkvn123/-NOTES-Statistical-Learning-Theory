@@ -21,8 +21,10 @@ sudo apt install texlive-science texlive-latex-extra texlive-extra-utils latexmk
 - 2. Press `Ctrl` + `Shift` + `P` and search for `Open User Settings (UI)`.
 - 3. Search for `latex OutDir`.
 - 4. Key in `%DIR%/output` so that output is stored in `./output`.
+- 5. Search for `Auto Clean`.
+- 6. Set to `onBuilt`. 
 
 ## 3.2. Plugins
 Install the following plugins:
-- 1. `Latex`.
+- 1. `Latex Refs`.
 - 2. `Latex Workshop`.
