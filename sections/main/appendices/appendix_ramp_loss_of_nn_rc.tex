@@ -1,4 +1,33 @@
 \newpage
 \subsection{Rademacher Complexity of ramp loss for neural networks}
 \subsubsection{Problem Statement}
+\textbf{Problem} : Given a tuple $\begin{pmatrix}M_1 & \dots & M_L\end{pmatrix}$ of $L\ge 1$ reference matrices (that represents initial weights in a neural network). Let $\mathcal{A}$ be the class of tuples of $L$ weight matrices defined as followed:
+\begin{align*}
+    \mathcal{A} = \bigCurl{
+        \begin{pmatrix}
+            A_1 & \dots & A_L
+        \end{pmatrix} : \|A_i\|_\sigma \le s_i, \|A_i - M_i\|_{2, 1}\le b_i
+    }
+\end{align*}
 
+\noindent Where $\|.\|_\sigma$ denotes the spectral norm and $\|.\|_{p, q}$ denotes the matrix $(p, q)$ norm defined as $\|A\|_{p, q} = \bigRound{\sum_j\bigRound{\sum_{i}|A_{ij}|^p}^{q/p}}^{1/q}$. Define the following class of neural networks:
+\begin{align*}
+    \F_\mathcal{A} = \biggCurl{
+        x\mapsto \sigma_L \bigRound{
+            \bigcirc_{k=1}^{L-1} A_{k+1} \circ \sigma_k
+        }(x) : \sigma_k \text{ is } \rho_k\text{-Lipchitz}, \begin{pmatrix}
+            A_1 & \dots & A_L
+        \end{pmatrix} \in \mathcal{A}
+    }
+\end{align*}
+
+\noindent Derive the bound for the Rademacher Complexity of the loss function class:
+\begin{align*}
+    \mathcal{L}_r = \biggCurl{
+        (x, y) \mapsto l_r\bigRound{
+            F_\mathcal{A}(x)_y - \max_{k\ne y}F_\mathcal{A}(x)_k
+        } \Bigg| F_\mathcal{A} \in \F_\mathcal{A}
+    }
+\end{align*}
+
+\noindent Where $l_r$ is the ramp loss function.
