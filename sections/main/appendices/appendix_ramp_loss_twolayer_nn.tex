@@ -7,11 +7,11 @@
     \mathcal{A} = \biggCurl{
         \bigRound{
             A_1, A_2
-        } : \| (A_1 - M_1)^T \|_{2, 1} \le a_1, \ \| A_2 - M_2 \|_F \le a_2
+        } : \|A_1\|_\sigma \le s, \ \| (A_1 - M_1)^T \|_{2, 1} \le a_1, \ \| A_2 - M_2 \|_F \le a_2
     }
 \end{align*}
 
-\noindent Where $a_1, a_2 > 0$ and $\|.\|_{p, q}$ denotes the matrix $(p, q)$ norm defined as:
+\noindent Where $a_1, a_2 > 0$. $\|.\|_\sigma$ denotes the spectral norm and $\|.\|_{p, q}$ denotes the matrix $(p, q)$ norm defined as:
 \begin{align*}
     \|A\|_{p, q} = \biggRound{\sum_j\biggRound{\sum_{i}|A_{ij}|^p}^{q/p}}^{1/q}
 \end{align*}    
@@ -19,7 +19,7 @@
 \noindent Define the following class of two-layer neural networks:
 \begin{align*}
     \F_\mathcal{A} = \bigCurl{
-        x\mapsto A_2\sigma(A_1x) : \bigRound{A_1, A_2}\in\mathcal{A}, \ \sigma \text{ is } \rho\text{-Lipchitz}
+        x\mapsto A_2\sigma(A_1x) : \bigRound{A_1, A_2}\in\mathcal{A}, \ \sigma \text{ is } \rho\text{-Lipchitz w.r.t } \|.\|_2, \ \|x\|_2 \le 1
     }
 \end{align*}
 
@@ -31,4 +31,6 @@
         } \Bigg| F_\mathcal{A} \in \F_\mathcal{A}
     }
 \end{align*}
+
+\noindent Where $l_r$ is the ramp loss with margin $r\in(0,1)$.
 
