@@ -1,0 +1,34 @@
+\newpage
+\subsection{Rademacher Complexity of ramp loss - two layers case}
+\subsubsection{Problem Statement}
+\textbf{Problem} : Consider the multi-class classification problem with $K \ge 2$ labels. Given a tuple of matrices $(M_1, M_2)$ (that represents initialized weight matrices). Define the following class of tuples of weight matrices:
+
+\begin{align*}
+    \mathcal{A} = \biggCurl{
+        \bigRound{
+            A_1, A_2
+        } : \| (A_1 - M_1)^T \|_{2, 1} \le a_1, \ \| A_2 - M_2 \|_F \le a_2
+    }
+\end{align*}
+
+\noindent Where $a_1, a_2 > 0$ and $\|.\|_{p, q}$ denotes the matrix $(p, q)$ norm defined as:
+\begin{align*}
+    \|A\|_{p, q} = \biggRound{\sum_j\biggRound{\sum_{i}|A_{ij}|^p}^{q/p}}^{1/q}
+\end{align*}    
+
+\noindent Define the following class of two-layer neural networks:
+\begin{align*}
+    \F_\mathcal{A} = \bigCurl{
+        x\mapsto A_2\sigma(A_1x) : \bigRound{A_1, A_2}\in\mathcal{A}, \ \sigma \text{ is } \rho\text{-Lipchitz}
+    }
+\end{align*}
+
+\noindent Derive the Rademacher Complexity bound for the class of loss functions:
+\begin{align*}
+    \mathcal{L}_r = \biggCurl{
+        (x, y) \mapsto l_r\bigRound{
+            F_\mathcal{A}(x)_y - \max_{k\ne y}F_\mathcal{A}(x)_k
+        } \Bigg| F_\mathcal{A} \in \F_\mathcal{A}
+    }
+\end{align*}
+
