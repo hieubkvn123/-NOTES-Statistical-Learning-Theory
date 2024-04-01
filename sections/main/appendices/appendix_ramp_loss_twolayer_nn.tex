@@ -27,10 +27,42 @@
 \begin{align*}
     \mathcal{L}_r = \biggCurl{
         (x, y) \mapsto l_r\bigRound{
-            F_\mathcal{A}(x)_y - \max_{k\ne y}F_\mathcal{A}(x)_k
-        } \Bigg| F_\mathcal{A} \in \F_\mathcal{A}
+            F_\vecbf{A}(x)_y - \max_{k\ne y}F_\vecbf{A}(x)_k
+        } \Bigg| F_\vecbf{A} \in \F_\mathcal{A}
     }
 \end{align*}
 
 \noindent Where $l_r$ is the ramp loss with margin $r\in(0,1)$.
 
+\subsubsection{Solution}
+
+\textbf{1. Bounding the covering number for $\mathcal{L}_r$} : Let $L_\vecbf{A} \in \mathcal{L}_r$ parameterized by $\vecbf{A}\in\mathcal{A}$ be defined as:
+\begin{align*}
+    L_\vecbf{A}(x, y) = l_r\bigRound{
+        F_\vecbf{A}(x)_y - \max_{k\ne y} F_\vecbf{A}(x)_k
+    }
+\end{align*}
+
+\noindent Then let $S=\bigCurl{(x_i, y_i)}_{i=1}^n$ be a sample dataset, for $L_\vecbf{A}, L_\vecbf{\bar A}\in\mathcal{L}_r$ and $(x_i, y_i)\in S$, we have:
+\begin{align*}
+    \bigAbs{L_\vecbf{A}(x_i, y_i) - L_\vecbf{\bar A}(x_i, y_i)} &= \bigAbs{
+        l_r\bigRound{
+            F_\vecbf{A}(x_i)_y - \max_{k\ne y} F_\vecbf{A}(x_i)_k
+        } - 
+        l_r\bigRound{
+            F_\vecbf{\bar A}(x_i)_y - \max_{k\ne y} F_\vecbf{\bar A}(x_i)_k
+        }
+    } \\
+    &\le \frac{1}{r} \bigAbs{
+        \bigRound{F_\vecbf{A}(x_i)_y - F_\vecbf{\bar A}(x_i)_y} +
+        \bigRound{
+            \max_{k\ne y} F_\vecbf{\bar A}(x_i)_k - \max_{k\ne y} F_\vecbf{A}(x_i)_k
+        }
+    } \ \ \ \text{($l_r$ is $1/r$-Lipchitz)} \\
+    &\le \frac{1}{r} \bigAbs{
+        F_\vecbf{A}(x_i)_y - F_\vecbf{\bar A}(x_i)_y
+    } + \frac{1}{r}\max_{k\ne y}\bigAbs{
+        F_\vecbf{\bar A}(x_i)_k - F_\vecbf{A}(x_i)_k
+    } \\
+    &\le \frac{2}{r}\max_{j\in\{1, \dots, K\}} \bigAbs{F_\vecbf{A}(x_i)_j - F_\vecbf{\bar A}(x_i)_j}
+\end{align*}
