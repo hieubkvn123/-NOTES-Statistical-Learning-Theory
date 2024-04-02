@@ -1,17 +1,17 @@
 \newpage
 \subsection{Rademacher Complexity of ramp loss - two layers case}
 \subsubsection{Problem Statement}
-\textbf{Problem} : Consider the multi-class classification problem with $K \ge 2$ labels. Given a tuple of matrices $(M_1, M_2)$ (that represents initialized weight matrices). Define the following class of tuples of weight matrices:
+\textbf{Problem} : Consider the multi-class classification problem with $K \ge 2$ labels. Given a tuple of matrices $(M^{(1)}, M^{(2)})$ (that represents initialized weight matrices). Define the following class of tuples of weight matrices:
 
 \begin{align*}
     \mathcal{A} = \biggCurl{
         \bigRound{
-            A_1, A_2
-        } : \|A_1\|_\sigma \le s, \ \| (A_1 - M_1)^T \|_{2, 1} \le a_1, \ \| A_2 - M_2 \|_F \le a_2
+            A^{(1)}, A^{(2)}
+        } : \|A^{(i)}\|_\sigma \le s_i, \ \| (A^{(i)} - M^{(i)})^T \|_{2, 1} \le a_i, \ \| A^{(2)} - M^{(2)} \|_F \le R
     }
 \end{align*}
 
-\noindent Where $a_1, a_2 > 0$. $\|.\|_\sigma$ denotes the spectral norm and $\|.\|_{p, q}$ denotes the matrix $(p, q)$ norm defined as:
+\noindent Where $a_i, s_i, R > 0$, $x\in \R^{d_0}, A^{(1)}\in\R^{d_1\times d_0}, A^{(2)}\in \R^{d_2\times d_1}$ ($d_2=K$). $\|.\|_\sigma$ denotes the spectral norm and $\|.\|_{p, q}$ denotes the matrix $(p, q)$ norm defined as:
 \begin{align*}
     \|A\|_{p, q} = \biggRound{\sum_j\biggRound{\sum_{i}|A_{ij}|^p}^{q/p}}^{1/q}
 \end{align*}    
@@ -19,7 +19,7 @@
 \noindent Define the following class of two-layer neural networks:
 \begin{align*}
     \F_\mathcal{A} = \bigCurl{
-        x\mapsto A_2\sigma(A_1x) : \bigRound{A_1, A_2}\in\mathcal{A}, \ \sigma \text{ is } \rho\text{-Lipchitz w.r.t } \|.\|_2, \ \|x\|_2 \le 1
+        x\mapsto A^{(2)}\sigma(A^{(1)}x) : \bigRound{A^{(1)}, A^{(2)}}\in\mathcal{A}, \ \sigma \text{ is } \rho\text{-Lipchitz w.r.t } l^2\text{-norm}, \ \|x\|_2 \le 1
     }
 \end{align*}
 
@@ -33,6 +33,15 @@
 \end{align*}
 
 \noindent Where $l_r$ is the ramp loss with margin $r\in(0,1)$.
+
+\noindent \color{red}
+From this point on, we will refer to $\|.\|_p$ as the $l^p$ norm and the $\|.\|_p^S$ as the norm of a function $f$ defined over a sample $S$. Specifically:
+\begin{align*}
+    \|f\|_p^S = \biggRound{
+        \sum_{x_i \in S} f(x_i) ^p
+    }^{1/p}
+\end{align*}
+\color{black}
 
 \subsubsection{Solution}
 
@@ -64,5 +73,77 @@
     } + \frac{1}{r}\max_{k\ne y}\bigAbs{
         F_\vecbf{\bar A}(x_i)_k - F_\vecbf{A}(x_i)_k
     } \\
-    &\le \frac{2}{r}\max_{j\in\{1, \dots, K\}} \bigAbs{F_\vecbf{A}(x_i)_j - F_\vecbf{\bar A}(x_i)_j}
+    &\le \frac{2}{r}\max_{j\in\{1, \dots, K\}} \bigAbs{F_\vecbf{A}(x_i)_j - F_\vecbf{\bar A}(x_i)_j} \\
+    &= \frac{2}{r}\max_{j\in\{1, \dots, K\}} \bigAbs{
+        A^{(2)}_j\sigma\bigRound{A^{(1)}x_i} - \bar A^{(2)}_j\sigma\bigRound{\bar A^{(1)}x_i}
+    } \\
+    &= \frac{2}{r}\max_{j\in\{1, \dots, K\}} \bigAbs{
+        A_j^{(2)}\bigRound{\sigma\bigRound{A^{(1)}x_i} - \sigma\bigRound{\bar A^{(1)}x_i}}
+        + \bigRound{A_j^{(2)} - \bar A_j^{(2)}}\sigma\bigRound{\bar A^{(1)}x_i} 
+    } \\
+    &\le \frac{2}{r}\max_{j\in\{1, \dots, K\}}\bigAbs{
+        A_j^{(2)}\bigRound{\sigma\bigRound{A^{(1)}x_i} - \sigma\bigRound{\bar A^{(1)}x_i}}
+    } + \frac{2}{r}\max_{j\in\{1, \dots, K\}}\bigAbs{
+        \bigRound{A_j^{(2)} - \bar A_j^{(2)}}\sigma\bigRound{\bar A^{(1)}x_i} 
+    }
 \end{align*}
+
+\noindent\textbf{Covering $\max_{j\in\{1, \dots, K\}}\bigAbs{A_j^{(2)}\bigRound{\sigma\bigRound{A^{(1)}x_i} -\sigma\bigRound{\bar A^{(1)}x_i}}}$} : Suppose that $\mathcal{C}_1$ is the desired cover with granularity $\epsilon_1>0$, we have:
+\begin{align*}
+    \max_{j\in\{1, \dots, K\}} \bigAbs{
+        A_j^{(2)}\bigRound{\sigma\bigRound{A^{(1)}x_i} -\sigma\bigRound{\bar A^{(1)}x_i}}
+    } &= \Big\|A^{(2)} \bigRound{\sigma\bigRound{A^{(1)}x_i} -\sigma\bigRound{\bar A^{(1)}x_i}}\Big\|_\infty \\
+    &\le \Big\|A^{(2)} \bigRound{\sigma\bigRound{A^{(1)}x_i} -\sigma\bigRound{\bar A^{(1)}x_i}}\Big\|_2 \\
+    &\le \|A^{(2)}\|_\sigma \cdot \Big\| \sigma\bigRound{A^{(1)}x_i} -\sigma\bigRound{\bar A^{(1)}x_i} \Big\|_2 \\
+    &\le s_2 \rho \Big\|A^{(1)}x_i - \bar A^{(1)}x_i \Big\|_2
+\end{align*}
+
+\noindent Define the following class $\F=\bigCurl{x\mapsto A^{(1)}x : \ A^{(1)}\in \R^{d_1\times d_0}, \ \|A^{(1)}\|_{2, 1} \le a_1, \ \|x\|_2 \le 1}$. By lemma 3.2 from \cite{article:bartlett}, we have:
+\begin{align*}
+    \ln \mathcal{N}\bigRound{
+        \F, \epsilon_1, \|.\|_2^S
+    } \le \Bigg\lceil\frac{a_1^2}{\epsilon_1^2}\Bigg\rceil \log(2d_0d_1)
+\end{align*}
+
+\noindent Where the norm $\|.\|_2^S$ defined for a multiple output function $f\in\F$ is defined as:
+\begin{align*}
+    \|f\|_2^S = \sqrt{
+        \frac{1}{n}\sum_{i=1}^n \|A^{(1)}x_i\|_2^2
+    }
+\end{align*}
+
+\noindent From the above, we have:
+\begin{align*}
+    \log|\mathcal{C}_1| \le \Bigg\lceil \frac{a_1^2s_2^2\rho^2}{\epsilon_1^2}\Bigg\rceil\log(2d_0d_1) \ \ \ (1)
+\end{align*}
+
+\noindent\newline\textbf{Covering $\max_{j\in\{1, \dots, K\}}\bigAbs{\bigRound{A_j^{(2)} - \bar A_j^{(2)}}\sigma\bigRound{\bar A^{(1)}x_i}}$} : Suppose that $\mathcal{C}_2$ is the desired cover with granularity $\epsilon_2>0$. We have:
+\begin{align*}
+    \Big\|\sigma\bigRound{\bar A^{(1)}x_i}\Big\|_2
+    &\le \rho \cdot \|\bar A^{(1)} x_i \|_2 \\
+    &\le \rho \cdot \|\bar A^{(1)}\|_\sigma \|x_i\|_2 \\
+    &\le \rho s_1
+\end{align*}
+
+\noindent Hence, we can cover the above term by covering the following function class with respect to the $\|.\|_\infty^S$ norm:
+\begin{align*}
+    \Hf = \bigCurl{
+        z \mapsto A^{(2)}z : \|A^{(2)}\|_F \le R, \ \|z\|_2 \le \rho s_1
+    }
+\end{align*}
+
+\noindent Recall that we have already been able to cover such classes in section \ref{sec:rad_complexity_of_ramp_loss}. We have:
+
+\begin{align*}
+    \log\bigRound{\Hf_{|S}, \epsilon_2, \|.\|_\infty^S} \le \frac{36R^2\rho^2s_1^2}{\epsilon_2^2}\log\biggRound{
+        \biggRound{\frac{8R\rho s_1}{\epsilon_2} + 7}nd_2
+    }
+\end{align*}
+
+\noindent Hence, we have:
+\begin{align*}
+    \log|\mathcal{C}_2| \le \frac{36R^2\rho^2s_1^2}{\epsilon_2^2}\log\biggRound{
+        \biggRound{\frac{8R\rho s_1}{\epsilon_2} + 7}nd_2
+    } \ \ \ (2)
+\end{align*}
+
