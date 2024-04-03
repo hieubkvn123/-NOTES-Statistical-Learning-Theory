@@ -11,7 +11,10 @@
 \usepackage{xcolor}
 \usepackage{framed}
 \usepackage{etoolbox}
-\usepackage{biblatex} 
+\usepackage[
+    style=authoryear,
+    maxcitenames=1
+]{biblatex} 
 \usepackage{fancyhdr}
 \usepackage{booktabs}
 \usepackage{amsmath}
@@ -20,6 +23,8 @@
 \usepackage{eso-pic}
 \usepackage{hyperref}
 \usepackage{cleveref}
+
+%% Set bib style
 \addbibresource{main.bib} 
 
 %% Setting up hyperref options %%

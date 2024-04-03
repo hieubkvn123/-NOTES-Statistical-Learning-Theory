@@ -34,13 +34,19 @@
 
 \noindent Where $l_r$ is the ramp loss with margin $r\in(0,1)$.
 
-\noindent \color{red}
+\noindent\newline\color{red}
 From this point on, we will refer to $\|.\|_p$ as the $l^p$ norm and the $\|.\|_p^S$ as the norm of a function $f$ defined over a sample $S$. Specifically:
 \begin{align*}
     \|f\|_p^S = \biggRound{
         \frac{1}{|S|}\sum_{x_i \in S} f(x_i) ^p
     }^{1/p}
 \end{align*}
+
+\noindent We also define the $\infty$-norm over the sample of a function $f$ as followed:
+\begin{align*}
+    \|f\|_\infty^S = \sup_{x_i \in S} |f(x_i)|
+\end{align*}
+
 \color{black}
 
 \subsubsection{Solution}
@@ -97,17 +103,54 @@ From this point on, we will refer to $\|.\|_p$ as the $l^p$ norm and the $\|.\|_
     &\le \frac{2a_*\rho}{r} \Big\| A^{(1)}x_i - \bar A^{(1)}x_i \Big\|_2 + \frac{2}{r} \Big\| \bigRound{A^{(2)} - \bar A^{(2)}}\sigma\bigRound{\bar A^{(1)}x_i} \Big\|_\infty \\
 \end{align*}
 
-\noindent Now we define the following function classes
-\begin{align*}
-    \G_1 &= \bigCurl{
-        x \mapsto A^{(1)}x : \|A^{(1)}\|_\sigma \le s_1, \|(A^{(1)} - M^{(1)})^T\|_{2, 1} \le a_1
-    } \\
-    \G_2 &= \bigCurl{
-        z \mapsto A^{(2)}z : \|A^{(2)}\|_\sigma \le s_2, \|A^{(2)} - M^{(2)}\|_F \le a_*
-    }
-\end{align*}
+\noindent Use the notation $\mathcal{C}_\epsilon(X, \|.\|)$ to denote a minimal $\epsilon$-cover of a set $X$ with respect to the norm $\|.\|$. We will proceed to cover $\mathcal{L}_r$ with the following strategy:
 
-\noindent We will proceed to cover $\mathcal{L}_r$ through covering $\G_1, \G_2$ with the following strategy:
 \begin{itemize}
-    \item Derive the covering number with granularity $\epsilon_1 > 0$ for $\G_1$ with respect to the $\|.\|_2^S$ norm over the original sample dataset $S$. Denote the desired cover as $\mathcal{C}$.
+    \item Derive the covering number with granularity $\epsilon_1 > 0$ with respect to the $\|.\|_2^S$ norm over the original sample dataset $S$ for the following class: 
+    \begin{align*}
+        \G_1 = \bigCurl{
+            x \mapsto A^{(1)}x : \|A^{(1)}\|_\sigma \le s_1, \|(A^{(1)} - M^{(1)})^T\|_{2, 1} \le a_1
+        } 
+    \end{align*}
+    Denote the desired cover as $\mathcal{C}_1 = \mathcal{C}_{\epsilon_1}({\G_1}, \|.\|_2^S)$. We can easily derive the cardinality of $\mathcal{C}_1$ using lemma 3.2 in \cite{article:bartlett}.
+
+    \item With granularity $\epsilon_2 > 0$, define the cover $\mathcal{C}_2$ as followed:
+    \begin{align*}
+       \mathcal{C}_2 &= \bigcup_{\bar A^{(1)} \in \mathcal{C}_1} \mathcal{C}_{\epsilon_2} \bigRound{
+            \G_2, \|.\|_\infty^{Z(\bar A^{(1)})}
+       } \\
+       \text{Where } &\begin{cases}
+            \G_2 &= \biggCurl{
+                    z \mapsto A^{(2)}z : \|A^{(2)}\|_\sigma \le s_2, \ \|A^{(2)} - M^{(2)}\|_F \le a_*
+            } \\ \\
+            Z(\bar A^{(1)}) &= \biggCurl{ \sigma\bigRound{\bar A^{(1)}x_i} : x_i \in S }, \ \text{for every } \bar A^{(1)}\in\mathcal{C}_1
+       \end{cases}
+    \end{align*}
+
+    We have:
+    \begin{align*}
+        |\mathcal{C}_2| \le \sum_{\bar A^{(1)} \in \mathcal{C}_1} \bigAbs{
+            \mathcal{C}_{\epsilon_2} \bigRound{
+                \G_2, \|.\|_\infty^{Z(\bar A^{(1)})}
+            } 
+        } \le |\mathcal{C}_1| \cdot \sup_{\bar A^{(1)} \in \mathcal{C}_1} \mathcal{N}\bigRound{
+            \G_2, \epsilon_2, \|.\|_\infty^{Z(\bar A^{(1)})}
+        }
+    \end{align*}
+
+    \item For all $L_\vecbf{A}\in\mathcal{L}_r, \ \vecbf{A}=\Big(A^{(1)}, A^{(2)}\Big)$, we can choose $\vecbf{\bar A}=\Big( \bar A^{(1)}, \bar A^{(2)} \Big)$ such that $g_{\bar A^{(1)}}\in \mathcal{C}_1$ and $g_{\bar A^{(2)}} \in \mathcal{C}_{\epsilon_2}\bigRound{\G_2, \|.\|_\infty^{Z(\bar A^{(1)})}}\subset\mathcal{C}_2$ and:
+
+    \begin{align*}
+        \bigAbs{
+            L_\vecbf{A}(x_i, y_i) - L_\vecbf{\bar A}(x_i, y_i) 
+        } &\le \frac{2a_*\rho}{r} \Big\|A^{(1)}x_i - \bar A^{(1)}x_i\Big\|_2 + \frac{2}{r}\Big\| \bigRound{
+            A^{(2)} - \bar A^{(2)}
+        }\sigma\bigRound{\bar A^{(1)}x_i} \Big\|_\infty \\
+        &\le \frac{2a_*\rho}{r} \epsilon_1 + \frac{2}{r}\epsilon_2
+    \end{align*}
+
+    \noindent For an arbitrary $\epsilon>0$ that we want to impose on the cover of $\mathcal{L}_r$, we set:
+    \begin{align*}
+        \epsilon_1 &= \frac{r\epsilon}{4a_*\rho}, \ \ \epsilon_2 = \frac{r\epsilon}{4}
+    \end{align*}
 \end{itemize}
