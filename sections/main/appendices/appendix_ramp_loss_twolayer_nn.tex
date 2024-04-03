@@ -38,7 +38,7 @@
 From this point on, we will refer to $\|.\|_p$ as the $l^p$ norm and the $\|.\|_p^S$ as the norm of a function $f$ defined over a sample $S$. Specifically:
 \begin{align*}
     \|f\|_p^S = \biggRound{
-        \sum_{x_i \in S} f(x_i) ^p
+        \frac{1}{|S|}\sum_{x_i \in S} f(x_i) ^p
     }^{1/p}
 \end{align*}
 \color{black}
@@ -85,65 +85,11 @@ From this point on, we will refer to $\|.\|_p$ as the $l^p$ norm and the $\|.\|_
         A_j^{(2)}\bigRound{\sigma\bigRound{A^{(1)}x_i} - \sigma\bigRound{\bar A^{(1)}x_i}}
     } + \frac{2}{r}\max_{j\in\{1, \dots, K\}}\bigAbs{
         \bigRound{A_j^{(2)} - \bar A_j^{(2)}}\sigma\bigRound{\bar A^{(1)}x_i} 
-    }
+    } \\
+    &= \frac{2}{r}\Big\| 
+        A^{(2)}\bigRound{\sigma\bigRound{A^{(1)}x_i} - \sigma\bigRound{\bar A^{(1)}x_i}}
+    \Big\|_\infty + 
+    \frac{2}{r}\Big\|
+        \bigRound{A^{(2)} - \bar A^{(2)}}\sigma\bigRound{\bar A^{(1)}x_i} 
+    \Big\|_\infty \\
 \end{align*}
-
-\noindent\textbf{Covering $\max_{j\in\{1, \dots, K\}}\bigAbs{A_j^{(2)}\bigRound{\sigma\bigRound{A^{(1)}x_i} -\sigma\bigRound{\bar A^{(1)}x_i}}}$} : Suppose that $\mathcal{C}_1$ is the desired cover with granularity $\epsilon_1>0$, we have:
-\begin{align*}
-    \max_{j\in\{1, \dots, K\}} \bigAbs{
-        A_j^{(2)}\bigRound{\sigma\bigRound{A^{(1)}x_i} -\sigma\bigRound{\bar A^{(1)}x_i}}
-    } &= \Big\|A^{(2)} \bigRound{\sigma\bigRound{A^{(1)}x_i} -\sigma\bigRound{\bar A^{(1)}x_i}}\Big\|_\infty \\
-    &\le \Big\|A^{(2)} \bigRound{\sigma\bigRound{A^{(1)}x_i} -\sigma\bigRound{\bar A^{(1)}x_i}}\Big\|_2 \\
-    &\le \|A^{(2)}\|_\sigma \cdot \Big\| \sigma\bigRound{A^{(1)}x_i} -\sigma\bigRound{\bar A^{(1)}x_i} \Big\|_2 \\
-    &\le s_2 \rho \Big\|A^{(1)}x_i - \bar A^{(1)}x_i \Big\|_2
-\end{align*}
-
-\noindent Define the following class $\F=\bigCurl{x\mapsto A^{(1)}x : \ A^{(1)}\in \R^{d_1\times d_0}, \ \|A^{(1)}\|_{2, 1} \le a_1, \ \|x\|_2 \le 1}$. By lemma 3.2 from \cite{article:bartlett}, we have:
-\begin{align*}
-    \ln \mathcal{N}\bigRound{
-        \F, \epsilon_1, \|.\|_2^S
-    } \le \Bigg\lceil\frac{a_1^2}{\epsilon_1^2}\Bigg\rceil \log(2d_0d_1)
-\end{align*}
-
-\noindent Where the norm $\|.\|_2^S$ defined for a multiple output function $f\in\F$ is defined as:
-\begin{align*}
-    \|f\|_2^S = \sqrt{
-        \frac{1}{n}\sum_{i=1}^n \|A^{(1)}x_i\|_2^2
-    }
-\end{align*}
-
-\noindent From the above, we have:
-\begin{align*}
-    \log|\mathcal{C}_1| \le \Bigg\lceil \frac{a_1^2s_2^2\rho^2}{\epsilon_1^2}\Bigg\rceil\log(2d_0d_1) \ \ \ (1)
-\end{align*}
-
-\noindent\newline\textbf{Covering $\max_{j\in\{1, \dots, K\}}\bigAbs{\bigRound{A_j^{(2)} - \bar A_j^{(2)}}\sigma\bigRound{\bar A^{(1)}x_i}}$} : Suppose that $\mathcal{C}_2$ is the desired cover with granularity $\epsilon_2>0$. We have:
-\begin{align*}
-    \Big\|\sigma\bigRound{\bar A^{(1)}x_i}\Big\|_2
-    &\le \rho \cdot \|\bar A^{(1)} x_i \|_2 \\
-    &\le \rho \cdot \|\bar A^{(1)}\|_\sigma \|x_i\|_2 \\
-    &\le \rho s_1
-\end{align*}
-
-\noindent Hence, we can cover the above term by covering the following function class with respect to the $\|.\|_\infty^S$ norm:
-\begin{align*}
-    \Hf = \bigCurl{
-        z \mapsto A^{(2)}z : \|A^{(2)}\|_F \le R, \ \|z\|_2 \le \rho s_1
-    }
-\end{align*}
-
-\noindent Recall that we have already been able to cover such classes in section \ref{sec:rad_complexity_of_ramp_loss}. We have:
-
-\begin{align*}
-    \log\bigRound{\Hf_{|S}, \epsilon_2, \|.\|_\infty^S} \le \frac{36R^2\rho^2s_1^2}{\epsilon_2^2}\log\biggRound{
-        \biggRound{\frac{8R\rho s_1}{\epsilon_2} + 7}nd_2
-    }
-\end{align*}
-
-\noindent Hence, we have:
-\begin{align*}
-    \log|\mathcal{C}_2| \le \frac{36R^2\rho^2s_1^2}{\epsilon_2^2}\log\biggRound{
-        \biggRound{\frac{8R\rho s_1}{\epsilon_2} + 7}nd_2
-    } \ \ \ (2)
-\end{align*}
-
