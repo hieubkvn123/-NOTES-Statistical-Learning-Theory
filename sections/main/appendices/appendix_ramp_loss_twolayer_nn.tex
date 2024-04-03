@@ -7,7 +7,7 @@
     \mathcal{A} = \biggCurl{
         \bigRound{
             A^{(1)}, A^{(2)}
-        } : \|A^{(i)}\|_\sigma \le s_i, \ \| (A^{(i)} - M^{(i)})^T \|_{2, 1} \le a_i, \ \| A^{(2)} - M^{(2)} \|_F \le R
+        } : \|A^{(i)}\|_\sigma \le s_i, \ \| (A^{(i)} - M^{(i)})^T \|_{2, 1} \le a_i, \ \| A^{(2)} - M^{(2)} \|_F \le a_*
     }
 \end{align*}
 
@@ -92,4 +92,22 @@ From this point on, we will refer to $\|.\|_p$ as the $l^p$ norm and the $\|.\|_
     \frac{2}{r}\Big\|
         \bigRound{A^{(2)} - \bar A^{(2)}}\sigma\bigRound{\bar A^{(1)}x_i} 
     \Big\|_\infty \\
+    &\le \frac{2}{r} \|A^{(2)}\|_{2,\infty} \Big\| \sigma\bigRound{A^{(1)}x_i} - \sigma\bigRound{\bar A^{(1)}x_i} \Big\|_2  + \frac{2}{r} \Big\| \bigRound{A^{(2)} - \bar A^{(2)}}\sigma\bigRound{\bar A^{(1)}x_i} \Big\|_\infty \\
+    &\le \frac{2a_*}{r} \Big\| \sigma\bigRound{A^{(1)}x_i - \bar A^{(1)}x_i}\Big\|_2 + \frac{2}{r} \Big\| \bigRound{A^{(2)} - \bar A^{(2)}}\sigma\bigRound{\bar A^{(1)}x_i} \Big\|_\infty \\
+    &\le \frac{2a_*\rho}{r} \Big\| A^{(1)}x_i - \bar A^{(1)}x_i \Big\|_2 + \frac{2}{r} \Big\| \bigRound{A^{(2)} - \bar A^{(2)}}\sigma\bigRound{\bar A^{(1)}x_i} \Big\|_\infty \\
 \end{align*}
+
+\noindent Now we define the following function classes
+\begin{align*}
+    \G_1 &= \bigCurl{
+        x \mapsto A^{(1)}x : \|A^{(1)}\|_\sigma \le s_1, \|(A^{(1)} - M^{(1)})^T\|_{2, 1} \le a_1
+    } \\
+    \G_2 &= \bigCurl{
+        z \mapsto A^{(2)}z : \|A^{(2)}\|_\sigma \le s_2, \|A^{(2)} - M^{(2)}\|_F \le a_*
+    }
+\end{align*}
+
+\noindent We will proceed to cover $\mathcal{L}_r$ through covering $\G_1, \G_2$ with the following strategy:
+\begin{itemize}
+    \item Derive the covering number with granularity $\epsilon_1 > 0$ for $\G_1$ with respect to the $\|.\|_2^S$ norm over the original sample dataset $S$. Denote the desired cover as $\mathcal{C}$.
+\end{itemize}
