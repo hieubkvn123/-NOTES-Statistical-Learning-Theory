@@ -100,7 +100,7 @@ From this point on, we will refer to $\|.\|_p$ as the $l^p$ norm and the $\|.\|_
     \Big\|_\infty \\
     &\le \frac{2}{r} \|A^{(2)}\|_{2,\infty} \Big\| \sigma\bigRound{A^{(1)}x_i} - \sigma\bigRound{\bar A^{(1)}x_i} \Big\|_2  + \frac{2}{r} \Big\| \bigRound{A^{(2)} - \bar A^{(2)}}\sigma\bigRound{\bar A^{(1)}x_i} \Big\|_\infty \\
     &\le \frac{2a_*}{r} \Big\| \sigma\bigRound{A^{(1)}x_i - \bar A^{(1)}x_i}\Big\|_2 + \frac{2}{r} \Big\| \bigRound{A^{(2)} - \bar A^{(2)}}\sigma\bigRound{\bar A^{(1)}x_i} \Big\|_\infty \\
-    &\le \frac{2a_*\rho}{r} \Big\| A^{(1)}x_i - \bar A^{(1)}x_i \Big\|_2 + \frac{2}{r} \Big\| \bigRound{A^{(2)} - \bar A^{(2)}}\sigma\bigRound{\bar A^{(1)}x_i} \Big\|_\infty \\
+    &\le \frac{2a_*\rho}{r} \Big\| A^{(1)}x_i - \bar A^{(1)}x_i \Big\|_2 + \frac{2}{r} \max_{x_* \in S}\Big\| \bigRound{A^{(2)} - \bar A^{(2)}}\sigma\bigRound{\bar A^{(1)}x_*} \Big\|_\infty \\
 \end{align*}
 
 \noindent Use the notation $\mathcal{C}_\epsilon(X, \|.\|)$ to denote a minimal $\epsilon$-cover of a set $X$ with respect to the norm $\|.\|$. We will proceed to cover $\mathcal{L}_r$ with the following strategy:
@@ -117,46 +117,91 @@ From this point on, we will refer to $\|.\|_p$ as the $l^p$ norm and the $\|.\|_
     \item With granularity $\epsilon_2 > 0$, define the cover $\mathcal{C}_2$ as followed:
     \begin{align*}
        \mathcal{C}_2 &= \bigcup_{\bar A^{(1)} \in \mathcal{C}_1} \mathcal{C}_{\epsilon_2} \bigRound{
-            \G_2, \|.\|_\infty^{Z(\bar A^{(1)})}
+            \G_2, \|.\|_*^{Z(\bar A^{(1)})}
        } \\
        \text{Where } &\begin{cases}
             \G_2 &= \biggCurl{
                     z \mapsto A^{(2)}z : \|A^{(2)}\|_\sigma \le s_2, \ \|A^{(2)} - M^{(2)}\|_F \le a_*
-            } \\ \\
+            } \\
             Z(\bar A^{(1)}) &= \biggCurl{ \sigma\bigRound{\bar A^{(1)}x_i} : x_i \in S }, \ \text{for every } \bar A^{(1)}\in\mathcal{C}_1
        \end{cases}
+    \end{align*}
+
+    We denote the $\|.\|_*^Z$ norm over a sample dataset $Z$ of a function $g\in\G_2$ as followed:
+    \begin{align*}
+        \|g\|_*^Z = \max_{z_* \in Z} \|g(z_*)\|_\infty
     \end{align*}
 
     We have:
     \begin{align*}
         |\mathcal{C}_2| \le \sum_{\bar A^{(1)} \in \mathcal{C}_1} \bigAbs{
             \mathcal{C}_{\epsilon_2} \bigRound{
-                \G_2, \|.\|_\infty^{Z(\bar A^{(1)})}
+                \G_2, \|.\|_*^{Z(\bar A^{(1)})}
             } 
         } \le |\mathcal{C}_1| \cdot \sup_{\bar A^{(1)} \in \mathcal{C}_1} \mathcal{N}\bigRound{
-            \G_2, \epsilon_2, \|.\|_\infty^{Z(\bar A^{(1)})}
+            \G_2, \epsilon_2, \|.\|_*^{Z(\bar A^{(1)})}
         }
     \end{align*}
 
-    \item For all $L_\vecbf{A}\in\mathcal{L}_r, \ \vecbf{A}=\Big(A^{(1)}, A^{(2)}\Big)$, we can choose $\vecbf{\bar A}=\Big( \bar A^{(1)}, \bar A^{(2)} \Big)$ such that $g_{\bar A^{(1)}}\in \mathcal{C}_1$ and $g_{\bar A^{(2)}} \in \mathcal{C}_{\epsilon_2}\bigRound{\G_2, \|.\|_\infty^{Z(\bar A^{(1)})}}\subset\mathcal{C}_2$ and:
+    \item For all $L_\vecbf{A}\in\mathcal{L}_r, \ \vecbf{A}=\Big(A^{(1)}, A^{(2)}\Big)$, we can choose $\vecbf{\bar A}=\Big( \bar A^{(1)}, \bar A^{(2)} \Big)$ such that $\bar A^{(1)} \in \mathcal{C}_1$ and $\bar A^{(2)} \in \mathcal{C}_{\epsilon_2}\bigRound{\G_2, \|.\|_*^{Z(\bar A^{(1)})}}\subset\mathcal{C}_2$ (for the sake of brevity, we do not write elements of $\mathcal{C}_1, \mathcal{C}_2$ as functions but parameters instead) and:
 
     \begin{align*}
-        \bigAbs{
+        \sqrt{
+            \frac{1}{n} \sum_{i=1}^n \Big\|
+                A^{(1)}x_i - \bar A^{(1)}x_i
+            \Big\|_2^2 
+        } \le \epsilon_1, \ \
+        \max_{z^* \in Z(\bar A^{(1)})} \Big\| \bigRound{A^{(2)} - \bar A^{(2)}}z_* \Big\|_\infty \le \epsilon_2
+    \end{align*}
+
+    We have:
+    \begin{align*}
+        &\|L_\vecbf{A} - L_\vecbf{\bar A}\|_2^S \\
+        \ \ \ &= 
+        \sqrt{\frac{1}{n}\sum_{i=1}^n\bigAbs{
             L_\vecbf{A}(x_i, y_i) - L_\vecbf{\bar A}(x_i, y_i) 
-        } &\le \frac{2a_*\rho}{r} \Big\|A^{(1)}x_i - \bar A^{(1)}x_i\Big\|_2 + \frac{2}{r}\Big\| \bigRound{
-            A^{(2)} - \bar A^{(2)}
-        }\sigma\bigRound{\bar A^{(1)}x_i} \Big\|_\infty \\
-        &\le \frac{2a_*\rho}{r} \epsilon_1 + \frac{2}{r}\epsilon_2
+        }^2} \\
+        &\le \sqrt{
+            \frac{1}{n}\sum_{i=1}^n
+            \biggSquare{
+                \frac{2a_*\rho}{r} \Big\|A^{(1)}x_i - \bar A^{(1)}x_i\Big\|_2 + \frac{2}{r}\Big\| \bigRound{
+                    A^{(2)} - \bar A^{(2)}
+                }\sigma\bigRound{\bar A^{(1)}x_i} \Big\|_\infty
+            }^2
+        } \\
+        &\le \sqrt{
+            \frac{1}{n}\sum_{i=1}^n
+            \biggSquare{
+                \frac{2a_*\rho}{r} \Big\|A^{(1)}x_i - \bar A^{(1)}x_i\Big\|_2 + \frac{2}{r}\epsilon_2
+            }^2
+        } \\
+        &\le \sqrt{
+            \frac{1}{n}\sum_{i=1}^n \biggSquare{
+                \frac{2a_*\rho}{r} \Big\| 
+                    A^{(1)}x_i - \bar A^{(1)}x_i
+                \Big\|_2
+            }^2
+        } + \sqrt{
+            \frac{1}{n}\sum_{i=1}^n\biggSquare{
+                \frac{2\epsilon_2}{r}
+            }^2
+        } \ \ \ \text{(Minkowski's Inequality)} \\
+        &\le \frac{2a_*\rho\epsilon_1}{r} + \frac{2\epsilon_2}{r}
     \end{align*}
 
     \noindent For an arbitrary granularity $\epsilon>0$ that we want to impose on the cover of $\mathcal{L}_r$, in order to make $\bigAbs{L_\vecbf{A}(x_i, y_i) - L_\vecbf{\bar A}(x_i, y_i)} \le \epsilon$, set:
     \begin{align*}
-        \epsilon_1 &= \frac{r\epsilon}{4a_*\rho}, \ \ \epsilon_2 = \frac{r\epsilon}{4}
+        \epsilon_1 &= \frac{r\epsilon}{4a_*\rho}, \ \ \epsilon_2 = \frac{r\epsilon}{4} \implies \|L_\vecbf{A} - L_\vecbf{\bar A}\|_2^S \le \epsilon
     \end{align*}
 
-    \noindent Hence, we have:
+    \item Find the cardinality of $\mathcal{C}_1, \mathcal{C}_2$ with granularities $\epsilon_1, \epsilon_2$ defined above. Then, cover $\mathcal{L}_r$ using the fact that:
     \begin{align*}
-        \mathcal{N}\bigRound{\mathcal{L}_r, \epsilon, \|.\|_2^S} \le \log |\mathcal{C}_1| + \log |\mathcal{C}_2|
+        \log\mathcal{N}\bigRound{\mathcal{L}_r, \epsilon, \|.\|_2^S} &\le \log |\mathcal{C}_1| + \log |\mathcal{C}_2| \\
+            &\le 2\log|\mathcal{C}_1| + \log\biggRound{
+                \sup_{\bar A^{(1)} \in \mathcal{C}_1} \mathcal{N}\bigRound{
+                    \G_2, \epsilon_2, \|.\|_*^{Z(\bar A^{(1)})}
+                }
+            }   
     \end{align*}
 \end{itemize}
 
