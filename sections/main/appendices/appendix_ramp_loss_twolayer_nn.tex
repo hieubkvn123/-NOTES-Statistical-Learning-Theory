@@ -129,7 +129,7 @@ From this point on, we will refer to $\|.\|_p$ as the $l^p$ norm and the $\|.\|_
 
     We denote the $\|.\|_*^Z$ norm over a sample dataset $Z$ of a function $g\in\G_2$ as followed:
     \begin{align*}
-        \|g\|_*^Z = \max_{z_* \in Z} \|g(z_*)\|_\infty
+        \|g\|_*^Z = \max_{z_* \in Z}\max_{j\in\{1, \dots, d_2\}} |g_j(z_*)| = \max_{z_* \in Z} \|g(z_*)\|_\infty
     \end{align*}
 
     We have:
@@ -191,7 +191,7 @@ From this point on, we will refer to $\|.\|_p$ as the $l^p$ norm and the $\|.\|_
 
     \noindent For an arbitrary granularity $\epsilon>0$ that we want to impose on the cover of $\mathcal{L}_r$, in order to make $\bigAbs{L_\vecbf{A}(x_i, y_i) - L_\vecbf{\bar A}(x_i, y_i)} \le \epsilon$, set:
     \begin{align*}
-        \epsilon_1 &= \frac{r\epsilon}{4a_*\rho}, \ \ \epsilon_2 = \frac{r\epsilon}{4} \implies \|L_\vecbf{A} - L_\vecbf{\bar A}\|_2^S \le \epsilon
+        \epsilon_1 &= \frac{r\epsilon}{8a_*\rho}, \ \ \epsilon_2 = \frac{3r\epsilon}{8} \implies \|L_\vecbf{A} - L_\vecbf{\bar A}\|_2^S \le \frac{\epsilon}{4} + \frac{3\epsilon}{4} = \epsilon
     \end{align*}
 
     \item Find the cardinality of $\mathcal{C}_1, \mathcal{C}_2$ with granularities $\epsilon_1, \epsilon_2$ defined above. Then, cover $\mathcal{L}_r$ using the fact that:
@@ -201,7 +201,7 @@ From this point on, we will refer to $\|.\|_p$ as the $l^p$ norm and the $\|.\|_
                 \sup_{\bar A^{(1)} \in \mathcal{C}_1} \mathcal{N}\bigRound{
                     \G_2, \epsilon_2, \|.\|_*^{Z(\bar A^{(1)})}
                 }
-            }   
+            }  \ \ \ (1) 
     \end{align*}
 \end{itemize}
 
@@ -212,14 +212,21 @@ From this point on, we will refer to $\|.\|_p$ as the $l^p$ norm and the $\|.\|_
     \Bigg\rceil\log(2d_0d_1)
 \end{align*} 
 
-\noindent Setting $\epsilon_1=\frac{r\epsilon}{4a_*\rho}$ and let $W=\max\{d_0, d_1, d_2 \}$, we have:
+\noindent Setting $\epsilon_1=\frac{r\epsilon}{8a_*\rho}$ and let $W=\max\{d_0, d_1, d_2 \}$, we have:
 \begin{align*}
     \log |\mathcal{C}_1| \le \Bigg\lceil
-        \frac{16a_*^2a_1^2\rho^2}{r^2\epsilon^2}
+        \frac{64a_*^2a_1^2\rho^2}{r^2\epsilon^2}
     \Bigg\rceil\log(2d_0d_1) \le 
     \Bigg\lceil
-        \frac{16a_*^2a_1^2\rho^2}{r^2\epsilon^2}
+        \frac{64a_*^2a_1^2\rho^2}{r^2\epsilon^2}
     \Bigg\rceil\log(2W^2)
+\end{align*}
+
+\noindent Assuming $64a_*^2a_1^2\rho^2 \ge r^2\epsilon^2$, we have:
+\begin{align*}
+    \log |\mathcal{C}_1| \le \Bigg\lceil
+        \frac{64a_*^2a_1^2\rho^2}{r^2\epsilon^2}
+    \Bigg\rceil\log(2W^2) \le \frac{128a_*^2a_1^2\rho^2}{r^2\epsilon^2}\log(2W^2) \ \ \ (2)
 \end{align*}
 
 \noindent\newline\textbf{1.2. Bounding $|\mathcal{C}_2|$} : for any member $\bar A^{(1)}\in \mathcal{C}_1$, we have: 
@@ -274,8 +281,11 @@ From this point on, we will refer to $\|.\|_p$ as the $l^p$ norm and the $\|.\|_
             \biggRound{
                 \frac{8a_*s_1\rho}{\epsilon_2} + 7
             }nW
-        } \\
-    \implies 
+        }
+\end{align*}
+        
+\noindent Setting $\epsilon_2 = \frac{3r\epsilon}{8}$, we have:
+\begin{align*}
     \log\biggRound{
         \sup_{\bar A^{(1)} \in \mathcal{C}_1} \mathcal{N}\bigRound{\G_2, \epsilon_2, \|.\|_*^{Z(\bar A^{(1)})}}
     } &\le \frac{36a_*^2s_1^2\rho^2}{\epsilon_2^2} \log\biggRound{
@@ -283,13 +293,24 @@ From this point on, we will refer to $\|.\|_p$ as the $l^p$ norm and the $\|.\|_
             \frac{8a_*s_1\rho}{\epsilon_2} + 7
         }nW
     } \\
-    &= \frac{576a_*^2s_1^2\rho^2}{r^2\epsilon^2} \log\biggRound{
+    &= \frac{256a_*^2s_1^2\rho^2}{r^2\epsilon^2} \log\biggRound{
         \biggRound{
-            \frac{32a_*s_1\rho}{r\epsilon} + 7
+            \frac{64a_*s_1\rho}{3r\epsilon} + 7
         }nW
+    } \ \ \ (3)
+\end{align*}
+
+\noindent\newline\textbf{1.3. Combine $\mathcal{C}_1, \mathcal{C}_2$} : From $(1), (2)$ and $(3)$, we have:
+\begin{align*}
+    \log\mathcal{N}\bigRound{\mathcal{L}_r, \epsilon, \|.\|_2^S} &\le 2\log|\mathcal{C}_1| + \log\biggRound{
+        \sup_{\bar A^{(1)} \in \mathcal{C}_1} \mathcal{N}\bigRound{\G_2, \epsilon_2, \|.\|_*^{Z(\bar A^{(1)})}}
+    } \\
+    &\le \frac{256a_*^2\rho^2}{r^2\epsilon^2}\biggSquare{
+        a_1^2\log(2W^2) + s_1^2\log\biggRound{\biggRound{
+            \frac{64a_*s_1\rho}{3r\epsilon} + 7
+        }nW}
     }
 \end{align*}
 
-\noindent Where the last inequality was obtained by setting $\epsilon_2=\frac{r\epsilon}{4}$.
 
 
