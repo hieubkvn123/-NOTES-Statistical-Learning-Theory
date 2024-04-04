@@ -90,3 +90,25 @@ $$
 
 
 Where $\mathfrak{R}_n$ denotes the $\color{red}\text{Rademacher complexity}$ of the hypothesis class.
+
+---
+
+# Rademacher complexity
+
+The Rademacher complexity is a **measure of richness** of a hypothesis class. It is defined as followed:
+$$
+\mathfrak{R}_n(\mathcal{H})
+= \mathbb{E}_S
+    \underbrace{
+        \mathbb{E}_\sigma\Bigg[
+            \frac{1}{n}\sup_{h\in\mathcal{H}} \sum_{x_i \in S} \sigma_i h(x_i)
+        \Bigg]        
+    }_{\text{Empirical Rademacher Complexity}}
+$$
+
+Where $\sigma_i\in\{-1, 1\}$ are $\color{red}\text{Rademacher variables}$ which assign equal probabilities for values $-1$ and $1$.
+
+---
+
+# Covering number and Dudley theorem
+
