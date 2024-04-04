@@ -215,10 +215,10 @@ From this point on, we will refer to $\|.\|_p$ as the $l^p$ norm and the $\|.\|_
 \noindent Setting $\epsilon_1=\frac{r\epsilon}{4a_*\rho}$ and let $W=\max\{d_0, d_1, d_2 \}$, we have:
 \begin{align*}
     \log |\mathcal{C}_1| \le \Bigg\lceil
-        \frac{16a_*^2a_1^2\rho^2}{r\epsilon^2}
+        \frac{16a_*^2a_1^2\rho^2}{r^2\epsilon^2}
     \Bigg\rceil\log(2d_0d_1) \le 
     \Bigg\lceil
-        \frac{16a_*^2a_1^2\rho^2}{r\epsilon^2}
+        \frac{16a_*^2a_1^2\rho^2}{r^2\epsilon^2}
     \Bigg\rceil\log(2W^2)
 \end{align*}
 
@@ -232,5 +232,64 @@ From this point on, we will refer to $\|.\|_p$ as the $l^p$ norm and the $\|.\|_
     \|z_i\|_2 &= \Big\| \sigma\bigRound{\bar A^{(1)} x_i} \Big\|_2 \le \rho\Big\|\bar A^{(1)}x_i\Big\|_2 \le \rho s_1
 \end{align*}
 
+\noindent To cover $\G_2$ with $\|.\|_*^{Z(\bar A^{(1)})}$ norm, define a new sample $Z'(\bar A^{(1)})$ derived from $Z(\bar A^{(1)})$ as followed: For every $z_i\in Z(\bar A^{(1)})$, create $d_2$ new $\R^{d_2 \cdot d_1}$ vectors $\{z_{i, j}\}_{j=1}^{d_2}$ such that the $((j-1)\times d_1 + 1)$ to $j \times d_1$ entries of $z_{i,j}$ are the same as $z_i$, the remaining entries are $0$. 
+\begin{align*}
+    z_i \mapsto \begin{cases}
+        z_{i, 1} &= \begin{pmatrix}
+            z_i & \vec{\bf 0}_{d_1} & \vec{\bf 0}_{d_1} & \vec{\bf 0}_{d_1} & \dots & \vec{\bf 0}_{d_1}
+        \end{pmatrix}^T \\
+        z_{i, 2} &= \begin{pmatrix}
+            \vec{\bf 0}_{d_1} & z_i & \vec{\bf 0}_{d_1} & \vec{\bf 0}_{d_1} & \dots & \vec{\bf 0}_{d_1}
+        \end{pmatrix}^T \\
+        &\vdots \\
+        z_{i, d_2} &= \begin{pmatrix}
+            \vec{\bf 0}_{d_1} & \vec{\bf 0}_{d_1} & \vec{\bf 0}_{d_1} & \vec{\bf 0}_{d_1} & \dots & z_i
+        \end{pmatrix}^T \\
+    \end{cases}    
+\end{align*}
+
+\noindent Where each $\vec{\bf 0}_{d_1}$ represents a $0$-vector with $d_1$ entries. Also, define the following new function class:
+\begin{align*}
+    \G_2' = \biggCurl{
+        z' \mapsto \tilde A^{(2)}z' : \tilde A^{(2)} = \begin{pmatrix}
+            A^{(2)}_1 & \dots & A^{(2)}_{d_2}
+        \end{pmatrix},  \ A^{(2)} \in \G_2, \ z' \in Z'(\bar A^{(1)})
+    }
+\end{align*}
+
+\noindent Specifically, each parameter $\tilde A^{(2)}$ of $\G_2'$ is created by concatenating rows of matrices $A^{(2)}\in \G_2$ to form $\R^{1\times d_2\cdot d_1}$ row vectors. We realize that to construct a cover for $\G_2$ with respect to $\|.\|_*^{Z(\bar A^{(1)})}$ is equivalent to constructing a cover for $\G_2'$ with respect to $\|.\|_\infty^{Z'(\bar A^{(1)})}$. Hence, we have:
+\begin{align*}
+    \mathcal{N}\bigRound{\G_2, \epsilon_2, \|.\|_*^{Z(\bar A^{(1)})}} = \mathcal{N}\bigRound{\G_2', \epsilon_2, \|.\|_\infty^{Z'(\bar A^{(1)})}}
+\end{align*}
+
+\noindent Since for all $A^{(2)}\in \G_2$, $\|A^{(2)}\|_F\le a_*$, we have $\|\tilde A^{(2)}\|_2\le a_*, \ \forall \tilde A^{(2)} \in \G_2'$. Also, we have $\|z'\|_2\le \rho s_1, \ \forall z'\in Z'(\bar A^{(1)})$. Therefore, by theorem 4 in \cite{article:tong_zhang}, we have:
+\begin{align*}
+    \log\mathcal{N}\bigRound{\G_2, \epsilon_2, \|.\|_*^{Z(\bar A^{(1)})}} &= \log\mathcal{N}\bigRound{\G_2', \epsilon_2, \|.\|_\infty^{Z'(\bar A^{(1)})}} \\
+        &\le \frac{36a_*^2s_1^2\rho^2}{\epsilon_2^2} \log\biggRound{
+            \biggRound{
+                \frac{8a_*s_1\rho}{\epsilon_2} + 7
+            }nd_2
+        } \\
+        &\le \frac{36a_*^2s_1^2\rho^2}{\epsilon_2^2} \log\biggRound{
+            \biggRound{
+                \frac{8a_*s_1\rho}{\epsilon_2} + 7
+            }nW
+        } \\
+    \implies 
+    \log\biggRound{
+        \sup_{\bar A^{(1)} \in \mathcal{C}_1} \mathcal{N}\bigRound{\G_2, \epsilon_2, \|.\|_*^{Z(\bar A^{(1)})}}
+    } &\le \frac{36a_*^2s_1^2\rho^2}{\epsilon_2^2} \log\biggRound{
+        \biggRound{
+            \frac{8a_*s_1\rho}{\epsilon_2} + 7
+        }nW
+    } \\
+    &= \frac{576a_*^2s_1^2\rho^2}{r^2\epsilon^2} \log\biggRound{
+        \biggRound{
+            \frac{32a_*s_1\rho}{r\epsilon} + 7
+        }nW
+    }
+\end{align*}
+
+\noindent Where the last inequality was obtained by setting $\epsilon_2=\frac{r\epsilon}{4}$.
 
 
