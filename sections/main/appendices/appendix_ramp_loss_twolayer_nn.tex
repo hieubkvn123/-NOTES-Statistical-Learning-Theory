@@ -98,12 +98,14 @@ From this point on, we will refer to $\|.\|_p$ as the $l^p$ norm and the $\|.\|_
     \frac{2}{r}\Big\|
         \bigRound{A^{(2)} - \bar A^{(2)}}\sigma\bigRound{\bar A^{(1)}x_i} 
     \Big\|_\infty \\
-    &\le \frac{2}{r} \|A^{(2)}\|_{2,\infty} \Big\| \sigma\bigRound{A^{(1)}x_i} - \sigma\bigRound{\bar A^{(1)}x_i} \Big\|_2  + \frac{2}{r} \Big\| \bigRound{A^{(2)} - \bar A^{(2)}}\sigma\bigRound{\bar A^{(1)}x_i} \Big\|_\infty \\
+    &\le \frac{2}{r} \|A^{(2)}\|_{2,\infty} \Big\| \sigma\bigRound{A^{(1)}x_i} - \sigma\bigRound{\bar A^{(1)}x_i} \Big\|_2  + \frac{2}{r} \Big\| \bigRound{A^{(2)} - \bar A^{(2)}}\sigma\bigRound{\bar A^{(1)}x_i} \Big\|_\infty \ \ \ (*) \\
     &\le \frac{2a_*}{r} \Big\| \sigma\bigRound{A^{(1)}x_i - \bar A^{(1)}x_i}\Big\|_2 + \frac{2}{r} \Big\| \bigRound{A^{(2)} - \bar A^{(2)}}\sigma\bigRound{\bar A^{(1)}x_i} \Big\|_\infty \\
     &\le \frac{2a_*\rho}{r} \Big\| A^{(1)}x_i - \bar A^{(1)}x_i \Big\|_2 + \frac{2}{r} \max_{x_* \in S}\Big\| \bigRound{A^{(2)} - \bar A^{(2)}}\sigma\bigRound{\bar A^{(1)}x_*} \Big\|_\infty \\
 \end{align*}
 
-\noindent Use the notation $\mathcal{C}_\epsilon(X, \|.\|)$ to denote a minimal $\epsilon$-cover of a set $X$ with respect to the norm $\|.\|$. We will proceed to cover $\mathcal{L}_r$ with the following strategy:
+\noindent The $\|.\|_{2,\infty}$ norm used in $(*)$ does not refer to the $(p, q)$-norm as defined above. Given a matrix $A\in\R^{m\times n}$, the $\|.\|_{2, \infty}$ norm is defined as $\|A\|_{2, \infty}=\max_{1\le i \le m}\|A_i\|_2$, which is the maximum $l^2$ norm of row vectors. Hence, $\|A^{(2)}\|_{2,\infty}\le \|A^{(2)}\|_F\le a_*$.
+
+\noindent\newline Use the notation $\mathcal{C}_\epsilon(X, \|.\|)$ to denote a minimal $\epsilon$-cover of a set $X$ with respect to the norm $\|.\|$. We will proceed to cover $\mathcal{L}_r$ with the following strategy:
 
 \begin{itemize}
     \item Derive the covering number with granularity $\epsilon_1 > 0$ with respect to the $\|.\|_2^S$ norm over the original sample dataset $S$ for the following class: 
