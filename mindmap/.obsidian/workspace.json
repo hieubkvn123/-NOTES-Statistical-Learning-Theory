@@ -15,8 +15,8 @@
               "state": {
                 "file": "FA/FA-main.canvas",
                 "viewState": {
-                  "x": 255,
-                  "y": 152.5,
+                  "x": 358.8116480793061,
+                  "y": 6.514869888475857,
                   "zoom": -0.6978245186674604
                 }
               }
@@ -25,16 +25,16 @@
         ]
       },
       {
-        "id": "085c5b0a39b27e8d",
+        "id": "cf0da2f4b481b7c2",
         "type": "tabs",
         "children": [
           {
-            "id": "e702aaa74f90ad34",
+            "id": "c678ad0bf8798421",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "FA/sections/banach-space/Uniform Boundedness Theorem.md",
+                "file": "FA/sections/banach-space/Open Mapping Theorem.md",
                 "mode": "source",
                 "source": false
               }
@@ -106,7 +106,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "FA/sections/banach-space/Uniform Boundedness Theorem.md",
+                "file": "FA/sections/banach-space/Open Mapping Theorem.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -123,7 +123,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "FA/sections/banach-space/Uniform Boundedness Theorem.md",
+                "file": "FA/sections/banach-space/Open Mapping Theorem.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -146,7 +146,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "FA/sections/banach-space/Uniform Boundedness Theorem.md"
+                "file": "FA/sections/banach-space/Open Mapping Theorem.md"
               }
             }
           },
@@ -176,13 +176,13 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "e702aaa74f90ad34",
+  "active": "c678ad0bf8798421",
   "lastOpenFiles": [
-    "FA/sections/banach-space/Baire's theorem.md",
-    "FA/sections/banach-space/Uniform Boundedness Theorem.md",
     "FA/FA-main.canvas",
-    "FA/sections/banach-space/Hahn-Banach Theorem.md",
     "FA/sections/banach-space/Zorn's Lemma.md",
+    "FA/sections/banach-space/Uniform Boundedness Theorem.md",
+    "FA/sections/banach-space/Baire's theorem.md",
+    "FA/sections/banach-space/Hahn-Banach Theorem.md",
     "FA/templates/Theorem Template.md",
     "FA/sections/banach-space",
     "FA/sections/banach-space/Closed Graph Theorem.md",

@@ -59,10 +59,20 @@ $$
 $$
 ---
 
-Now that we have proved that $X_n$ is closed for all $n\in\mathbb{N}$. By [[Baire's theorem]], there exists $m\in\mathbb{N}$ such that $X_m$ contains an open ball. Suppose we have $\mathcal{B}(x, \epsilon)\subset X_m, \ \epsilon>0, x\in X_m$. We have:
+Now that we have proved that $X_n$ is closed for all $n\in\mathbb{N}$. By [[Baire's theorem]], there exists $m\in\mathbb{N}$ such that $X_m$ contains an open ball. Suppose we have $\mathcal{B}(x, \epsilon)\subset X_m, \ \epsilon>0, x\in X_m$. For any $u\in\mathcal{X}$ such that $\|u\|_\mathcal{X}\le 1$, we have:
 $$
 \begin{align*}
-\|
+\|Tu\|_Y &= \epsilon^{-1}\|T(x + \epsilon u) - Tx\|_Y, \ \ \ (T\text{ is linear}) \\
+&\le \epsilon^{-1} \|T(x+\epsilon u) \|_Y + \epsilon^{-1}\|Tx\|_Y  \\
+&\le \epsilon^{-1}(m+m) = 2\epsilon^{-1}m \ \ \ (*)
+\end{align*}
+$$
+
+We have the conclusion in $(*)$ because we have $x\in X_m$ as assumed and $\|x+\epsilon u\|_\mathcal{X} \le \|x\|_\mathcal{X} + \epsilon\|u\|_\mathcal{X} = \|x\|_\mathcal{X} + \epsilon$. Hence, $x+\epsilon u \in \mathcal{B}(x, \epsilon)\subset X_m$. Taking the supremum over the set of $\{u\in\mathcal{X}:\|u\|_\mathcal{X}\le 1\}$ as well as over $\mathbb{B}(\mathcal{X}, Y)$, we have:
+
+$$
+\begin{align*}
+\sup_{T\in\mathbb{B}(\mathcal{X}, Y)}\sup_{\|u\|_\mathcal{X}\le 1} \|Tu\|_Y &= \sup_{T\in\mathbb{B}(\mathcal{X}, Y)} \|T\|_{op} \le 2\epsilon^{-1}m
 \end{align*}
 $$
 
