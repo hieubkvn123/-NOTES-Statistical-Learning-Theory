@@ -13,11 +13,11 @@
             "state": {
               "type": "canvas",
               "state": {
-                "file": "sections/2. Vapnik-Chevronenkis Theory.canvas",
+                "file": "SLT/SLT Main.canvas",
                 "viewState": {
-                  "x": 1343.450470153075,
-                  "y": 2096.999165567207,
-                  "zoom": -1.3859045435839281
+                  "x": -109.73626373626377,
+                  "y": 133.89560439560438,
+                  "zoom": -0.18569231730062893
                 }
               }
             }
@@ -88,7 +88,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "sections/2. Vapnik-Chevronenkis Theory.canvas",
+                "file": "SLT/SLT Main.canvas",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -105,7 +105,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "sections/2. Vapnik-Chevronenkis Theory.canvas",
+                "file": "SLT/SLT Main.canvas",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -128,7 +128,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "sections/2. Vapnik-Chevronenkis Theory.canvas"
+                "file": "SLT/SLT Main.canvas"
               }
             }
           }
@@ -149,23 +149,24 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "e702aaa74f90ad34",
+  "active": "9342f7699e98eb8e",
   "lastOpenFiles": [
-    "docs/VC-theorem-proof.pdf",
+    "SLT",
+    "SLT/sections/2. Vapnik-Chevronenkis Theory.canvas",
+    "SLT/docs/VC-theorem-proof.pdf",
     "docs/A-probabilistic-theory-of-pattern-recognition.pdf",
-    "docs",
+    "SLT/docs",
     "A-probabilistic-theory-of-pattern-recognition.pdf",
-    "sections/3. Rademacher Complexity.canvas",
-    "SLT Main.canvas",
-    "sections/2. Vapnik-Chevronenkis Theory.canvas",
+    "SLT/sections/3. Rademacher Complexity.canvas",
+    "SLT/SLT Main.canvas",
     "styles",
-    "sections/1. Fundamentals of SLT.canvas",
+    "SLT/sections/1. Fundamentals of SLT.canvas",
     "Fundamentals of SLT.canvas.canvas",
     "SLT-mindmap.canvas.canvas",
     "Untitled.md",
     "Untitled 1.md",
     "proofs/Hoeffding's Lemma.md",
     "proofs/Hoeffding's Inequality.md",
-    "sections"
+    "SLT/sections"
   ]
 }
