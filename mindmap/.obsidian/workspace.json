@@ -8,17 +8,35 @@
         "type": "tabs",
         "children": [
           {
-            "id": "e702aaa74f90ad34",
+            "id": "c2aeb7ea5e26bc56",
             "type": "leaf",
             "state": {
               "type": "canvas",
               "state": {
-                "file": "SLT/SLT Main.canvas",
+                "file": "FA/FA-main.canvas",
                 "viewState": {
-                  "x": -109.73626373626377,
-                  "y": 133.89560439560438,
-                  "zoom": -0.18569231730062893
+                  "x": 255,
+                  "y": 152.5,
+                  "zoom": -0.6978245186674604
                 }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "id": "085c5b0a39b27e8d",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e702aaa74f90ad34",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "FA/sections/banach-space/Uniform Boundedness Theorem.md",
+                "mode": "source",
+                "source": false
               }
             }
           }
@@ -72,7 +90,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 200
   },
   "right": {
     "id": "b060dcc4cee97fd3",
@@ -88,7 +106,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "SLT/SLT Main.canvas",
+                "file": "FA/sections/banach-space/Uniform Boundedness Theorem.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -105,7 +123,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "SLT/SLT Main.canvas",
+                "file": "FA/sections/banach-space/Uniform Boundedness Theorem.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -128,15 +146,24 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "SLT/SLT Main.canvas"
+                "file": "FA/sections/banach-space/Uniform Boundedness Theorem.md"
               }
             }
+          },
+          {
+            "id": "45224f4ab184bf05",
+            "type": "leaf",
+            "state": {
+              "type": "advanced-tables-toolbar",
+              "state": {}
+            }
           }
-        ]
+        ],
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
-    "width": 300,
+    "width": 200,
     "collapsed": true
   },
   "left-ribbon": {
@@ -149,8 +176,23 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "9342f7699e98eb8e",
+  "active": "e702aaa74f90ad34",
   "lastOpenFiles": [
+    "FA/sections/banach-space/Baire's theorem.md",
+    "FA/sections/banach-space/Uniform Boundedness Theorem.md",
+    "FA/FA-main.canvas",
+    "FA/sections/banach-space/Hahn-Banach Theorem.md",
+    "FA/sections/banach-space/Zorn's Lemma.md",
+    "FA/templates/Theorem Template.md",
+    "FA/sections/banach-space",
+    "FA/sections/banach-space/Closed Graph Theorem.md",
+    "FA/sections/banach-space/Open Mapping Theorem.md",
+    "FA/templates",
+    "FA/docs/baire_category_theorem.md",
+    "SLT/SLT Main.canvas",
+    "FA/docs",
+    "FA/sections",
+    "FA",
     "SLT",
     "SLT/sections/2. Vapnik-Chevronenkis Theory.canvas",
     "SLT/docs/VC-theorem-proof.pdf",
@@ -158,15 +200,12 @@
     "SLT/docs",
     "A-probabilistic-theory-of-pattern-recognition.pdf",
     "SLT/sections/3. Rademacher Complexity.canvas",
-    "SLT/SLT Main.canvas",
-    "styles",
     "SLT/sections/1. Fundamentals of SLT.canvas",
     "Fundamentals of SLT.canvas.canvas",
     "SLT-mindmap.canvas.canvas",
     "Untitled.md",
     "Untitled 1.md",
     "proofs/Hoeffding's Lemma.md",
-    "proofs/Hoeffding's Inequality.md",
-    "SLT/sections"
+    "proofs/Hoeffding's Inequality.md"
   ]
 }
