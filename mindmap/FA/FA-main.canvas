@@ -1,28 +1,33 @@
 {
 	"nodes":[
-		{"id":"08610dd28e27b525","type":"text","text":"Banach Space Theory","x":6,"y":-303,"width":214,"height":60},
-		{"id":"5dee11ad34dc3e5f","type":"text","text":"[[Baire's theorem]]","x":320,"y":-303,"width":180,"height":60,"color":"4"},
-		{"id":"051df47298818167","type":"text","text":"[[Closed Graph Theorem]]","x":600,"y":-166,"width":250,"height":60,"color":"3"},
-		{"id":"34d0fb6fa0badae1","type":"text","text":"[[Open Mapping Theorem]]","x":600,"y":-304,"width":250,"height":60,"color":"3"},
-		{"id":"465866ca4f606165","type":"text","text":"[[Uniform Boundedness Theorem]]","x":600,"y":-440,"width":231,"height":60,"color":"4"},
-		{"id":"25a385997e64ab8f","type":"text","text":"[[Zorn's Lemma]]","x":320,"y":-26,"width":180,"height":50,"color":"3"},
-		{"id":"8989ef1ef44c36a6","type":"text","text":"[[Hahn-Banach Theorem]]","x":600,"y":-31,"width":250,"height":60,"color":"3"},
 		{"id":"5cf1ed88dc1f0d7e","type":"text","text":"Functional Analysis\n(Permanent brain damage)","x":-340,"y":-55,"width":205,"height":109,"color":"1"},
-		{"id":"6abc5c93486e52b9","type":"text","text":"Measure Theory","x":6,"y":140,"width":214,"height":60},
-		{"id":"887dd94de893c9f0","type":"text","text":"Hilbert Space Theory","x":6,"y":685,"width":214,"height":60},
-		{"id":"a1803962f2a80134","type":"text","text":"$L^p$ Space Theory","x":6,"y":380,"width":214,"height":60}
+		{"id":"6abc5c93486e52b9","type":"text","text":"Measure Theory","x":106,"y":54,"width":214,"height":60},
+		{"id":"a1803962f2a80134","type":"text","text":"$L^p$ Space Theory","x":106,"y":294,"width":214,"height":60},
+		{"id":"887dd94de893c9f0","type":"text","text":"Hilbert Space Theory","x":106,"y":680,"width":214,"height":60},
+		{"id":"08610dd28e27b525","type":"text","text":"Banach Space Theory","x":106,"y":-463,"width":214,"height":60},
+		{"id":"5dee11ad34dc3e5f","type":"text","text":"[[Baire's theorem]]","x":480,"y":-463,"width":180,"height":60,"color":"4"},
+		{"id":"8989ef1ef44c36a6","type":"text","text":"[[Hahn-Banach Theorem]]","x":760,"y":-191,"width":250,"height":60,"color":"3"},
+		{"id":"25a385997e64ab8f","type":"text","text":"[[Zorn's Lemma]]","x":480,"y":-186,"width":180,"height":50,"color":"4"},
+		{"id":"051df47298818167","type":"text","text":"[[Closed Graph Theorem]]","x":1100,"y":-300,"width":250,"height":60,"color":"4"},
+		{"id":"465866ca4f606165","type":"text","text":"[[Uniform Boundedness Theorem]]","x":760,"y":-630,"width":231,"height":60,"color":"4"},
+		{"id":"34d0fb6fa0badae1","type":"text","text":"[[Open Mapping Theorem]]","x":1100,"y":-493,"width":250,"height":60,"color":"4"},
+		{"id":"9111b66ad2da5f89","type":"text","text":"[[Open Unit Ball Lemma]]","x":760,"y":-493,"width":250,"height":60,"color":"4"},
+		{"id":"14455c8634346895","type":"text","text":"[[Bounded Inverse Theorem]]","x":1440,"y":-493,"width":250,"height":60,"color":"4"}
 	],
 	"edges":[
 		{"id":"03f8e382fb852462","fromNode":"5cf1ed88dc1f0d7e","fromSide":"right","toNode":"08610dd28e27b525","toSide":"left"},
 		{"id":"da434d1fd727f315","fromNode":"08610dd28e27b525","fromSide":"right","toNode":"5dee11ad34dc3e5f","toSide":"left"},
 		{"id":"03a3740cad0b5d5f","fromNode":"5dee11ad34dc3e5f","fromSide":"right","toNode":"465866ca4f606165","toSide":"left"},
-		{"id":"68f3996643efd18f","fromNode":"5dee11ad34dc3e5f","fromSide":"right","toNode":"34d0fb6fa0badae1","toSide":"left"},
+		{"id":"68f3996643efd18f","fromNode":"5dee11ad34dc3e5f","fromSide":"right","toNode":"9111b66ad2da5f89","toSide":"left"},
 		{"id":"d9c391235127aadd","fromNode":"5dee11ad34dc3e5f","fromSide":"right","toNode":"051df47298818167","toSide":"left"},
-		{"id":"1c4c692492868bd7","fromNode":"34d0fb6fa0badae1","fromSide":"bottom","toNode":"051df47298818167","toSide":"top","label":"Equivalent"},
 		{"id":"d8de3f9f32cd5036","fromNode":"08610dd28e27b525","fromSide":"right","toNode":"25a385997e64ab8f","toSide":"left"},
 		{"id":"391d65c061b3a1a0","fromNode":"25a385997e64ab8f","fromSide":"right","toNode":"8989ef1ef44c36a6","toSide":"left"},
 		{"id":"b8d322e64132c289","fromNode":"5cf1ed88dc1f0d7e","fromSide":"right","toNode":"6abc5c93486e52b9","toSide":"left"},
 		{"id":"9e90d51e9de8ffd3","fromNode":"5cf1ed88dc1f0d7e","fromSide":"right","toNode":"a1803962f2a80134","toSide":"left"},
-		{"id":"25e33e459a5ec497","fromNode":"5cf1ed88dc1f0d7e","fromSide":"right","toNode":"887dd94de893c9f0","toSide":"left"}
+		{"id":"25e33e459a5ec497","fromNode":"5cf1ed88dc1f0d7e","fromSide":"right","toNode":"887dd94de893c9f0","toSide":"left"},
+		{"id":"b3bd077efc4868f6","fromNode":"9111b66ad2da5f89","fromSide":"right","toNode":"34d0fb6fa0badae1","toSide":"left"},
+		{"id":"ccb52c4ef7b81d78","fromNode":"34d0fb6fa0badae1","fromSide":"right","toNode":"14455c8634346895","toSide":"left"},
+		{"id":"cd43bf6e4c86458c","fromNode":"14455c8634346895","fromSide":"bottom","toNode":"051df47298818167","toSide":"right","label":"Proves"},
+		{"id":"406a5500fecd7a30","fromNode":"34d0fb6fa0badae1","fromSide":"bottom","toNode":"051df47298818167","toSide":"top","label":"Equivalent"}
 	]
 }
