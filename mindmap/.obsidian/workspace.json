@@ -15,8 +15,8 @@
               "state": {
                 "file": "FA/FA-main.canvas",
                 "viewState": {
-                  "x": 991.7684668818002,
-                  "y": -262.35755653485705,
+                  "x": 757.2855944175957,
+                  "y": 157.54150504243052,
                   "zoom": -1.2038861916417014
                 }
               }
@@ -29,12 +29,12 @@
         "type": "tabs",
         "children": [
           {
-            "id": "0a9b9b02afd67477",
+            "id": "b20d3bfc13c79b6d",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "FA/sections/banach-space/Closed Graph Theorem.md",
+                "file": "FA/sections/banach-space/Hahn-Banach Theorem.md",
                 "mode": "source",
                 "source": false
               }
@@ -90,7 +90,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 200,
+    "collapsed": true
   },
   "right": {
     "id": "b060dcc4cee97fd3",
@@ -106,7 +107,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "FA/FA-main.canvas",
+                "file": "FA/sections/banach-space/Hahn-Banach Theorem.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -123,7 +124,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "FA/FA-main.canvas",
+                "file": "FA/sections/banach-space/Hahn-Banach Theorem.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -146,7 +147,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "FA/FA-main.canvas"
+                "file": "FA/sections/banach-space/Hahn-Banach Theorem.md"
               }
             }
           },
@@ -173,20 +174,21 @@
       "canvas:Create new canvas": false,
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
-      "command-palette:Open command palette": false
+      "command-palette:Open command palette": false,
+      "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "c2aeb7ea5e26bc56",
+  "active": "b20d3bfc13c79b6d",
   "lastOpenFiles": [
-    "FA/sections/banach-space/Closed Graph Theorem.md",
     "FA/FA-main.canvas",
+    "FA/sections/banach-space/Hahn-Banach Theorem.md",
+    "FA/sections/banach-space/Closed Graph Theorem.md",
     "FA/sections/banach-space/Bounded Inverse Theorem.md",
     "FA/sections/banach-space/Zorn's Lemma.md",
     "FA/sections/banach-space/Open Mapping Theorem.md",
     "FA/sections/banach-space/Open Unit Ball Lemma.md",
     "FA/sections/banach-space/Uniform Boundedness Theorem.md",
     "FA/sections/banach-space/Baire's theorem.md",
-    "FA/sections/banach-space/Hahn-Banach Theorem.md",
     "FA/templates/Theorem Template.md",
     "FA/sections/banach-space",
     "FA/templates",
