@@ -21,6 +21,9 @@
 \usepackage{csquotes}
 \usepackage{tikz}
 \usepackage{eso-pic}
+\usepackage{mathabx}
+\usepackage{stackengine}
+% ------------------------------ %
 \usepackage{hyperref}
 \usepackage{cleveref}
 
@@ -34,6 +37,22 @@
     citecolor={blue!50!black},
     urlcolor={blue!80!black}
 }
+
+% Composition operator
+\DeclareFontFamily{U}{mathx}{\hyphenchar\font45}
+\DeclareFontShape{U}{mathx}{m}{n}{
+    <-6> mathx5
+    <6-7> mathx6
+    <7-8> mathx7
+    <8-9> mathx8
+    <9-10> mathx9
+    <10-12> mathx10
+    <12-> mathx12
+}{}
+\DeclareMathSymbol{\bigovoid}{\mathop}{mathx}{"EC}
+\newcommand{\bigO}{\mathop{\stackinset{c}{}{c}{}{ \scalebox{1.1}{$\bigovoid$}}{ \scalebox{1.15}{$\bigovoid$}}}}
+
+
 
 %% Theorem style %%
 \newtheoremstyle{definition}
@@ -200,3 +219,8 @@
 
 % Inner product
 \newcommand{\inner}[1]{\big<#1\big>}
+
+% To denote layer number in neural networks
+\newcommand{\A}[1]{A^{(#1)}}
+\newcommand{\M}[1]{M^{(#1)}}
+
