@@ -6,15 +6,15 @@
     \mathcal{A} = \bigCurl{
         \begin{pmatrix}
             A_1 & \dots & A_L
-        \end{pmatrix} : \|A_i\|_\sigma \le s_i, \|(A_i - M_i)^T\|_{2, 1}\le b_i
+        \end{pmatrix} : \|A_i\|_\sigma \le s_i, \|(A_i - M_i)^T\|_{2, 1}\le a_i, \|A_L - M_L\|_F \le a_*
     }
 \end{align*}
 
 \noindent Where $\|.\|_\sigma$ denotes the spectral norm and $\|.\|_{p, q}$ denotes the matrix $(p, q)$ norm defined as $\|A\|_{p, q} = \bigRound{\sum_j\bigRound{\sum_{i}|A_{ij}|^p}^{q/p}}^{1/q}$. Define the following class of neural networks:
 \begin{align*}
     \F_\mathcal{A} = \biggCurl{
-        x\mapsto \sigma_L \bigRound{
-            \bigcirc_{k=1}^{L-1} A_{k+1} \circ \sigma_k
+        x\mapsto A_L \bigRound{
+            \bigcirc_{k=1}^{L-1} \sigma_k \circ A_k
         }(x) : \sigma_k \text{ is } \rho_k\text{-Lipchitz}, \begin{pmatrix}
             A_1 & \dots & A_L
         \end{pmatrix} \in \mathcal{A}
@@ -30,4 +30,4 @@
     }
 \end{align*}
 
-\noindent Where $l_r$ is the ramp loss function.
+\noindent Where $l_r$ is the ramp loss function with margin $r\in(0,1)$.
