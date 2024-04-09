@@ -1,6 +1,7 @@
 \newpage
 \subsection{Rademacher Complexity of ramp loss for neural networks}
 \subsubsection{Problem Statement}
+\label{sec:rad_complexity_of_ramp_loss_nn}
 \textbf{Problem} : Given a tuple $\begin{pmatrix}\M{1} & \dots & \M{L}\end{pmatrix}$ of $L\ge 1$ reference matrices (that represents initial weights in a neural network). Let $\mathcal{A}$ be the class of tuples of $L$ weight matrices defined as followed:
 \begin{align*}
     \mathcal{A} = \bigCurl{
@@ -25,13 +26,46 @@
 \begin{align*}
     \mathcal{L}_r = \biggCurl{
         (x, y) \mapsto l_r\bigRound{
-            F_\mathcal{A}(x)_y - \max_{k\ne y}F_\mathcal{A}(x)_k
-        } \Bigg| F_\mathcal{A} \in \F_\mathcal{A}
+            F_\vecbf{A}(x)_y - \max_{k\ne y}F_\vecbf{A}(x)_k
+        } \Bigg| F_\vecbf{A} \in \F_\mathcal{A}
     }
 \end{align*}
 
 \noindent Where $l_r$ is the ramp loss function with margin $r\in(0,1)$.
 
+\subsubsection{Neural networks covering bounds with general norm}
+\begin{theorem}{Neural networks covering bound with general norm}{nn_cover_bound_with_general_norm}
+    Let $L \ge 1$ be a natural number and $\epsilon_1, \dots, \epsilon_L > 0$ be given as covering number granularities. Given the following:
+    \begin{itemize}
+        \item A sequence of vector spaces $\mathcal{V}_0, \dots, \mathcal{V}_L$ endowed with norms $|.|_0, \dots, |.|_L$.
+        \item A sequence of vector spaces $\mathcal{W}_1, \dots, \mathcal{W}_L$ endowed with norms $\|.\|_1, \dots, \|.\|_L$.
+        \item A sequence of real positive numbers $c_1, \dots, c_L$ and linear operators $\A{i} : \mathcal{V}_i \to \mathcal{W}_{i+1}$ associated with the operator norm:
+        \begin{align*}
+            \|\A{i}\|_{op} = \sup_{|Z|_i \le 1} \|A_iZ\|_{i+1} \le c_i, \ \forall i \in \{1, \dots, L\}
+        \end{align*}
 
-\subsubsection{Solution}
+        \item A sequence of real positive numbers $\rho_1, \dots, \rho_L$ and activation functions $\sigma_i:\mathcal{W}_i \to \mathcal{V}_i$ such that:
+        \begin{align*}
+            |\sigma_i(z_1) - \sigma_i(z_2)|_i \le \rho_i\|z_1 - z_2\|_i
+        \end{align*}
+
+        \item Let $\mathcal{A}\subseteq \mathcal{B}_1\times\dots\times\mathcal{B}_L$ be a class of tuples of matrices $(\A{1}, \dots, \A{L})$ such that each $\A{i} \in \mathcal{B}_i$ satisfies $\|\A{i}\|_{op} \le c_i$.
+
+        \item Define the class of neural networks $\F_\mathcal{A}$ as followed:
+        \begin{align*}
+            \F_\mathcal{A} = \biggCurl{
+                x\mapsto \A{L}\biggRound{
+                    \bigO_{k=1}^{L-1}\sigma_k \circ \A{k}
+                }(x) : (\A{1}, \dots, \A{L}) \in \mathcal{A}
+            }
+        \end{align*}
+        
+        \item Let $\tau$ be the aggregated granularity defined as:
+        \begin{align*}
+            \tau = \sum_{j=1}^L \epsilon_j \rho_j \prod_{l=j+1}^L \rho_lc_l
+        \end{align*}
+    \end{itemize}
+\end{theorem}
+
+\subsubsection{Solution to \ref{sec:rad_complexity_of_ramp_loss_nn}}
 
