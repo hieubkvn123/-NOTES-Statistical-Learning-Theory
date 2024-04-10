@@ -44,7 +44,7 @@
             \|\A{i}\|_{op} = \sup_{|Z|_i \le 1} \|A_iZ\|_{i+1} \le c_i, \ \forall i \in \{1, \dots, L\}
         \end{align*}
 
-        \item A sequence of real positive numbers $\rho_1, \dots, \rho_L$ and activation functions $\sigma_i:\mathcal{W}_i \to \mathcal{V}_i$ such that:
+        \item A sequence of real positive numbers $\rho_1, \dots, \rho_L$ and activation functions $\sigma_i:\mathcal{W}_i \to \mathcal{V}_i$ such that $\sigma_i$ are $\rho_i$-Lipchitz:
         \begin{align*}
             |\sigma_i(z_1) - \sigma_i(z_2)|_i \le \rho_i\|z_1 - z_2\|_i
         \end{align*}
@@ -66,6 +66,38 @@
         \end{align*}
     \end{itemize}
 \end{theorem}
+
+\begin{proof*}[Theorem \ref{thm:nn_cover_bound_with_general_norm}]
+    \begin{figure}[!ht]
+        \centering
+        \includegraphics[width=\textwidth]{figures/neural-network.png}
+        \caption{Illustration of a feedforward pass of a deep neural network with weight matrices $\vecbf{A}=\Big( \A{1}, \dots, \A{L} \Big)$}
+        \label{fig:neural-network-illustration}
+    \end{figure}
+
+    \noindent We will prove the above theorem inductively. Suppose we have a sample dataset $Z_0\subset\mathcal{V}_0$. Construct a minimum $\epsilon_1$-cover for $\F_1 = \bigCurl{\A{1}Z_0 : A_1 \in \mathcal{B}_1}$ called $\mathcal{C}_1$. Hence, for all $\A{1}\in\mathcal{B}_i$, there exists $\overline{\A{1}}\in\mathcal{C}_1$ such that:
+
+    \begin{align*}
+        \Big\|\A{1}Z_0 - \overline{\A{1}}Z_0\Big\|_1 \le \epsilon_1
+    \end{align*} 
+    
+    
+    \noindent For $i\ge 2$, define the class:
+    \begin{align*}
+        \F_i = \biggCurl{
+            \A{i}Z_{i-1} : \A{i} \in \mathcal{B}_i, Z_{i-1} = \sigma_{i-1}\bigRound{\A{i-1}Z_{i-2}}
+        }
+    \end{align*}
+
+
+    \noindent Suppose we have a minimum $\epsilon_{i-1}$-cover $\mathcal{C}_{i-1}$ of $\F_{i-1}$. Meaning, for all $\A{i-1}\in\mathcal{B}_{i-1}$, there exists $\overline{\A{i-1}}\in\mathcal{C}_{i-1}$ such that:
+    \begin{align*}
+        \Big\|\A{i-1}Z_{i-2} - \overline{\A{i-1}}Z_{i-2}\Big\|_{i-1} \le \epsilon_{i-1}
+    \end{align*}
+
+    \noindent For each element 
+\end{proof*}
+
 
 \subsubsection{Solution to \ref{sec:rad_complexity_of_ramp_loss_nn}}
 
