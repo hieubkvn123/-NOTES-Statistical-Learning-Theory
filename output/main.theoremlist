@@ -4,7 +4,7 @@
 \contentsline {tcolorbox}{\numberline {4.1}Uniform Deviation Bounds for finite $\mathcal {H}$}{22}{tcb@cnt@theorem.4.1}%
 \contentsline {tcolorbox}{\numberline {5.1}Sauer's Lemma}{32}{tcb@cnt@theorem.5.1}%
 \contentsline {tcolorbox}{\numberline {5.2}VC Theorem (for classifiers)}{34}{tcb@cnt@theorem.5.2}%
-\contentsline {tcolorbox}{\numberline {5.3}VC Theorem (for sets)}{39}{tcb@cnt@theorem.5.3}%
+\contentsline {tcolorbox}{\numberline {5.3}VC Theorem (for sets)}{38}{tcb@cnt@theorem.5.3}%
 \contentsline {tcolorbox}{\numberline {6.1}Bounded Difference (McDiarmid's) Inequality}{47}{tcb@cnt@theorem.6.1}%
 \contentsline {tcolorbox}{\numberline {6.2}One-sided Rademacher Complexity bound}{50}{tcb@cnt@theorem.6.2}%
 \contentsline {tcolorbox}{\numberline {6.3}Two-sided Rademacher Complexity bound}{52}{tcb@cnt@theorem.6.3}%
@@ -18,3 +18,4 @@
 \contentsline {tcolorbox}{\numberline {A.4}Maurey's Sparsification Lemma}{79}{tcb@cnt@theorem.A.4}%
 \contentsline {tcolorbox}{\numberline {A.5}Dudley's Entropy Integral bound}{81}{tcb@cnt@theorem.A.5}%
 \contentsline {tcolorbox}{\numberline {A.6}$l_\infty $ Contraction Inequality}{91}{tcb@cnt@theorem.A.6}%
+\contentsline {tcolorbox}{\numberline {A.7}Neural networks covering bound with general norm}{98}{tcb@cnt@theorem.A.7}%

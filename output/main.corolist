@@ -2,16 +2,16 @@
 \contentsline {tcolorbox}{\numberline {3.1}Chebyshev's Inequality}{14}{tcb@cnt@corollary.3.1}%
 \contentsline {tcolorbox}{\numberline {3.2}Chernoff's bounding method}{14}{tcb@cnt@corollary.3.2}%
 \contentsline {tcolorbox}{\numberline {3.3}Convergence of Empirical Risk}{17}{tcb@cnt@corollary.3.3}%
-\contentsline {tcolorbox}{\numberline {4.1}Excess Risk of $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle h_n$}\mathaccent "0362{h_n}$ - $\delta \to \epsilon $ relation}{24}{tcb@cnt@corollary.4.1}%
+\contentsline {tcolorbox}{\numberline {4.1}Excess Risk of $\widehat {h_n}$ - $\delta \to \epsilon $ relation}{24}{tcb@cnt@corollary.4.1}%
 \contentsline {tcolorbox}{\numberline {5.1}Sauer's lemma - bound on $S_\mathcal {H}(n)$ I}{33}{tcb@cnt@corollary.5.1}%
 \contentsline {tcolorbox}{\numberline {5.2}Sauer's lemma - bound on $S_\mathcal {H}(n)$ II}{34}{tcb@cnt@corollary.5.2}%
 \contentsline {tcolorbox}{\numberline {5.3}Sauer's lemma - bound on $S_\mathcal {H}(n)$ III}{34}{tcb@cnt@corollary.5.3}%
 \contentsline {tcolorbox}{\numberline {5.4}Convergence of Empirical Risk (VC-Theorem)}{35}{tcb@cnt@corollary.5.4}%
-\contentsline {tcolorbox}{\numberline {5.5}Excess Risk of $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle h_n$}\mathaccent "0362{h_n}$ - $\delta \to \epsilon $ relation (VC-Theorem)}{35}{tcb@cnt@corollary.5.5}%
+\contentsline {tcolorbox}{\numberline {5.5}Excess Risk of $\widehat {h_n}$ - $\delta \to \epsilon $ relation (VC-Theorem)}{35}{tcb@cnt@corollary.5.5}%
 \contentsline {tcolorbox}{\numberline {5.6}Linear classifiers have finite $V_\mathcal {H}$}{38}{tcb@cnt@corollary.5.6}%
 \contentsline {tcolorbox}{\numberline {5.7}Dvoretzky-Kiefer-Wolfowitz Inequality}{39}{tcb@cnt@corollary.5.7}%
 \contentsline {tcolorbox}{\numberline {5.8}VC-dimension bound for ensembled classifiers}{43}{tcb@cnt@corollary.5.8}%
 \contentsline {tcolorbox}{\numberline {6.1}UDB for binary classification using Rademacher Complexity}{53}{tcb@cnt@corollary.6.1}%
 \contentsline {tcolorbox}{\numberline {7.1}Hilbert Spaces as direct sum}{67}{tcb@cnt@corollary.7.1}%
 \contentsline {tcolorbox}{\numberline {7.2}$H = \ker (\Phi ) \oplus \ker (\Phi )^\perp $}{68}{tcb@cnt@corollary.7.2}%
-\contentsline {tcolorbox}{\numberline {A.1}Massart's lemma bound on $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle \mathfrak {R}$}\mathaccent "0362{\mathfrak {R}}_S(\mathcal {F})$}{75}{tcb@cnt@corollary.A.1}%
+\contentsline {tcolorbox}{\numberline {A.1}Massart's lemma bound on $\widehat {\mathfrak {R}}_S(\mathcal {F})$}{75}{tcb@cnt@corollary.A.1}%

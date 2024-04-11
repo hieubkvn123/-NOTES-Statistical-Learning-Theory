@@ -60,9 +60,16 @@
             }
         \end{align*}
         
-        \item Let $\tau$ be the aggregated granularity defined as:
+        \item Let $\tau$ be the aggregated granularity defined as $\tau = \sum_{j=1}^L \epsilon_j \bigRound{\prod_{l=j+1}^L \rho_lc_l}$ and $Z\subset\mathcal{V}_0$ be a sample dataset. We have:
         \begin{align*}
-            \tau = \sum_{j=1}^L \epsilon_j \rho_j \prod_{l=j+1}^L \rho_lc_l
+            \mathcal{N}\bigRound{
+                {\F_\mathcal{A}}_{|Z}, \tau, \|.\|_L
+            } \le \prod_{i=1}^L \sup_{\substack{
+                (\A{1}, \dots, \A{i-1}) \\
+                A_j \in \mathcal{B}_j, j \le i-1
+            }}\mathcal{N}\bigRound{
+                \bigCurl{\A{i}F_\vecbf{\A{1, i-1}}(Z) : \A{i} \in \mathcal{B}_i}, \epsilon_i, \|.\|_i
+            }
         \end{align*}
     \end{itemize}
 \end{theorem}
@@ -94,22 +101,36 @@
     \end{align*} 
     
     
-    \noindent We need to construct a cover $\mathcal{C}_i$ such that for all $\vecbf{\A{1, i}}\in \mathcal{B}_1\times\dots\times\mathcal{B}_i$, there exists $\vecbf{\bA{1, i}}\in \mathcal{C}_{i}$ such that: 
+    \noindent We need to construct a cover $\mathcal{C}_i$ with respect to norm $\|.\|_i$ with granularity $\tau_i>0$ such that for all $\vecbf{\A{1, i}}\in \mathcal{B}_1\times\dots\times\mathcal{B}_i$, there exists $\vecbf{\bA{1, i}}\in \mathcal{C}_{i}$ such that: 
     \begin{align*}
         \Big\|
             \A{i}F_\vecbf{\A{1, i-1}}(Z) - \bA{i}F_\vecbf{\bA{1, i-1}}(Z)
         \Big\|_i \le \epsilon_i
     \end{align*}
 
-    \noindent We have:
+    \noindent Suppose that we have constructed covers $\mathcal{C}_{i-1}, \mathcal{C}_{i-2}, \dots, \mathcal{C}_1$ with respect to norms $\|.\|_{i-1}, \|.\|_{i-2}, \dots, \|.\|_1$ with granularities $\tau_{i-1}, \tau_{i-2}, \dots, \tau_1$ (where $\mathcal{C}_1$ is the cover constructed in the base case with granularity $\tau_1=\epsilon_1$). We have:
+
     \begin{align*}
         \Big\|
-            \A{i}F_\vecbf{\A{1, i-1}}(Z) &- \bA{i}F_\vecbf{\bA{1, i-1}}(Z)
+            \A{i}F_\vecbf{\A{1, i-1}}&(Z) - \bA{i}F_\vecbf{\bA{1, i-1}}(Z)
         \Big\|_i \\
-            &\le \Big\|\bigRound{\A{i} - \bA{i}}F_\vecbf{\A{1, i-1}}(Z) \Big\|_i + \Big\| \bA{i}\bigRound{F_\vecbf{\A{1, i-1}} - F_\vecbf{\bA{1, i-1}}}(Z)\Big\|_i \\
-            &\le \Big\|\bigRound{\A{i} - \bA{i}}F_\vecbf{\A{1, i-1}}(Z) \Big\|_i + \Big\|\bA{i}\Big\|_{op} \cdot\Big| F_\vecbf{\A{1, i-1}}(Z) - F_\vecbf{\bA{1, i-1}}(Z) \Big|_{i-1} \\
-            &\le \Big\|\bigRound{\A{i} - \bA{i}}F_\vecbf{\A{1, i-1}}(Z) \Big\|_i + c_i\Big| F_\vecbf{\A{1, i-1}}(Z) - F_\vecbf{\bA{1, i-1}}(Z) \Big|_{i-1} \\
-            &\le \Big\|\bigRound{\A{i} - \bA{i}}F_\vecbf{\A{1, i-1}}(Z) \Big\|_i + c_i\rho_i\Big\| \A{i-1}F_\vecbf{\A{1, i-2}}(Z) - \bA{i-1}F_\vecbf{\bA{1, i-2}}(Z) \Big\|_{i-1} 
+            &\le \Big\|\bigRound{\A{i} - \bA{i}}F_\vecbf{\bA{1, i-1}}(Z) \Big\|_i 
+                + \Big\| \A{i}\bigRound{F_\vecbf{\A{1, i-1}}(Z) - F_\vecbf{\bA{1, i-1}}(Z)}\Big\|_i \\
+            &\le \Big\|\bigRound{\A{i} - \bA{i}}F_\vecbf{\bA{1, i-1}}(Z) \Big\|_i 
+                + \Big\|\A{i}\Big\|_{op} \cdot\Big| F_\vecbf{\A{1, i-1}}(Z) - F_\vecbf{\bA{1, i-1}}(Z) \Big|_{i-1} \\
+            &\le \Big\|\bigRound{\A{i} - \bA{i}}F_\vecbf{\bA{1, i-1}}(Z) \Big\|_i 
+                + c_i\Big| F_\vecbf{\A{1, i-1}}(Z) - F_\vecbf{\bA{1, i-1}}(Z) \Big|_{i-1} \\
+            &\le \Big\|\bigRound{\A{i} - \bA{i}}F_\vecbf{\bA{1, i-1}}(Z) \Big\|_i 
+                + c_i\rho_i\Big\| \A{i-1}F_\vecbf{\A{1, i-2}}(Z) - \bA{i-1}F_\vecbf{\bA{1, i-2}}(Z) \Big\|_{i-1} 
+    \end{align*}
+
+    \noindent Now, construct the minimum cover $\mathcal{C}_i$ as followed:
+    \begin{align*}
+        \mathcal{C}_i = \bigcup_{\vecbf{\bA{1, i-1}} \in \mathcal{C}_{i-1}}\biggCurl{
+            (\bA{1}, \dots, \bA{i-1}, \bA{i}) : \Big\|
+                \bigRound{\A{i} - \bA{i}}F_\vecbf{\bA{1, i-1}}(Z)
+            \Big\|_i \le \epsilon_i, \ \bA{i} \in \mathcal{B}_i
+        }
     \end{align*}
 \end{proof*}
 
