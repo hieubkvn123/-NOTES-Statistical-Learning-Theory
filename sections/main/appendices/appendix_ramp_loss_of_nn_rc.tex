@@ -75,27 +75,46 @@
         \label{fig:neural-network-illustration}
     \end{figure}
 
-    \noindent We will prove the above theorem inductively. Suppose we have a sample dataset $Z_0\subset\mathcal{V}_0$. Construct a minimum $\epsilon_1$-cover for $\F_1 = \bigCurl{\A{1}Z_0 : A_1 \in \mathcal{B}_1}$ called $\mathcal{C}_1$. Hence, for all $\A{1}\in\mathcal{B}_i$, there exists $\overline{\A{1}}\in\mathcal{C}_1$ such that:
+    \noindent We will prove the above theorem inductively. 
+    
+    \noindent\newline\textbf{Base case} : Suppose we have a sample dataset $Z_0\subset\mathcal{V}_0$. Construct a minimum $\epsilon_1$-cover for $\F_1 = \bigCurl{\A{1}Z_0 : A_1 \in \mathcal{B}_1}$ called $\mathcal{C}_1$. Hence, for all $\A{1}\in\mathcal{B}_i$, there exists $\overline{\A{1}}\in\mathcal{C}_1$ such that:
 
     \begin{align*}
         \Big\|\A{1}Z_0 - \overline{\A{1}}Z_0\Big\|_1 \le \epsilon_1
     \end{align*} 
     
     
-    \noindent For $i\ge 2$, define the class:
+    \noindent \textbf{Inductive step} : For $i\ge 2$, define $\vecbf{\A{1\to i}}$ as the extraction of the first $i$ layers for every $\vecbf{A}\in\mathcal{A}$. define the function $F_\vecbf{\A{1\to i}}$ as followed:
+    \begin{align*}
+        F_\vecbf{\A{1\to i}}(Z) = \sigma_i\bigRound{
+            \A{i}\sigma_{i-1}\bigRound{
+                \A{i-1}\dots\sigma_1\bigRound{\A{1}Z}\dots
+            }
+        }
+    \end{align*} 
+    
+    
+    \noindent Define the class:
     \begin{align*}
         \F_i = \biggCurl{
-            \A{i}Z_{i-1} : \A{i} \in \mathcal{B}_i, Z_{i-1} = \sigma_{i-1}\bigRound{\A{i-1}Z_{i-2}}
+            \A{i}F^{i-1}_\vecbf{A}(Z) : \A{i} \in \mathcal{B}_i        
         }
     \end{align*}
 
 
-    \noindent Suppose we have a minimum $\epsilon_{i-1}$-cover $\mathcal{C}_{i-1}$ of $\F_{i-1}$. Meaning, for all $\A{i-1}\in\mathcal{B}_{i-1}$, there exists $\overline{\A{i-1}}\in\mathcal{C}_{i-1}$ such that:
+    \noindent Suppose the minimum $\epsilon_{i-1}$-cover of $\F_{i-1}$ is $\mathcal{C}_{i-1}$: For $\vecbf{A}=\bigRound{\A{1}, \dots, \A{i-1}, \A{i}, \dots, \A{L}} \in \mathcal{A}$, there exists $\overline{\vecbf{A}} = \bigRound{\overline{\A{1}}, \dots, \overline{\A{i-1}}, \A{i}, \dots, \A{L}} \in \mathcal{C}_{i-1}$ such that:
     \begin{align*}
-        \Big\|\A{i-1}Z_{i-2} - \overline{\A{i-1}}Z_{i-2}\Big\|_{i-1} \le \epsilon_{i-1}
+        \Big\| F^{i-1}_\vecbf{A}(Z) - F^{i-1}_{\overline{\vecbf{A}}}(Z)\Big\|_{i-1} \le \epsilon_{i-1}
     \end{align*}
 
-    \noindent For each element 
+    \noindent For each element $\vecbf{\overline{A}}\in\mathcal{C}_{i-1}$, construct the $\epsilon_i$-cover $\mathcal{C}_i(\vecbf{\overline{A}})$ for the class $\biggCurl{\A{i}F^{i-1}_\vecbf{\overline{A}}(Z):\A{i}\in\mathcal{B}_i}$ and define:
+    \begin{align*}
+        \mathcal{C}_i = \bigcup_{\vecbf{\overline{A}}\in\mathcal{C}_{i-1}}\mathcal{C}_i (\vecbf{\overline{A}})\implies |\mathcal{C}_i| \le \sum_{\vecbf{\overline{A}}\in\mathcal{C}_{i-1}}|\mathcal{C}_i(\vecbf{\overline{A}})| \le |\mathcal{C}_{i-1}|\cdot\sup_{\vecbf{\overline{A}}\in\mathcal{C}_{i-1}} \mathcal{N}\bigRound{
+            \bigCurl{
+                \A{i}F^{i-1}_\vecbf{\overline{A}}(Z):\A{i}\in\mathcal{B}_i
+            }
+        }
+    \end{align*}
 \end{proof*}
 
 
