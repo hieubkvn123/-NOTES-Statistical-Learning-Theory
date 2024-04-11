@@ -115,21 +115,23 @@
         \Big\| \A{i-1}F_\vecbf{\A{1, i-2}}(Z) - \bA{i-1}F_\vecbf{\bA{1, i-2}}(Z)\Big\|_{i-1} \le \epsilon_{i-1}
     \end{align*}
 
-    \noindent For each $\vecbf{\bA{1, i-1}}\in\mathcal{C}_{i-1}$, construct the $\epsilon_i$-cover $\mathcal{C}_i\bigRound{\vecbf{\bA{1,i-1}}}$ for the following class:
+    \noindent For each $\vecbf{\bA{1, i-1}}\in\mathcal{C}_{i-1}$, construct the minimum $\epsilon_i$-cover $\mathcal{C}_i\bigRound{\vecbf{\bA{1,i-1}}}$ for the following class:
     \begin{align*}
         \bar \F_i = \biggCurl{\A{i}F_\vecbf{\bA{i, i-1}}(Z):\A{i}\in\mathcal{B}_i}
     \end{align*}
     
-    \noindent Then, we define the following cover:
+    \noindent Then, we construct the following cover:
     \begin{align*}
         \mathcal{C}_i &= \bigcup_{\vecbf{\bA{1, i-1}}\in\mathcal{C}_{i-1}}\mathcal{C}_i \bigRound{\vecbf{\bA{1, i-1}}}
         \\
         \implies 
-        |\mathcal{C}_i| &\le \sum_{\vecbf{\overline{A}}\in\mathcal{C}_{i-1}}|\mathcal{C}_i(\vecbf{\overline{A}})| \\
+        |\mathcal{C}_i| &\le \sum_{\vecbf{\bA{1, i-1}}\in\mathcal{C}_{i-1}}\Big|
+            \mathcal{C}_i \bigRound{\vecbf{\bA{1, i-1}}}
+        \Big| \\
         &\le |\mathcal{C}_{i-1}|\cdot\sup_{\vecbf{\overline{A}}\in\mathcal{C}_{i-1}} \mathcal{N}\bigRound{
             \bigCurl{
                 \A{i}F^{i-1}_\vecbf{\overline{A}}(Z):\A{i}\in\mathcal{B}_i
-            }
+            }, \epsilon_i, \|.\|_i
         }
     \end{align*}
 \end{proof*}
