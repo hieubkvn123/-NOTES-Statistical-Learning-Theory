@@ -77,10 +77,10 @@
 
     \noindent We will prove the above theorem inductively. 
     
-    \noindent\newline\textbf{Base case} : Suppose we have a sample dataset $Z_0\subset\mathcal{V}_0$. Construct a minimum $\epsilon_1$-cover for $\F_1 = \bigCurl{\A{1}Z_0 : A_1 \in \mathcal{B}_1}$ called $\mathcal{C}_1$. Hence, for all $\A{1}\in\mathcal{B}_i$, there exists $\overline{\A{1}}\in\mathcal{C}_1$ such that:
+    \noindent\newline\textbf{Base case} : Suppose we have a sample dataset $Z\subset\mathcal{V}_0$. Construct a minimum $\epsilon_1$-cover for the weight matrices in the $1^{st}$ layer called $\mathcal{C}_1$ such that for all $\A{1}\in\mathcal{B}_i$, there exists $\bA{1}\in\mathcal{C}_1$ such that:
 
     \begin{align*}
-        \Big\|\A{1}Z_0 - \overline{\A{1}}Z_0\Big\|_1 \le \epsilon_1
+        \Big\|\A{1}Z - \bA{1}Z\Big\|_1 \le \epsilon_1
     \end{align*} 
     
     
@@ -94,45 +94,22 @@
     \end{align*} 
     
     
-    \noindent Define the class:
+    \noindent We need to construct a cover $\mathcal{C}_i$ such that for all $\vecbf{\A{1, i}}\in \mathcal{B}_1\times\dots\times\mathcal{B}_i$, there exists $\vecbf{\bA{1, i}}\in \mathcal{C}_{i}$ such that: 
     \begin{align*}
-        \F_i &= \biggCurl{
-            \A{i}F_\vecbf{\A{1, i-1}}(Z) : \A{i} \in \mathcal{B}_i        
-        } \\
-        &= \biggCurl{
-            \A{i}\sigma_{i-1}\bigRound{
-                \A{i-1}F_\vecbf{\A{1, i-2}}(Z)
-            } : \A{i} \in \mathcal{B}_i
-        } \\
-        &= \biggCurl{
-            \A{i}\sigma_{i-1}(F): \A{i} \in \mathcal{B}_i, \ F \in \F_{i-1}
-        }
+        \Big\|
+            \A{i}F_\vecbf{\A{1, i-1}}(Z) - \bA{i}F_\vecbf{\bA{1, i-1}}(Z)
+        \Big\|_i \le \epsilon_i
     \end{align*}
 
-
-    \noindent Suppose the minimum $\epsilon_{i-1}$-cover of $\F_{i-1}$ is $\mathcal{C}_{i-1}$: For $\vecbf{\A{1, i-1}}\in\mathcal{B}_1\times\dots\times\mathcal{B}_{i-1}$, there exists $\vecbf{\bA{1,i-1}} = (\bA{1}, \dots, \bA{i-1}) \in \mathcal{C}_{i-1}$ such that:
+    \noindent We have:
     \begin{align*}
-        \Big\| \A{i-1}F_\vecbf{\A{1, i-2}}(Z) - \bA{i-1}F_\vecbf{\bA{1, i-2}}(Z)\Big\|_{i-1} \le \epsilon_{i-1}
-    \end{align*}
-
-    \noindent For each $\vecbf{\bA{1, i-1}}\in\mathcal{C}_{i-1}$, construct the minimum $\epsilon_i$-cover $\mathcal{C}_i\bigRound{\vecbf{\bA{1,i-1}}}$ for the following class:
-    \begin{align*}
-        \bar \F_i = \biggCurl{\A{i}F_\vecbf{\bA{i, i-1}}(Z):\A{i}\in\mathcal{B}_i}
-    \end{align*}
-    
-    \noindent Then, we construct the following cover:
-    \begin{align*}
-        \mathcal{C}_i &= \bigcup_{\vecbf{\bA{1, i-1}}\in\mathcal{C}_{i-1}}\mathcal{C}_i \bigRound{\vecbf{\bA{1, i-1}}}
-        \\
-        \implies 
-        |\mathcal{C}_i| &\le \sum_{\vecbf{\bA{1, i-1}}\in\mathcal{C}_{i-1}}\Big|
-            \mathcal{C}_i \bigRound{\vecbf{\bA{1, i-1}}}
-        \Big| \\
-        &\le |\mathcal{C}_{i-1}|\cdot\sup_{\vecbf{\overline{A}}\in\mathcal{C}_{i-1}} \mathcal{N}\bigRound{
-            \bigCurl{
-                \A{i}F^{i-1}_\vecbf{\overline{A}}(Z):\A{i}\in\mathcal{B}_i
-            }, \epsilon_i, \|.\|_i
-        }
+        \Big\|
+            \A{i}F_\vecbf{\A{1, i-1}}(Z) &- \bA{i}F_\vecbf{\bA{1, i-1}}(Z)
+        \Big\|_i \\
+            &\le \Big\|\bigRound{\A{i} - \bA{i}}F_\vecbf{\A{1, i-1}}(Z) \Big\|_i + \Big\| \bA{i}\bigRound{F_\vecbf{\A{1, i-1}} - F_\vecbf{\bA{1, i-1}}}(Z)\Big\|_i \\
+            &\le \Big\|\bigRound{\A{i} - \bA{i}}F_\vecbf{\A{1, i-1}}(Z) \Big\|_i + \Big\|\bA{i}\Big\|_{op} \cdot\Big| F_\vecbf{\A{1, i-1}}(Z) - F_\vecbf{\bA{1, i-1}}(Z) \Big|_{i-1} \\
+            &\le \Big\|\bigRound{\A{i} - \bA{i}}F_\vecbf{\A{1, i-1}}(Z) \Big\|_i + c_i\Big| F_\vecbf{\A{1, i-1}}(Z) - F_\vecbf{\bA{1, i-1}}(Z) \Big|_{i-1} \\
+            &\le \Big\|\bigRound{\A{i} - \bA{i}}F_\vecbf{\A{1, i-1}}(Z) \Big\|_i + c_i\rho_i\Big\| \A{i-1}F_\vecbf{\A{1, i-2}}(Z) - \bA{i-1}F_\vecbf{\bA{1, i-2}}(Z) \Big\|_{i-1} 
     \end{align*}
 \end{proof*}
 
