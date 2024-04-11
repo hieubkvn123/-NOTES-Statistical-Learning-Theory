@@ -84,11 +84,11 @@
     \end{align*} 
     
     
-    \noindent \textbf{Inductive step} : For $i\ge 2$, define $\vecbf{\A{1\to i}}$ as the extraction of the first $i$ layers for every $\vecbf{A}\in\mathcal{A}$. define the function $F_\vecbf{\A{1\to i}}$ as followed:
+    \noindent \textbf{Inductive step} : For $i, j \ge 2, j \ge i$, define $\vecbf{\A{i, j}}\in\mathcal{B}_i\times\dots\times\mathcal{B}_j$ as the extraction of layers $i$ to $j$ for every $\vecbf{A}\in\mathcal{A}$. Hence, define the function $F_\vecbf{\A{i, j}}$ as followed:
     \begin{align*}
-        F_\vecbf{\A{1\to i}}(Z) = \sigma_i\bigRound{
-            \A{i}\sigma_{i-1}\bigRound{
-                \A{i-1}\dots\sigma_1\bigRound{\A{1}Z}\dots
+        F_\vecbf{\A{i, j}}(Z) = \sigma_j\bigRound{
+            \A{j}\sigma_{j-1}\bigRound{
+                \A{j-1}\dots\sigma_i\bigRound{\A{i}Z}\dots
             }
         }
     \end{align*} 
@@ -96,20 +96,37 @@
     
     \noindent Define the class:
     \begin{align*}
-        \F_i = \biggCurl{
-            \A{i}F^{i-1}_\vecbf{A}(Z) : \A{i} \in \mathcal{B}_i        
+        \F_i &= \biggCurl{
+            \A{i}F_\vecbf{\A{1, i-1}}(Z) : \A{i} \in \mathcal{B}_i        
+        } \\
+        &= \biggCurl{
+            \A{i}\sigma_{i-1}\bigRound{
+                \A{i-1}F_\vecbf{\A{1, i-2}}(Z)
+            } : \A{i} \in \mathcal{B}_i
+        } \\
+        &= \biggCurl{
+            \A{i}\sigma_{i-1}(F): \A{i} \in \mathcal{B}_i, \ F \in \F_{i-1}
         }
     \end{align*}
 
 
-    \noindent Suppose the minimum $\epsilon_{i-1}$-cover of $\F_{i-1}$ is $\mathcal{C}_{i-1}$: For $\vecbf{A}=\bigRound{\A{1}, \dots, \A{i-1}, \A{i}, \dots, \A{L}} \in \mathcal{A}$, there exists $\overline{\vecbf{A}} = \bigRound{\overline{\A{1}}, \dots, \overline{\A{i-1}}, \A{i}, \dots, \A{L}} \in \mathcal{C}_{i-1}$ such that:
+    \noindent Suppose the minimum $\epsilon_{i-1}$-cover of $\F_{i-1}$ is $\mathcal{C}_{i-1}$: For $\vecbf{\A{1, i-1}}\in\mathcal{B}_1\times\dots\times\mathcal{B}_{i-1}$, there exists $\vecbf{\bA{1,i-1}} \in \mathcal{C}_{i-1}$ such that:
     \begin{align*}
-        \Big\| F^{i-1}_\vecbf{A}(Z) - F^{i-1}_{\overline{\vecbf{A}}}(Z)\Big\|_{i-1} \le \epsilon_{i-1}
+        \Big\| \A{i-1}F_\vecbf{\A{1, i-2}}(Z) - \bA{i-1}F_\vecbf{\bA{1, i-2}}(Z)\Big\|_{i-1} \le \epsilon_{i-1}
     \end{align*}
 
-    \noindent For each element $\vecbf{\overline{A}}\in\mathcal{C}_{i-1}$, construct the $\epsilon_i$-cover $\mathcal{C}_i(\vecbf{\overline{A}})$ for the class $\biggCurl{\A{i}F^{i-1}_\vecbf{\overline{A}}(Z):\A{i}\in\mathcal{B}_i}$ and define:
+    \noindent For each $\vecbf{\bA{1, i-1}}\in\mathcal{C}_{i-1}$, construct the $\epsilon_i$-cover $\mathcal{C}_i\bigRound{\vecbf{\bA{1,i-1}}}$ for the following class:
     \begin{align*}
-        \mathcal{C}_i = \bigcup_{\vecbf{\overline{A}}\in\mathcal{C}_{i-1}}\mathcal{C}_i (\vecbf{\overline{A}})\implies |\mathcal{C}_i| \le \sum_{\vecbf{\overline{A}}\in\mathcal{C}_{i-1}}|\mathcal{C}_i(\vecbf{\overline{A}})| \le |\mathcal{C}_{i-1}|\cdot\sup_{\vecbf{\overline{A}}\in\mathcal{C}_{i-1}} \mathcal{N}\bigRound{
+        \bar \F_i = \biggCurl{\A{i}F_\vecbf{\bA{i, i-1}}(Z):\A{i}\in\mathcal{B}_i}
+    \end{align*}
+    
+    \noindent Then, we define the following cover:
+    \begin{align*}
+        \mathcal{C}_i &= \bigcup_{\vecbf{\bA{1, i-1}}\in\mathcal{C}_{i-1}}\mathcal{C}_i \bigRound{\vecbf{\bA{1, i-1}}}
+        \\
+        \implies 
+        |\mathcal{C}_i| &\le \sum_{\vecbf{\overline{A}}\in\mathcal{C}_{i-1}}|\mathcal{C}_i(\vecbf{\overline{A}})| \\
+        &\le |\mathcal{C}_{i-1}|\cdot\sup_{\vecbf{\overline{A}}\in\mathcal{C}_{i-1}} \mathcal{N}\bigRound{
             \bigCurl{
                 \A{i}F^{i-1}_\vecbf{\overline{A}}(Z):\A{i}\in\mathcal{B}_i
             }
