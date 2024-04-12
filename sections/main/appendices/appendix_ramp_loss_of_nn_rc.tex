@@ -11,7 +11,15 @@
     }
 \end{align*}
 
-\noindent Where $\|.\|_\sigma$ denotes the spectral norm and $\|.\|_{p, q}$ denotes the matrix $(p, q)$ norm defined as $\|A\|_{p, q} = \bigRound{\sum_j\bigRound{\sum_{i}|A_{ij}|^p}^{q/p}}^{1/q}$. Define the following class of neural networks:
+\noindent Where $\|.\|_\sigma$ denotes the spectral norm and $\|.\|_{p, q}$ denotes the matrix $(p, q)$ norm defined as $\|A\|_{p, q} = \bigRound{\sum_j\bigRound{\sum_{i}|A_{ij}|^p}^{q/p}}^{1/q}$. Therefore, the $\|.\|_{2, 1}$ is defined as:
+\begin{align*}
+    \|A\|_{2, 1} = \sum_{j=1}^m \biggRound{
+        \sum_{i=1}^n |A_{ij}|^2
+    }^{1/2}
+    = \sum_{j=1}^m \|A_{., j}\|_2, \ \ A\in\R^{m\times n}
+\end{align*}
+
+\noindent Define the following class of neural networks:
 \begin{align*}
     \F_\mathcal{A} = \biggCurl{
         x\mapsto \A{L} \biggRound{
@@ -21,6 +29,9 @@
         \end{pmatrix} \in \mathcal{A}
     }
 \end{align*}
+
+\noindent We denote $d_0, d_1, \dots, d_L$ as the widths of each layer of the neural networks where $d_0$ denotes the dimensionality of the input and $d_L=K$ be the size of the output. 
+
 
 \noindent Derive the bound for the Rademacher Complexity of the loss function class:
 \begin{align*}
@@ -203,4 +214,22 @@
 
 
 \subsubsection{Solution to \ref{sec:rad_complexity_of_ramp_loss_nn}}
+\textbf{1. Construct cover for $\mathcal{L}_r$}: Given a sample dataset $S=\bigCurl{(x_i, y_i)}_{i=1}^n$ and $\epsilon>0$, we need to construct an $\epsilon$-cover for $\mathcal{L}_r$ with respect to the $\|.\|_2^S$ defined as:
+\begin{align*}
+    \forall L_\vecbf{A} \in \mathcal{L}_r : \|L_\vecbf{A}\|_2^S = \sqrt{
+        \frac{1}{n}\sum_{i=1}^n |L_\vecbf{A}(x_i, y_i)|^2
+    }
+\end{align*}
+
+\noindent Where we use the notation $L_\vecbf{A}$ to specify that $L_\vecbf{A}$ is parameterized by the tuple of weight matrices $\vecbf{A}=(\A{1}, \dots, \A{L})\in\mathcal{A}$. For $L_\vecbf{A},L_\vecbf{\bar A}\in\mathcal{L}_r$, we have:
+\begin{align*}
+    |L_\vecbf{A}(x_i, y_i) - L_\vecbf{\bar A}(x_i, y_i)| &\le \frac{2}{r}\max_{j\in\{1, \dots, K\}} \bigAbs{
+        F_\vecbf{A}(x_i)_j - F_\vecbf{\bar A}(x_i)_j
+    } = \frac{2}{r}\|F_\vecbf{A}(x_i) - F_\vecbf{\bar A}(x_i)\|_\infty \\
+    &= \frac{2}{r}\max_{x_i \in S} \|F_\vecbf{A}(x_i) - F_\vecbf{\bar A}(x_i)\|_\infty \\
+    &= \frac{2}{r} \|F_\vecbf{A} - F_\vecbf{\bar A}\|_*^S
+\end{align*}
+
+\noindent Where the $\|.\|_*^S$ norm is defined for any neural network $F_\vecbf{A}\in\F_\mathcal{A}$ as $\|F_\vecbf{A}\|_*^S = \max_{\substack{x_i\in S \\ j \le K}} |F_\vecbf{A}(x_i)_j|$. We proceed by constructing a cover for $\F_\mathcal{A}$ with respect to $\|.\|_*^S$ norm. 
+
 
