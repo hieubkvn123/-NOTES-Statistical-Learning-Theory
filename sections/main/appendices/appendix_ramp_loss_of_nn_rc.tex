@@ -124,13 +124,25 @@
                 + c_i\rho_i\Big\| \A{i-1}F_\vecbf{\A{1, i-2}}(Z) - \bA{i-1}F_\vecbf{\bA{1, i-2}}(Z) \Big\|_{i-1} 
     \end{align*}
 
-    \noindent Now, construct the minimum cover $\mathcal{C}_i$ as followed:
+    \noindent For each $\vecbf{\bA{1, i-1}}\in \mathcal{C}_{i-1}$, construct the minimum $\epsilon_i$-cover $\mathcal{C}_i(\vecbf{\bA{1, i-1}})$ for the class \newline$\bigCurl{\A{i}F_\vecbf{\bA{1, i-1}}(Z) : \A{i} \in \mathcal{B}_i}$. Then, we have:
     \begin{align*}
-        \mathcal{C}_i = \bigcup_{\vecbf{\bA{1, i-1}} \in \mathcal{C}_{i-1}}\biggCurl{
-            (\bA{1}, \dots, \bA{i-1}, \bA{i}) : \Big\|
-                \bigRound{\A{i} - \bA{i}}F_\vecbf{\bA{1, i-1}}(Z)
-            \Big\|_i \le \epsilon_i, \ \bA{i} \in \mathcal{B}_i
+        \bigAbs{
+            \mathcal{C}_i(\vecbf{\bA{1, i-1}})
+        } &\le \sup_{\vecbf{\bA{1, i-1}}\in\mathcal{C}_{i-1}} \mathcal{N}\bigRound{
+            \bigCurl{
+                \A{i}F_\vecbf{\bA{1, i-1}}(Z) : \A{i}\in\mathcal{B}_i 
+            }, \epsilon_i, \|.\|_i
+        } \\
+        &\le \sup_{\vecbf{\bA{1, i-1}}\in\mathcal{B}_1\times\dots\times\mathcal{B}_{i-1}} \mathcal{N}\bigRound{
+            \bigCurl{
+                \A{i}F_\vecbf{\bA{1, i-1}}(Z) : \A{i} \in \mathcal{B_i}
+            }, \epsilon_i, \|.\|_i
         }
+    \end{align*}
+
+    \noindent Now, construct $\mathcal{C}_i$ as followed:
+    \begin{align*}
+        \mathcal{C}_i = \bigcup_{\vecbf{\bA{1, i-1}}\in\mathcal{C}_{i-1}}
     \end{align*}
 \end{proof*}
 
