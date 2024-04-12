@@ -64,7 +64,7 @@
         \begin{align*}
             \mathcal{N}\bigRound{
                 {\F_\mathcal{A}}_{|Z}, \tau, \|.\|_L
-            } \le \prod_{i=1}^L \sup_{\substack{
+            } \le |\mathcal{C}_1|\cdot\prod_{i=2}^L \sup_{\substack{
                 (\A{1}, \dots, \A{i-1}) \\
                 A_j \in \mathcal{B}_j, j \le i-1
             }}\mathcal{N}\bigRound{
@@ -75,13 +75,6 @@
 \end{theorem}
 
 \begin{proof*}[Theorem \ref{thm:nn_cover_bound_with_general_norm}]
-    \begin{figure}[!ht]
-        \centering
-        \includegraphics[width=\textwidth]{figures/neural-network.png}
-        \caption{Illustration of a feedforward pass of a deep neural network with weight matrices $\vecbf{A}=\Big( \A{1}, \dots, \A{L} \Big)$}
-        \label{fig:neural-network-illustration}
-    \end{figure}
-
     \noindent We will prove the above theorem inductively. 
     
     \noindent\newline\textbf{Base case} : Suppose we have a sample dataset $Z\subset\mathcal{V}_0$. Construct a minimum $\epsilon_1$-cover for the weight matrices in the $1^{st}$ layer called $\mathcal{C}_1$ such that for all $\A{1}\in\mathcal{B}_i$, there exists $\bA{1}\in\mathcal{C}_1$ such that:
@@ -108,7 +101,7 @@
         \Big\|_i \le \epsilon_i
     \end{align*}
 
-    \noindent Suppose that we have constructed covers $\mathcal{C}_{i-1}, \mathcal{C}_{i-2}, \dots, \mathcal{C}_1$ with respect to norms $\|.\|_{i-1}, \|.\|_{i-2}, \dots, \|.\|_1$ with granularities $\tau_{i-1}, \tau_{i-2}, \dots, \tau_1$ (where $\mathcal{C}_1$ is the cover constructed in the base case with granularity $\tau_1=\epsilon_1$). We have:
+    \noindent Suppose that we have constructed covers $\mathcal{C}_{i-1}, \mathcal{C}_{i-2}, \dots, \mathcal{C}_1$ with respect to norms $\|.\|_{i-1}, \|.\|_{i-2}, \dots, \|.\|_1$ with granularities $\tau_{i-1}, \tau_{i-2}, \dots, \tau_1$ (where $\mathcal{C}_1$ is the cover constructed in the base case with \newline granularity $\tau_1=\epsilon_1$). We have:
 
     \begin{align*}
         \Big\|
@@ -124,7 +117,7 @@
                 + c_i\rho_i\Big\| \A{i-1}F_\vecbf{\A{1, i-2}}(Z) - \bA{i-1}F_\vecbf{\bA{1, i-2}}(Z) \Big\|_{i-1} 
     \end{align*}
 
-    \noindent For each $\vecbf{\bA{1, i-1}}\in \mathcal{C}_{i-1}$, construct the minimum $\epsilon_i$-cover $\mathcal{C}_i(\vecbf{\bA{1, i-1}})$ for the class \newline$\bigCurl{\A{i}F_\vecbf{\bA{1, i-1}}(Z) : \A{i} \in \mathcal{B}_i}$. Then, we have:
+    \noindent\newline For each $\vecbf{\bA{1, i-1}}\in \mathcal{C}_{i-1}$, construct the minimum $\epsilon_i$-cover $\mathcal{C}_i(\vecbf{\bA{1, i-1}})$ for the class \newline$\bigCurl{\A{i}F_\vecbf{\bA{1, i-1}}(Z) : \A{i} \in \mathcal{B}_i}$. Then, we have:
     \begin{align*}
         \bigAbs{
             \mathcal{C}_i(\vecbf{\bA{1, i-1}})
@@ -133,17 +126,79 @@
                 \A{i}F_\vecbf{\bA{1, i-1}}(Z) : \A{i}\in\mathcal{B}_i 
             }, \epsilon_i, \|.\|_i
         } \\
-        &\le \sup_{\vecbf{\bA{1, i-1}}\in\mathcal{B}_1\times\dots\times\mathcal{B}_{i-1}} \mathcal{N}\bigRound{
+        &\le \sup_{
+            \substack{
+                (\A{1}, \dots, \A{i-1}) \\
+                \A{j}\in\mathcal{B}_j, j \le i-1
+            }    
+        } \mathcal{N}\bigRound{
             \bigCurl{
-                \A{i}F_\vecbf{\bA{1, i-1}}(Z) : \A{i} \in \mathcal{B_i}
+                \A{i}F_\vecbf{\A{1, i-1}}(Z) : \A{i} \in \mathcal{B}_i
             }, \epsilon_i, \|.\|_i
         }
     \end{align*}
 
     \noindent Now, construct $\mathcal{C}_i$ as followed:
     \begin{align*}
-        \mathcal{C}_i = \bigcup_{\vecbf{\bA{1, i-1}}\in\mathcal{C}_{i-1}}
+        \mathcal{C}_i 
+            &= \bigcup_{\vecbf{\bA{1, i-1}}\in\mathcal{C}_{i-1}} \mathcal{C}_i(\vecbf{\bA{1, i-1}}) \\
+        \implies
+        |\mathcal{C}_i| 
+            &\le \sum_{\vecbf{\bA{1, i-1}}\in\mathcal{C}_{i-1}} \bigAbs{\mathcal{C}_i(\vecbf{\bA{1, i-1}})} \\
+            &\le |\mathcal{C}_{i-1}| \cdot \sup_{
+                \substack{
+                    (\A{1}, \dots, \A{i-1})\\
+                    \A{j}\in\mathcal{B}_j, j \le i-1
+                }
+            } \mathcal{N}\bigRound{
+                \bigCurl{
+                    \A{i}F_\vecbf{\A{1, i-1}}(Z) : \A{i} \in \mathcal{B}_i
+                }, \epsilon_i, \|.\|_i
+            } \\
+            &\le |\mathcal{C}_1|\cdot \prod_{k=2}^i \sup_{
+                \substack{
+                    (\A{1}, \dots, \A{k-1})\\
+                    \A{j}\in\mathcal{B}_j, j \le k-1
+                }
+            } \mathcal{N}\bigRound{
+                \bigCurl{
+                    \A{k}F_\vecbf{\A{1, k-1}}(Z) : \A{k} \in \mathcal{B}_k
+                }, \epsilon_k, \|.\|_k
+            }
     \end{align*}
+
+    \noindent The last inequality was achieved by expanding the expression inductively. From the construction of $\mathcal{C}_i$, for all $\vecbf{\A{1, i}}\in\mathcal{B}_1\times\dots\times\mathcal{B}_i$, we can choose $\vecbf{\bA{1, i}}\in\mathcal{C}_i$ such that:
+    \begin{align*}
+        \Big\|
+            \A{i}F_\vecbf{\A{1, i-1}}&(Z) - \bA{i}F_\vecbf{\bA{1, i-1}}(Z)
+        \Big\|_i \\
+            &\le \Big\|\bigRound{\A{i} - \bA{i}}F_\vecbf{\bA{1, i-1}}(Z) \Big\|_i 
+            + c_i\rho_i\Big\| \A{i-1}F_\vecbf{\A{1, i-2}}(Z) - \bA{i-1}F_\vecbf{\bA{1, i-2}}(Z) \Big\|_{i-1} \\
+            &\le \epsilon_i + c_i\rho_i \bigRound{
+                \epsilon_{i-1} + c_{i-1}\rho_{i-1}\Big\| \A{i-2}F_\vecbf{\A{1, i-3}}(Z) - \bA{i-2}F_\vecbf{\bA{1, i-3}}(Z) \Big\|_{i-2}
+            } \\
+            &\vdots \\
+            &\le \sum_{j=1}^i\epsilon_j \biggRound{
+                \prod_{l=j+1}^i c_l\rho_l
+            }
+    \end{align*} 
+
+
+    \noindent By induction we have the size of the cover $\mathcal{C}_L$ satisfies the following upper bound:
+    \begin{align*}
+        |\mathcal{C}_L| \le |\mathcal{C}_1|\cdot\prod_{i=2}^L\sup_{
+            \substack{
+                (\A{1}, \dots, \A{i-1})\\
+                \A{j}\in\mathcal{B}_j, j\le i-1
+            }
+        }\mathcal{N}\bigRound{
+            \bigCurl{
+                \A{i}F_\vecbf{\A{1, i-1}}(Z) : \A{i}\in\mathcal{B}_i
+            }, \epsilon_i, \|.\|_i
+        }
+    \end{align*}
+
+    \noindent With granularity $\tau=\sum_{j=1}^L\epsilon_j\biggRound{\prod_{l=j+1}^L c_l\rho_l}$.
 \end{proof*}
 
 
