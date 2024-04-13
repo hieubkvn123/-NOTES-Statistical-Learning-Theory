@@ -71,7 +71,7 @@
             }
         \end{align*}
         
-        \item Let $\tau$ be the aggregated granularity defined as $\tau = \sum_{j=1}^L \epsilon_j \bigRound{\prod_{l=j+1}^L \rho_lc_l}$ and $Z\subset\mathcal{V}_0$ be a sample dataset. We have:
+        \item Let $\tau$ be the aggregated granularity defined as $\tau = \sum_{j=1}^L \epsilon_j \bigRound{\prod_{l=j+1}^L c_l\rho_{l-1}}$ and $Z\subset\mathcal{V}_0$ be a sample dataset. We have:
         \begin{align*}
             \mathcal{N}\bigRound{
                 {\F_\mathcal{A}}_{|Z}, \tau, \|.\|_L
@@ -109,7 +109,7 @@
     \begin{align*}
         \Big\|
             \A{i}F_\vecbf{\A{1, i-1}}(Z) - \bA{i}F_\vecbf{\bA{1, i-1}}(Z)
-        \Big\|_i \le \epsilon_i
+        \Big\|_i \le \tau_i
     \end{align*}
 
     \noindent Suppose that we have constructed covers $\mathcal{C}_{i-1}, \mathcal{C}_{i-2}, \dots, \mathcal{C}_1$ with respect to norms $\|.\|_{i-1}, \|.\|_{i-2}, \dots, \|.\|_1$ with granularities $\tau_{i-1}, \tau_{i-2}, \dots, \tau_1$ (where $\mathcal{C}_1$ is the cover constructed in the base case with \newline granularity $\tau_1=\epsilon_1$). We have:
@@ -125,7 +125,7 @@
             &\le \Big\|\bigRound{\A{i} - \bA{i}}F_\vecbf{\bA{1, i-1}}(Z) \Big\|_i 
                 + c_i\Big| F_\vecbf{\A{1, i-1}}(Z) - F_\vecbf{\bA{1, i-1}}(Z) \Big|_{i-1} \\
             &\le \Big\|\bigRound{\A{i} - \bA{i}}F_\vecbf{\bA{1, i-1}}(Z) \Big\|_i 
-                + c_i\rho_i\Big\| \A{i-1}F_\vecbf{\A{1, i-2}}(Z) - \bA{i-1}F_\vecbf{\bA{1, i-2}}(Z) \Big\|_{i-1} 
+                + c_i\rho_{i-1}\Big\| \A{i-1}F_\vecbf{\A{1, i-2}}(Z) - \bA{i-1}F_\vecbf{\bA{1, i-2}}(Z) \Big\|_{i-1} 
     \end{align*}
 
     \noindent\newline For each $\vecbf{\bA{1, i-1}}\in \mathcal{C}_{i-1}$, construct the minimum $\epsilon_i$-cover $\mathcal{C}_i(\vecbf{\bA{1, i-1}})$ for the class \newline$\bigCurl{\A{i}F_\vecbf{\bA{1, i-1}}(Z) : \A{i} \in \mathcal{B}_i}$. Then, we have:
@@ -184,13 +184,13 @@
             \A{i}F_\vecbf{\A{1, i-1}}&(Z) - \bA{i}F_\vecbf{\bA{1, i-1}}(Z)
         \Big\|_i \\
             &\le \Big\|\bigRound{\A{i} - \bA{i}}F_\vecbf{\bA{1, i-1}}(Z) \Big\|_i 
-            + c_i\rho_i\Big\| \A{i-1}F_\vecbf{\A{1, i-2}}(Z) - \bA{i-1}F_\vecbf{\bA{1, i-2}}(Z) \Big\|_{i-1} \\
-            &\le \epsilon_i + c_i\rho_i \bigRound{
-                \epsilon_{i-1} + c_{i-1}\rho_{i-1}\Big\| \A{i-2}F_\vecbf{\A{1, i-3}}(Z) - \bA{i-2}F_\vecbf{\bA{1, i-3}}(Z) \Big\|_{i-2}
+            + c_i\rho_{i-1}\Big\| \A{i-1}F_\vecbf{\A{1, i-2}}(Z) - \bA{i-1}F_\vecbf{\bA{1, i-2}}(Z) \Big\|_{i-1} \\
+            &\le \epsilon_i + c_i\rho_{i-1} \bigRound{
+                \epsilon_{i-1} + c_{i-1}\rho_{i-2}\Big\| \A{i-2}F_\vecbf{\A{1, i-3}}(Z) - \bA{i-2}F_\vecbf{\bA{1, i-3}}(Z) \Big\|_{i-2}
             } \\
             &\vdots \\
             &\le \sum_{j=1}^i\epsilon_j \biggRound{
-                \prod_{l=j+1}^i c_l\rho_l
+                \prod_{l=j+1}^i c_l\rho_{l-1}
             }
     \end{align*} 
 
@@ -209,7 +209,7 @@
         }
     \end{align*}
 
-    \noindent With granularity $\tau=\sum_{j=1}^L\epsilon_j\biggRound{\prod_{l=j+1}^L c_l\rho_l}$.
+    \noindent With granularity $\tau=\sum_{j=1}^L\epsilon_j\biggRound{\prod_{l=j+1}^L c_l\rho_{l-1}}$.
 \end{proof*}
 
 
@@ -232,6 +232,39 @@
     \|L_\vecbf{A} - L_\vecbf{\bar A}\|_2^S &\le \frac{2}{r}\|F_\vecbf{A} - F_\vecbf{\bar A}\|_*^S
 \end{align*}
 
-\noindent Where the $\|.\|_*^S$ norm is defined for any neural network $F_\vecbf{A}\in\F_\mathcal{A}$ as $\|F_\vecbf{A}\|_*^S = \max_{\substack{x_i\in S \\ j \le K}} |F_\vecbf{A}(x_i)_j|$. We proceed by constructing a cover for $\F_\mathcal{A}$ with respect to $\|.\|_*^S$ norm. 
+\noindent Where the $\|.\|_*^S$ norm is defined for any neural network $F_\vecbf{A}\in\F_\mathcal{A}$ as $\|F_\vecbf{A}\|_*^S = \max_{\substack{x_i\in S \\ j \le K}} |F_\vecbf{A}(x_i)_j|$. We proceed by constructing a cover for $\F_\mathcal{A}$ with respect to $\|.\|_*^S$ norm. Define the class of neural networks as followed:
+\begin{align*}
+    \mathcal{A} &= \bigCurl{
+        \bigRound{\A{1}, \dots, \A{L}} : \|\A{i}\|_\infty \le c_i, \ \|\A{i} - \M{i}\|_F \le a_i
+    }\\
+    \F_\mathcal{A} &= \biggCurl{
+        x \mapsto \A{L}\biggRound{
+            \bigO_{k=1}^{L-1}\sigma_k\circ \A{k} 
+        }(x) : \sigma_k \text{ is $\rho_k$-Lipchitz w.r.t $\|.\|_\infty$ norm}, \bigRound{\A{1}, \dots, \A{L}}\in\mathcal{A}
+    }
+\end{align*} 
 
+
+\noindent To apply theorem \ref{thm:nn_cover_bound_with_general_norm}, we consider the following configurations:
+\begin{itemize}
+    \item Set $|.|_i$ and $\|.\|_i$ to $\|.\|_*^S$.
+    \item Set $\|.\|_{op}$ to the matrix infinity norm $\|.\|_\infty$.
+    \item \textbf{Claim} : For all $1\le i\le L$, we have $\|\A{i}F_\vecbf{\A{1, i-1}}\|_*^S \le \|\A{i}\|_\infty \cdot \|F_\vecbf{\A{1, i-1}}\|_*^S$.
+    \newline Let $x_* = \arg\max_{x\in S}\|\A{i}F_\vecbf{\A{1, i-1}}(x)\|_\infty$, we have:
+    \begin{align*}
+        \|\A{i}F_\vecbf{\A{1, i-1}}\|_*^S &= \|\A{i}F_\vecbf{\A{1, i-1}}(x_*)\|_\infty \\
+            &\le \|\A{i}\|_\infty \cdot \|F_\vecbf{\A{1, i-1}}(x_*)\|_\infty \\
+            &\le \|\A{i}\|_\infty \cdot \max_{\tilde x\in S}\|F_\vecbf{\A{1, i-1}}(\tilde x)\|_\infty \\
+            &= \|\A{i}\|_\infty \cdot \|F_\vecbf{\A{1, i-1}}\|_*^S
+    \end{align*}
+
+    \item \textbf{Claim} : For all $1\le i \le L$, we have
+    \begin{align*}
+        \Big\|
+            \sigma_i\circ \A{i}F_\vecbf{\A{1, i-1}} - \sigma_i \circ \bA{i}F_\vecbf{\bA{1, i-1}}
+        \Big\|_*^S \le \rho_i\Big\|
+            \A{i}F_\vecbf{\A{1, i-1}} - \bA{i}F_\vecbf{\bA{1, i-1}} 
+        \Big\|_*^S
+    \end{align*}
+\end{itemize}
 
