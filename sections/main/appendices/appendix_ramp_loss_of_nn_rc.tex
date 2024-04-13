@@ -227,7 +227,9 @@
         F_\vecbf{A}(x_i)_j - F_\vecbf{\bar A}(x_i)_j
     } = \frac{2}{r}\|F_\vecbf{A}(x_i) - F_\vecbf{\bar A}(x_i)\|_\infty \\
     &= \frac{2}{r}\max_{x_i \in S} \|F_\vecbf{A}(x_i) - F_\vecbf{\bar A}(x_i)\|_\infty \\
-    &= \frac{2}{r} \|F_\vecbf{A} - F_\vecbf{\bar A}\|_*^S
+    &= \frac{2}{r} \|F_\vecbf{A} - F_\vecbf{\bar A}\|_*^S\\
+    \implies 
+    \|L_\vecbf{A} - L_\vecbf{\bar A}\|_2^S &\le \frac{2}{r}\|F_\vecbf{A} - F_\vecbf{\bar A}\|_*^S
 \end{align*}
 
 \noindent Where the $\|.\|_*^S$ norm is defined for any neural network $F_\vecbf{A}\in\F_\mathcal{A}$ as $\|F_\vecbf{A}\|_*^S = \max_{\substack{x_i\in S \\ j \le K}} |F_\vecbf{A}(x_i)_j|$. We proceed by constructing a cover for $\F_\mathcal{A}$ with respect to $\|.\|_*^S$ norm. 
