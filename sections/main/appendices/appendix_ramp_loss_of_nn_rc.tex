@@ -213,8 +213,10 @@
 \end{proof*}
 
 
-\subsubsection{Solution to \ref{sec:rad_complexity_of_ramp_loss_nn}}
-\textbf{1. Construct cover for $\mathcal{L}_r$}: Given a sample dataset $S=\bigCurl{(x_i, y_i)}_{i=1}^n$ and $\epsilon>0$, we need to construct an $\epsilon$-cover for $\mathcal{L}_r$ with respect to the $\|.\|_2^S$ defined as:
+\subsubsection{Solution to \ref{sec:rad_complexity_of_ramp_loss_nn} - without applying theorem \ref{thm:nn_cover_bound_with_general_norm}}
+\noindent In this section, we will solve the problem in \ref{sec:rad_complexity_of_ramp_loss_nn} using the same proof technique that was used for theorem \ref{thm:nn_cover_bound_with_general_norm} without applying it directly.
+
+\noindent\newline\textbf{1. Construct cover for $\mathcal{L}_r$ inductively}: Given a sample dataset $S=\bigCurl{(x_i, y_i)}_{i=1}^n$ and $\epsilon>0$, we need to construct an $\epsilon$-cover for $\mathcal{L}_r$ with respect to the $\|.\|_2^S$ defined as:
 \begin{align*}
     \forall L_\vecbf{A} \in \mathcal{L}_r : \|L_\vecbf{A}\|_2^S = \sqrt{
         \frac{1}{n}\sum_{i=1}^n |L_\vecbf{A}(x_i, y_i)|^2
@@ -232,81 +234,4 @@
     \|L_\vecbf{A} - L_\vecbf{\bar A}\|_2^S &\le \frac{2}{r}\|F_\vecbf{A} - F_\vecbf{\bar A}\|_*^S
 \end{align*}
 
-\noindent Where the $\|.\|_*^S$ norm is defined for any neural network $F_\vecbf{A}\in\F_\mathcal{A}$ as $\|F_\vecbf{A}\|_*^S = \max_{\substack{x_i\in S \\ j \le K}} |F_\vecbf{A}(x_i)_j|$. We proceed by constructing a cover for $\F_\mathcal{A}$ with respect to $\|.\|_*^S$ norm. Define the class of neural networks as followed:
-\begin{align*}
-    \mathcal{A} &= \bigCurl{
-        \bigRound{\A{1}, \dots, \A{L}} : \|\A{i}\|_\infty \le c_i, \ \|\A{i} - \M{i}\|_F \le a_i
-    }\\
-    \F_\mathcal{A} &= \biggCurl{
-        x \mapsto \A{L}\biggRound{
-            \bigO_{k=1}^{L-1}\sigma_k\circ \A{k} 
-        }(x) : \sigma_k \text{ is $\rho_k$-Lipchitz w.r.t $\|.\|_\infty$ norm}, \bigRound{\A{1}, \dots, \A{L}}\in\mathcal{A}
-    }
-\end{align*} 
-
-
-\noindent To apply theorem \ref{thm:nn_cover_bound_with_general_norm}, we consider the following configurations:
-\begin{itemize}
-    \item Set $|.|_i$ to $\|.\|_2^S$ and $\|.\|_i$ to $\|.\|_*^S$.
-    \item Set $\|.\|_{op}$ to the matrix norm $\|.\|_{2, \infty}$.
-\end{itemize}
-
-\noindent Now, we have to make sure that the matrix norm $\|.\|_\infty$ is an appropriate operator norm and $\sigma_i$ is $\rho_i$-Lipchitz with respect to the $\|.\|_*^S$ norm.
-\begin{itemize}
-    \item \textbf{Claim} : For all $1\le i\le L$, we have $\|\A{i}F_\vecbf{\A{1, i-1}}\|_*^S \le \|\A{i}\|_\infty \cdot \|F_\vecbf{\A{1, i-1}}\|_*^S$.
-    \newline Let $x_* = \arg\max_{x\in S}\|\A{i}F_\vecbf{\A{1, i-1}}(x)\|_\infty$, we have:
-    \begin{align*}
-        \|\A{i}F_\vecbf{\A{1, i-1}}\|_*^S &= \|\A{i}F_\vecbf{\A{1, i-1}}(x_*)\|_\infty \\
-            &\le \|\A{i}\|_\infty \cdot \|F_\vecbf{\A{1, i-1}}(x_*)\|_\infty \\
-            &\le \|\A{i}\|_\infty \cdot \max_{\tilde x\in S}\|F_\vecbf{\A{1, i-1}}(\tilde x)\|_\infty \\
-            &= \|\A{i}\|_\infty \cdot \|F_\vecbf{\A{1, i-1}}\|_*^S
-    \end{align*}
-
-    \item \textbf{Claim} : For all $1\le i \le L$, Suppose that
-    \begin{align*}
-        x_* = \arg\max_{x\in S}\Big\|
-            \sigma_i\bigRound{\A{i}F_\vecbf{\A{1, i-1}}(x)} - \sigma_i\bigRound{\bA{i}F_\vecbf{\bA{1, i-1}}(x)}
-        \Big\|_\infty
-    \end{align*}
-
-    \noindent Then, we have:
-    \begin{align*}
-        \Big\|
-            \sigma_i\circ \A{i}F_\vecbf{\A{1, i-1}} &- \sigma_i \circ \bA{i}F_\vecbf{\bA{1, i-1}}
-        \Big\|_*^S \\
-        &= \Big\|
-            \sigma\bigRound{\A{i}F_\vecbf{\A{1, i-1}}(x_*)} - \sigma\bigRound{\bA{i}F_\vecbf{\bA{1, i-1}}(x_*)}
-        \Big\|_\infty \\
-        &\le \rho_i \Big\|
-            \A{i}F_\vecbf{\A{1, i-1}}(x_*) - \bA{i}F_\vecbf{\bA{1, i-1}}(x_*)
-        \Big\|_\infty \\
-        &\le \rho_i \cdot \max_{\tilde x\in S}\Big\|
-            \A{i}F_\vecbf{\A{1, i-1}}(\tilde x) - \bA{i}F_\vecbf{\bA{1, i-1}}(\tilde x)
-        \Big\|_\infty \\
-        &= \rho_i \cdot \Big\|
-            \A{i}F_\vecbf{\A{1, i-1}} - \bA{i}F_\vecbf{\bA{1, i-1}}
-        \Big\|_*^S
-    \end{align*}
-\end{itemize}
-
-\noindent\newline\textbf{Applying theorem \ref{thm:nn_cover_bound_with_general_norm}} : Suppose that $\epsilon_1, \dots, \epsilon_L$ are known. Applying the above configurations to theorem \ref{thm:nn_cover_bound_with_general_norm}, we have
-\begin{align*}
-    \mathcal{N}&\bigRound{{\F_\mathcal{A}}_{|S}, \tau, \|.\|_*^S} \\
-        &\le |\mathcal{C}_1| \cdot \prod_{i=2}^L \sup_{
-            \substack{
-                (\A{1}, \dots, \A{i-1}) \\
-                \A{j} \in \mathcal{B}_j, \ j \le i-1
-            }
-        }\mathcal{N}\bigRound{
-            \bigCurl{
-                x\mapsto\A{i}F_\vecbf{\A{1, i-1}}(x) : \A{i}\in\mathcal{B}_i
-            }, \epsilon_i, \|.\|_*^S
-        }
-\end{align*}
-
-\noindent Where we have:
-\begin{align*}
-    \mathcal{B}_i = \bigCurl{
-        \A{i} \in \R^{d_{i-1}\times d_i} : \|\A{i}\|_\infty \le c_i, \|\A{i}\|_F \le a_i
-    }
-\end{align*}
+\noindent Where the $\|.\|_*^S$ norm is defined for any neural network $F_\vecbf{A}\in\F_\mathcal{A}$ as $\|F_\vecbf{A}\|_*^S = \max_{\substack{x_i\in S \\ j \le K}} |F_\vecbf{A}(x_i)_j|$. We proceed by constructing a cover for $\F_\mathcal{A}$ with respect to $\|.\|_*^S$ norm.
