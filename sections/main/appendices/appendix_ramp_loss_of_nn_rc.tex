@@ -7,7 +7,7 @@
     \mathcal{A} = \bigCurl{
         \begin{pmatrix}
             \A{1} & \dots & \A{L}
-        \end{pmatrix} : \|\A{i}\|_\sigma \le s_i, \|(\A{i} - \M{i})^T\|_{2, 1}\le a_i, \|\A{L} - \M{L}\|_F \le a_*
+        \end{pmatrix} : \|\A{i}\|_\sigma \le s_i, \|(\A{i} - \M{i})^T\|_{2, 1}\le a_i, \|\A{L} - \M{L}\|_F \le a_L
     }
 \end{align*}
 
@@ -353,12 +353,12 @@
 
 \noindent Hence, we have:
 \begin{align*}
-    \log|\mathcal{C}_k| \le \sum_{j=1}^k \frac{a_j^2\prod_{1\le l < j} \rho_l^2s_l^2}{\epsilon_j^2}\log(2W^2)
+    \log|\mathcal{C}_k| \le \sum_{j=1}^k \frac{a_j^2\prod_{1\le l < j-1} \rho_l^2s_l^2}{\epsilon_j^2}\log(2W^2)
 \end{align*}
 
 \noindent Then, by induction, we can derive the size of the cover $\mathcal{C}_{L-1}$:
 \begin{align*}
-    \log|\mathcal{C}_{L-1}| \le \sum_{j=1}^{L-1}\frac{a_j^2\prod_{1\le l \le j}\rho_l^2s_l^2}{\epsilon_j^2}\log(2W^2)
+    \log|\mathcal{C}_{L-1}| \le \sum_{j=1}^{L-1}\frac{a_j^2\prod_{1\le l \le j-1}\rho_l^2s_l^2}{\epsilon_j^2}\log(2W^2) \ \ \ (1)
 \end{align*}
 
 \noindent With the aggregated granularity:
@@ -376,7 +376,7 @@
 \noindent For each element $\vecbf{\bA{1, L-1}}\in\mathcal{C}_{L-1}$, construct the $\epsilon_L$-cover $\mathcal{C}_L(\vecbf{\bA{1, L-1}})$ with respect to the $\|.\|_*^S$ norm for the following class:
 \begin{align*}
     \F_L(\vecbf{\bA{1, L-1}}) = \biggCurl{
-        x \mapsto \A{L}F_\vecbf{\bA{1, L-1}}(x) : \|\A{L}-\M{L}\|_F \le a_*
+        x \mapsto \A{L}F_\vecbf{\bA{1, L-1}}(x) : \|\A{L}-\M{L}\|_F \le a_L
     }
 \end{align*} 
 
@@ -401,8 +401,37 @@
         }
     }\mathcal{N}\bigRound{
         \bigCurl{
-            x \mapsto \A{L}F_\vecbf{\A{1, L-1}}(x) : \|\A{L} - \M{L}\|_F \le a_*
+            x \mapsto \A{L}F_\vecbf{\A{1, L-1}}(x) : \|\A{L} - \M{L}\|_F \le a_L
         }, \epsilon_L, \|.\|_*^S
-    }
+    } \ \ \ (2)
+\end{align*}
+
+\noindent We have:
+\begin{align*}
+    \sup_{\substack{
+        (\A{1}, \dots, \A{L-1}) \\
+        \forall 1 \le j \le L-1 : \A{j}\in\mathcal{B}_j
+    }} \Big\|
+        F_\vecbf{\A{1, L-1}}(x)
+    \Big\|_2 \le \prod_{l=1}^{L-1} \rho_ls_l
+\end{align*}
+
+\noindent By proposition 5 from \cite{article:ledent_and_mustafa}, we have:
+\begin{align*}
+    \log\mathcal{N}\bigRound{
+        \bigCurl{
+            x\mapsto \A{L}F_\vecbf{\A{1, L-1}}(x) &: \|\A{L} - \M{L}\|_F \le a_L
+        }, \epsilon_L, \|.\|_*^S
+    } \\
+    &\le \frac{36a_L^2\prod_{1\le l \le L-1}\rho_l^2s_l^2}{\epsilon_L^2}\log\biggRound{
+        \biggRound{
+            \frac{8a_L\prod_{1\le l \le L-1}\rho_l^2s_l^2}{\epsilon_L} + 7
+        }nd_L
+    } \\
+    &\le \frac{36a_L^2\prod_{1\le l \le L-1}\rho_l^2s_l^2}{\epsilon_L^2}\log\biggRound{
+        \biggRound{
+            \frac{8a_L\prod_{1\le l \le L-1}\rho_l^2s_l^2}{\epsilon_L} + 7
+        }nW
+    } \ \ \ (3)
 \end{align*}
 
