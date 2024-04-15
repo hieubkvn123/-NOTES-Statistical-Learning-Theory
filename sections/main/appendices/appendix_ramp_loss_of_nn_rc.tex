@@ -223,15 +223,57 @@
     }
 \end{align*}
 
-\noindent Where we use the notation $L_\vecbf{A}$ to specify that $L_\vecbf{A}$ is parameterized by the tuple of weight matrices $\vecbf{A}=(\A{1}, \dots, \A{L})\in\mathcal{A}$. For $L_\vecbf{A},L_\vecbf{\bar A}\in\mathcal{L}_r$, we have:
+\noindent Where we use the notation $L_\vecbf{A}$ to specify that $L_\vecbf{A}$ is parameterized by the tuple of weight matrices $\vecbf{A}=(\A{1}, \dots, \A{L})\in\mathcal{A}$. Let $L_\vecbf{A},L_\vecbf{\bar A}\in\mathcal{L}_r$ be the loss functions for $F_\vecbf{A}, F_\vecbf{\bar A}\in\F_\mathcal{A}$, we have:
 \begin{align*}
     |L_\vecbf{A}(x_i, y_i) - L_\vecbf{\bar A}(x_i, y_i)| &\le \frac{2}{r}\max_{j\in\{1, \dots, K\}} \bigAbs{
         F_\vecbf{A}(x_i)_j - F_\vecbf{\bar A}(x_i)_j
-    } = \frac{2}{r}\|F_\vecbf{A}(x_i) - F_\vecbf{\bar A}(x_i)\|_\infty \\
-    &= \frac{2}{r}\max_{x_i \in S} \|F_\vecbf{A}(x_i) - F_\vecbf{\bar A}(x_i)\|_\infty \\
-    &= \frac{2}{r} \|F_\vecbf{A} - F_\vecbf{\bar A}\|_*^S\\
-    \implies 
-    \|L_\vecbf{A} - L_\vecbf{\bar A}\|_2^S &\le \frac{2}{r}\|F_\vecbf{A} - F_\vecbf{\bar A}\|_*^S
+    }
 \end{align*}
 
-\noindent Where the $\|.\|_*^S$ norm is defined for any neural network $F_\vecbf{A}\in\F_\mathcal{A}$ as $\|F_\vecbf{A}\|_*^S = \max_{\substack{x_i\in S \\ j \le K}} |F_\vecbf{A}(x_i)_j|$. We proceed by constructing a cover for $\F_\mathcal{A}$ with respect to $\|.\|_*^S$ norm.
+\noindent For each $F_\vecbf{A}\in\F_\mathcal{A}$, we define $F_\vecbf{A}$ as the entire network and $F_\vecbf{\A{1, k}}$ as the extraction of the first $k\ge 1$ layers with activation in the $k^{th}$ layer. Specifically:
+\begin{align*}
+    F_\vecbf{A}(x) &= \A{L}\sigma_{L-1}\bigRound{\A{L-1}\sigma_{L-2}\bigRound{ \dots \A{2}\sigma_1(x) \dots}} \\   
+    F_\vecbf{\A{1, k}}(x) &= \sigma_k\bigRound{
+        \A{k}
+    }
+\end{align*}
+
+\noindent Expanding $\max_{j\in\{1, \dots, K\}}\bigAbs{F_\vecbf{A}(x_i)_j - F_\vecbf{\bar A}(x_i)_j}$, we have:
+\begin{align*}
+    \max_{j\in\{1, \dots, K\}}&\bigAbs{ F_\vecbf{A}(x_i)_j - F_\vecbf{\bar A}(x_i)_j } \\
+        &=  \Big\|
+            \A{L}F_\vecbf{\A{1, L-1}}(x_i) - \bA{L}F_\vecbf{\bA{1, L-1}}(x_i)
+        \Big\|_\infty \\
+        &= \Big\|
+            \bigRound{\A{L}-\bA{L}}F_\vecbf{\bA{1, L-1}}(x_i) + \A{L}\bigRound{F_\vecbf{\A{1, L-1}}(x_i) - F_\vecbf{\bA{1, L-1}}(x_i)}
+        \Big\|_\infty \\
+        &\le \Big\|
+            \bigRound{\A{L}-\bA{L}}F_\vecbf{\bA{1, L-1}}(x_i) 
+        \Big\|_\infty
+        + 
+        \Big\|
+            \A{L}\bigRound{F_\vecbf{\A{1, L-1}}(x_i) - F_\vecbf{\bA{1, L-1}}(x_i)}
+        \Big\|_\infty \\
+        &\le \Big\|
+            \bigRound{\A{L}-\bA{L}}F_\vecbf{\bA{1, L-1}}(x_i) 
+        \Big\|_\infty
+        + 
+        \Big\|
+            \A{L}\bigRound{F_\vecbf{\A{1, L-1}}(x_i) - F_\vecbf{\bA{1, L-1}}(x_i)}
+        \Big\|_2 \\
+        &\le \max_{x_*\in S}\Big\|
+            \bigRound{\A{L}-\bA{L}}F_\vecbf{\bA{1, L-1}}(x_*)
+        \Big\|_\infty + \|\A{L}\|_\sigma\Big\|
+            F_\vecbf{\A{1, L-1}}(x_i) - F_\vecbf{\bA{1, L-1}}(x_i)
+        \Big\|_2 \\
+        &\le \max_{x_*\in S}\Big\|
+            \bigRound{\A{L}-\bA{L}}F_\vecbf{\bA{1, L-1}}(x_*)
+        \Big\|_\infty + s_L \Big\|
+            F_\vecbf{\A{1, L-1}}(x_i) - F_\vecbf{\bA{1, L-1}}(x_i)
+        \Big\|_2 \\
+        &\le \max_{x_*\in S}\Big\|
+            \bigRound{\A{L}-\bA{L}}F_\vecbf{\bA{1, L-1}}(x_*)
+        \Big\|_\infty + s_L\rho_{L-1} \Big\|
+            \A{L-1}F_\vecbf{\A{1, L-2}}(x_i) - \bA{L-1}F_\vecbf{\bA{1, L-2}}(x_i) 
+        \Big\|_2 \\
+\end{align*}
