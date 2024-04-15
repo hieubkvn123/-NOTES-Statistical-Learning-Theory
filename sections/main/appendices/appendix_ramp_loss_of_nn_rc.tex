@@ -232,9 +232,9 @@
 
 \noindent For each $F_\vecbf{A}\in\F_\mathcal{A}$, we define $F_\vecbf{A}$ as the entire network and $F_\vecbf{\A{1, k}}$ as the extraction of the first $k\ge 1$ layers with activation in the $k^{th}$ layer. Specifically:
 \begin{align*}
-    F_\vecbf{A}(x) &= \A{L}\sigma_{L-1}\bigRound{\A{L-1}\sigma_{L-2}\bigRound{ \dots \A{2}\sigma_1(x) \dots}} \\   
+    F_\vecbf{A}(x) &= \A{L}\sigma_{L-1}\bigRound{\A{L-1}\sigma_{L-2}\bigRound{ \dots \A{2}\sigma_1(\A{1}x) \dots}} \\   
     F_\vecbf{\A{1, k}}(x) &= \sigma_k\bigRound{
-        \A{k}\sigma_{k-1}\bigRound{\A{k-1}\sigma_{k-2}\bigRound{\dots \A{2}\sigma_1(x) \dots}}
+        \A{k}\sigma_{k-1}\bigRound{\A{k-1}\sigma_{k-2}\bigRound{\dots \A{2}\sigma_1(\A{1}x) \dots}}
     }
 \end{align*}
 
@@ -314,7 +314,7 @@
     }
 \end{align*}
 
-\noindent Where $\epsilon_1, \dots, \epsilon_k$ are known positive constants. Denote $F_\vecbf{\A{1, j-1}}(x)=x$ for $j=1$ and $W=\max_{0\le l \le L-1}d_l$. By lemma 3.2 from \cite{article:bartlett}, we have:
+\noindent Where $\epsilon_1, \dots, \epsilon_k$ are known positive constants. Denote $F_\vecbf{\A{1, j-1}}(x)=x$ for $j=1$ and also denote $W=\max_{0\le l \le L-1}d_l$. By lemma 3.2 from \cite{article:bartlett}, we have:
 \begin{align*}
     \log|\mathcal{C}_k| 
     &\le \sum_{j=1}^k\sup_{
@@ -337,3 +337,22 @@
         }
     }\frac{a_j^2\|F_\vecbf{\A{1, j-1}}(x)\|_2^2}{\epsilon_j^2}\log(2W^2) \\
 \end{align*}
+
+\noindent To bound the output at the $(j-1)^{th}$ layer, we have:
+\begin{align*}
+    \Big\|
+        F_\vecbf{\A{1, j-1}}(x)
+    \Big\|_2 &= \Big\|
+        \sigma_{j-1}\bigRound{\A{j-1}\sigma_{j-2}\bigRound{\dots \A{2}\sigma_1(\A{1}x) \dots}}
+    \Big\|_2 \\
+    &\le \rho_{j-1}s_{j-1} \Big\|
+        \sigma_{j-2}\bigRound{\A{j-2}\sigma_{j-3}\bigRound{\dots \A{2}\sigma_1(\A{1}x) \dots}}
+    \Big\| \\
+    &\le \prod_{l=1}^{j-1}\rho_l s_l
+\end{align*}
+
+\noindent Hence, we have:
+\begin{align*}
+    \log|\mathcal{C}_k| \le \sum_{j=1}^k \frac{a_j^2\prod_{1\le l < j} \rho_l^2s_l^2}{\epsilon_j^2}\log(2W^2)
+\end{align*}
+
