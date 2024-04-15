@@ -363,14 +363,46 @@
 
 \noindent With the aggregated granularity:
 \begin{align*}
-    \tau_1 = \sum_{j=1}^{L-1}\epsilon_j \biggRound{\prod_{j+1}^{L-1} s_l\rho_{l-1}}
+    \tau_{L-1} = \sum_{j=1}^{L-1}\epsilon_j \biggRound{\prod_{j+1}^{L-1} s_l\rho_{l-1}}
 \end{align*}
 
 
-\noindent\newline\textbf{1.2. Construct cover for $L$ layers}: Let $\epsilon_L>0$ be a known constant. For each element $\vecbf{\bA{1, L-1}}\in\mathcal{C}_{L-1}$, construct the cover $\mathcal{C}_L(\vecbf{\bA{1, L-1}})$ with respect to the $\|.\|_*^S$ norm for the following class:
+\noindent\newline\textbf{1.2. Construct cover for $L$ layers}: Let $\epsilon_L>0$ be a known constant. We define the $\|.\|_*^S$ norm for a function $f$ as followed:
+\begin{align*}
+    \|f\|_*^S = \max_{x_* \in S}\|f(x_*)\|_\infty
+\end{align*} 
+
+
+\noindent For each element $\vecbf{\bA{1, L-1}}\in\mathcal{C}_{L-1}$, construct the $\epsilon_L$-cover $\mathcal{C}_L(\vecbf{\bA{1, L-1}})$ with respect to the $\|.\|_*^S$ norm for the following class:
 \begin{align*}
     \F_L(\vecbf{\bA{1, L-1}}) = \biggCurl{
         x \mapsto \A{L}F_\vecbf{\bA{1, L-1}}(x) : \|\A{L}-\M{L}\|_F \le a_*
     }
 \end{align*} 
+
+\noindent Now, construct the cover $\mathcal{C}_L$ as followed:
+\begin{align*}
+    \mathcal{C}_L &= \bigcup_{\vecbf{\bA{1, L-1}}\in\mathcal{C}_{L-1}} \mathcal{C}_L\bigRound{
+        \vecbf{\bA{1, L-1}}
+    } \\
+    \implies 
+    |\mathcal{C}_L| &\le \sum_{\vecbf{\bA{1, L-1}}\in\mathcal{C}_{L-1}} \mathcal{C}_L\bigRound{
+        \vecbf{\bA{1, L-1}}
+    } \\
+    &\le |\mathcal{C}_{L-1}| \cdot \sup_{\vecbf{\bA{1, L-1}}\in\mathcal{C}_{L-1}}\bigAbs{
+        \mathcal{C}_L\bigRound{
+            \vecbf{\bA{1, L-1}}
+        }
+    } \\
+    &\le |\mathcal{C}_{L-1}| \cdot \sup_{
+        \substack{
+            (\A{1}, \dots, \A{L-1}) \\
+            \forall 1\le j\le L-1 : \A{j}\in\mathcal{B}_j
+        }
+    }\mathcal{N}\bigRound{
+        \bigCurl{
+            x \mapsto \A{L}F_\vecbf{\A{1, L-1}}(x) : \|\A{L} - \M{L}\|_F \le a_*
+        }, \epsilon_L, \|.\|_*^S
+    }
+\end{align*}
 
