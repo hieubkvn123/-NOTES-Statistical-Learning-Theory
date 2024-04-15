@@ -24,7 +24,7 @@
     \F_\mathcal{A} = \biggCurl{
         x\mapsto \A{L} \biggRound{
             \bigO_{k=1}^{L-1} \sigma_k \circ \A{k}
-        }(x) : \sigma_k \text{ is } \rho_k\text{-Lipchitz}, \begin{pmatrix}
+        }(x) : \sigma_k \text{ is } \rho_k\text{-Lipchitz w.r.t $l_2$ norm}, \begin{pmatrix}
             \A{1} & \dots & \A{L}
         \end{pmatrix} \in \mathcal{A}
     }
@@ -234,7 +234,7 @@
 \begin{align*}
     F_\vecbf{A}(x) &= \A{L}\sigma_{L-1}\bigRound{\A{L-1}\sigma_{L-2}\bigRound{ \dots \A{2}\sigma_1(x) \dots}} \\   
     F_\vecbf{\A{1, k}}(x) &= \sigma_k\bigRound{
-        \A{k}
+        \A{k}\sigma_{k-1}\bigRound{\A{k-1}\sigma_{k-2}\bigRound{\dots \A{2}\sigma_1(x) \dots}}
     }
 \end{align*}
 
@@ -276,4 +276,64 @@
         \Big\|_\infty + s_L\rho_{L-1} \Big\|
             \A{L-1}F_\vecbf{\A{1, L-2}}(x_i) - \bA{L-1}F_\vecbf{\bA{1, L-2}}(x_i) 
         \Big\|_2 \\
+\end{align*}
+
+\noindent For $1\le k \le L-1$, construct the cover $\mathcal{C}_k$ with respect to the $\|.\|_2^S$ for the following class:
+\begin{align*}
+    \F_k = \bigCurl{
+        x\mapsto \A{k}F_\vecbf{\A{1, k-1}}(x) : \|\A{k}\|_\sigma \le s_k, \ \|(\A{k} - \M{k})^T\|_{2, 1}\le a_i 
+    }
+\end{align*}
+
+\noindent For every $x_i\in S$, we have:
+\begin{align*}
+    \Big\|\A{k}F_\vecbf{\A{1, k-1}}(x_i) &- \bA{k}F_\vecbf{\bA{1, k-1}}(x_i)\Big\|_2 \\
+        &= \Big\|
+            \bigRound{\A{k} - \bA{k}}F_\vecbf{\bA{1, k-1}}(x_i)
+        \Big\|_2 + \Big\|
+            \A{k}\bigRound{F_\vecbf{\A{1, k-1}}(x_i) - F_\vecbf{\bA{1, k-1}}(x_i)}
+        \Big\|_2 \\
+        &= \Big\|
+            \bigRound{\A{k} - \bA{k}}F_\vecbf{\bA{1, k-1}}(x_i)
+        \Big\|_2 + s_k\rho_{k-1}\Big\|
+            \A{k-1}\bigRound{F_\vecbf{\A{1, k-2}}(x_i) - F_\vecbf{\bA{1, k-2}}(x_i)}
+        \Big\|_2 \\
+\end{align*}
+
+\noindent Expand the above inductively in a similar manner as theorem \ref{thm:nn_cover_bound_with_general_norm} and for each layer index $1\le j\le k$, denote $\mathcal{B}_l=\bigCurl{\A{l}\in\R^{d_{l-1}\times d_l} : \|\A{l}\|_\sigma\le s_l, \|(\A{l}-\M{l})^T\|_{2, 1} \le a_l}$ and $\mathcal{C}_1$ is the cover of the first layer, we have:
+\begin{align*}
+    |\mathcal{C}_k| \le |\mathcal{C}_1| \cdot \prod_{j=2}^k \sup_{ 
+        \substack{
+            (\A{1}, \dots, \A{j-1}) \\
+            \forall l \le j-1:\A{l}\in\mathcal{B}_l
+        } 
+    } \mathcal{N}\bigRound{
+        \bigCurl{
+            x\mapsto \A{j}F_\vecbf{\A{1, j-1}}(x) : \A{j}\in\mathcal{B}_j
+        }, \epsilon_j, \|.\|_2^S 
+    }
+\end{align*}
+
+\noindent Where $\epsilon_1, \dots, \epsilon_k$ are known positive constants. Denote $F_\vecbf{\A{1, j-1}}(x)=x$ for $j=1$ and $W=\max_{0\le l \le L-1}d_l$. By lemma 3.2 from \cite{article:bartlett}, we have:
+\begin{align*}
+    \log|\mathcal{C}_k| 
+    &\le \sum_{j=1}^k\sup_{
+        \substack{
+            (\A{1}, \dots, \A{j-1}) \\ \forall l \le j-1: \A{l}\in\mathcal{B}_l
+        }
+    }\log\mathcal{N}\bigRound{
+        \bigCurl{
+            x \mapsto \A{j}F_\vecbf{\A{1, j-1}}(x) : \A{j} \in \mathcal{B}_j
+        }, \epsilon_j, \|.\|_2^S
+    } \\
+    &\le \sum_{j=1}^k\sup_{
+        \substack{
+            (\A{1}, \dots, \A{j-1}) \\ \forall l \le j-1: \A{l}\in\mathcal{B}_l, \|x\|_2 \le 1
+        }
+    }\frac{a_j^2\|F_\vecbf{\A{1, j-1}}(x)\|_2^2}{\epsilon_j^2}\log(2d_{j-1}d_j) \\
+    &\le \sum_{j=1}^k\sup_{
+        \substack{
+            (\A{1}, \dots, \A{j-1}) \\ \forall l \le j-1: \A{l}\in\mathcal{B}_l, \|x\|_2 \le 1
+        }
+    }\frac{a_j^2\|F_\vecbf{\A{1, j-1}}(x)\|_2^2}{\epsilon_j^2}\log(2W^2) \\
 \end{align*}
