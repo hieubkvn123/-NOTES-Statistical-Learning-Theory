@@ -516,6 +516,8 @@
 
 \noindent Plugging the formulas for $\epsilon_j, \ 1\le j \le L$ back into the covering number bounds, we have:
 \begin{align*}
-    \log|\mathcal{C}_L| &\le \log(\mathcal{D})\sum_{j=1}^L \frac{a_j^2\prod_{l=1}^{j-1}\rho_l^2s_l^2\prod_{k=j+1}^L s_k^2\rho_{k-1}^2}{\alpha_j^2\bar\epsilon^2}
+    \log|\mathcal{C}_L| &\le \log(\mathcal{D})\sum_{j=1}^L \frac{a_j^2\prod_{l=1}^{j-1}\rho_l^2s_l^2\prod_{k=j+1}^L s_k^2\rho_{k-1}^2}{\alpha_j^2\bar\epsilon^2} \\
+        &= \log(\mathcal{D})\sum_{j=1}^L \frac{a_j^2\prod_{l=1}^L \rho_l^2s_l^2}{s_j^2\alpha_j^2\bar\epsilon^2}, \ \ \ (\text{Assuming }\rho_L=1) \\
+        &= \log(\mathcal{D})\frac{\prod_{l=1}^L \rho_l^2s_l^2}{\bar\epsilon^2}\sum_{j=1}^L \frac{a_j^2}{s_j^2\alpha_j^2}
 \end{align*}
 
