@@ -447,12 +447,12 @@
     } \\
     &\le \frac{36a_*^2\prod_{1\le l \le L-1}\rho_l^2s_l^2}{\epsilon_L^2}\log\biggRound{
         \biggRound{
-            \frac{8a_*\prod_{1\le l \le L-1}\rho_l^2s_l^2}{\epsilon_L} + 7
+            \frac{8a_*\prod_{1\le l \le L-1}\rho_ls_l}{\epsilon_L} + 7
         }nd_L
     } \\
-    &\le \frac{36a_*^2\prod_{1\le l \le L-1}\rho_l^2s_l^2}{\epsilon_L^2}\log\biggRound{
+    &\le \frac{36a_*^2\prod_{1\le l \le L-1}\rho_ls_l}{\epsilon_L^2}\log\biggRound{
         \biggRound{
-            \frac{8a_*\prod_{1\le l \le L-1}\rho_l^2s_l^2}{\epsilon_L} + 7
+            \frac{8a_*\prod_{1\le l \le L-1}\rho_ls_l}{\epsilon_L} + 7
         }nW
     } \ \ \ (3)
 \end{align*}
@@ -462,13 +462,13 @@
     \log|\mathcal{C}_L| 
     &\le \log|\mathcal{C}_{L-1}| + \frac{36a_*^2\prod_{l=1}^{L-1}\rho_l^2s_l^2}{\epsilon_L^2}\log\biggRound{
         \biggRound{
-            \frac{8a_*\prod_{l=1}^{L-1}\rho_l^2s_l^2}{\epsilon_L} + 7
+            \frac{8a_*\prod_{l=1}^{L-1}\rho_ls_l}{\epsilon_L} + 7
         }nW
     }
     \\
     &\le \log(2W^2)\sum_{j=1}^{L-1}\frac{a_j^2\prod_{l=1}^{j-1}\rho_l^2s_l^2}{\epsilon_j^2} + \frac{a_L^2\prod_{l=1}^{L-1}\rho_l^2s_l^2}{\epsilon_L^2}\log\biggRound{
         \biggRound{
-            \frac{4a_L\prod_{l=1}^{L-1}\rho_l^2s_l^2}{3\epsilon_L} + 7
+            \frac{4a_L\prod_{l=1}^{L-1}\rho_ls_l}{3\epsilon_L} + 7
         }nW
     } \\
     &\le \log(\mathcal{D}) \sum_{j=1}^L \frac{a_j^2\prod_{l=1}^{j-1}\rho_l^2s_l^2}{\epsilon_j^2}
@@ -478,12 +478,12 @@
 \begin{align*}
     \mathcal{D} = W\max\biggCurl{
         2W, \biggRound{
-            \frac{4a_L\prod_{l=1}^{L-1}\rho_l^2s_l^2}{3\epsilon_L}
+            \frac{4a_L\prod_{l=1}^{L-1}\rho_ls_l}{3\epsilon_L}
         }n
     }
 \end{align*}
 
-\noindent We have: For all $F_\vecbf{A}\in\F_\mathcal{A}$, there exists $\vecbf{\bar A}\in\mathcal{C}_L$ such that:
+\noindent Now, we need to check the aggregated granularity for the cover $\mathcal{C}_L$. We have: For all $F_\vecbf{A}\in\F_\mathcal{A}$, there exists $\vecbf{\bar A}\in\mathcal{C}_L$ such that:
 \begin{align*}
     \max_{j\in\{1, \dots, K\}} &\bigAbs{
         F_\vecbf{A}(x_i)_j - F_\vecbf{\bar A}(x_i)_j
@@ -518,6 +518,33 @@
 \begin{align*}
     \log|\mathcal{C}_L| &\le \log(\mathcal{D})\sum_{j=1}^L \frac{a_j^2\prod_{l=1}^{j-1}\rho_l^2s_l^2\prod_{k=j+1}^L s_k^2\rho_{k-1}^2}{\alpha_j^2\bar\epsilon^2} \\
         &= \log(\mathcal{D})\sum_{j=1}^L \frac{a_j^2\prod_{l=1}^L \rho_l^2s_l^2}{s_j^2\alpha_j^2\bar\epsilon^2}, \ \ \ (\text{Assuming }\rho_L=1) \\
-        &= \log(\mathcal{D})\frac{\prod_{l=1}^L \rho_l^2s_l^2}{\bar\epsilon^2}\sum_{j=1}^L \frac{a_j^2}{s_j^2\alpha_j^2}
+        &= \log(\mathcal{D})\frac{\prod_{l=1}^L \rho_l^2s_l^2}{\bar\epsilon^2}\sum_{j=1}^L \frac{a_j^2}{s_j^2\alpha_j^2} \\
+        &= \log(\mathcal{D})\frac{\prod_{l=1}^L \rho_l^2s_l^2}{\bar\epsilon^2}\sum_{j=1}^L \frac{a_j^2\bar\alpha^2}{s_j^2(a_j/s_j)^{4/3}} \\
+        &= \log(\mathcal{D})\frac{\prod_{l=1}^L \rho_l^2s_l^2}{\bar\epsilon^2}\bar\alpha^2\sum_{j=1}^L \biggRound{\frac{a_j}{s_j}}^{2/3} = \bar\alpha^3\log(\mathcal{D})\frac{\prod_{l=1}^L\rho_l^2s_l^2}{\bar\epsilon^2}
+\end{align*}
+
+\noindent\newline\textbf{1.4. Covering the loss function class}: For a given granularity $\epsilon>0$ that we want to impose on the class of loss functions $\mathcal{L}_r$, set $\bar\epsilon=r\epsilon/2$, we have:
+\begin{align*}
+    \log\mathcal{N}\bigRound{
+        \mathcal{L}_r, \epsilon, \|.\|_2^S
+    } &\le 4\bar\alpha^3\log(\mathcal{D})\frac{\prod_{l=1}^L\rho_l^2s_l^2}{r^2\epsilon^2} = \frac{4\mathcal{R_A}\log(\mathcal{D})}{r^2\epsilon^2}
+\end{align*}
+
+\noindent Where we have:
+\begin{align*}
+    \mathcal{R_A} = \prod_{l=1}^L\rho_l^2s_l^2 \biggRound{
+        \sum_{j=1}^L \biggRound{
+            \frac{a_l}{s_l}
+        }^{2/3}
+    }^3, \ \ \ \bigRound{a_L = 6a_*}
+\end{align*}
+
+\noindent And, plugging $\epsilon_L=r\epsilon/(2\bar\alpha)$ into the formula of $\mathcal{D}$, we have:
+\begin{align*}
+    \mathcal{D} = W\max\biggRound{
+        2W, \biggRound{
+            \frac{8\bar\alpha a_L\prod_{l=1}^{L-1}\rho_ls_l}{3r\epsilon}
+        }n
+    }
 \end{align*}
 
