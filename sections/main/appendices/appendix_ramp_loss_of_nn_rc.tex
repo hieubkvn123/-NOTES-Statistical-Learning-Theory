@@ -501,6 +501,21 @@
     &=\sum_{j=1}^L \epsilon_j\biggRound{\prod_{l=j+1}^L s_l\rho_{l-1}}
 \end{align*}
 
-\noindent For a given granularity $\bar \epsilon > 0$ that we want to impose on $\mathcal{C}_L$, we set each $\epsilon_j, \ 1 \le j \le L$ as followed:
+\noindent For a given granularity $\bar \epsilon > 0$ that we want to impose on $\mathcal{C}_L$, we set each $\epsilon_j, \ 1 \le j \le L$ similar to \cite{article:bartlett} as followed:
+\begin{align*}
+    \epsilon_j = \frac{\alpha_j\bar\epsilon}{\prod_{l=j+1}^L s_l\rho_{l-1}}, \text{where : } \alpha_j = \frac{1}{\bar\alpha}\biggRound{\frac{a_j}{s_j}}^{2/3}, \ \bar\alpha=\sum_{l=1}^L \biggRound{\frac{a_l}{s_l}}^{2/3}
+\end{align*}
 
+\noindent Hence, we have:
+\begin{align*}
+    \sum_{j=1}^L \epsilon_j\biggRound{
+        \prod_{l=j+1}^L s_l\rho_{l-1}
+    } &= \sum_{j=1}^L \frac{\bar\epsilon(a_j/s_j)^{2/3}\prod_{l=j+1}^L s_l\rho_{l-1}}{\bar\alpha\prod_{l=j+1}^Ls_l\rho_{l-1}} \\
+    &= \sum_{j=1}^L\alpha_j\bar\epsilon = \bar\epsilon
+\end{align*}
+
+\noindent Plugging the formulas for $\epsilon_j, \ 1\le j \le L$ back into the covering number bounds, we have:
+\begin{align*}
+    \log|\mathcal{C}_L| &\le \log(\mathcal{D})\sum_{j=1}^L \frac{a_j^2\prod_{l=1}^{j-1}\rho_l^2s_l^2\prod_{k=j+1}^L s_k^2\rho_{k-1}^2}{\alpha_j^2\bar\epsilon^2}
+\end{align*}
 
