@@ -474,13 +474,12 @@
     &\le \log(\mathcal{D}) \sum_{j=1}^L \frac{a_j^2\prod_{l=1}^{j-1}\rho_l^2s_l^2}{\epsilon_j^2}
 \end{align*}
 
-\noindent Where $\mathcal{D}$ is a constant that depends on the sample size and the maximum width of the network, defined as followed:
+\noindent Where $\mathcal{D}$ is a constant that depends on the sample size and the maximum width of the network, defined as followed: 
 \begin{align*}
-    \mathcal{D} = W\max\biggCurl{
-        2W, \biggRound{
-            \frac{4a_L\prod_{l=1}^{L-1}\rho_ls_l}{3\epsilon_L}
-        }n
-    }
+    \mathcal{D} = 
+        2nW^2\biggRound{
+            \frac{4a_L \prod_{l=1}^{L-1}\rho_ls_l}{3\epsilon_L} + 7
+        }
 \end{align*}
 
 \noindent Now, we need to check the aggregated granularity for the cover $\mathcal{C}_L$. We have: For all $F_\vecbf{A}\in\F_\mathcal{A}$, there exists $\vecbf{\bar A}\in\mathcal{C}_L$ such that:
@@ -527,24 +526,43 @@
 \begin{align*}
     \log\mathcal{N}\bigRound{
         \mathcal{L}_r, \epsilon, \|.\|_2^S
-    } &\le 4\bar\alpha^3\log(\mathcal{D})\frac{\prod_{l=1}^L\rho_l^2s_l^2}{r^2\epsilon^2} = \frac{4\mathcal{R_A}\log(\mathcal{D})}{r^2\epsilon^2}
+    } &\le 4\bar\alpha^3\log(\mathcal{D})\frac{\prod_{l=1}^L\rho_l^2s_l^2}{r^2\epsilon^2} = \frac{4\mathcal{R_A}^2\log(\mathcal{D})}{r^2\epsilon^2}
 \end{align*}
 
 \noindent Where we have:
 \begin{align*}
-    \mathcal{R_A} = \prod_{l=1}^L\rho_l^2s_l^2 \biggRound{
+    \mathcal{R_A} = \prod_{l=1}^L\rho_ls_l \biggRound{
         \sum_{j=1}^L \biggRound{
             \frac{a_l}{s_l}
         }^{2/3}
-    }^3, \ \ \ \bigRound{a_L = 6a_*}
+    }^{3/2}, \ \ \ \bigRound{a_L = 6a_*}
 \end{align*}
 
-\noindent And, plugging $\epsilon_L=r\epsilon/(2\bar\alpha)$ into the formula of $\mathcal{D}$, we have:
+\noindent And $\mathcal{D}$ is a constant that relies on the sample size and the width of the neural network. In order to simplify $\mathcal{D}$, we have to expand $\epsilon_L$ in terms of $\epsilon$, we have:
 \begin{align*}
-    \mathcal{D} = W\max\biggRound{
-        2W, \biggRound{
-            \frac{8\bar\alpha a_L\prod_{l=1}^{L-1}\rho_ls_l}{3r\epsilon}
-        }n
+    \epsilon_L &= \alpha_j \bar\epsilon \ge \alpha_j^{3/2}\bar\epsilon = \frac{a_L/s_L}{\bar\alpha^{3/2}}\bar\epsilon = \frac{r\epsilon(a_L/s_L)}{2\bar\alpha^{3/2}} 
+\end{align*}
+
+\noindent Replace $\epsilon_L$ with ${r\epsilon(a_L/s_L)}/{2\bar\alpha^{3/2}}$, we have:
+\begin{align*}
+    \mathcal{D} &= 2nW^2\biggRound{
+        \frac{4a_L\prod_{l=1}^{L-1}\rho_ls_l}{3\epsilon_L} + 7
+    } = 2nW^2\biggRound{
+        \frac{4a_L\prod_{l=1}^{L-1}\rho_ls_l}{3r\epsilon(a_L/s_L)/2\bar\alpha^{3/2}} + 7
+    } \\
+    &= 2nW^2\biggRound{
+        \frac{8\bar\alpha^{3/2}\prod_{l=1}^L \rho_ls_l}{3r\epsilon} + 7
+    } \ \ \ (\text{assuming } \rho_L=1) \\
+    &= 2nW^2\biggRound{
+        \frac{8\mathcal{R_A}}{3r\epsilon} + 7
     }
 \end{align*}
 
+\noindent From all of the above, we have:
+\begin{align*}
+    \log\mathcal{N}\bigRound{\mathcal{L}_r, \epsilon, \|.\|_2^S} \le \frac{4\mathcal{R_A}^2}{r^2\epsilon^2}\log\biggRound{
+        \biggRound{
+            \frac{8\mathcal{R_A}}{3r\epsilon} + 7
+        }
+    }
+\end{align*}
