@@ -561,8 +561,43 @@
 \noindent From all of the above, we have:
 \begin{align*}
     \log\mathcal{N}\bigRound{\mathcal{L}_r, \epsilon, \|.\|_2^S} \le \frac{4\mathcal{R_A}^2}{r^2\epsilon^2}\log\biggRound{
-        \biggRound{
+        2nW^2\biggRound{
             \frac{8\mathcal{R_A}}{3r\epsilon} + 7
         }
+    }
+\end{align*}
+
+\noindent\newline\textbf{2. Dudley's Entropy Integral}: By theorem \ref{thm:dudley_entropy_integral}, for $\alpha>0$, we have:
+\begin{align*}
+    \ERC_S(\mathcal{L}_r) &\le 4\alpha + \frac{12}{\sqrt n}\int_\alpha^1 \sqrt{
+        \log\mathcal{N}\bigRound{\mathcal{L}_r, \epsilon, \|.\|_2^S}
+    }d\epsilon \\
+    &\le 4\alpha + \frac{24\mathcal{R_A}}{r\sqrt n}\int_{\alpha}^1\frac{1}{\epsilon}\sqrt{\log\biggRound{
+        2nW^2\biggRound{
+            \frac{8\mathcal{R_A}}{3r\epsilon} + 7
+        }
+    }}d\epsilon \\
+    &\le 4\alpha + \frac{24\mathcal{R_A}}{r\sqrt n}\sqrt{
+        \log\biggRound{
+            2nW^2\biggRound{
+                \frac{8\mathcal{R_A}}{3r\alpha} + 7
+            }
+        }
+    }(-\log\alpha)
+\end{align*}
+
+\noindent Setting $\alpha=6\mathcal{R_A}/r\sqrt{n}$, we have:
+\begin{align*}
+    \ERC_S(\mathcal{L}_r) &\le \frac{24\mathcal{R_A}}{r\sqrt n}\biggRound{
+        1 + \log\frac{r\sqrt{n}}{6\mathcal{R_A}}\sqrt{
+            \log\biggRound{
+                2nW^2\biggRound{
+                    \frac{4}{9}r\sqrt{n} + 7
+                }
+            }
+        }
+    } \\
+    &= \tilde O \biggRound{
+        \frac{\mathcal{R_A}}{r\sqrt n}
     }
 \end{align*}
