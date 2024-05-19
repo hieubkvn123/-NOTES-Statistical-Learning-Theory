@@ -10,11 +10,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 from collections import defaultdict
 
+# Turn on latex for matplotlib
+plt.rcParams['text.usetex'] = True
 
 # Network settings
 d = 64
 L_min = 2
-L_max = 3
+L_max = 10
 hidden_dim = 128
 
 # Data settings
@@ -107,7 +109,7 @@ class Net(nn.Module):
         for l in range(1, self.L+1):
             print(f'[INFO] Calculating statistics for layer #{l}:')
             with tqdm.tqdm(total=len(dataloader)) as pbar:
-                for j, batch in enumerate(train_dataloader):
+                for j, batch in enumerate(dataloader):
                     X = torch.cat(
                         [batch[0].to(device), batch[1].to(device), *[x.to(device) for x in batch[2]]],
                         dim=0
@@ -116,7 +118,6 @@ class Net(nn.Module):
                         # Calculations
                         x_l2      = np.linalg.norm(self._tensor_to_numpy(x), ord=2)
                         Bl_act    = self._get_hidden_output(x, last_layer=l)
-                        Bl_no_act = self._get_hidden_output(x, last_layer=l, last_activation=False)
                         
                         max_rho   = 0.0
                         for U in range(l+1, self.L+1):
@@ -145,7 +146,6 @@ class Net(nn.Module):
                 * max_Bl[l-1] \
                 * max_rhos[l-1]
             ) ** (2/3))
-            print('l', RA**(3/2))
             
         RA += ((
             np.sqrt(self.out_dim) \
@@ -153,7 +153,6 @@ class Net(nn.Module):
             * max_Bl[self.L]
         ) ** (2/3))
         RA = RA ** (3/2)
-        print('L', RA)
         
         # Compare with Yun wei
         fro_prod = 1.0
@@ -205,7 +204,7 @@ class MNISTTripletDataset(Dataset):
     def __len__(self):
         return len(self.mnist_dataset)
 
-def _get_mnist_dataloaders(k=3, batch_size=32):
+def _get_mnist_dataloaders(k=3, batch_size=32, sample_ratio=1.0):
     # Set up transformations and load the dataset
     transform = transforms.Compose([
         transforms.ToTensor()
@@ -217,9 +216,18 @@ def _get_mnist_dataloaders(k=3, batch_size=32):
     train_dataset = MNISTTripletDataset(mnist_train, k)
     test_dataset = MNISTTripletDataset(mnist_test, k)
     
+    # Sample fewer data samples
+    train_sampler = torch.utils.data.sampler.SubsetRandomSampler(
+        indices=torch.arange(int(len(train_dataset) * sample_ratio))
+    )
+    test_sampler = torch.utils.data.sampler.SubsetRandomSampler(
+        indices=torch.arange(int(len(test_dataset) * sample_ratio))
+    )
+
+    
     # Create custom dataloaders
-    train_dataloader = DataLoader(train_dataset, batch_size=64, shuffle=True)
-    test_dataloader = DataLoader(test_dataset, batch_size=64, shuffle=False)
+    train_dataloader = DataLoader(train_dataset, sampler=train_sampler, batch_size=64, shuffle=False)
+    test_dataloader = DataLoader(test_dataset, sampler=test_sampler, batch_size=64, shuffle=False)
     
     return train_dataloader, test_dataloader
 
@@ -246,38 +254,78 @@ def _logistic_loss(y, y_positive, y_negatives):
     loss = torch.log(1 + h_exp_sum)
     return loss
 
+# Experiments
+def experiment_1():
+    # Initialize dataloaders
+    train_dataloader, test_dataloader = _get_mnist_dataloaders(k=k, batch_size=batch_size)
+    
+    # Compare
+    num_layers = list(range(L_min, L_max + 1))
+    X, Y = [], []
+    for L in num_layers:
+        model = Net(in_dim=784, out_dim=d, hidden_dim=hidden_dim, L=L).to(device)
+        RA, FRO = model._calculate_network_complexitites(train_dataloader)
+        X.append(RA)
+        Y.append(FRO)
+    
+    plt.plot(num_layers, np.log(np.array(X)), label='$R_A$', marker='o')
+    plt.plot(num_layers, np.log(np.array(Y)), label='$M$', marker='v')
+    plt.legend()
+    plt.plot()
+    
+def experiment_2():    
+    # Start training
+    num_models = 10
+    # d_dims = [32, 64, 128]
+    d_dims = [256]
+    results = {d:[] for d in d_dims}
+    
+    for d_dim in d_dims:
+        for j in range(num_models):
+            # Load data
+            train_dataloader, test_dataloader = _get_mnist_dataloaders(
+                k=k, sample_ratio=0.1, batch_size=batch_size)    
+            
+            # Load model
+            model = Net(in_dim=784, out_dim=d_dim, hidden_dim=hidden_dim, L=2).to(device)
+            optimizer = torch.optim.Adam(model.parameters(), lr=1e-3, amsgrad=True)
+    
+            print(f'[INFO] Training (d={d_dim}, model #{j+1}):')
+            model.train()
+            for epoch in range(epochs):
+                print(f'[*] Epoch #[{epoch+1}/{epochs}]:')
+                with tqdm.tqdm(total=len(train_dataloader)) as pbar:
+                    for i, batch in enumerate(train_dataloader):
+                        # Calculate loss
+                        y1, y2, y3 = _apply_model_to_batch(model, batch, device=device)
+                        loss = torch.sum(_logistic_loss(y1, y2, y3))            
+                           
+                        # Back propagation
+                        loss.backward()
+                        optimizer.step()
+                        optimizer.zero_grad()
+                        
+                        # Update progress bar
+                        pbar.set_postfix({
+                            'train_loss' : f'{loss.item():.5f}'
+                        })
+                        pbar.update(1)
+                        
+            print('[INFO] Testing:')
+            model.eval()
+            total_loss = 0.0
+            with tqdm.tqdm(total=len(test_dataloader)) as pbar:
+                for i, batch in enumerate(test_dataloader):
+                    # Calculate loss
+                    y1, y2, y3 = _apply_model_to_batch(model, batch, device=device)
+                    total_loss += torch.sum(_logistic_loss(y1, y2, y3)).item()  
+                    pbar.update(1)
+                
+            RA, _ = model._calculate_network_complexitites(train_dataloader)
+            results[d_dim].append((RA, total_loss/(len(test_dataloader) * batch_size)))
+    return results
+
 # Running
 if __name__ == '__main__':
-    # Initialize model
-    train_dataloader, test_dataloader = _get_mnist_dataloaders(k=k, batch_size=batch_size)
-    model = Net(in_dim=784, out_dim=d, hidden_dim=hidden_dim, L=L_max).to(device)
-    RA, FRO = model._calculate_network_complexitites(train_dataloader)
-    print(RA, FRO)
-    # optimizer = torch.optim.Adam(model.parameters(), lr=1e-3, amsgrad=True)
-    
-    # # Load data
-    # train_dataloader, test_dataloader = _get_mnist_dataloaders(k=k, batch_size=batch_size)
-    
-    
-    # Start training
-    # print(model)
-    # model.train()
-    # for epoch in range(epochs):
-    #     print(f'[*] Epoch #[{epoch+1}/{epochs}]:')
-    #     with tqdm.tqdm(total=len(train_dataloader)) as pbar:
-    #         for i, batch in enumerate(train_dataloader):
-    #             # Calculate loss
-    #             y1, y2, y3 = _apply_model_to_batch(model, batch, device=device)
-    #             loss = torch.sum(_logistic_loss(y1, y2, y3))            
-                   
-    #             # Back propagation
-    #             loss.backward()
-    #             optimizer.step()
-    #             optimizer.zero_grad()
-                
-    #             # Update progress bar
-    #             pbar.set_postfix({
-    #                 'train_loss' : f'{loss.item():.5f}'
-    #             })
-    #             pbar.update(1)
+    print(experiment_2())
     
