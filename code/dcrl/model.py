@@ -1,8 +1,9 @@
+import tqdm
 import torch
 import numpy as np
 import torch.nn as nn
-from common import get_default_device
 from norms import frobenius_norm, l21_norm, spectral_norm 
+from common import get_default_device, apply_model_to_batch
 
 # Network definition
 class Net(nn.Module):
@@ -40,6 +41,11 @@ class Net(nn.Module):
             *self.fc_hidden_layers
         )
         self.U = nn.Linear(hidden_dim, out_dim)
+
+        # Store reference matrices
+        self.references = []
+        for l in range(1, self.L + 1):
+            self.references.append(self._get_v_layer_weights(layer=l))
         
     def _tensor_to_numpy(self, x):
         if self.device_type == 'cuda':
@@ -80,6 +86,9 @@ class Net(nn.Module):
     def forward(self, x):
         return self.U(self.v(x))
 
+def get_model(in_dim=784, out_dim=64, hidden_dim=128, L=10, device=None):
+    return Net(in_dim=in_dim, out_dim=out_dim, hidden_dim=hidden_dim, L=L, device=device)
+
 # Define loss functions
 def logistic_loss(y, y_positive, y_negatives):
     N, d = y.shape
@@ -97,8 +106,12 @@ def logistic_loss(y, y_positive, y_negatives):
 
 # Compute Yunwen's complexity measure
 def compute_complexity_FRO(dataloader, network: Net):
+    # Report
+    print('[INFO] Computing Yunwen et. al. complexity measure...')
+
     # Get necessary constants
     L = network.L 
+    n = len(dataloader)
     d = network.out_dim
     
     # Compute complexity
@@ -107,4 +120,17 @@ def compute_complexity_FRO(dataloader, network: Net):
         A_l = network._get_v_layer_weights(layer=l)
         complexity *= frobenius_norm(A_l)
         complexity *= spectral_norm(A_l)
+    complexity = complexity / np.sqrt(n)
+
+    # Find B_x
+    B_x = 0.0
+    with tqdm.tqdm(total=N) as pbar:
+        for i, batch in enumerate(dataloader):
+            # Calculate loss
+            y1, y2, y3 = apply_model_to_batch(network, batch, device=network.device)
+            loss = logistic_loss(y1, y2, y3)
+
+            # Update progress
+            pbar.update(1)
+
     return complexity
