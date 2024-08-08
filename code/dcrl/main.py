@@ -2,6 +2,7 @@ import time
 import tqdm
 import torch
 import numpy as np
+import matplotlib
 import matplotlib.pyplot as plt
 from dataset import get_dataloader
 from common import apply_model_to_batch
@@ -13,11 +14,18 @@ from model import (
     compute_complexity_THM2,
     compute_complexity_THM3
 )
+
+# Visualization configs
+fontconfig = {
+    'family' : 'normal',
+    'weight' : 'bold',
+    'size' : 18
+}
+plt.style.use('seaborn-v0_8-paper')
 plt.rcParams['text.usetex'] = True
-plt.style.use('darkgrid')
 
 # Constants for training
-MAX_EPOCHS = 10
+MAX_EPOCHS = 10 
 BATCH_SIZE = 64
 
 # Constants for ablation study
@@ -107,14 +115,19 @@ def train(epochs, dataset='mnist', d_dim=64, hidden_dim=128, k=3, L=2, batch_siz
     return complexity_AR, complexity_YW, complexity_THM1, complexity_THM2, complexity_THM3
 
 def results_visualization_utils(results, xaxis_data, title, xlabel, ylabel, save_path='file.png'):
-    _, ax = plt.subplots(figsize=(12, 7))
+    # Initialize plot
+    _, ax = plt.subplots(figsize=(10, 7))
+    ax.tick_params(axis='both', which='major', labelsize=13)
+
+    # Visualize
     for key, result in results.items():
         ax.plot(xaxis_data, result, label=RESULT_KEYS[key], color=COLOR_KEYS[key], marker='o')
-    ax.set_xlabel(xlabel)
-    ax.set_ylabel(ylabel)
+    ax.set_xlabel(xlabel, fontdict=fontconfig)
+    ax.set_ylabel(ylabel, fontdict=fontconfig)
     plt.grid()
-    plt.legend()
-    plt.title(title)
+    plt.legend(loc='upper left', fontsize="15")
+    plt.title(title, fontdict=fontconfig)
+    plt.tight_layout()
     plt.savefig(save_path)
 
 def ablation_study_varying_depths(args, min_depth, max_depth):
@@ -142,14 +155,14 @@ def ablation_study_varying_depths(args, min_depth, max_depth):
         results_depth['thm3'].append(thm3)
     return depths, results_depth
 
-def ablation_study_varying_width(args, min_width, max_width):
+def ablation_study_varying_widths(args, min_width, max_width):
     # Initialize results
-    widths = list(range(min_width, max_width))
+    widths = list(range(min_width, max_width + 1))
     results_width = { 'ar' : [], 'yw': [], 'thm1': [], 'thm2': [], 'thm3': []}
 
     # Conduct training
     for i, W in enumerate(widths):
-        print(f'[INFO] Experiment #[{i+1}/{len(depths)}], L = {L}')
+        print(f'[INFO] Experiment #[{i+1}/{len(widths)}], W = {W*32}')
         ar, yw, thm1, thm2, thm3 = train(
             epochs=MAX_EPOCHS, 
             batch_size=BATCH_SIZE,
@@ -182,12 +195,12 @@ if __name__ == '__main__':
 
     # Ablation study with width
     args = {'dataset' : 'mnist', 'L' : 3, 'output_dim' : 64, 'k' : 3, 'n' : 100}
-    widths, results = ablation_study_varying_width(args, min_width=MIN_WIDTH, max_width=MAX_WIDTH)
+    widths, results = ablation_study_varying_widths(args, min_width=MIN_WIDTH, max_width=MAX_WIDTH)
     results_visualization_utils(
         results,
-        xaxis_data=depths,
+        xaxis_data=widths,
         title='Generalization bounds at varying widths',
-        xlabel='Widths (in multiples of $32$)',
+        xlabel='Widths ($W$ - in multiples of $32$)',
         ylabel='Generalization bounds (log-scaled)',
         save_path='ablation_study_width.png'
     )
