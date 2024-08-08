@@ -23,7 +23,7 @@ MAX_EPOCHS = 10
 MIN_DEPTH = 2
 MAX_DEPTH = 10
 DATASET_TO_INDIM = {'mnist' : 784}
-RESULT_KEYS = {'ar': 'Arora et al.', 'yw' : 'Yunwen et al.', 'thm1' : 'Ours (Thm. 1)', 'thm2' : 'Ours (Thm. 2)', 'thm3' : 'Ours (Thm. 3)'}
+RESULT_KEYS = {'ar': 'Arora et al.', 'yw' : 'Lei et al.', 'thm1' : 'Ours (Thm. 1)', 'thm2' : 'Ours (Thm. 2)', 'thm3' : 'Ours (Thm. 3)'}
 COLOR_KEYS = {'ar' : 'tab:orange', 'yw' : 'tab:red', 'thm1' : 'tab:blue', 'thm2' : 'tab:purple', 'thm3' : 'tab:green'}
 
 def train(epochs, dataset='mnist', d_dim=64, hidden_dim=128, k=3, L=2, batch_size=64, num_batches=1000):
