@@ -2,6 +2,7 @@ import torch
 import numpy as np
 import torch.nn as nn
 from common import get_default_device
+from norms import frobenius_norm, l21_norm, spectral_norm 
 
 # Network definition
 class Net(nn.Module):
@@ -93,3 +94,17 @@ def logistic_loss(y, y_positive, y_negatives):
         )
     loss = torch.log(1 + h_exp_sum)
     return loss
+
+# Compute Yunwen's complexity measure
+def compute_complexity_FRO(dataloader, network: Net):
+    # Get necessary constants
+    L = network.L 
+    d = network.out_dim
+    
+    # Compute complexity
+    complexity = np.sqrt(L * d)
+    for l in range(1, L+1):
+        A_l = network._get_v_layer_weights(layer=l)
+        complexity *= frobenius_norm(A_l)
+        complexity *= spectral_norm(A_l)
+    return complexity
