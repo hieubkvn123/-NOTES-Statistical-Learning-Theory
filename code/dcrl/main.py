@@ -148,6 +148,7 @@ def ablation_study_varying_depths(args, min_depth, max_depth):
     # Initialize results
     depths = list(range(min_depth, max_depth + 1))
     results_depth = { 'ar' : [], 'yw': [], 'thm1': [], 'thm2': [], 'thm3': []}
+    train_losses, test_losses = [], []
 
     # Conduct training
     for i, L in enumerate(depths):
@@ -167,17 +168,20 @@ def ablation_study_varying_depths(args, min_depth, max_depth):
         results_depth['thm1'].append(thm1)
         results_depth['thm2'].append(thm2)
         results_depth['thm3'].append(thm3)
+        train_losses.append(train_loss)
+        test_losses.append(test_loss)
     return {
         'depths' : depths,
         'complexities' : results_depth,
-        'train_loss' : train_loss,
-        'test_loss' : test_loss
+        'train_loss' : train_losses,
+        'test_loss' : test_losses
     }
 
 def ablation_study_varying_widths(args, min_width, max_width):
     # Initialize results
     widths = list(range(min_width, max_width + 1))
     results_width = { 'ar' : [], 'yw': [], 'thm1': [], 'thm2': [], 'thm3': []}
+    train_losses, test_losses = [], []
 
     # Conduct training
     for i, W in enumerate(widths):
@@ -197,12 +201,14 @@ def ablation_study_varying_widths(args, min_width, max_width):
         results_width['thm1'].append(thm1)
         results_width['thm2'].append(thm2)
         results_width['thm3'].append(thm3)
+        train_losses.append(train_loss)
+        test_losses.append(test_loss)
     
     return {
         'widths' : widths, 
         'complexities' : results_width,
-        'train_loss' : train_loss,
-        'test_loss' : test_loss
+        'train_loss' : train_losses,
+        'test_loss' : test_losses
     }
 
 if __name__ == '__main__':
