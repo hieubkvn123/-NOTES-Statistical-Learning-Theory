@@ -1,8 +1,9 @@
+import os
 import time
 import tqdm
 import torch
+import pathlib
 import numpy as np
-import matplotlib
 import matplotlib.pyplot as plt
 from dataset import get_dataloader
 from common import apply_model_to_batch
@@ -53,6 +54,9 @@ def train(epochs, dataset='mnist', d_dim=64, hidden_dim=128, k=3, L=2, batch_siz
         lr=0.001, 
         amsgrad=True)
 
+    # To be stored as final result
+    final_average_train_loss, final_average_test_loss = 0, 0
+
     # Train model
     model.train()
     for epoch in range(epochs):
@@ -81,6 +85,7 @@ def train(epochs, dataset='mnist', d_dim=64, hidden_dim=128, k=3, L=2, batch_siz
                 pbar.update(1)
             time.sleep(0.1)
             print(f'\nAverage train loss : {total_loss/(num_train_batches*batch_size):.4f}\n------\n')
+    final_average_train_loss = total_loss / (num_train_batches * batch_size)
 
     # Evaluate the model
     model.eval()
@@ -104,17 +109,24 @@ def train(epochs, dataset='mnist', d_dim=64, hidden_dim=128, k=3, L=2, batch_siz
             pbar.update(1)
         time.sleep(0.1)
         print(f'Average test loss : {total_loss/(num_test_batches*batch_size)}')
+    final_average_test_loss = total_loss / (num_test_batches * batch_size)
 
     # Evaluate complexity measures
     print('------\nComplexity measures computation:')
-    complexity_YW = np.log(compute_complexity_YW(train_dataloader, model))
-    complexity_AR = np.sqrt(k) * complexity_YW
+    complexity_YW_exp = compute_complexity_YW(train_dataloader, model)
+    complexity_YW = np.log(complexity_YW)
+    complexity_AR = np.log(np.sqrt(k) * complexity_YW)
     complexity_THM1 = np.log(compute_complexity_THM1(train_dataloader, model))
     complexity_THM2 = np.log(compute_complexity_THM2(train_dataloader, model))
     complexity_THM3 = np.log(compute_complexity_THM3(train_dataloader, model))
-    return complexity_AR, complexity_YW, complexity_THM1, complexity_THM2, complexity_THM3
+    return complexity_AR, complexity_YW, complexity_THM1, complexity_THM2, complexity_THM3, final_average_train_loss, final_average_test_loss
 
-def results_visualization_utils(results, xaxis_data, title, xlabel, ylabel, save_path='file.png'):
+def results_visualization_utils(results, xaxis_data, title, xlabel, ylabel, 
+    save_dir='results', save_path='file.png'):
+    # Make result directory
+    pathlib.Path(save_dir).mkdir(parents=True, exist_ok=True)
+    save_path = os.path.join(save_dir, save_path)
+
     # Initialize plot
     _, ax = plt.subplots(figsize=(10, 7))
     ax.tick_params(axis='both', which='major', labelsize=13)
@@ -124,6 +136,8 @@ def results_visualization_utils(results, xaxis_data, title, xlabel, ylabel, save
         ax.plot(xaxis_data, result, label=RESULT_KEYS[key], color=COLOR_KEYS[key], marker='o')
     ax.set_xlabel(xlabel, fontdict=fontconfig)
     ax.set_ylabel(ylabel, fontdict=fontconfig)
+
+    # Save figure
     plt.grid()
     plt.legend(loc='upper left', fontsize="15")
     plt.title(title, fontdict=fontconfig)
@@ -138,7 +152,7 @@ def ablation_study_varying_depths(args, min_depth, max_depth):
     # Conduct training
     for i, L in enumerate(depths):
         print(f'[INFO] Experiment #[{i+1}/{len(depths)}], L = {L}')
-        ar, yw, thm1, thm2, thm3 = train(
+        ar, yw, thm1, thm2, thm3, train_loss, test_loss = train(
             epochs=MAX_EPOCHS, 
             batch_size=BATCH_SIZE,
             L=L,
@@ -153,7 +167,12 @@ def ablation_study_varying_depths(args, min_depth, max_depth):
         results_depth['thm1'].append(thm1)
         results_depth['thm2'].append(thm2)
         results_depth['thm3'].append(thm3)
-    return depths, results_depth
+    return {
+        'depths' : depths,
+        'complexities' : results_depth,
+        'train_loss' : train_loss,
+        'test_loss' : test_loss
+    }
 
 def ablation_study_varying_widths(args, min_width, max_width):
     # Initialize results
@@ -163,7 +182,7 @@ def ablation_study_varying_widths(args, min_width, max_width):
     # Conduct training
     for i, W in enumerate(widths):
         print(f'[INFO] Experiment #[{i+1}/{len(widths)}], W = {W*32}')
-        ar, yw, thm1, thm2, thm3 = train(
+        ar, yw, thm1, thm2, thm3, train_loss, test_loss = train(
             epochs=MAX_EPOCHS, 
             batch_size=BATCH_SIZE,
             hidden_dim=W * 32,
@@ -178,15 +197,21 @@ def ablation_study_varying_widths(args, min_width, max_width):
         results_width['thm1'].append(thm1)
         results_width['thm2'].append(thm2)
         results_width['thm3'].append(thm3)
-    return widths, results_width
+    
+    return {
+        'widths' : widths, 
+        'complexities' : results_width,
+        'train_loss' : train_loss,
+        'test_loss' : test_loss
+    }
 
 if __name__ == '__main__':
     # Ablation study with depth
-    args = {'dataset' : 'mnist', 'hidden_dim' : 64, 'output_dim' : 64, 'k' : 3, 'n' : 100}
-    depths, results = ablation_study_varying_depths(args, min_depth=MIN_DEPTH, max_depth=MAX_DEPTH)
+    args = {'dataset' : 'mnist', 'hidden_dim' : 64, 'output_dim' : 64, 'k' : 10, 'n' : 100}
+    results = ablation_study_varying_depths(args, min_depth=MIN_DEPTH, max_depth=MAX_DEPTH)
     results_visualization_utils(
-        results,
-        xaxis_data=depths,
+        results['complexities'],
+        xaxis_data=results['depths'],
         title='Generalization bounds at varying depths',
         xlabel='Depths ($L$)',
         ylabel='Generalization bounds (log-scaled)',
@@ -194,11 +219,11 @@ if __name__ == '__main__':
     )
 
     # Ablation study with width
-    args = {'dataset' : 'mnist', 'L' : 3, 'output_dim' : 64, 'k' : 3, 'n' : 100}
-    widths, results = ablation_study_varying_widths(args, min_width=MIN_WIDTH, max_width=MAX_WIDTH)
+    args = {'dataset' : 'mnist', 'L' : 3, 'output_dim' : 64, 'k' : 10, 'n' : 100}
+    results = ablation_study_varying_widths(args, min_width=MIN_WIDTH, max_width=MAX_WIDTH)
     results_visualization_utils(
-        results,
-        xaxis_data=widths,
+        results['complexities'],
+        xaxis_data=results['widths'],
         title='Generalization bounds at varying widths',
         xlabel='Widths ($W$ - in multiples of $32$)',
         ylabel='Generalization bounds (log-scaled)',
