@@ -18,8 +18,11 @@ plt.style.use('darkgrid')
 
 # Constants for training
 MAX_EPOCHS = 10
+BATCH_SIZE = 64
 
 # Constants for ablation study
+MIN_WIDTH = 1
+MAX_WIDTH = 8
 MIN_DEPTH = 2
 MAX_DEPTH = 10
 DATASET_TO_INDIM = {'mnist' : 784}
@@ -124,12 +127,13 @@ def ablation_study_varying_depths(args, min_depth, max_depth):
         print(f'[INFO] Experiment #[{i+1}/{len(depths)}], L = {L}')
         ar, yw, thm1, thm2, thm3 = train(
             epochs=MAX_EPOCHS, 
+            batch_size=BATCH_SIZE,
+            L=L,
             dataset=args['dataset'],
             hidden_dim=args['hidden_dim'],
             d_dim=args['output_dim'],
             k=args['k'],
             num_batches=args['n'], 
-            L=L
         )
         results_depth['ar'].append(ar)
         results_depth['yw'].append(yw)
@@ -137,6 +141,31 @@ def ablation_study_varying_depths(args, min_depth, max_depth):
         results_depth['thm2'].append(thm2)
         results_depth['thm3'].append(thm3)
     return depths, results_depth
+
+def ablation_study_varying_width(args, min_width, max_width):
+    # Initialize results
+    widths = list(range(min_width, max_width))
+    results_width = { 'ar' : [], 'yw': [], 'thm1': [], 'thm2': [], 'thm3': []}
+
+    # Conduct training
+    for i, W in enumerate(widths):
+        print(f'[INFO] Experiment #[{i+1}/{len(depths)}], L = {L}')
+        ar, yw, thm1, thm2, thm3 = train(
+            epochs=MAX_EPOCHS, 
+            batch_size=BATCH_SIZE,
+            hidden_dim=W * 32,
+            L=args['L'],
+            dataset=args['dataset'],
+            d_dim=args['output_dim'],
+            k=args['k'],
+            num_batches=args['n'], 
+        )
+        results_width['ar'].append(ar)
+        results_width['yw'].append(yw)
+        results_width['thm1'].append(thm1)
+        results_width['thm2'].append(thm2)
+        results_width['thm3'].append(thm3)
+    return widths, results_width
 
 if __name__ == '__main__':
     # Ablation study with depth
@@ -149,4 +178,16 @@ if __name__ == '__main__':
         xlabel='Depths ($L$)',
         ylabel='Generalization bounds (log-scaled)',
         save_path='ablation_study_depth.png'
+    )
+
+    # Ablation study with width
+    args = {'dataset' : 'mnist', 'L' : 3, 'output_dim' : 64, 'k' : 3, 'n' : 100}
+    widths, results = ablation_study_varying_width(args, min_width=MIN_WIDTH, max_width=MAX_WIDTH)
+    results_visualization_utils(
+        results,
+        xaxis_data=depths,
+        title='Generalization bounds at varying widths',
+        xlabel='Widths (in multiples of $32$)',
+        ylabel='Generalization bounds (log-scaled)',
+        save_path='ablation_study_width.png'
     )
