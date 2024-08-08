@@ -9,7 +9,7 @@ from model import (
 )
 
 # Constants
-dataloader_path = r'dataloaders/mnist/train.pth'
+dataloader_path = r'dataloaders/mnist/n100-k3/train.pth'
 
 if __name__ == '__main__':
     # Initialize model + dataloader

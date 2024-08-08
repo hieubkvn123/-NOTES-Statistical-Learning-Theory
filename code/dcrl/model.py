@@ -340,7 +340,7 @@ def compute_complexity_THM3(dataloader, network: Net, device=None):
             pbar.update(1)
 
     # Clip values of bl
-    for l in range(0, L+1): b_l[l] = np.max(b_l[l], 1.0)
+    for l in range(0, L+1): b_l[l] = max(b_l[l], 1.0)
 
     print('[INFO] Computing rho_l...')
     for l in range(1, L+1):
