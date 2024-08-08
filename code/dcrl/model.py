@@ -277,7 +277,7 @@ def compute_complexity_THM2(dataloader, network: Net, device=None):
     return complexity
 
 # Compute our complexity measure (Thm. 3)
-def compute_complexity_THM2(dataloader, network: Net, device=None):
+def compute_complexity_THM3(dataloader, network: Net, device=None):
     # Report
     print('[INFO] Computing our (THM. 3) complexity measure...')
 
@@ -293,12 +293,18 @@ def compute_complexity_THM2(dataloader, network: Net, device=None):
 
     # Initialization
     complexity = 1.0 
-    b_l = [0.0 for l in range(L)]
+    b_l = { l : 0.0 for l in range(0, L+1) } 
+    a_l = { l : 0.0 for l in range(1, L+1)}
+    s_l = { l : 0.0 for l in range(1, L+1)}
+    rho_l = { l : 0.0 for l in range(1, L+1) }
 
     # Compute all a_l
+    for l in range(1, L+1):
+        A_l = network._get_v_layer_weights(layer=l)
+        a_l[l] = l21_norm(A_l)
 
     # Compute R and B_x
-    print('[INFO] Computing b_L and R...')
+    print('[INFO] Computing b_L...')
     network.eval()
     with tqdm.tqdm(total=n) as pbar:
         for i, batch in enumerate(dataloader):
@@ -306,6 +312,17 @@ def compute_complexity_THM2(dataloader, network: Net, device=None):
             X = torch.cat([batch[0], batch[1], *batch[2]], dim=0)
             X_l2 = torch.linalg.norm(X, dim=1, ord=2).squeeze()
             X_l2_max = torch.max(X_l2)
+
+            # Calculate network hidden activations
+            for l in range(1, L):
+                y1 = network._get_output_from_layer(batch[0].to(device), last_layer=l, preactivation=False)
+                y2 = network._get_output_from_layer(batch[1].to(device), last_layer=l, preactivation=False)
+                y3 = [network._get_output_from_layer(b.to(device), last_layer=l, preactivation=False) for b in batch[2]]
+                Yl = torch.cat([y1, y2, *y3], dim=0)
+                Yl_l2 = torch.linalg.norm(Yl, dim=1, ord=2).squeeze()
+                Yl_l2_max = torch.max(Yl_l2)
+                if(b_l[l] < Yl_l2_max.item()):
+                    b_l[l] = Yl_l2_max.item()
 
             # Calculate network output
             y1, y2, y3 = apply_model_to_batch(network, batch, device=network.device)
@@ -317,5 +334,26 @@ def compute_complexity_THM2(dataloader, network: Net, device=None):
             if b_l[0] < X_l2_max.item():
                 b_l[0] = X_l2_max.item()
 
+            if b_l[L] < Y_l2_max:
+                b_l[L] = Y_l2_max.item()
+
+            # Update progress
+            pbar.update(1)
+
+    print('[INFO] Computing rho_l...')
+    for l in range(1, L+1):
+        # Compute forward spectral norm products
+        max_rhol = 0.0
+        for u in range(l, L+1):
+            forward_product = 1.0
+            if(u != l):
+                forward_product = np.prod([s_l[j] for j in range(l+1, u+1)])
+            current_rhol = forward_product / b_l[u]
+            if current_rhol > max_rhol:
+                max_rhol = current_rhol
+        rho_l[l] = max_rhol
+
+    complexity = complexity * (b_l[L] ** 2)
+    complexity = complexity * np.sum([(a_l[l] * b_l[l-1] * rho_l[l]) ** (2/3) for l in range(1, L+1)]) ** (3/2)
     complexity = complexity / np.sqrt(n)
     return complexity
