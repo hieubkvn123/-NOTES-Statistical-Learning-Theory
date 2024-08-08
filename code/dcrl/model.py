@@ -1,6 +1,5 @@
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 
 import tqdm
 import numpy as np
@@ -339,6 +338,9 @@ def compute_complexity_THM3(dataloader, network: Net, device=None):
 
             # Update progress
             pbar.update(1)
+
+    # Clip values of bl
+    for l in range(0, L+1): b_l[l] = np.max(b_l[l], 1.0)
 
     print('[INFO] Computing rho_l...')
     for l in range(1, L+1):
