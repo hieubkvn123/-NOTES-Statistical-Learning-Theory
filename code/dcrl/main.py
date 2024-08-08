@@ -6,7 +6,7 @@ import pathlib
 import numpy as np
 import matplotlib.pyplot as plt
 from dataset import get_dataloader
-from common import apply_model_to_batch
+from common import apply_model_to_batch, save_json_dict
 from model import (
     get_model, 
     logistic_loss,
@@ -26,7 +26,7 @@ plt.style.use('seaborn-v0_8-paper')
 plt.rcParams['text.usetex'] = True
 
 # Constants for training
-MAX_EPOCHS = 10 
+MAX_EPOCHS = 20
 BATCH_SIZE = 64
 
 # Constants for ablation study
@@ -114,8 +114,8 @@ def train(epochs, dataset='mnist', d_dim=64, hidden_dim=128, k=3, L=2, batch_siz
     # Evaluate complexity measures
     print('------\nComplexity measures computation:')
     complexity_YW_exp = compute_complexity_YW(train_dataloader, model)
-    complexity_YW = np.log(complexity_YW)
-    complexity_AR = np.log(np.sqrt(k) * complexity_YW)
+    complexity_YW = np.log(complexity_YW_exp)
+    complexity_AR = np.log(np.sqrt(k) * complexity_YW_exp)
     complexity_THM1 = np.log(compute_complexity_THM1(train_dataloader, model))
     complexity_THM2 = np.log(compute_complexity_THM2(train_dataloader, model))
     complexity_THM3 = np.log(compute_complexity_THM3(train_dataloader, model))
@@ -217,6 +217,7 @@ if __name__ == '__main__':
         ylabel='Generalization bounds (log-scaled)',
         save_path='ablation_study_depth.png'
     )
+    save_json_dict(results, 'results/ablation_study_depth.json')
 
     # Ablation study with width
     args = {'dataset' : 'mnist', 'L' : 3, 'output_dim' : 64, 'k' : 10, 'n' : 100}
@@ -229,3 +230,4 @@ if __name__ == '__main__':
         ylabel='Generalization bounds (log-scaled)',
         save_path='ablation_study_width.png'
     )
+    save_json_dict(results, 'results/ablation_study_width.json')

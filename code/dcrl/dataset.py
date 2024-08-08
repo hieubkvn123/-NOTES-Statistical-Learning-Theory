@@ -42,7 +42,7 @@ class UnsupervisedDataset(Dataset):
             current_instance = [index, positive_index]
 
             # Get negative indices
-            negative_labels = np.random.choice([l for l in self.all_labels if l != label], self.k, replace=False)
+            negative_labels = np.random.choice([l for l in self.all_labels if l != label], self.k, replace=True)
             for neg_label in negative_labels:
                 negative_index = np.random.choice(self.label_to_indices[neg_label])
                 current_instance.append(negative_index)
