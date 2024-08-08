@@ -27,8 +27,9 @@ if __name__ == '__main__':
     S_mu, S_std = [], []
     L_mu, L_std = [], []
     F_mu, F_std = [], []
-    sizes = list(range(2, 150))
+    sizes = list(range(2, 50))
     for d in sizes:
+        print(d)
         S_tmp, L_tmp, F_tmp = [], [], []
         
         for i in range(n_sim):
@@ -52,11 +53,11 @@ if __name__ == '__main__':
     plt.errorbar(sizes, S_mu, S_std, label='Spectral norm', marker='o')
     plt.errorbar(sizes, L_mu, L_std, label='L21 norm', marker='o')
     plt.errorbar(sizes, F_mu, F_std, label='Frobenius norm', marker='o')
+    plt.plot(sizes, np.array(S_mu), label='Spectral norm times N', marker='v')
     plt.plot(sizes, np.array(F_mu) * np.sqrt(d), label='Frobenius norm times d**0.5', marker='v')
     plt.xlabel('Matrix row size (d)')
     plt.ylabel('Matrix norm')
     plt.legend()
     
-    print(np.array(F_mu) * np.sqrt(d) - np.array(L_mu))
     plt.show()
         
