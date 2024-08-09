@@ -218,23 +218,9 @@ if __name__ == '__main__':
     # Ablation study with depth
     args = {'dataset' : 'mnist', 'hidden_dim' : 64, 'output_dim' : 64, 'k' : 10, 'n' : 100}
     results = ablation_study_varying_depths(args, min_depth=MIN_DEPTH, max_depth=MAX_DEPTH)
-    results_visualization_utils(
-        results['complexities'],
-        xaxis_data=results['depths'],
-        xlabel='Depths ($L$)',
-        ylabel='Generalization bounds (log-scaled)',
-        save_path='ablation_study_depth.png'
-    )
     save_json_dict(results, 'results/ablation_study_depth.json')
 
     # Ablation study with width
     args = {'dataset' : 'mnist', 'L' : 3, 'output_dim' : 64, 'k' : 10, 'n' : 100}
     results = ablation_study_varying_widths(args, min_width=MIN_WIDTH, max_width=MAX_WIDTH)
-    results_visualization_utils(
-        results['complexities'],
-        xaxis_data=results['widths'],
-        xlabel='Widths ($W$ - in multiples of $32$)',
-        ylabel='Generalization bounds (log-scaled)',
-        save_path='ablation_study_width.png'
-    )
     save_json_dict(results, 'results/ablation_study_width.json')
