@@ -19,15 +19,15 @@ from model import (
 # Visualization configs
 fontconfig = {
     'family' : 'normal',
-    'weight' : 'bold',
-    'size' : 18
+    'size' : 15
 }
 plt.style.use('seaborn-v0_8-paper')
 plt.rcParams['text.usetex'] = True
 
 # Constants for training
-MAX_EPOCHS = 20
+MAX_EPOCHS = 1000
 BATCH_SIZE = 64
+TRAIN_LOSS_THRESHOLD = 1e-4
 
 # Constants for ablation study
 MIN_WIDTH = 1
@@ -51,7 +51,7 @@ def train(epochs, dataset='mnist', d_dim=64, hidden_dim=128, k=3, L=2, batch_siz
     # Optimization algorithm
     optimizer = torch.optim.Adam(
         model.parameters(), 
-        lr=0.001, 
+        lr=0.0009, 
         amsgrad=True)
 
     # To be stored as final result
@@ -85,7 +85,11 @@ def train(epochs, dataset='mnist', d_dim=64, hidden_dim=128, k=3, L=2, batch_siz
                 pbar.update(1)
             time.sleep(0.1)
             print(f'\nAverage train loss : {total_loss/(num_train_batches*batch_size):.4f}\n------\n')
-    final_average_train_loss = total_loss / (num_train_batches * batch_size)
+        final_average_train_loss = total_loss / (num_train_batches * batch_size)
+
+        if final_average_train_loss <= TRAIN_LOSS_THRESHOLD:
+            print('[INFO] Train loss target reached, early stopping...')
+            break
 
     # Evaluate the model
     model.eval()
@@ -121,7 +125,7 @@ def train(epochs, dataset='mnist', d_dim=64, hidden_dim=128, k=3, L=2, batch_siz
     complexity_THM3 = np.log(compute_complexity_THM3(train_dataloader, model))
     return complexity_AR, complexity_YW, complexity_THM1, complexity_THM2, complexity_THM3, final_average_train_loss, final_average_test_loss
 
-def results_visualization_utils(results, xaxis_data, title, xlabel, ylabel, 
+def results_visualization_utils(results, xaxis_data, xlabel, ylabel, 
     save_dir='results', save_path='file.png'):
     # Make result directory
     pathlib.Path(save_dir).mkdir(parents=True, exist_ok=True)
@@ -140,9 +144,8 @@ def results_visualization_utils(results, xaxis_data, title, xlabel, ylabel,
     # Save figure
     plt.grid()
     plt.legend(loc='upper left', fontsize="15")
-    plt.title(title, fontdict=fontconfig)
     plt.tight_layout()
-    plt.savefig(save_path)
+    plt.savefig(save_path, dpi=300)
 
 def ablation_study_varying_depths(args, min_depth, max_depth):
     # Initialize results
@@ -218,7 +221,6 @@ if __name__ == '__main__':
     results_visualization_utils(
         results['complexities'],
         xaxis_data=results['depths'],
-        title='Generalization bounds at varying depths',
         xlabel='Depths ($L$)',
         ylabel='Generalization bounds (log-scaled)',
         save_path='ablation_study_depth.png'
@@ -231,7 +233,6 @@ if __name__ == '__main__':
     results_visualization_utils(
         results['complexities'],
         xaxis_data=results['widths'],
-        title='Generalization bounds at varying widths',
         xlabel='Widths ($W$ - in multiples of $32$)',
         ylabel='Generalization bounds (log-scaled)',
         save_path='ablation_study_width.png'
