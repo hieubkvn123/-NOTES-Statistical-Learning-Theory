@@ -57,8 +57,8 @@ def results_visualization_utils(ax, results, xaxis_data, xlabel, ylabel):
 
 if __name__ == '__main__':
     # Result files
-    result_fname1 = r'results/old/ablation_study_depth.json'
-    result_fname2 = r'results/old/ablation_study_width.json'
+    result_fname1 = r'results/ablation_study_depth.json'
+    result_fname2 = r'results/ablation_study_width.json'
 
     # Read the result
     result1 = load_json_to_dict(result_fname1)
