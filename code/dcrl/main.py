@@ -84,8 +84,8 @@ def train(epochs, dataset='mnist', d_dim=64, hidden_dim=128, k=3, L=2, batch_siz
                 })
                 pbar.update(1)
             time.sleep(0.1)
-            print(f'\nAverage train loss : {total_loss/(num_train_batches*batch_size):.4f}\n------\n')
-        final_average_train_loss = total_loss / (num_train_batches * batch_size)
+            final_average_train_loss = total_loss / (num_train_batches * batch_size)
+            print(f'\nAverage train loss : {final_average_train_loss:.4f}\n------\n')
 
         if final_average_train_loss <= TRAIN_LOSS_THRESHOLD:
             print('[INFO] Train loss target reached, early stopping...')
@@ -112,8 +112,8 @@ def train(epochs, dataset='mnist', d_dim=64, hidden_dim=128, k=3, L=2, batch_siz
             })
             pbar.update(1)
         time.sleep(0.1)
-        print(f'Average test loss : {total_loss/(num_test_batches*batch_size)}')
-    final_average_test_loss = total_loss / (num_test_batches * batch_size)
+        final_average_test_loss = total_loss / (num_test_batches * batch_size)
+        print(f'Average test loss : {final_average_test_loss}')
 
     # Evaluate complexity measures
     print('------\nComplexity measures computation:')
