@@ -216,7 +216,7 @@ def ablation_study_varying_widths(args, min_width, max_width):
 
 if __name__ == '__main__':
     # Ablation study with depth
-    args = {'dataset' : 'mnist', 'hidden_dim' : 64, 'output_dim' : 64, 'k' : 10, 'n' : 100}
+    args = {'dataset' : 'mnist', 'hidden_dim' : 64, 'output_dim' : 64, 'k' : BATCH_SIZE, 'n' : 100}
     results = ablation_study_varying_depths(args, min_depth=MIN_DEPTH, max_depth=MAX_DEPTH)
     save_json_dict(results, 'results/ablation_study_depth.json')
 
