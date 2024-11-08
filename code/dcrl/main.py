@@ -27,7 +27,7 @@ plt.rcParams['text.usetex'] = True
 # Constants for training
 MAX_EPOCHS = 1000
 BATCH_SIZE = 64
-TRAIN_LOSS_THRESHOLD = 1e-4
+TRAIN_LOSS_THRESHOLD = 1e-2
 
 # Constants for ablation study
 MIN_WIDTH = 1
@@ -221,6 +221,6 @@ if __name__ == '__main__':
     save_json_dict(results, 'results/ablation_study_depth.json')
 
     # Ablation study with width
-    args = {'dataset' : 'mnist', 'L' : 3, 'output_dim' : 64, 'k' : 10, 'n' : 100}
+    args = {'dataset' : 'mnist', 'L' : 3, 'output_dim' : 64, 'k' : BATCH_SIZE, 'n' : 100}
     results = ablation_study_varying_widths(args, min_width=MIN_WIDTH, max_width=MAX_WIDTH)
     save_json_dict(results, 'results/ablation_study_width.json')
